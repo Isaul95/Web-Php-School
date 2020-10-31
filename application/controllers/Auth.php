@@ -7,14 +7,14 @@ class Auth extends CI_Controller {
 	 	 parent::__construct();   // hereda
 	 	 $this->load->model("Usuarios_model");
 	 }
-	
+
 	       public function index(){ // LOGIN... si el usuario esta logueado ya no permitirle salirse regresar ala pagina anterior, si no forzarlo a k primero cierre sesionn
 	       	     if ($this->session->userdata("login")) {
 	       	     	  redirect(base_url()."dashboard");
 	       	     }
 	       	     else{
 	       	     	$this->load->view('admin/login');
-	       	     }   
+	       	     }
 	         }
 
 
@@ -24,7 +24,7 @@ class Auth extends CI_Controller {
 		 $res = $this->Usuarios_model->login($username, $password);
 
 		 if (!$res) { // evaluar el varlor encontrando de la tabla
-		 	$this->session->set_flashdata("error", "Usuario y/o Contraseña incorrectos"); 
+		 	$this->session->set_flashdata("error", "Usuario y/o Contraseña incorrectos");
 	          // HACIENDO EL ALERT PARA DATOS INCORRECTOS
 		 	redirect(base_url());
 		 }
@@ -34,6 +34,7 @@ class Auth extends CI_Controller {
 		  		  'nombres' => $res ->nombre, /*NECESITO ESTE PARAMETRO PARA TRAER DE LA BD EL NAME DEL USUARIO E IMPRIMIRLO UNA VEZ ACCEDIDO AL SISTEMA */
 		  		'usuarios' => $res ->usuario, /* SON TABLAS DE MI BD*/
 		  		'password' => $res ->password,
+					'rol' => $res ->Tipo_user,
 		  		 'login' => TRUE
 		  		 );
 		  	  $this->session->set_userdata($data);

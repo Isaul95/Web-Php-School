@@ -3,20 +3,20 @@
         <!-- Left side column. contains the sidebar -->
         <aside class="main-sidebar" >
             <!-- sidebar: style can be found in sidebar.less -->
-            <section class="sidebar">      
+            <section class="sidebar">
                 <!-- sidebar menu: : style can be found in sidebar.less -->
                 <ul class="sidebar-menu" data-widget="tree">
-                    <li class="header"><strong>MENU DE OPCIONES</strong></li>
+                    <li class="header"><strong>OPCIONES DE MENU</strong></li>
                     <li>
                         <a href="<?php echo base_url();?>dashboard">
                             <i class="fa fa-home"></i> <span>Inicio</span>
                         </a>
                     </li>
-                  
-                    
+
+
                     <li class="treeview">
                         <a href="#">
-                            <i class="fab fa-sellsy"></i> <span>Administrador</span>
+                            <i class="fab fa-sellsy"></i> <span>Finanzas</span>
                             <span class="pull-right-container">
                                 <i class="fa fa-angle-left pull-right"></i>
                             </span>
@@ -24,14 +24,14 @@
                         <ul class="treeview-menu">
                             <li><a href="<?php echo base_url();?>mantenimiento/comida">
                                 <i class="fas fa-utensils"></i> Comidas</a></li>
-                            
+
                             <li><a href="<?php echo base_url();?>mantenimiento/bebidas">
                                 <i class="fas fa-wine-bottle"></i> Bebidas</a></li>
 
 
                             <li><a href="<?php echo base_url();?>mantenimiento/extras">
-                                <i class="fas fa-plus-circle"></i> Extras</a></li>                           
-                 
+                                <i class="fas fa-plus-circle"></i> Extras</a></li>
+
                         </ul>
                     </li>
 
@@ -39,7 +39,7 @@
 
                     <li class="treeview">
                         <a href="#">   <!--- class="fa fa-cogs" -->
-                            <i class="fab fa-sellsy"></i><span> Menu de venta</span>
+                            <i class="fab fa-sellsy"></i><span>Cont. academico y escolar</span>
                             <span class="pull-right-container">
                                 <i class="fa fa-angle-left pull-right"></i>
                             </span>
@@ -51,7 +51,7 @@
                 </li>
                 <li><a href="<?php echo base_url();?>menuventascanceladas">
                     <i class="fas fa-trash"></i> Ventas Canceladas</a>
-                </li>                   
+                </li>
 
                         </ul>
                     </li>
@@ -60,7 +60,7 @@
 
                      <li class="treeview">
                         <a href="#">   <!--- class="fa fa-cogs" -->
-                            <i class="fab fa-sellsy"></i><span> Graficas Ventas</span>
+                            <i class="fab fa-sellsy"></i><span>Atención y soporte</span>
                             <span class="pull-right-container">
                                 <i class="fa fa-angle-left pull-right"></i>
                             </span>
@@ -72,9 +72,55 @@
                 </li>
                 <li><a href="<?php echo base_url();?>menuventascanceladas">
                     <i class="fas fa-trash"></i> Ventas</a>
-                </li>                   
+                </li>
                         </ul>
                     </li>
+
+
+                    <li class="treeview">
+                        <a href="#">
+                            <i class="fab fa-sellsy"></i> <span>Admición e inscripción</span>
+                            <span class="pull-right-container">
+                                <i class="fa fa-angle-left pull-right"></i>
+                            </span>
+                        </a>
+                        <ul class="treeview-menu">
+                            <li><a href="<?php echo base_url();?>mantenimiento/comida">
+                                <i class="fas fa-utensils"></i> Comidas</a></li>
+
+                            <li><a href="<?php echo base_url();?>mantenimiento/bebidas">
+                                <i class="fas fa-wine-bottle"></i> Bebidas</a></li>
+
+
+                            <li><a href="<?php echo base_url();?>mantenimiento/extras">
+                                <i class="fas fa-plus-circle"></i> Extras</a></li>
+
+                        </ul>
+                    </li>
+
+
+
+                    <li class="treeview">
+                        <a href="#">
+                            <i class="fab fa-sellsy"></i> <span>Bolsa de Trabajo</span>
+                            <span class="pull-right-container">
+                                <i class="fa fa-angle-left pull-right"></i>
+                            </span>
+                        </a>
+                        <ul class="treeview-menu">
+                            <li><a href="<?php echo base_url();?>mantenimiento/comida">
+                                <i class="fas fa-utensils"></i> Comidas</a></li>
+
+                            <li><a href="<?php echo base_url();?>mantenimiento/bebidas">
+                                <i class="fas fa-wine-bottle"></i> Bebidas</a></li>
+
+
+                            <li><a href="<?php echo base_url();?>mantenimiento/extras">
+                                <i class="fas fa-plus-circle"></i> Extras</a></li>
+
+                        </ul>
+                    </li>
+
 
 
 

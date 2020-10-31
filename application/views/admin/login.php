@@ -6,7 +6,7 @@
   <title>Login| "El Toloache"</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-  
+
   <!-- base_url() = http://localhost/ventas_ci/-->
 
   <!-- Bootstrap 3.3.7 -->
@@ -18,34 +18,34 @@
   <link rel="stylesheet" href="<?php echo base_url();?>assets/template/dist/css/AdminLTE.min.css">
 
 </head>
-<body class="hold-transition login-page" style="background-color: #060405;">
+<body class="hold-transition login-page">  <!--COLOR background NEGRO => style="background-color: #060405;"-->
     <div class="login-box">
         <div class="login-logo">
-            <h2><font color="#D34787">Restaurante "EL Toloache"</font></h2>
+            <!-- <h2>Cesvi</h2> -->
         </div>
-        <!-- /.login-logo -->            
-        <div class="login-box-body" style="background-color: #060405;" >
+        <!-- /.login-logo  <font color="#D34787"></font>-->
+        <div class="login-box-body">
 
-          <center><img src="<?php echo base_url()?>assets/template/dist/img/usernew.png"  class="user-image" alt="User Image" width=120px heigth=120px></center> <br>
-         <center> <label><font color="white"><h3>Bienvenidos</h3></font></label> </center>
-       
-            <p class="login-box-msg"><font color="white"><center><h4>Introduzca sus datos de ingreso</h4></center></font></p>
+          <center><img src="<?php echo base_url()?>assets/template/dist/img/logo-cesvi.jpg"  class="user-image" alt="User Image" width=120px heigth=120px></center> <br>
+         <!-- <center> <label><h3>Bienvenidos</h3></font></label> </center> -->
+
+            <p class="login-box-msg"><center><h4>Introduzca sus datos de ingreso</h4></center></p>
             <br>
-              <?php if($this->session->flashdata("error")):?> 
+              <?php if($this->session->flashdata("error")):?>
                     <div class="alert alert-danger">
                         <p><?php echo $this->session->flashdata("error")?></p>
-                    </div> 
-               <?php endif; ?> 
+                    </div>
+               <?php endif; ?>
 <!---SE ESTA LLAMADO AL ALERT DE Auth.php line 28/ EN ESTA SOLO ES LA POSICION DONDE APARECERA LA ALERTA NO TIENE NADA K VER DONDE VAYA ESTA PARTDE DEL LLAMADO AL CONTRILALDOR-->
-                            
+
             <form action="<?php echo base_url();?>auth/login" method="post">
                 <div class="form-group has-feedback">
-                    <input type="text" class="form-control" style="color: black" placeholder="Usuario" name="username"> <!--- HERE ADD -->
+                    <input type="text" class="form-control" placeholder="Número de control" name="username"> <!--- HERE ADD -->
                     <span class="glyphicon glyphicon-user form-control-feedback"></span>
                 </div>
                 <div class="form-group has-feedback" >
 
-                    <input type="password" class="form-control" placeholder="Password" name="password"> <!--- HERE ADD -->
+                    <input type="password" class="form-control" placeholder="Contraseña" name="password"> <!--- HERE ADD -->
                     <span class="glyphicon glyphicon-lock form-control-feedback"></span>
                 </div>
                 <div class="row">

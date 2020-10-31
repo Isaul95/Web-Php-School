@@ -1,10 +1,7 @@
 
-        <!-- =============================================== -->
-
         <!-- Content Wrapper. Contains page content -->
-        
-         
-            <div class="content-wrapper" style="background-color: black;">
+        <!-- style="background-color: black;" -->
+            <div class="content-wrapper">
             <!-- Content Header (Page header) -->
             <section class="content-header">
         <h1>
@@ -13,9 +10,9 @@
         </h1>
             </section>
             <!-- Main content -->
-        
+
             <section class="content">
-                
+
                     <!---div class="box box-solid"> <div class="box-body">
 Esta vista es la del dashboard WELCOME ISAUL HERE IS MY WORld <br> </div>  <! /.box-body >  </div-->         <br> <br>
 <form action="<?php echo base_url();?>Venta" method="post"> <!--Aqui cambio la vista al modo venta-->
@@ -31,10 +28,10 @@ Esta vista es la del dashboard WELCOME ISAUL HERE IS MY WORld <br> </div>  <! /.
 <?php  echo $time=date('H:i:s', time());?>
 <?php echo date('g:i:s a', strtotime($time));?>
 <?php echo $time=date('Y-m-d', time());?>
-              
+
             </section>
-       
+
             <!-- /.content -->
         </div>
-        
+
         <!-- /.content-wrapper -->

@@ -285,263 +285,31 @@ CSS PARA ELEGIR CLIENTE
 <!-- AdminLTE for demo purposes -->
 <script src="<?php echo base_url();?>assets/template/dist/js/demo.js"></script>
 
-
-<script language="javascript">
-/*
-JS PARA ELEGIR CLIENTE
-*/
-  function datosdecancelacionparacomidas($id_comida, $precio_unitario, $cliente, $nombre, $cantidad){
-
-
-$('#id_comida').val($id_comida);
-$('#nombre_comida').val($nombre);
-$('#cantidad').val($cantidad);
-    $('#precio_comida').val($precio_unitario);
-    $('#num_cliente_comida').val($cliente);
-}
-
-function datosdecancelacionparabebidas($id_bebida, $precio_unitario, $cliente, $nombre, $cantidad){
-
-$('#id_bebida').val($id_bebida);
-$('#nombre_bebida').val($nombre);
-$('#cantidad').val($cantidad);
-$('#precio_bebida').val($precio_unitario);
-$('#num_cliente_bebida').val($cliente);
-}
-
-function datosdecancelacionparaextras($id_extra, $precio_unitario, $cliente, $nombre, $cantidad){
-
-$('#id_extra').val($id_extra);
-$('#nombre_extra').val($nombre);
-$('#cantidad').val($cantidad);
-$('#precio_extra').val($precio_unitario);
-$('#num_cliente_extra').val($cliente);
-}
-
-
-function mandanumerodemesa_almodal($numerodecliente, $totaldelcliente){
-
-$('#numerodemesa').val($numerodecliente);
-
-}
-
-
-
-  function quemodalabro($nombredelplatillobebidaoextra){
-
-
-if($nombredelplatillobebidaoextra=="Tacos"){
-   $(document).ready(function(){
- 
-    $("#tacosprecios").modal(); 
- 
-});
-}
-if($nombredelplatillobebidaoextra=="Quekas"){
-   $(document).ready(function(){
-
-    $("#quekasprecios").modal(); 
-
-});
-}
-if($nombredelplatillobebidaoextra=="Al horno"){
-   $(document).ready(function(){
-  
-    $("#alhornoprecios").modal(); 
-  
-});
-}
-if($nombredelplatillobebidaoextra=="Mulas"){
-   $(document).ready(function(){
-
-    $("#mulasprecios").modal(); 
-
-});
-}
-if($nombredelplatillobebidaoextra=="Burritos"){
-   $(document).ready(function(){
-
-    $("#burritosprecios").modal(); 
-
-});
-}
-
-if($nombredelplatillobebidaoextra=="Agua Natural 1 lt."){
-   $(document).ready(function(){
-  
-    $("#aguanaturalprecio").modal(); 
-  
-});
-}
-
-if($nombredelplatillobebidaoextra=="Cerveza coronoa o victoria 355ml."){
-   $(document).ready(function(){
-  
-    $("#cheveprecio").modal(); 
-  
-});
-}
-
-if($nombredelplatillobebidaoextra=="Chesco 1/2 lt."){
-   $(document).ready(function(){
- 
-    $("#chescoprecio").modal(); 
-
-  });
-}
-
-if($nombredelplatillobebidaoextra=="Agua del día 1 lt."){
-   $(document).ready(function(){
- 
-    $("#aguadeldiaprecio").modal(); 
-  
-});
-}
-
-if($nombredelplatillobebidaoextra=="Agua del día 1/2 lt."){
-   $(document).ready(function(){
- 
-    $("#aguadeldiademedioprecio").modal(); 
-  });
-}
-
-if($nombredelplatillobebidaoextra=="Orden de guacamole"){
-   $(document).ready(function(){
-
-    $("#guacamoleprecio").modal(); 
-  
-});
-}
-if($nombredelplatillobebidaoextra=="Birria"){
-   $(document).ready(function(){
-
-    $("#birriaprecio").modal(); 
- 
-});
-}
-if($nombredelplatillobebidaoextra=="Media birria"){
-   $(document).ready(function(){
-  
-    $("#mediabirriaprecio").modal(); 
-  
-});
-}
-
-
-
-  }
-
-
-/*
-JS PARA ELEGIR CLIENTE
-*/
+<script>
 
   $(document).ready(function(){
-       graficar();
 
-  /*  ADD LA PARTE SUPERIOR LA BUSKEDA Y LOS LIMITES DE REGISTROS A MOSTRAR  */
- $('#examplelist').DataTable( {
-          
-       
-    "language": {
-      "lengthMenu": "Mostrar _MENU_ registros por pagina",
-      "zeroRecords": "No se encontraron resultados en su busqueda",
-      "searchPlaceholder": "Buscar Registros", 
-      "info": "Mostrar registros de _START_ al _END_ de un total de _TOTAL_ registros",
-      "infoEmpty": "No Existen Registros",
-      "infoFiltered": "(filtrado de un total de _MAX_ registros)",
-      "search": "Buscar:",
-      "paginate": {
-        "first": "Primero",
-        "last": "Último",
-        "next": "Siguiente",
-        "previous": "Anterior"
-      }, /* TODO ESTO ES PARA CAMBIAR DE IDIOMA */
-    }
-   });
+      //$('#btn_RegistroPago').DataTable();
 
-          });
+      /*  ADD LA PARTE SUPERIOR LA BUSKEDA Y LOS LIMITES DE REGISTROS A MOSTRAR  */
+$('#btn_RegistroPago').DataTable( {
+   "language": {
+     "lengthMenu": "Mostrar _MENU_ registros por pagina",
+     "zeroRecords": "No se encontraron resultados en su busqueda",
+     "searchPlaceholder": "Buscar Registros",
+     "info": "Mostrar registros de _START_ al _END_ de un total de _TOTAL_ registros",
+     "infoEmpty": "No Existen Registros",
+     "infoFiltered": "(filtrado de un total de _MAX_ registros)",
+     "search": "Buscar:",
+     "paginate": {
+       "first": "Primero",
+       "last": "Último",
+       "next": "Siguiente",
+       "previous": "Anterior"
+     }, /* TODO ESTO ES PARA CAMBIAR DE IDIOMA */
+   }
+  });
 
-
-function graficar(){
-
-
-
-
-  Highcharts.chart('grafico', {
-    chart: {
-        type: 'column'
-    },
-    title: {
-        text: 'Monthly Average Rainfall'
-    },
-    subtitle: {
-        text: 'Source: WorldClimate.com'
-    },
-    xAxis: {
-        categories: [
-            'Jan',
-            'Feb',
-            'Mar',
-            'Apr',
-            'May',
-            'Jun',
-            'Jul',
-            'Aug',
-            'Sep',
-            'Oct',
-            'Nov',
-            'Dec'
-        ],
-        crosshair: true
-    },
-    yAxis: {
-        min: 0,
-        title: {
-            text: 'Rainfall (mm)'
-        }
-    },
-    tooltip: {
-        headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
-        pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
-            '<td style="padding:0"><b>{point.y:.1f} mm</b></td></tr>',
-        footerFormat: '</table>',
-        shared: true,
-        useHTML: true
-    },
-    plotOptions: {
-        column: {
-            pointPadding: 0.2,
-            borderWidth: 0
-        }
-    },
-    series: [{
-        name: 'Tokyo',
-        data: [49.9, 71.5, 106.4, 129.2, 144.0, 176.0, 135.6, 148.5, 216.4, 194.1, 95.6, 54.4]
-
-    }, {
-        name: 'New York',
-        data: [83.6, 78.8, 98.5, 93.4, 106.0, 84.5, 105.0, 104.3, 91.2, 83.5, 106.6, 92.3]
-
-    }, {
-        name: 'London',
-        data: [48.9, 38.8, 39.3, 41.4, 47.0, 48.3, 59.0, 59.6, 52.4, 65.2, 59.3, 51.2]
-
-    }, {
-        name: 'Berlin',
-        data: [42.4, 33.2, 34.5, 39.7, 52.6, 75.5, 57.4, 60.4, 47.6, 39.1, 46.8, 51.1]
-
-    }]
-});
-
-
-
-
-
-
-}
-
-
-
+          })
 
 </script>

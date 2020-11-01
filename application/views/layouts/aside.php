@@ -22,7 +22,7 @@
                             </span>
                         </a>
                         <ul class="treeview-menu">
-                          <li><a href="<?php echo base_url();?>mantenimiento/comida">
+                          <li><a href="<?php echo base_url();?>mantenimiento/Controller_RegistroPago">
                               Formato de registro de pago</a></li>
                               <!-- <i class="fas fa-utensils"></i> -->
 

@@ -22,6 +22,18 @@ class Controller_RegistroPago extends CI_Controller {
 		$this->load->view('layouts/footer');
 	}
 
+
+	// public function index()
+	//   {
+	//     $this->load->view('header');
+	//    $this->load->view('layouts/aside');
+	//     $this->load->view('main', $data);
+	//     $this->load->view('footer');
+	//   }
+
+
+
+
 	public function agregar_RegistroPago(){
 
 		$this->load->view('layouts/header');
@@ -31,52 +43,38 @@ class Controller_RegistroPago extends CI_Controller {
 	}
 
 
-	public function store(){
-		$Nombre_del_platillo = $this->input->post("nombre_de_categoria");
-		$Precio_Asada = $this->input->post("precio_asada");
-		$Precio_Chorizo = $this->input->post("precio_chorizo");
+	public function captura_inputs(){  // ESTE METHOD ES PARA LLAMAR LOS INPUT EL DATO K SE INGRESA DENTRO DE CADA INPUT
+		$Nombre_Completo_del_Alumno = $this->input->post("alumno_nombre_completo");
+		$Número_de_Control = $this->input->post("numero_control");
+		$Carrera = $this->input->post("carrera");
+    $Semestre = $this->input->post("semestre");
 
-        $Precio_Campechano = $this->input->post("precio_campechano_a");
-		$Precio_Barbacha = $this->input->post("precio_barbacha");
-		$Precio_Costilla = $this->input->post("precio_costilla");
-		$Precio_Sencilla = $this->input->post("precio_sencilla");
-		$Descripcion = $this->input->post("descripcion");
+	 $this->form_validation->set_rules("alumno_nombre_completo","Nombre del Alumno...","required");
+   $this->form_validation->set_rules("numero_control", "Numero de control...", "required");
+   $this->form_validation->set_rules("carrera", "Carrera...", "required");
+   $this->form_validation->set_rules("semestre", "Semestre...", "required");
 
-	$this->form_validation->set_rules("nombre_de_categoria","Nombre de platillo","required|is_unique[categoria.nombre_de_categoria]");
-   $this->form_validation->set_rules("precio_asada", "Precio de platillo", "required");
-   $this->form_validation->set_rules("precio_chorizo", "precio de platillo", "required");
-
-   $this->form_validation->set_rules("precio_campechano_a", "Precio de platillo", "required");
-   $this->form_validation->set_rules("precio_barbacha", "Precio de platillo", "required");
-   $this->form_validation->set_rules("precio_costilla", "Precio de platillo", "required");
-   $this->form_validation->set_rules("precio_sencilla", "Precio de platillo", "required");
-   $this->form_validation->set_rules("descripcion", "Descripcion de platillo", "required");
 
 
    if ($this->form_validation->run()) {
 
       	 $data = array(
-      	 	'nombre_de_categoria' => $Nombre_del_platillo,
-			'precio_asada' => $Precio_Asada,
-			'precio_chorizo' => $Precio_Chorizo,
-
-			'precio_campechano_a' => $Precio_Campechano,
-			'precio_barbacha' => $Precio_Barbacha,
-			'precio_costilla' => $Precio_Costilla,
-			'precio_sencilla' => $Precio_Sencilla,
-			'descripcion' => $Descripcion,
+      'alumno_nombre_completo' => $Nombre_Completo_del_Alumno,
+			'numero_control' => $Número_de_Control,
+			'carrera' => $Carrera,
+			'semestre' => $Semestre,
 		);
 
 
-	   if ($this->menu_model->guardar($data)) {
-		    	redirect(base_url()."mantenimiento/comida");
+	   if ($this->Modelo_RegistroPago->guardar_RegistroPago($data)) {
+		    	redirect(base_url()."mantenimiento/Controller_RegistroPago");
 		    } else{
 		    	$this->session->set_flashdata("error", " ERROR: NO SE GUARDARON LOS DATOS");
-		    	  redirect(base_url()."mantenimiento/comida/agregar");
+		    	  redirect(base_url()."mantenimiento/Controller_RegistroPago/agregar_RegistroPago");
 		       }
         }
         else{
-           	   $this->agregar();
+           	   $this->agregar_RegistroPago();
            }
 	}
 

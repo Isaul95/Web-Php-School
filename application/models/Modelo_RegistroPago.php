@@ -6,13 +6,12 @@ class Modelo_RegistroPago extends CI_Model {
     public function getRegistroPago(){
         $this->db->select("id_registropago, alumno_nombre_completo, numero_control, carrera,semestre,fecha_registro");
     $this->db->from("finan_registro_de_pago");
-     // $this->db->where("Cantidad !=0");
     $resultados = $this->db->get();
     return $resultados->result();
     }
 
-    public function guardar($data){
-          return $this->db->insert("categoria", $data);
+    public function guardar_RegistroPago($data){
+          return $this->db->insert("finan_registro_de_pago", $data);
        }
 
   /*   ======================  EDITAR  =========================  */

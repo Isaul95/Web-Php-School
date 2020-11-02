@@ -45,11 +45,11 @@
                                                                   <?php foreach($RegistroPago as $RegistroPago):?>
                                                   <tr>
 
-          <td><center> <?php echo $RegistroPago->alumno_nombre_completo;?></center></td>
-          <td><center>$<?php echo $RegistroPago->numero_control;?></center></td>
-          <td><center>$<?php echo $RegistroPago->carrera;?></center></td>
-          <td><center>$<?php echo $RegistroPago->semestre;?></center></td>
-          <td><center>$<?php echo $RegistroPago->fecha_registro;?></center></td>
+          <td><center><?php echo $RegistroPago->alumno_nombre_completo;?></center></td>
+          <td><center><?php echo $RegistroPago->numero_control;?></center></td>
+          <td><center><?php echo $RegistroPago->carrera;?></center></td>
+          <td><center><?php echo $RegistroPago->semestre;?></center></td>
+          <td><center><?php echo $RegistroPago->fecha_registro;?></center></td>
 
                                          <td>
                                     <div class="btn-group">

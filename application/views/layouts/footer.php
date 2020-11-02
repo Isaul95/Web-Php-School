@@ -291,13 +291,15 @@ CSS PARA ELEGIR CLIENTE
 
       //$('#btn_RegistroPago').DataTable();
 
-      /*  ADD LA PARTE SUPERIOR LA BUSKEDA Y LOS LIMITES DE REGISTROS A MOSTRAR  */
+      /*  ADD LA PARTE SUPERIOR LA BUSKEDA Y LA PAGHINACION  */
 $('#btn_RegistroPago').DataTable( {
+   "order": [[ 5, "asc" ]], //ordenar de forma ascendente
+
    "language": {
      "lengthMenu": "Mostrar _MENU_ registros por pagina",
      "zeroRecords": "No se encontraron resultados en su busqueda",
      "searchPlaceholder": "Buscar Registros",
-     "info": "Mostrar registros de _START_ al _END_ de un total de _TOTAL_ registros",
+     "info": "Total: _TOTAL_ registros",
      "infoEmpty": "No Existen Registros",
      "infoFiltered": "(filtrado de un total de _MAX_ registros)",
      "search": "Buscar:",
@@ -313,3 +315,5 @@ $('#btn_RegistroPago').DataTable( {
           })
 
 </script>
+
+<script src="<?php echo base_url();?>assets/template/dist/js/js-cesvi/archivos.js"></script>

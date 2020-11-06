@@ -276,6 +276,8 @@ CSS PARA ELEGIR CLIENTE
 <script src="<?php echo base_url();?>assets/template/dist/js/adminlte.min.js"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="<?php echo base_url();?>assets/template/dist/js/demo.js"></script>
+<!-- Sweet Alert2 -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 
 
 

@@ -20,7 +20,7 @@ class Modelo_RegistroPago extends CI_Model { // INICIO DEL MODELO
         }
 
         // ****************************  FUINCTION PARA ELIMINAR  DATES  **********************************
-        public function delete_entry($id){
+        public function delete($id){
         return $this->db->delete('crud', array('id' => $id));
       }
 

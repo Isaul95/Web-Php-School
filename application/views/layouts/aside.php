@@ -22,11 +22,11 @@
                             </span>
                         </a>
                         <ul class="treeview-menu">
-                          <li><a href="<?php echo base_url();?>mantenimiento/Controller_RegistroPago">
+                          <li><a href="<?php echo base_url();?>mantenimiento/RegistroPagos">
                               Formato de registro de pago</a></li>
                               <!-- <i class="fas fa-utensils"></i> -->
 
-                          <li><a href="<?php echo base_url();?>mantenimiento/bebidas">
+                          <li><a href="<?php echo base_url();?>mantenimiento/RegistrarPagos">
                               Registrar pago <br> (Formato/Archivo)</a></li>
                               <!-- <i class="fas fa-wine-bottle"></i> -->
 

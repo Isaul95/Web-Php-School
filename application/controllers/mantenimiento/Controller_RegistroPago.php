@@ -32,6 +32,35 @@ class Controller_RegistroPago extends CI_Controller {
 	//   }
 
 
+public function addFile(){  // INSERTAR EL DOCUMENTO ALA BASE
+
+$nombre = $this->input->post("nombre");
+
+$file_name = $_FILES['archivo']['name'];
+$file_size = $_FILES['archivo']['size'];
+$file_tmp = $_FILES['archivo']['tmp_name'];
+$file_type = $_FILES['archivo']['type'];
+
+$imagen_temporal = $file_tmp;
+$tipo = $file_type;
+
+$fp = fopen($imagen_temporal, 'r+b');
+$binario = fread($fp, filesize($imagen_temporal));
+fclose($fp);
+
+$data = array(
+'archivo' => $binario,
+'nombre' => $nombre
+);
+
+$this->Modelo_RegistroPago->insertarDoc("finan_registro_de_pago", $data);
+
+
+}
+
+
+
+
 
 
 	public function agregar_RegistroPago(){

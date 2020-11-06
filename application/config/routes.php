@@ -49,6 +49,18 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | Examples:	my-controller/index	-> my_controller/index
 |		my-controller/my-method	-> my_controller/my_method
 */
-$route['default_controller'] = 'auth';
+$route['default_controller'] = 'auth'; // nOMBRE DEL CONTROLLER K CARGA COMO DEFAULT (lOGIN)
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
+
+// *****************************  DEFINICION DE LA RUTA ********************************************
+// 1.-  mantenimiento  ===> Es el nombre d la carpeta donde se encuentran los controller
+// 2.-  RegistroPagos  ===> Es el nombre del controller
+// 3.-  insertar       ===> Es el nombre del metodo/function k hace la accion deseada
+
+// *****************************  RUTAS PARA CRUD ********************************************
+$route['insertar']      = 'mantenimiento/RegistroPagos/insertar';
+$route['listar']        = 'mantenimiento/RegistroPagos/listar';
+$route['eliminar']      = 'mantenimiento/RegistroPagos/eliminar';
+$route['edit']          = 'mantenimiento/RegistroPagos/edit';
+$route['update']        = 'mantenimiento/RegistroPagos/update';

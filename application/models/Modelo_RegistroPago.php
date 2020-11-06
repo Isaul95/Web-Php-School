@@ -1,37 +1,48 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Modelo_RegistroPago extends CI_Model {
+class Modelo_RegistroPago extends CI_Model { // INICIO DEL MODELO
 
-    public function getRegistroPago(){
-        $this->db->select("id_registropago, alumno_nombre_completo, numero_control, carrera,semestre,fecha_registro");
-    $this->db->from("finan_registro_de_pago");
-    $resultados = $this->db->get();
-    return $resultados->result();
-    }
 
-    public function guardar_RegistroPago($data){
-          return $this->db->insert("finan_registro_de_pago", $data);
-       }
+// ***************************  INICIO FUNCTION PARA INSRTAR  ************************************
+  public function insertar_resgistroPagos($data){
 
-  /*   ======================  EDITAR  =========================  */
-       public function getComida($id_comida){
-             $this->db->where("id_comida",$id_comida);
-             $resultado = $this->db->get("categoria");
-             return $resultado->row();
-        }
-            public function update($id_comida, $data){
-            $this->db->where("id_comida",$id_comida);
-             return $this->db->update("categoria", $data);
+            return $this->db->insert('crud', $data);
         }
 
-  public function delete($data){
-           // $this->db->where("id_Productos",$id_Productos);
-             return $this->db->delete("categoria", $data);
+// *************************  FUINCTION PARA HAXCER LA CONSULTA GRAL. ******************************
+  public function listaPagos(){
 
+    $query = $this->db->get('crud');
+        // if (count( $query->result() ) > 0) {
+    	return $query->result();
+          // }
         }
 
+        // ****************************  FUINCTION PARA ELIMINAR  DATES  **********************************
+        public function delete_entry($id){
+        return $this->db->delete('crud', array('id' => $id));
+      }
 
 
 
-}
+    // ****************************  FUINCTION PARA ELIMINAR  DATES  **********************************
+
+    public function edit($id){
+
+        $this->db->select("*");
+        $this->db->from("crud");
+        $this->db->where("id", $id);
+        $query = $this->db->get();
+        if (count($query->result()) > 0) {
+          return $query->row();
+        }
+      }
+
+      public function update($data){
+
+          return $this->db->update('crud', $data, array('id' => $data['id']));
+      }
+
+
+  } // FIN / CIERRE DEL MODELO

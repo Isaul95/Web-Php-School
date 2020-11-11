@@ -58,6 +58,13 @@
                   <label for="">Email</label>
                   <input type="email" id="email" class="form-control">
                 </div>
+
+              <div class="form-group">
+                					<label>Adjuntar archivo:</label>
+                	<input name="archivo" type="file" id="getFile"  />
+
+              </div>
+
               </form>
             </div>
             <div class="modal-footer">

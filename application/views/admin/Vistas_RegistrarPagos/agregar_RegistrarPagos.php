@@ -58,13 +58,15 @@
                                 <i class="fa fa-file" aria-hidden="true"></i>
                               </spam>
 
-                              <input type="text" id="nombre" name="nombre" placeholder="Nombre del documento" class="form-control" />
+        <input type="text" id="nombre" name="nombre" placeholder="Nombre del documento" class="form-control" />
                             </div>
 
-                            <button class="btn btn-light btn-sm" id="upFile"><i class="fa fa-upload" id="ico-btn-file" aria-hidden="true"></i></button>
+  <button class="btn btn-light btn-sm" id="upFile"><i class="fa fa-upload" id="ico-btn-file" aria-hidden="true"></i></button>
 
-                            <input type="file" name="archivo" id="getFile" class="hidden" required="required" accept="application/pdf" />
-                            <input type="submit" form="formArchivos" id="smtArchivo" class="btn btn-success btn-sm" value="Agregar" /> <br/>
+  <input type="file" name="archivo" id="getFile" class="hidden" required="required" accept="application/pdf" />
+  <input type="submit" form="formArchivos" id="smtArchivo" class="btn btn-success btn-sm" value="Agregar" />
+
+   <br/>
                           </center>
         </form>
 

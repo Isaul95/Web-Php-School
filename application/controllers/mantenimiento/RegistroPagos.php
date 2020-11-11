@@ -27,21 +27,41 @@ class RegistroPagos extends CI_Controller {  // INICIO DEL CONTROLLER
 	public function insertar(){
 
 			if ($this->input->is_ajax_request()) {
-			$this->form_validation->set_rules('name', 'Name', 'required');
-			$this->form_validation->set_rules('email', 'Email', 'required|valid_email');
-			if ($this->form_validation->run() == FALSE) {
-				$data = array('responce' => 'error', 'message' => validation_errors());
-			} else {
-				$ajax_data = $this->input->post();
-				if ($this->Modelo_RegistroPago->insertar_resgistroPagos($ajax_data)) {
-					$data = array('responce' => 'success', 'message' => 'Record added Successfully');
-				} else {
-					$data = array('responce' => 'error', 'message' => 'Failed to add record');
-				}
-			}
-			echo json_encode($data);
-		} else {
-			echo "No direct script access allowed";
+					// $this->form_validation->set_rules('name', 'Name', 'required');
+					// $this->form_validation->set_rules('email', 'Email', 'required|valid_email');
+
+						// if ($this->form_validation->run() == FALSE) {
+									$data = array('responce' => 'error', 'message' => validation_errors());
+
+
+													$config = [
+														"upload_path" => "./assets/template/dist/img/uploads",
+														'allowed_types' => "pdf|jpg"
+													];
+													$this->load->library("upload", $config);
+
+													if($this->upload->do_upload('archivo')) {
+														$data = array('archivo' => $this->upload->data());
+
+																	if ($this->Modelo_RegistroPago->insertar_resgistroPagos($data)) {
+																			$data = array('responce' => 'success', 'message' => 'Record added Successfully');
+																	} else {
+																			$data = array('responce' => 'error', 'message' => 'Failed to add record');
+																	}
+																		echo json_encode($data);
+
+													}else {
+														echo $this->upload->display_errors();
+													}
+
+
+
+						// } else {
+
+
+
+	    } else {
+					echo "No direct script access allowed";
 			}
 
 		} // Fin del insertar

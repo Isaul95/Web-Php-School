@@ -1,23 +1,6 @@
 
   $(document).ready(function(){
-  fetch();
-    // $('#tbl_registroPago').DataTable( {
-    //    "language": {
-    //      "lengthMenu": "Mostrar _MENU_ registros por pagina",
-    //      "zeroRecords": "No se encontraron resultados en su busqueda",
-    //      "searchPlaceholder": "Buscar Registros",
-    //      "info": "Total: _TOTAL_ registros",
-    //      "infoEmpty": "No Existen Registros",
-    //      "infoFiltered": "(filtrado de un total de _MAX_ registros)",
-    //      "search": "Buscar:",
-    //      "paginate": {
-    //        "first": "Primero",
-    //        "last": "Último",
-    //        "next": "Siguiente",
-    //        "previous": "Anterior"
-    //      }, /* TODO ESTO ES PARA CAMBIAR DE IDIOMA */
-    //    }
-    //   });
+  fetch(); // SEINICIALIZA LA FUNCTIO DE LA CARGA DEL LISTADO DE LA TABLA
 
     }); // FIN DE LA FUNCION PRINCIPAL
 
@@ -29,18 +12,20 @@
       var name = $("#name").val();
       var email = $("#email").val();
 
-      if (name == "" || email == "") {
+      if (dates.name == "" || dates.email == "") {
         alert("estan vacios los campos OBLIGATORIOS...!");
       }else{
+
+
         $.ajax({
   //      url: base_url+'mantenimiento/RegistrarPagos/addFile',
           url: base_url+'mantenimiento/RegistroPagos/insertar',
           type: "post",
           dataType: "json",
           data: {
-            name: name,
-            email: email
-          },
+              name: name,
+              email: email
+            },
           success: function(data){
             if (data.responce == "success") {
 // Tiene k destruirse la tabla para reinicializarla de nuevo
@@ -78,6 +63,7 @@
                 $('#tbl_registroPago').DataTable( {
                     "data": data.posts,
                     "responsive": true,
+//  se comenta esta parte k es para los botones de pdf,excel REPORTES
                     // dom:
                     //     "<'row'<'col-sm-12 col-md-4'l><'col-sm-12 col-md-4'B><'col-sm-12 col-md-4'f>>" +
                     //     "<'row'<'col-sm-12'tr>>" +
@@ -98,7 +84,10 @@
                           `;
                           return a;
                         } }
-                    ]
+                    ],
+                    "language" : language_espaniol,
+
+
                 } );
             }else{
               toastr["error"](data.message);
@@ -178,7 +167,7 @@
 
 
 
-//  **************************   INICIOA EDITAR Y ACTUALIZAR DATOS    *****************************
+//  ******************************   INICIOA EDITAR Y ACTUALIZAR DATOS    *********************************
 // ******************** =======>>>>>>>>> El icono Edit dentro del DataTable
     $(document).on("click", "#edit", function(e){
       e.preventDefault();
@@ -241,7 +230,25 @@
             }
           }
         });
-
       }
-
     });
+
+
+
+
+// ********************   VAR PARA CAMBIAR DE IDIOMA AL ESPAÑOL EL DataTable  *************************
+    var language_espaniol = {
+      "lengthMenu": "Mostrar _MENU_ registros por pagina",
+      "zeroRecords": "No se encontraron resultados en su busqueda",
+      "searchPlaceholder": "Buscar Registros",
+      "info": "Total: _TOTAL_ registros",
+      "infoEmpty": "No Existen Registros",
+      "infoFiltered": "(filtrado de un total de _MAX_ registros)",
+      "search": "Buscar:",
+      "paginate": {
+        "first": "Primero",
+        "last": "Último",
+        "next": "Siguiente",
+        "previous": "Anterior"
+      }, /* TODO ESTO ES PARA CAMBIAR DE IDIOMA */
+    }

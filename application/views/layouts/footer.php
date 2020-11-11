@@ -316,3 +316,4 @@ $('#btn_RegistroPago').DataTable( {
 <script src="<?php echo base_url();?>assets/template/dist/js/js-cesvi/archivos.js"></script>
 <!-- <script src="<?php echo base_url();?>assets/template/dist/js/js-cesvi/registroPago.js"></script> -->
 <script src="<?php echo base_url();?>assets/template/dist/js/js-cesvi/registroPago.js"></script>
+<script src="<?php echo base_url();?>assets/template/dist/js/js-cesvi/Finanzas/formatoregistroDePagos.js"></script>

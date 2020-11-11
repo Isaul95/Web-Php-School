@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Login| "El Toloache"</title>
+  <title>.:: Login ::. "Cesvi"</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
 
@@ -26,7 +26,7 @@
         <!-- /.login-logo  <font color="#D34787"></font>-->
         <div class="login-box-body">
 
-          <center><img src="<?php echo base_url()?>assets/template/dist/img/logo-cesvi.jpg"  class="user-image" alt="User Image" width=120px heigth=120px></center> <br>
+          <center><img src="<?php echo base_url()?>assets/template/dist/img/logo-cesvi2.png"  class="user-image" alt="User Image" width=120px heigth=120px></center> <br>
          <!-- <center> <label><h3>Bienvenidos</h3></font></label> </center> -->
 
             <p class="login-box-msg"><center><h4>Introduzca sus datos de ingreso</h4></center></p>

@@ -13,8 +13,11 @@
                         </a>
                     </li>
 
+              <!--  /* ============================================================================================= */
+                    /*    ESTE CRUD ES PARA PRUEBAS CODIGO DE PRUEBAS DESCOMENTARLO PARA VER COMO ESTA HECHO JQuery  */
+                    /* ============================================================================================= */    -->
 
-                    <li class="treeview">
+                    <!-- <li class="treeview">
                         <a href="#">
                             <i class="fas fa-balance-scale"></i> <span>PRUEBAS CRUD</span>
                             <span class="pull-right-container">
@@ -35,7 +38,23 @@
                             Consulta pagos</a></li>
 
                         </ul>
-                    </li>
+                    </li> -->
+
+                                <li class="treeview">
+                                   <a href="#">   <!--- class="fa fa-cogs" -->
+                                       <i class="fas fa-user-graduate"></i>  <span>Alumnos</span>
+                                       <span class="pull-right-container">
+                                           <i class="fa fa-angle-left pull-right"></i>
+                                       </span>
+                                   </a>
+                                   <ul class="treeview-menu">
+
+                            <li><a href="<?php echo base_url();?>alumnos/altaBaucherBanco">
+                               <i class="fas fa-money-check-alt"></i> Subir Baucher</a>
+                           </li>
+                                   </ul>
+                               </li>
+
 
                     <li class="treeview">
                         <a href="#">
@@ -46,17 +65,23 @@
                         </a>
                         <ul class="treeview-menu">
 
-                          <li><a href="<?php echo base_url();?>Finanzas/FormatoRegistroPago"> Formato de registro de pago</a></li>
+                          <li><a href="<?php echo base_url();?>Finanzas/HabilitarAlumnos">
+                             <i class="far fa-dot-circle"></i> Habilitar alumnos</a>
+                         </li>
+
+                          <li><a href="<?php echo base_url();?>Finanzas/FormatoRegistroPago">
+                            <i class="far fa-dot-circle"></i> Formato de registro de pago</a></li>
 
                           <li><a href="<?php echo base_url();?>Finanzas/RegistrarPago">
-                            Registrar pago <br>
+                            <i class="far fa-dot-circle"></i> Registrar pago <br>
                             (Formato/Archivo)</a></li>
 
                           <li><a href="<?php echo base_url();?>Finanzas/SolicitarReciboPago">
-                              Solicitar recibo pago <br> (Formato solicitud)</a></li>
+                                <i class="far fa-dot-circle"></i> Solicitar recibo pago <br> (Formato solicitud)</a></li>
 
 
-                          <li><a href="<?php echo base_url();?>Finanzas/ConsultarPagos"> Consultar pagos</a></li>
+                          <li><a href="<?php echo base_url();?>Finanzas/ConsultarPagos">
+                            <i class="far fa-dot-circle"></i> Consultar pagos</a></li>
 
                         </ul>
                     </li>
@@ -64,15 +89,13 @@
 
 
 
-              <li class="treeview">
-                  <a href="#">   <!--- class="fa fa-cogs" -->
+              <!-- <li class="treeview">
+                  <a href="#">
                         <i class="fas fa-graduation-cap"></i><span>Cont. academico y escolar</span>
                          <span class="pull-right-container">
                            <i class="fa fa-angle-left pull-right"></i>
                           </span>
                   </a>
-
-
                   <ul class="treeview-menu">
 
                      <li><a href="#">
@@ -84,12 +107,16 @@
                     </li>
 
                 </ul>
-            </li>
+            </li> -->
 
 
 
-                     <li class="treeview">
-                        <a href="#">   <!--- class="fa fa-cogs" -->
+            <!--  /* ======================================================================================= */
+                  /*    ==>> #3          Atención y soporte  LA OPCION  K VENIA EN EL WORD                   */
+                  /* ======================================================================================= */    -->
+
+                     <!-- <li class="treeview">
+                        <a href="#">
                             <i class="fab fa-sellsy"></i><span>Atención y soporte</span>
                             <span class="pull-right-container">
                                 <i class="fa fa-angle-left pull-right"></i>
@@ -97,17 +124,19 @@
                         </a>
                         <ul class="treeview-menu">
 
-                 <!-- <li><a href="<?php echo base_url();?>graficas">
+                  <li><a href="<?php echo base_url();?>graficas">
                     <i class="fas fa-money-check-alt"></i> Graficas</a>
                 </li>
-                <li><a href="<?php echo base_url();?>menuventascanceladas">
-                    <i class="fas fa-trash"></i> Ventas</a>
-                </li> -->
                         </ul>
-                    </li>
+                    </li> -->
 
 
-                    <li class="treeview">
+
+                    <!--  /* ======================================================================================= */
+                          /*    ==>> #2       Admición e inscripción  LA OPCION  K VENIA EN EL WORD                  */
+                          /* ======================================================================================= */    -->
+
+                    <!-- <li class="treeview">
                         <a href="#">
                             <i class="fab fa-sellsy"></i> <span>Admición e inscripción</span>
                             <span class="pull-right-container">
@@ -115,7 +144,7 @@
                             </span>
                         </a>
                         <ul class="treeview-menu">
-                            <!-- <li><a href="<?php echo base_url();?>mantenimiento/comida">
+                            <li><a href="<?php echo base_url();?>mantenimiento/comida">
                                 <i class="fas fa-utensils"></i> Comidas</a></li>
 
                             <li><a href="<?php echo base_url();?>mantenimiento/bebidas">
@@ -123,14 +152,17 @@
 
 
                             <li><a href="<?php echo base_url();?>mantenimiento/extras">
-                                <i class="fas fa-plus-circle"></i> Extras</a></li> -->
+                                <i class="fas fa-plus-circle"></i> Extras</a></li>
 
                         </ul>
-                    </li>
+                    </li> -->
 
 
+                    <!--  /* ======================================================================================= */
+                          /*    ==>> #1           BOLSA DE TRABAJO  LA OPCION  K VENIA EN EL WORD                    */
+                          /* ======================================================================================= */    -->
 
-                    <li class="treeview">
+                    <!-- <li class="treeview">
                         <a href="#">
                             <i class="fab fa-sellsy"></i> <span>Bolsa de Trabajo</span>
                             <span class="pull-right-container">
@@ -138,7 +170,7 @@
                             </span>
                         </a>
                         <ul class="treeview-menu">
-                            <!-- <li><a href="<?php echo base_url();?>mantenimiento/comida">
+                             <li><a href="<?php echo base_url();?>mantenimiento/comida">
                                 <i class="fas fa-utensils"></i> Comidas</a></li>
 
                             <li><a href="<?php echo base_url();?>mantenimiento/bebidas">
@@ -146,16 +178,75 @@
 
 
                             <li><a href="<?php echo base_url();?>mantenimiento/extras">
-                                <i class="fas fa-plus-circle"></i> Extras</a></li> -->
+                                <i class="fas fa-plus-circle"></i> Extras</a></li>
 
                         </ul>
-                    </li>
+                    </li> -->
+
+
+                    <!--  /* ======================================================================================= */
+                          /*                      ESTE CRUD ES PARA PERMISOS ME HECHO EN JQUERY                      */
+                          /* ======================================================================================= */    -->
+
+                    <!-- <li class="treeview">
+                        <a href="#">
+                            <i class="fab fa-sellsy"></i> <span>Administrador ME</span>
+                            <span class="pull-right-container">
+                                <i class="fa fa-angle-left pull-right"></i>
+                            </span>
+                        </a>
+                        <ul class="treeview-menu">
+                           <li><a href="<?php echo base_url();?>Administrador/Permisos">
+                                <i class="fas fa-utensils"></i> Permisos</a></li>
+                        </ul>
+                    </li> -->
+
+
+
+<!--
+
+<a href="#">
+      <i class="fas fa-graduation-cap"></i><span>Cont. academico y escolar</span>
+       <span class="pull-right-container">
+         <i class="fa fa-angle-left pull-right"></i>
+        </span>
+</a>
+
+
+
+<a href="#">
+<i class="fa fa-user-circle-o"></i> <span>Administrador</span>
+<span class="pull-right-container">
+<i class="fa fa-angle-left pull-right"></i>
+</span>
+      </a>
+
+ -->
+
+
+
+
+                    <li class="treeview">
+                      <a href="#">
+                      <i class="fas fa-user-shield"></i> <span>Administrador</span>
+                      <span class="pull-right-container">
+                      <i class="fa fa-angle-left pull-right"></i>
+                      </span>
+                            </a>
+                                  <ul class="treeview-menu">
+
+<li><a href="<?php echo base_url();?>administrador/usuarios"><i class="far fa-dot-circle"></i>  Usuarios</a></li>
+<li><a href="<?php echo base_url();?>administrador/permisos"><i class="far fa-dot-circle"></i>  Permisos</a></li>
+                                  </ul>
+                </li>
 
 
 
 
 
-                </ul>
+
+
+  </ul>
             </section>
-            <!-- /.sidebar -->
+
         </aside>

@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="66b5688d-4535-49d8-81d1-79f2eade20a9">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<queryString>
+		<![CDATA[SELECT * FROM `datos_recibo`]]>
+	</queryString>
+	<field name="id_recibo" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="recibi_de" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="cantidad_de" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="pago_de" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="concepto" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="61" splitType="Stretch">
+			<staticText>
+				<reportElement x="41" y="2" width="100" height="20" uuid="94a1d342-5b6c-407f-a052-ce09d11855d0"/>
+				<text><![CDATA[id_recibo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="187" y="2" width="100" height="20" uuid="0d17541b-b0f6-4364-8bc5-a6e931989b9e"/>
+				<text><![CDATA[recibi_de]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="318" y="2" width="100" height="20" uuid="ed820c0e-ba1f-44bb-a44c-8861d8509176"/>
+				<text><![CDATA[cantidad_de]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="462" y="2" width="100" height="20" uuid="a267103f-1bb8-4ec1-b16b-6f3fb58e5924"/>
+				<text><![CDATA[pago_de]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="125" splitType="Stretch">
+			<textField>
+				<reportElement x="41" y="42" width="100" height="20" uuid="5dcc5d9e-b133-4ee3-b380-4d109bb0e4e7"/>
+				<textFieldExpression><![CDATA[$F{id_recibo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="187" y="44" width="100" height="20" uuid="d0e73bd1-166f-40b7-a965-cf25610d381c"/>
+				<textFieldExpression><![CDATA[$F{recibi_de}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="318" y="43" width="100" height="20" uuid="74aca1a0-2465-48fe-9748-4df0dab1a4a4"/>
+				<textFieldExpression><![CDATA[$F{cantidad_de}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="462" y="52" width="100" height="20" uuid="a9ed9383-1fd5-4aa9-87d0-6edaf68e8e41"/>
+				<textFieldExpression><![CDATA[$F{pago_de}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

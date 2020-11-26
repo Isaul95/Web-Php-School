@@ -11,92 +11,46 @@
 <div class="container">
   <div class="row">
     <div class="col-md-12 mt-5">
-      <h1 class="text-center">
-      <strong><font color="#D34787">Registrar nuevo pago</font></strong>
-      </h1>
+      <h2 class="text-center">
+      <strong><font color="#D34787">Habilitar para generar Recibo y acceso elegir materias</font></strong>
+    </h2>
       <hr style="background-color: black; color: black; height: 1px;">
     </div>
   </div>
   <div class="row">
     <div class="col-md-12">
 
-      <!-- <div class="row">
-          <div class="col-md-12">
-            <center>
-              <a type="button" class="btn btn-primary btn-float" data-toggle="modal" data-target="#addRecords"> <span class="fa fa-plus"></span>  Agregar Nuevo Registro</a>
-            </center>
-          </div>
-      </div> -->
 <hr> <!-- Le da una linea sombreada para ver la divicion -->
 
-      <!-- Modal Agregar nueuvo registro -->
-      <!-- <div class="modal fade" id="addRecords" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header bg-primary text-center">
-              <strong class="modal-title" id="exampleModalLabel">Agregar Nuevo Registro</strong>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <div class="modal-body">
+<div class="row my-4">
+  <div class="col-md-12 mx-auto">
 
-          <form id="addRecordForm">
+    <!-- <table class="table table-borderless" id="tbl_regPagos" style="width:100%"> -->
+    <table id="tbl_regPagos" class="table table-striped table-bordered dt-responsive nowrap table-hover table-condensed" cellspacing="0" style="background:white!important">
+      <thead class="text-center bg-primary">
+        <tr>
+          <th width="3%">#</th>
+          <th>Nombre</th>
+          <th>No. Control</th>
+          <th>Carrera</th>
+          <th>Semestre</th>
+          <th class="text-center" width="7%">Pdf</th>
+          <th class="text-center" width="7%">Acciones</th>
+        </tr>
+      </thead>
+    </table>
 
-                <div class="form-group">
-                    <label for="">Nombre Alumno: *</label>
-                  <input type="text" class="form-control" id="nombre" placeholder="Username">
-                </div>
-
-
-                <div class="form-group">
-                  <label for="">Número de control: *</label>
-                  <input type="text" class="form-control" id="numero_con" placeholder="Email Address">
-                </div>
-
-
-              <div class="form-group">
-                  <label for="">Carrera: *</label>
-                  <input type="text" class="form-control" id="carrera" placeholder="Mobile No.">
-                </div>
-
-                <div class="form-group">
-                  <label for="">Semestre: *</label>
-                  <input type="text" class="form-control" id="semestre" placeholder="semestre">
-                </div>
-
-
-                <div class="form-group">
-                  <label class="custom-file-label" for="customFile">Adjuntar archivo: *</label>
-                  <input type="file" class="custom-file-input" id="archivo">
-                </div>
-
-          </form>
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
-
-              <button type="button" class="btn btn-primary" id="addPagos">Agregar Pago</button>
-            </div>
-          </div>
-        </div>
-      </div> -->
-
+  </div>
+</div>
 
 
 
     </div>
   </div>
-
-
-
 </div>
 
 
 <!-- AKI TERMIAN LO MIO LO NUEVO QUE AGREGUE -->
-
-
-
 
                     </div>
                     <!-- /.box-body -->
@@ -104,8 +58,4 @@
                 <!-- /.box -->
             </section>
             <!-- / MAIN content -->
-
-
-
-
     </div> <!-- /END ALL CONTENT -->

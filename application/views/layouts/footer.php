@@ -317,3 +317,9 @@ $('#btn_RegistroPago').DataTable( {
 <!-- <script src="<?php echo base_url();?>assets/template/dist/js/js-cesvi/registroPago.js"></script> -->
 <script src="<?php echo base_url();?>assets/template/dist/js/js-cesvi/registroPago.js"></script>
 <script src="<?php echo base_url();?>assets/template/dist/js/js-cesvi/Finanzas/formatoregistroDePagos.js"></script>
+
+<script src="<?php echo base_url();?>assets/template/dist/js/js-cesvi/Alumnos/darAltaBaucherPago.js"></script>
+
+<!-- <script src="<?php echo base_url();?>assets/template/dist/js/js-cesvi/Administrador_AsignarPermisosRoles/Permisos.js"></script> -->
+
+<script src="<?php echo base_url();?>assets/template/dist/js/js-cesvi/Finanzas/habilitarAlumnos.js"></script>

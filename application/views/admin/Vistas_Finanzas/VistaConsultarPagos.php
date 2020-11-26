@@ -9,89 +9,168 @@
 <!-- AKI EMPIEZA LOMMIOO LO NUEVO -->
 
 <div class="container">
+
+<section class="contenido">
   <div class="row">
-    <div class="col-md-12 mt-5">
-      <h1 class="text-center">
-      <strong><font color="#D34787">Consultar Pagos</font></strong>
-      </h1>
-      <hr style="background-color: black; color: black; height: 1px;">
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-md-12">
 
-      <!-- <div class="row">
-          <div class="col-md-12">
-            <center>
-              <a type="button" class="btn btn-primary btn-float" data-toggle="modal" data-target="#addRecords"> <span class="fa fa-plus"></span>  Agregar Nuevo Registro</a>
-            </center>
+    <ul class="nav nav-tabs">
+          <li class="active"><a href="#tab_Colegiaturas" data-toggle="tab">Colegiaturas</a></li>
+          <li><a id="tab-consultar" href="#tab_Cursos" data-toggle="tab">Cursos</a></li>
+
+          <li><a href="#tab_Extraordinario" data-toggle="tab">Extraordinario(s)</a></li>
+          <li><a href="#tab_Tesis" data-toggle="tab">Tesis</a></li>
+          <li><a href="#tab_Otros" data-toggle="tab">Otros</a></li>
+
+      </ul>
+
+      <div class="tab-content"> <!-- INICIO DEL CONYENDOR DEL BODY  -->
+
+          <div class="tab-pane  active" id="tab_Colegiaturas">
+            <div class="col-lg-4"></div>
+              <div class="col-lg-4 text-center">
+                <h2>Colegiaturas</h2>
+                  <hr>
+                </div>
+
+                  <div class="row my-4">
+                    <div class="col-md-12 mx-auto">
+                      <table id="tbl_colegiaturas" class="table table-striped table-bordered dt-responsive nowrap table-hover table-condensed" cellspacing="0" style="background:white!important">
+                        <thead class="text-center bg-primary">
+                          <tr>
+                            <th width="3%">#</th>
+                            <th>Nombre</th>
+                            <th>No. Control</th>
+                            <th>Carrera</th>
+                            <th>Semestre</th>
+                            <th class="text-center" width="7%">Pdf</th>
+                            <th class="text-center" width="7%">Acciones</th>
+                          </tr>
+                        </thead>
+                      </table>
+                    </div>
+                  </div>
           </div>
-      </div> -->
-<hr> <!-- Le da una linea sombreada para ver la divicion -->
 
-      <!-- Modal Agregar nueuvo registro -->
-      <!-- <div class="modal fade" id="addRecords" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header bg-primary text-center">
-              <strong class="modal-title" id="exampleModalLabel">Agregar Nuevo Registro</strong>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <div class="modal-body">
 
-          <form id="addRecordForm">
 
-                <div class="form-group">
-                    <label for="">Nombre Alumno: *</label>
-                  <input type="text" class="form-control" id="nombre" placeholder="Username">
+          <div class="tab-pane" id="tab_Cursos">
+            <div class="col-lg-4"></div>
+              <div class="col-lg-4 text-center">
+                <h2>Cursos/Diplomados</h2>
+                <hr>
+              </div>
+              <div class="row my-4">
+                <div class="col-md-12 mx-auto">
+                  <table id="tbl_cursos" class="table table-striped table-bordered dt-responsive nowrap table-hover table-condensed" cellspacing="0" style="background:white!important">
+                    <thead class="text-center bg-primary">
+                      <tr>
+                        <th width="3%">#</th>
+                        <th>Nombre</th>
+                        <th>No. Control</th>
+                        <th>Carrera</th>
+                        <th>Semestre</th>
+                        <th class="text-center" width="7%">Pdf</th>
+                        <th class="text-center" width="7%">Acciones</th>
+                      </tr>
+                    </thead>
+                  </table>
                 </div>
-
-
-                <div class="form-group">
-                  <label for="">Número de control: *</label>
-                  <input type="text" class="form-control" id="numero_con" placeholder="Email Address">
-                </div>
-
-
-              <div class="form-group">
-                  <label for="">Carrera: *</label>
-                  <input type="text" class="form-control" id="carrera" placeholder="Mobile No.">
-                </div>
-
-                <div class="form-group">
-                  <label for="">Semestre: *</label>
-                  <input type="text" class="form-control" id="semestre" placeholder="semestre">
-                </div>
-
-
-                <div class="form-group">
-                  <label class="custom-file-label" for="customFile">Adjuntar archivo: *</label>
-                  <input type="file" class="custom-file-input" id="archivo">
-                </div>
-
-          </form>
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
-
-              <button type="button" class="btn btn-primary" id="addPagos">Agregar Pago</button>
-            </div>
+              </div>
           </div>
+
+
+          <div class="tab-pane" id="tab_Extraordinario">
+            <div class="col-lg-4"></div>
+              <div class="col-lg-4 text-center">
+                <h2>Extraordinario(s)</h2>
+                <hr>
+              </div>
+              <div class="row my-4">
+                <div class="col-md-12 mx-auto">
+                  <table id="tbl_extraordinario" class="table table-striped table-bordered dt-responsive nowrap table-hover table-condensed" cellspacing="0" style="background:white!important">
+                    <thead class="text-center bg-primary">
+                      <tr>
+                        <th width="3%">#</th>
+                        <th>Nombre</th>
+                        <th>No. Control</th>
+                        <th>Carrera</th>
+                        <th>Semestre</th>
+                        <th class="text-center" width="7%">Pdf</th>
+                        <th class="text-center" width="7%">Acciones</th>
+                      </tr>
+                    </thead>
+                  </table>
+                </div>
+              </div>
+          </div>
+
+
+
+          <div class="tab-pane" id="tab_Tesis">
+            <div class="col-lg-4"></div>
+              <div class="col-lg-4 text-center">
+                <h2>Tesis</h2>
+                <hr>
+              </div>
+              <div class="row my-4">
+                <div class="col-md-12 mx-auto">
+                  <table id="tbl_tesis" class="table table-striped table-bordered dt-responsive nowrap table-hover table-condensed" cellspacing="0" style="background:white!important">
+                    <thead class="text-center bg-primary">
+                      <tr>
+                        <th width="3%">#</th>
+                        <th>Nombre</th>
+                        <th>No. Control</th>
+                        <th>Carrera</th>
+                        <th>Semestre</th>
+                        <th class="text-center" width="7%">Pdf</th>
+                        <th class="text-center" width="7%">Acciones</th>
+                      </tr>
+                    </thead>
+                  </table>
+                </div>
+              </div>
+          </div>
+
+
+
+        <div class="tab-pane" id="tab_Otros">
+            <div class="col-lg-4"></div>
+              <div class="col-lg-4 text-center">
+                <h2>Otros</h2>
+                <hr>
+              </div>
+              <div class="row my-4">
+                <div class="col-md-12 mx-auto">
+                  <table id="tbl_otros" class="table table-striped table-bordered dt-responsive nowrap table-hover table-condensed" cellspacing="0" style="background:white!important">
+                    <thead class="text-center bg-primary">
+                      <tr>
+                        <th width="3%">#</th>
+                        <th>Nombre</th>
+                        <th>No. Control</th>
+                        <th>Carrera</th>
+                        <th>Semestre</th>
+                        <th class="text-center" width="7%">Pdf</th>
+                        <th class="text-center" width="7%">Acciones</th>
+                      </tr>
+                    </thead>
+                  </table>
+                </div>
+              </div>
         </div>
-      </div> -->
 
 
 
 
-    </div>
+      </div>  <!-- FIN DEL CONTENEDOR DEL BODY  -->
+
+
+
   </div>
 
+</section>
 
 
 </div>
-
 
 <!-- AKI TERMIAN LO MIO LO NUEVO QUE AGREGUE -->
 

@@ -39,7 +39,9 @@
       <div class="row">
           <div class="col-md-12">
             <center>
+      <?php if($permisos->insert == 1):?>
               <a type="button" class="btn btn-primary btn-float" data-toggle="modal" data-target="#addRecords"> <span class="fa fa-plus"></span>  Agregar Nuevo Registro</a>
+      <?php endif;?>
             </center>
           </div>
       </div>
@@ -84,7 +86,7 @@
 
                 <!-- Image -->
                 <div class="form-group">
-                  <label class="custom-file-label" for="customFile">Adjuntar archivo: *</label>
+                  <label for="customFile">Adjuntar archivo: *</label>
                   <input type="file" class="custom-file-input" id="archivo">
                 </div>
 

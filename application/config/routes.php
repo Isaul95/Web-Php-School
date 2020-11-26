@@ -71,3 +71,6 @@ $route['listarPagos']        = 'Finanzas/FormatoRegistroPago/listarPagos';
 $route['eliminarPagos']      = 'Finanzas/FormatoRegistroPago/eliminarPagos';
 $route['editPagos']          = 'Finanzas/FormatoRegistroPago/editPagos';
 $route['updatePagos']        = 'Finanzas/FormatoRegistroPago/updatePagos';
+
+// // ==========Alta Baucher ========>>    Formato de registro de pago  =============
+// $route['insertarPagos']      = 'Finanzas/FormatoRegistroPago/insertarPagos';

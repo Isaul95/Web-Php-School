@@ -39,7 +39,7 @@ $("#editRecords").on("hide.bs.modal", function(e) {
 /* -------------------------------------------------------------------------- */
 $(document).on("click", "#addPagos", function(e) {
     e.preventDefault();
-    debugger;
+    // debugger;
     var nombre = $("#nombre").val();
     var numero_con = $("#numero_con").val();
     var carrera = $("#carrera").val();
@@ -92,7 +92,7 @@ $(document).on("click", "#addPagos", function(e) {
 /*                                llenarTablaPagos Records                               */
 /* -------------------------------------------------------------------------- */
 function llenarTablaPagos() {
-    debugger;
+    // debugger;
     $.ajax({
         type: "get",
         url: base_url+'Finanzas/FormatoRegistroPago/listarPagos',

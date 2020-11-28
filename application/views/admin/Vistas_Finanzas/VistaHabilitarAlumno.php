@@ -11,7 +11,7 @@
   <div class="row">
     <div class="col-md-12 mt-5">
       <h2>
-            <center><strong><font color="#D34787">Restaurante "El "</font></strong></center>
+            <center><strong><font color="#D34787">Dar de Alta alumnos</font></strong></center>
     <center><small><font color="#2F4D97" face="Comic Sans MS,arial,verdana">Ciudad Iguala de la Independencia, Guerrero</font></small></center>
   </h2>
       <hr style="background-color: black; color: black; height: 1px;">
@@ -36,8 +36,8 @@
   <div class="row my-4">
     <div class="col-md-12 mx-auto">
 
-      <!-- <table class="table table-borderless" id="tbl_regPagos" style="width:100%"> -->
-      <table id="tbl_listAlumConBaucher" class="table table-striped table-bordered dt-responsive nowrap table-hover table-condensed" cellspacing="0" style="background:white!important">
+      <!--       tbl_listAlumConBaucher -->
+      <table id="tbl_listAlumConBaucher" class="table table-striped table-bordered table-hover table-condensed" cellspacing="0" style="background:white!important">
         <thead class="bg-primary">
           <tr>
             <th width="3%">#</th>
@@ -45,9 +45,10 @@
             <th class="text-center">nombre_archivo</th>
             <th class="text-center">No. Control</th>
             <th class="text-center">Fecha registro</th>
-            <th class="text-center" width="8%">Baucher</th>
+            <th class="text-center">Baucher</th>
             <!-- <th class="text-center" width="8%">Recibo</th> -->
-            <th class="text-center" width="7%">Habilitar</th>
+            <th class="text-center">Habilitar</th>
+            <th class="text-center">Recibo</th>
           </tr>
         </thead>
       </table>

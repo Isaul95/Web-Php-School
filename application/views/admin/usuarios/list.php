@@ -21,8 +21,8 @@
                 <hr>
                 <div class="row">
                     <div class="col-md-12">
-                        <table id="example1" class="table table-bordered table-hover">
-                            <thead>
+                        <table id="tbl_usuarios" class="table table-striped table-bordered table-hover table-condensed" cellspacing="0" style="background:white!important">
+                            <thead class="text-center bg-primary">
                                 <tr>
                                     <th>#</th>
                                     <th>Nombres</th>

@@ -33,10 +33,11 @@ $(document).ready(function(){
 /* -------------------------------------------------------------------------- */
 $(document).on("click", "#darAltaBaucher", function(e) {
     e.preventDefault();
-    // debugger;
+    debugger;
 
     var numero_control = $("#numero_control").val();
     var img = $("#archivo")[0].files[0]; // this is file
+    var tipo_de_pago = $("#pago").val();
 
     if (numero_control == "" || img.name == "") {
         alert("Debe llenar todos los campos vacios...!");
@@ -48,6 +49,7 @@ $(document).on("click", "#darAltaBaucher", function(e) {
         fd.append("numero_control", numero_control);
         fd.append("archivo", img); //Obt principalmente el name file
         fd.append("archivo", archivo); // Obt el file como tal
+        fd.append("tipo_de_pago", tipo_de_pago);
 
         $.ajax({
             type: "post",

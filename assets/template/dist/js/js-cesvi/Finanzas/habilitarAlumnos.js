@@ -1,6 +1,6 @@
 
   $(document).ready(function(){
-  litarAlumnosConBaucherRegistrados();
+        litarAlumnosConBaucherRegistrados();
 
     }); // FIN DE LA FUNCION PRINCIPAL
 
@@ -68,6 +68,28 @@
 			                         },
                           },
 
+// DEBE ESTAR disabled , ASTA K SE ACTIVE EL CHECK DE DAR ACCESO AL ALUMNO  SE DEBE DE ACTIVE ESTE CHECK PARA GENERAR EL RECIVO PDF
+                          {
+                              data: "estatus_acceso",
+                              orderable: false,
+                              searchable: false,
+                              "render" : function(data, type, row) {
+                                var checkAGenerarReciboPago = `${row.estatus_acceso}`;
+                                // var string = '<input type="checkbox" ';
+                                debugger;
+                                if(checkAGenerarReciboPago == 1){
+                                  //string = string + `  href="Reportes_cesvi/Reporte_ReciboPago" target="_blank"  >`;
+
+                                  var a = `
+                                      <a title="Descarga Recibo" href="generaPdfRcibo" target="_blank"><i class="far fa-file-pdf fa-2x"></i></a>
+                                  `;
+                                }else {
+                                  var a = 'No hay recibo';
+                                }
+                                return a;
+                               },
+                          },
+
                       ],
                         "language" : language_espaniol,
 
@@ -77,8 +99,6 @@
       }
 
 
-      // return `<input checked type="checkbox" onclick=habilitaRegistro(this,"'+${row.id_alta_baucher_banco}+'","'+${row.numero_control}+'",)
-      // value="${row.id_alta_baucher_banco}">`;
 
 
 // SOLO SE VA HABILITAR CUANDO ESTE DESHABILITADO, UNA VEZ K SE ABILITE SE DESBLOKEA
@@ -88,7 +108,6 @@ function habilitaRegistro(id_alta_baucher_banco, numero_control){
       				id_alta_baucher_banco : id_alta_baucher_banco,
       				numero_control : numero_control,
               estatus_acceso : 1,
-
       		}
       		$.ajax({
       			url: base_url+'Finanzas/HabilitarAlumnos/marcarParaRegistro',
@@ -107,6 +126,35 @@ function habilitaRegistro(id_alta_baucher_banco, numero_control){
       		});
 
       }
+
+
+
+//  ***********     function GENERAR EL RECIBO PDF     **********************
+      function generarReciboPago(id_alta_baucher_banco, numero_control){
+          debugger;
+            		var datos = {
+            				id_alta_baucher_banco : id_alta_baucher_banco,
+            				numero_control : numero_control,
+                    // estatus_acceso : 1,
+            		}
+            		$.ajax({
+            			url: base_url+'Reportes_cesvi/Reporte_ReciboPago',
+                  type: "post",
+                  dataType: "json",
+            			data : (datos),
+            			success : function(data){
+                    if (data.responce == "success") {
+                toastr["success"](data.message);
+                $("#tbl_listAlumConBaucher").DataTable().destroy();
+                litarAlumnosConBaucherRegistrados();
+              }else{
+                toastr["error"](data.message);
+              }
+            			     }
+            		});
+
+            }
+
 
 
 

@@ -93,11 +93,15 @@ class Modelo_DarAccesoAlumnos extends CI_Model { // INICIO DEL MODELO
 
 
 
-    public function insert_entry($data)
-          {
+    public function insert_entry($data){
+
               return $this->db->insert('habilitar_accesoalumnos', $data);
           }
 
+          public function getTipoDePagos(){
+        		$resultados = $this->db->get("tipos_de_pagos");
+        		return $resultados->result();
+        	}
 
 
 

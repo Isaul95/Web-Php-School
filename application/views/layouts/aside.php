@@ -39,6 +39,33 @@
 
                         </ul>
                     </li> -->
+                    <li class="treeview">
+                        <a href="#">
+                            <i class="fas fa-balance-scale"></i> <span>Administrativos</span>
+                            <span class="pull-right-container">
+                                <i class="fa fa-angle-left pull-right"></i>
+                            </span>
+                        </a>
+                        <ul class="treeview-menu">
+
+                            <li><a href="<?php echo base_url();?>Administrativos/PeriodoEscolar">
+                                <i class="far fa-dot-circle"></i> Periodo Escolar</a>
+                            </li>
+                          <li><a href="<?php echo base_url();?>Administrativos/Carreras">
+                            <i class="far fa-dot-circle"></i> Carreras</a></li>
+
+                          <li><a href="<?php echo base_url();?>Administrativos/Profesores">
+                            <i class="far fa-dot-circle"></i> Profesores </a></li>
+
+                          <li><a href="<?php echo base_url();?>Finanzas/SolicitarReciboPago">
+                                <i class="far fa-dot-circle"></i> Materias </a></li>
+
+
+                          <li><a href="<?php echo base_url();?>Finanzas/ConsultarPagos">
+                            <i class="far fa-dot-circle"></i> Consultar pagos</a></li>
+
+                        </ul>
+                    </li>
 
                                 <li class="treeview">
                                    <a href="#">   <!--- class="fa fa-cogs" -->
@@ -85,7 +112,26 @@
 
                         </ul>
                     </li>
+                    <li class="treeview">
+                        <a href="#">
+                            <i class="fas fa-balance-scale"></i> <span>Profesores</span>
+                            <span class="pull-right-container">
+                                <i class="fa fa-angle-left pull-right"></i>
+                            </span>
+                        </a>
+                        <ul class="treeview-menu">
 
+                            <li><a href="<?php echo base_url();?>Finanzas/HabilitarAlumnos">
+                                <i class="far fa-dot-circle"></i> Subir planeación</a>
+                            </li>
+
+                          <li><a href="<?php echo base_url();?>Finanzas/FormatoRegistroPago">
+                            <i class="far fa-dot-circle"></i>Calificación parcial</a></li>
+
+                          <li><a href="<?php echo base_url();?>Finanzas/RegistrarPago">
+                            <i class="far fa-dot-circle"></i> Calificación semestre</a></li>
+                        </ul>
+                    </li>
 
 
 

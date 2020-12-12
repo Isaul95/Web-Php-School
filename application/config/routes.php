@@ -72,5 +72,23 @@ $route['eliminarPagos']      = 'Finanzas/FormatoRegistroPago/eliminarPagos';
 $route['editPagos']          = 'Finanzas/FormatoRegistroPago/editPagos';
 $route['updatePagos']        = 'Finanzas/FormatoRegistroPago/updatePagos';
 
-// // ==========Alta Baucher ========>>    Formato de registro de pago  =============
-// $route['insertarPagos']      = 'Finanzas/FormatoRegistroPago/insertarPagos';
+// ============================= Administrativos ================================\\
+// ==========================  PeriodoEscolar  ===================================
+$route['insertarperiodos']      = 'Administrativos/PeriodoEscolar/insertarperiodos';
+$route['verperiodos']        = 'Administrativos/PeriodoEscolar/verperiodos';
+$route['eliminarperiodos']      = 'Administrativos/PeriodoEscolar/eliminarperiodos';
+$route['editarperiodos']      = 'Administrativos/PeriodoEscolar/editarperiodos';
+$route['updateperiodos']      = 'Administrativos/PeriodoEscolar/updateperiodos';
+// ==========================  Carreras  ===================================
+$route['insertarcarrera']      = 'Administrativos/Carreras/insertarcarrera';
+$route['vercarreras']        = 'Administrativos/Carreras/vercarreras';
+$route['eliminarcarrera']      = 'Administrativos/Carreras/eliminarcarrera';
+$route['editarcarrera']      = 'Administrativos/Carreras/editarcarrera';
+$route['updatecarrera']      = 'Administrativos/Carreras/updatecarrera';
+// ==========================  Profesores  ===================================
+$route['verprofesor']        = 'Administrativos/Profesores/verprofesor';
+$route['insertarprofesor']      = 'Administrativos/Profesores/insertarprofesor';
+$route['editarprofesor']      = 'Administrativos/Profesores/editarprofesor';
+$route['verArchivo']      = 'Administrativos/Profesores/verArchivo';
+$route['updateprofesor']      = 'Administrativos/Profesores/updateprofesor';
+$route['eliminarprofesores']      = 'Administrativos/Profesores/eliminarprofesores';

@@ -13,6 +13,7 @@
 <!-- DataTables -->
 <script src="<?php echo base_url();?>assets/template/datatables.net/js/jquery.dataTables.min.js"></script>
 <script src="<?php echo base_url();?>assets/template/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+
 <!--FONT AWESOME, CARGA DE ICONOS PARA LOS BOTONES-->
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
 <!-- DataTables Export -->
@@ -122,3 +123,10 @@ $('#btn_RegistroPago').DataTable( {
 <!-- <script src="<?php echo base_url();?>assets/template/dist/js/js-cesvi/Administrador_AsignarPermisosRoles/Permisos.js"></script> -->
 
 <script src="<?php echo base_url();?>assets/template/dist/js/js-cesvi/Finanzas/habilitarAlumnos.js"></script>
+<!-------------------- Administrativos ------------------------>
+<!-------------------- Periodo escolar ------------------------>
+<script src="<?php echo base_url();?>assets/template/dist/js/js-cesvi/Administrativos/PeriodoEscolar.js"></script>
+<!-------------------- Licenciatura ------------------------>
+<script src="<?php echo base_url();?>assets/template/dist/js/js-cesvi/Administrativos/Carreras.js"></script>
+<!-------------------- Profesores ------------------------>
+<script src="<?php echo base_url();?>assets/template/dist/js/js-cesvi/Administrativos/Profesores.js"></script>

@@ -5,7 +5,7 @@
             <!-- Content Header (Page header) -->
             <section class="content-header">
         <h1>
-            <center><strong><font color="#D34787">CONTDOR DE ALIMNOS CON BAUCJERRestaurante "El Toloache"</font></strong></center>
+            <center><strong><font color="#D34787">Contador de alumnos con bauche</font></strong></center>
     <center><small><font color="#2F4D97" face="Comic Sans MS,arial,verdana">Ciudad Iguala de la Independencia, Guerrero</font></small></center>
         </h1>
             </section>
@@ -17,21 +17,7 @@
 
 
      <div class="row">
-<!-- ******************    CUADRO #1   *********************** -->
-                <div class="col-lg-3 col-xs-6">
-                    <!-- small box -->
-                    <div class="small-box bg-aqua">
-                        <div class="inner">
-                            <h3>0</h3>
 
-                            <p>Total Ingresos</p>
-                        </div>
-                        <div class="icon">
-                            <i class="ion ion-bag"></i>
-                        </div>
-                        <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
-                    </div>
-                </div>
 
 
 <!-- **********************    CUADRO #2  **************************
@@ -51,40 +37,54 @@ CONTADOR DE CUANTOS ALUMNOS YA SUBIERON SU BAUCHER AL SISTEMA -->
                         <a href="<?php echo base_url();?>Finanzas/HabilitarAlumnos/Vista_HabilitarAlumnoDespuesDeSubirBaucher" class="small-box-footer">Ver Lista <i class="fa fa-arrow-circle-right"></i></a>
                   </div>
               </div>
+<!-- ******************    CUADRO #1   *********************** 
+<div class="col-lg-3 col-xs-6">
+                    small box 
+                    <div class="small-box bg-aqua">
+                        <div class="inner">
+                            <h3>0</h3>
 
+                            <p>Total Ingresos</p>
+                        </div>
+                        <div class="icon">
+                            <i class="ion ion-bag"></i>
+                        </div>
+                        <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+                    </div>
+                </div>
 
-    <!-- ******************    CUADRO #3   *********************** -->
+    ******************    CUADRO #3   ***********************
         <div class="col-lg-3 col-xs-6">
             <div class="small-box bg-yellow">
                 <div class="inner">
-                    <!-- <h3><?php echo $cantventa;?></h3> -->
+                    <h3><?php echo $cantventa;?></h3> 
                     <h3>53<sup style="font-size: 20px">%</sup></h3>
-          <!--- SE IMPRIME (consulta) LA CANTIDAD DE VENTAS REALIZADAS -->
+           SE IMPRIME (consulta) LA CANTIDAD DE VENTAS REALIZADAS
                     <p>Ventas Completadas</p>
                 </div>
                 <div class="icon">
-                    <i class="fas fa-money-check-alt"></i>   <!--- for user add-- ion ion-person-add -->
+                    <i class="fas fa-money-check-alt"></i>   
                 </div>
                 <a href="<?php echo base_url();?>menuventas" class="small-box-footer">Ver Ventas <i class="fa fa-arrow-circle-right"></i></a>
             </div>
         </div>
 
 
-    <!-- ******************    CUADRO #4  *********************** -->
+     ******************    CUADRO #4  *********************** 
             <div class="col-lg-3 col-xs-6">
-                <!-- small box -->
+                 small box
                 <div class="small-box bg-red">
                     <div class="inner">
-                        <!-- <h3><?php echo $cantdescripcion_de_venta;?></h3> -->
+                         <h3><?php echo $cantdescripcion_de_venta;?></h3>
                           <h3>53<sup style="font-size: 20px">%</sup></h3>
                         <p>Ventas Canceladas</p>
                     </div>
                     <div class="icon">
-                        <i class="fas fa-trash"></i> <!--- grafica de rueda -- ion ion-pie-graph -->
+                        <i class="fas fa-trash"></i> 
                     </div>
                     <a href="<?php echo base_url();?>menuventascanceladas" class="small-box-footer">Ver Cancelaciones <i class="fa fa-arrow-circle-right"></i></a>
                 </div>
-            </div>
+            </div>-->
 
 
 </div>

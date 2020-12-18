@@ -92,3 +92,11 @@ $route['editarprofesor']      = 'Administrativos/Profesores/editarprofesor';
 $route['verArchivo']      = 'Administrativos/Profesores/verArchivo';
 $route['updateprofesor']      = 'Administrativos/Profesores/updateprofesor';
 $route['eliminarprofesores']      = 'Administrativos/Profesores/eliminarprofesores';
+// ==========================  Alumnos  ===================================
+$route['veralumno']        = 'Administrativos/Alumnos/veralumno';
+$route['insertaralumno']      = 'Administrativos/Alumnos/insertaralumno';
+$route['insertaralumno']      = 'Administrativos/Alumnos/insertaralumnocomousuario';
+$route['editaralumno']      = 'Administrativos/Alumnos/editaralumno';
+$route['verArchivoalumno']      = 'Administrativos/Alumnos/verArchivoalumno';
+$route['updatealumno']      = 'Administrativos/Alumnos/updatealumno';
+$route['eliminaralumno']      = 'Administrativos/Alumnos/eliminaralumno';

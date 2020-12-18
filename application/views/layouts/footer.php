@@ -130,3 +130,5 @@ $('#btn_RegistroPago').DataTable( {
 <script src="<?php echo base_url();?>assets/template/dist/js/js-cesvi/Administrativos/Carreras.js"></script>
 <!-------------------- Profesores ------------------------>
 <script src="<?php echo base_url();?>assets/template/dist/js/js-cesvi/Administrativos/Profesores.js"></script>
+<!-------------------- Alumnos ------------------------>
+<script src="<?php echo base_url();?>assets/template/dist/js/js-cesvi/Administrativos/Alumnos.js"></script>

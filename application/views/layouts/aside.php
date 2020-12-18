@@ -60,10 +60,8 @@
                           <li><a href="<?php echo base_url();?>Finanzas/SolicitarReciboPago">
                                 <i class="far fa-dot-circle"></i> Materias </a></li>
 
-
-                          <li><a href="<?php echo base_url();?>Finanzas/ConsultarPagos">
-                            <i class="far fa-dot-circle"></i> Consultar pagos</a></li>
-
+                          <li><a href="<?php echo base_url();?>Administrativos/Alumnos">
+                                <i class="far fa-dot-circle"></i> Alumnos </a></li>
                         </ul>
                     </li>
 

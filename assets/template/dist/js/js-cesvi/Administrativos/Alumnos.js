@@ -1,6 +1,7 @@
 $(document).ready(function(){
     llenarTablaAlumnos(); // SEINICIALIZA LA FUNCTIO DE LA CARGA DEL LISTADO DE LA TABLA
     date_picker_alumno();
+    periodo_activo();
   }); // FIN DE LA FUNCION PRINCIPAL
 
 
@@ -73,17 +74,22 @@ $(document).on("click", "#btnaddalumno", function(e) {
     var img_certificado_alumno = $("#certificado_alumno")[0].files[0]; // this is file
     var img_curp_alumno = $("#curp_alumno")[0].files[0]; // this is file
     var img_certificado_medico_alumno = $("#certificado_medico_alumno")[0].files[0]; // this is file
+    var perido_activo_escolar = $('#id_perido_escolar_activo').val();
 
     if (numero_control == "" || nombre_alumno == "" || apellidop_alumno == "" || apellidom_alumno == "" || direccion_alumno == ""||
     municipmunicipio_alumno == "" ||  estestado_alumnodo == "" || datepicker_fecha_nacimiento_alumno == "" || datepicker_fecha_inscripcion_alumno == ""||
     lugar_nacimiento_alumno == "" || municipio_nacimiento_alumno == "" || estado_nacimiento_alumno == "" || estado_civil_alumno == "" || sexo_alumno == ""||
     institucion_procedencia_alumno == "" || tipo_escuela_alumno == "" || telefono_alumno == "" ||
     email_alumno == "" || facebook_alumno == "" || twitter_alumno == "" || instagram_alumno == "" || licenciaturas_alumno == ""||
-    horarios_alumno == "" || img_acta_alumno.name == "" ){/*|| img_certificado_alumno.name == "" || img_curp_alumno.name == "" || img_certificado_medico_alumno.name=="" ) {
-      */  alert("Debe llenar todos los campos vacios...!");
+    horarios_alumno == "" ){//|| img_acta_alumno.name == "" ){/*|| img_certificado_alumno.name == "" || img_curp_alumno.name == "" || img_certificado_medico_alumno.name=="" ) {
+       alert("Debe llenar todos los campos vacios...!");
     } else {
+        var a = periodo_activo();
+        alert(a);
         var fd = new FormData();
         var fd2 = new FormData();
+        var fd3 = new FormData();
+
         var archivo_acta_alumno = $("#acta_alumno")[0].files[0]; // this is file
         var archivo_certificado_alumno = $("#certificado_alumno")[0].files[0]; // this is file
         var archivo_curp_alumno = $("#curp_alumno")[0].files[0]; // this is file
@@ -142,43 +148,18 @@ $(document).on("click", "#btnaddalumno", function(e) {
         fd2.append("rol_id", 2);
         fd2.append("estado", 1);
 
-        $.ajax({
-            type: "post",
-            url: base_url+'Administrativos/Alumnos/insertaralumno',
-            data: fd,
-            processData: false,
-            contentType: false,
-            dataType: "json",
-            enctype : 'multipart/form-data',
-            success: function(data) {
-                if (data.response == "success") {
-                    toastr["success"](data.response.message);
-                    $("#modaladdalumno").modal("hide");
-                    $("#formaddalumno")[0].reset();
-                    $(".add-file-label").html("No se eligió archivo");
-                    $("#tbl_alumnos_inscripcion").DataTable().destroy();
-                    llenarTablaAlumnos();
-                } else {
-                    toastr["error"](data.response.message);
-                }
-            },
-        });
-        $.ajax({
-            type: "post",
-            url: base_url+'Administrativos/Alumnos/insertaralumnocomousuario',
-            data: fd2,
-            processData: false,
-            contentType: false,
-            dataType: "json",
-            enctype : 'multipart/form-data',
-            success: function(data) {
-                if (data.response == "success") {
-                    toastr["success"](data.response.message);
-                } else {
-                    toastr["error"](data.response.message);
-                }
-            },
-        });
+
+        //EL REGISTRO DEL ALUMNO A SU RESPECTIVA CARRERA Y OOPCION DE ESTUDIO
+        fd3.append("alumno", numero_control);
+        fd3.append("carrera", licenciaturas_alumno);
+        fd3.append("opcion", horarios_alumno);
+        fd3.append("cuatrimestre", 1);
+        fd3.append("ciclo_escolar", perido_activo_escolar);
+        
+        agregar_alumno(fd);
+        agregar_alumno_como_maestro(fd2);
+        agregar_alumno_a_su_carrera(fd3);
+        
     }
 });
 
@@ -478,3 +459,76 @@ $(document).on("click", "#del_profesor", function(e) {
         });
         $.datepicker.setDefaults($.datepicker.regional['es']);
     }
+
+
+function agregar_alumno(fd){
+    $.ajax({
+        type: "post",
+        url: base_url+'Administrativos/Alumnos/insertaralumno',
+        data: fd,
+        processData: false,
+        contentType: false,
+        dataType: "json",
+        enctype : 'multipart/form-data',
+        success: function(data) {
+            if (data.response == "success") {
+                toastr["success"](data.response.message);
+                $("#modaladdalumno").modal("hide");
+                $("#formaddalumno")[0].reset();
+                $(".add-file-label").html("No se eligió archivo");
+                $("#tbl_alumnos_inscripcion").DataTable().destroy();
+                llenarTablaAlumnos();
+            } else {
+                toastr["error"](data.response.message);
+            }
+        },
+    });
+}
+
+function agregar_alumno_como_maestro(fd2){
+    $.ajax({
+        type: "post",
+        url: base_url+'Administrativos/Alumnos/insertaralumnocomousuario',
+        data: fd2,
+        processData: false,
+        contentType: false,
+        dataType: "json",
+        enctype : 'multipart/form-data',
+        success: function(data) {
+            if (data.response == "success") {
+                toastr["success"](data.response.message);
+            } else {
+                toastr["error"](data.response.message);
+            }
+        },
+    });
+}
+
+function agregar_alumno_a_su_carrera(fd3){
+    $.ajax({
+        type: "post",
+        url: base_url+'Administrativos/Alumnos/insertaralumnoasucarrera',
+        data: fd3,
+        processData: false,
+        contentType: false,
+        dataType: "json",
+        enctype : 'multipart/form-data',
+        success: function(data) {
+            if (data.response == "success") {
+                toastr["success"](data.response.message);
+            } else {
+                toastr["error"](data.response.message);
+            }
+        },
+    });
+}
+function periodo_activo(){
+    $.ajax({
+        type: "get",
+        url: base_url+'Administrativos/Alumnos/verperiodo_activo',
+        dataType: "json",
+        success: function(response) {
+            $("#id_perido_escolar_activo").val(response['id_periodo_escolar']);
+        },
+    });
+}

@@ -55,95 +55,167 @@ class Alumnos extends CI_Controller {
 			$this->form_validation->set_rules('facebook', 'facebook', 'required');
 			$this->form_validation->set_rules('twitter', 'twitter', 'required');
 			$this->form_validation->set_rules('instagram', 'instagram', 'required');
-			/*$this->form_validation->set_rules('universidad_procedente', 'universidad_procedente', 'required');
-			$this->form_validation->set_rules('experiencia_docente', 'experiencia_docente', 'required');
-			*/
+			
 
 			if ($this->form_validation->run() == FALSE) {
 				$data = array('response' => "error", 'message' => validation_errors());
 			} else {
+				if (isset($_FILES["acta_nacimiento"]["name"])) {
+					$config['upload_path'] = "./assets/template/dist/img/uploads";
+					$config['allowed_types'] = 'gif|jpg|png|pdf';
+					$config['max_size']     = '1000';
+					// $config['max_width'] = '1024';
+					// $config['max_height'] = '768';
+					$this->load->library('upload', $config);
+				
+					if (!$this->upload->do_upload("acta_nacimiento")) {
+						$data = array('response' => "error", 'message' => $this->upload->display_errors());
+					} else {
+						//ACTA
+			$file_name = $_FILES['acta_nacimiento']['name'];
+			$file_size = $_FILES['acta_nacimiento']['size'];
+			$file_tmp = $_FILES['acta_nacimiento']['tmp_name'];
+			$file_type = $_FILES['acta_nacimiento']['type'];
+	
+			$imagen_temporal = $file_tmp;
+			$tipo = $file_type;
+	
+			$fp= fopen($imagen_temporal, 'r+b');
+			$binario = fread($fp, filesize($imagen_temporal));
+			fclose($fp);
+			$ajax_data = $this->input->post();
+			$ajax_data['acta_nacimiento'] = $binario; // Documento pdf
+			$ajax_data['nombre_acta'] = $file_name; // name file
+	
+	
+		   }
+		   }
+		   ///////////////////CERTIFICADO
+		   if (isset($_FILES["certificado_bachillerato"]["name"])) {
+			$config['upload_path'] = "./assets/template/dist/img/uploads";
+			$config['allowed_types'] = 'gif|jpg|png|pdf';
+			$config['max_size']     = '1000';
+			// $config['max_width'] = '1024';
+			// $config['max_height'] = '768';
+			$this->load->library('upload', $config);
+		
+			if (!$this->upload->do_upload("certificado_bachillerato")) {
+				$data = array('response' => "error", 'message' => $this->upload->display_errors());
+			} else {
+			$file_name_certi = $_FILES['certificado_bachillerato']['name'];
+			$file_size_certi = $_FILES['certificado_bachillerato']['size'];
+			$file_tmp_certi = $_FILES['certificado_bachillerato']['tmp_name'];
+			$file_type_certi = $_FILES['certificado_bachillerato']['type'];
+	
+			$imagen_temporal_certi = $file_tmp_certi;
+			$tipo_certi = $file_type_certi;
+	
+			$fp_certi = fopen($imagen_temporal_certi, 'r+b');
+			$binario_certi = fread($fp_certi, filesize($imagen_temporal_certi));
+			fclose($fp_certi);
+			$ajax_data = $this->input->post();
+			$ajax_data['certificado_bachillerato'] = $binario_certi; // Documento pdf
+			$ajax_data['nombre_certificado_bachillerato'] = $file_name_certi;//$this->upload->data('file_name_certi'); // name file
+	
+	
+			}
+		   }
+			//CURP
+			if (isset($_FILES["curp"]["name"])) {
 				$config['upload_path'] = "./assets/template/dist/img/uploads";
 				$config['allowed_types'] = 'gif|jpg|png|pdf';
 				$config['max_size']     = '1000';
 				// $config['max_width'] = '1024';
 				// $config['max_height'] = '768';
 				$this->load->library('upload', $config);
-                
-				if (!$this->upload->do_upload("acta_nacimiento")&&!$this->upload->do_upload("certificado_bachillerato")&&
-				!$this->upload->do_upload("curp")&&!$this->upload->do_upload("certificado_medico")) {
+			
+				if (!$this->upload->do_upload("curp")) {
 					$data = array('response' => "error", 'message' => $this->upload->display_errors());
 				} else {
-					//ACTA
-	  $file_name = $_FILES['acta_nacimiento']['name'];
-		$file_size = $_FILES['acta_nacimiento']['size'];
-		$file_tmp = $_FILES['acta_nacimiento']['tmp_name'];
-		$file_type = $_FILES['acta_nacimiento']['type'];
-
-		$imagen_temporal = $file_tmp;
-		$tipo = $file_type;
-
-		$fp= fopen($imagen_temporal, 'r+b');
-		$binario = fread($fp, filesize($imagen_temporal));
-		fclose($fp);
-/// CERTIFICADO
-$file_name_certi = $_FILES['certificado_bachillerato']['name'];
-		$file_size_certi = $_FILES['certificado_bachillerato']['size'];
-		$file_tmp_certi = $_FILES['certificado_bachillerato']['tmp_name'];
-		$file_type_certi = $_FILES['certificado_bachillerato']['type'];
-
-		$imagen_temporal_certi = $file_tmp_certi;
-		$tipo_certi = $file_type_certi;
-
-		$fp_certi = fopen($imagen_temporal_certi, 'r+b');
-		$binario_certi = fread($fp_certi, filesize($imagen_temporal_certi));
-		fclose($fp_certi);
-		//CURP
-		$file_name_curp = $_FILES['curp']['name'];
-		$file_size_curp = $_FILES['curp']['size'];
-		$file_tmp_curp = $_FILES['curp']['tmp_name'];
-		$file_type_curp = $_FILES['curp']['type'];
-
-		$imagen_temporal_curp = $file_tmp_curp;
-		$tipo_curp = $file_type_curp;
-
-		$fp_curp = fopen($imagen_temporal_curp, 'r+b');
-		$binario_curp = fread($fp_curp, filesize($imagen_temporal_curp));
-		fclose($fp_curp);
-		//CERTIFICADO MEDICO
-		$file_name_certim= $_FILES['certificado_medico']['name'];
-		$file_size_certim = $_FILES['certificado_medico']['size'];
-		$file_tmp_certim = $_FILES['certificado_medico']['tmp_name'];
-		$file_type_certim = $_FILES['certificado_medico']['type'];
-
-		$imagen_temporal_certim = $file_tmp_certim;
-		$tipo_certim = $file_type_certim;
-
-		$fp_certim = fopen($imagen_temporal_certim, 'r+b');
-		$binario_certim = fread($fp_certim, filesize($imagen_temporal_certim));
-		fclose($fp_certim);
-
-		$ajax_data = $this->input->post();
-		$ajax_data['acta_nacimiento'] = $binario; // Documento pdf
-		$ajax_data['nombre_acta'] = $this->upload->data('file_name'); // name file
-
-		$ajax_data['certificado_bachillerato'] = $binario_certi; // Documento pdf
-		$ajax_data['nombre_certificado_bachillerato'] = $file_name_certi;//$this->upload->data('file_name_certi'); // name file
-
-		$ajax_data['curp'] = $binario_curp; // Documento pdf
-		$ajax_data['nombre_curp'] = $file_name_curp;//$this->upload->data('file_name_curp'); // name file
-		
-		$ajax_data['certificado_medico'] = $binario_certim; // Documento pdf
-		$ajax_data['nombre_certificado_medico'] = $file_name_certim;//$this->upload->data('file_name_certim'); // name file
-
-					if ($this->Modelo_Alumnos->insert_entry($ajax_data)) {
-						$data = array('response' => "success", 'message' => "Datos agregados correctamente...!");
-					} else {
-						$data = array('response' => "error", 'message' => "Error al agregar datos...!");
-					}
+			$file_name_curp = $_FILES['curp']['name'];
+			$file_size_curp = $_FILES['curp']['size'];
+			$file_tmp_curp = $_FILES['curp']['tmp_name'];
+			$file_type_curp = $_FILES['curp']['type'];
+	
+			$imagen_temporal_curp = $file_tmp_curp;
+			$tipo_curp = $file_type_curp;
+	
+			$fp_curp = fopen($imagen_temporal_curp, 'r+b');
+			$binario_curp = fread($fp_curp, filesize($imagen_temporal_curp));
+			fclose($fp_curp);
+			$ajax_data = $this->input->post();
+			$ajax_data['curp'] = $binario_curp; // Documento pdf
+			$ajax_data['nombre_curp'] = $file_name_curp;//$this->upload->data('file_name_curp'); // name file
+			
 				}
 			}
+			//CERTIFICADO MEDICO
+			if (isset($_FILES["certificado_medico"]["name"])) {
+				$config['upload_path'] = "./assets/template/dist/img/uploads";
+				$config['allowed_types'] = 'gif|jpg|png|pdf';
+				$config['max_size']     = '1000';
+				// $config['max_width'] = '1024';
+				// $config['max_height'] = '768';
+				$this->load->library('upload', $config);
+			
+				if (!$this->upload->do_upload("certificado_medico")) {
+					$data = array('response' => "error", 'message' => $this->upload->display_errors());
+				} else {
+			$file_name_certim= $_FILES['certificado_medico']['name'];
+			$file_size_certim = $_FILES['certificado_medico']['size'];
+			$file_tmp_certim = $_FILES['certificado_medico']['tmp_name'];
+			$file_type_certim = $_FILES['certificado_medico']['type'];
+	
+			$imagen_temporal_certim = $file_tmp_certim;
+			$tipo_certim = $file_type_certim;
+	
+			$fp_certim = fopen($imagen_temporal_certim, 'r+b');
+			$binario_certim = fread($fp_certim, filesize($imagen_temporal_certim));
+			fclose($fp_certim);
+			$ajax_data = $this->input->post();
+			$ajax_data['certificado_medico'] = $binario_certim; // Documento pdf
+			$ajax_data['nombre_certificado_medico'] = $file_name_certim;//$this->upload->data('file_name_certim'); // name file
+			
+				}
+			}
+
+			$ajax_data['numero_control'] = $this ->input->post('numero_control');
+			$ajax_data['nombres'] = $this ->input->post('nombres');
+			$ajax_data['apellido_paterno'] = $this ->input->post('apellido_paterno');
+			$ajax_data['apellido_materno'] = $this ->input->post('apellido_materno');
+			$ajax_data['direccion'] = $this ->input->post('direccion');
+			$ajax_data['municipio_direccion'] = $this ->input->post('municipio_direccion');
+			$ajax_data['estado_direccion'] = $this ->input->post('estado_direccion');
+			$ajax_data['fecha_nacimiento'] = $this ->input->post('fecha_nacimiento');
+			$ajax_data['fecha_inscripcion'] = $this ->input->post('fecha_inscripcion');
+			$ajax_data['localidad'] = $this ->input->post('localidad');
+			$ajax_data['municipio_localidad'] = $this ->input->post('municipio_localidad');
+			$ajax_data['estado_civil'] = $this ->input->post('estado_civil');
+			$ajax_data['sexo'] = $this ->input->post('sexo');
+			$ajax_data['tipo_escuela_nivel_medio_superior'] = $this ->input->post('tipo_escuela_nivel_medio_superior');
+			$ajax_data['institucion'] = $this ->input->post('institucion');
+			$ajax_data['email'] = $this ->input->post('email');
+			$ajax_data['telefono'] = $this ->input->post('telefono');
+			$ajax_data['facebook'] = $this ->input->post('facebook');
+			$ajax_data['twitter'] = $this ->input->post('twitter');
+			$ajax_data['instagram'] = $this ->input->post('instagram');
+			$ajax_data['estatus'] = $this ->input->post('estatus');
+
+
+
+			if ($this->Modelo_Alumnos->insert_entry($ajax_data)) {
+				$data = array('response' => "success", 'message' => "Datos agregados correctamente...!");
+			} else {
+				$data = array('response' => "error", 'message' => "Error al agregar datos...!");
+			}
+					
+			}
+				
+				
 			echo json_encode($data);
-		} else {
+	    
+			}
+		  else{
 			echo "No se permite este acceso directo...!!!";
 		}
 
@@ -165,6 +237,34 @@ $file_name_certi = $_FILES['certificado_bachillerato']['name'];
 	             	$ajax_data = $this->input->post();
 					if ($this->Modelo_Alumnos->insert_entry_alumno_como_usuario($ajax_data)) {
 						$data = array('response' => "success", 'message' => "Se agrega como usuario");
+					} else {
+						$data = array('response' => "error", 'message' => "Error al agregar datos...!");
+					}
+				}
+			
+			echo json_encode($data);
+		} else {
+			echo "No se permite este acceso directo...!!!";
+		}
+
+	}
+	public function insertaralumnoasucarrera(){
+
+		if ($this->input->is_ajax_request()) {
+			$this->form_validation->set_rules('alumno', 'alumno', 'required');
+			$this->form_validation->set_rules('carrera', 'carrera', 'required');
+			$this->form_validation->set_rules('opcion', 'opcion', 'required');
+			$this->form_validation->set_rules('cuatrimestre', 'cuatrimestre', 'required');
+			$this->form_validation->set_rules('ciclo_escolar', 'ciclo_escolar', 'required');
+		
+			if ($this->form_validation->run() == FALSE) {
+				$data = array('response' => "error", 'message' => validation_errors());
+			} 
+				 else {
+
+	             	$ajax_data = $this->input->post();
+					if ($this->Modelo_Alumnos->insert_entry_alumno_a_su_carrera($ajax_data)) {
+						$data = array('response' => "success", 'message' => "Se agrega alumno a su carrera");
 					} else {
 						$data = array('response' => "error", 'message' => "Error al agregar datos...!");
 					}
@@ -266,6 +366,12 @@ $file_name_certi = $_FILES['certificado_bachillerato']['name'];
 	public function veralumno()
 	{
 		$posts = $this->Modelo_Alumnos->obteneralumnos();
+		echo json_encode($posts);
+	}
+
+	public function verperiodo_activo()
+	{
+		$posts = $this->Modelo_Alumnos->periodo_activo();
 		echo json_encode($posts);
 	}
 

@@ -36,6 +36,10 @@ public function insert_entry($data)
     {
         return $this->db->insert('usuarios', $data);
     }
+    public function insert_entry_alumno_a_su_carrera($data)
+    {
+        return $this->db->insert('detalles', $data);
+    }
 
     // public function insertarDoc($data){  // SI INSERTa bien
     //   return $this->db->insert("cod", $data);
@@ -82,6 +86,16 @@ public function insert_entry($data)
               }
           }
 
+          public function periodo_activo()
+          {
+              $this->db->select('id_periodo_escolar');
+              $this->db->from('periodo_escolar');
+              $this->db->where('activo', 1);
+              $query = $this->db->get();
+              if (count($query->result()) > 0) {
+                  return $query->row();
+              }
+          }
 
 
   } // FIN / CIERRE DEL MODELO

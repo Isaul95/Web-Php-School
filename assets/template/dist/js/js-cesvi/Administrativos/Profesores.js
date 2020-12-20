@@ -372,7 +372,7 @@ function llenarTablaProfesores() {
                                  <a title="Descarga Documento" href="Profesores/verArchivo/${row.id_profesores}" target="_blank"><i class="far fa-file-pdf fa-2x"></i></a>
                               `;
                             }else{
-                                 a = 'SIN CV';
+                                 a = 'Sin cv';
                             }
                             return a;
                         },

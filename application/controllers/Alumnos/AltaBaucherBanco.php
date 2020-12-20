@@ -18,6 +18,8 @@ class AltaBaucherBanco extends CI_Controller {
 		$data = array(
 			'permisos' => $this->permisos,
 			'tipoDePagos' => $this->Modelo_DarAccesoAlumnos->getTipoDePagos(),
+			'nombres' => $this->session->userdata('nombres'),
+			'username' => $this->session->userdata('username'),
 		);
 
 		$this->load->view('layouts/header');

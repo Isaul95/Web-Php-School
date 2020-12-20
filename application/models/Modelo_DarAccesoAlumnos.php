@@ -3,61 +3,16 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Modelo_DarAccesoAlumnos extends CI_Model { // INICIO DEL MODELO
 
-
-  // ***************************  INSERTAR BAUCHE TABLA **********************
+  /* -------------------------------------------------------------------------- */
+	/*                            INSERTAR BAUCHE TABLA                           */
+	/* -------------------------------------------------------------------------- */
   public function insert_baucher($data){
-
           return $this->db->insert('alta_baucher_banco', $data);
       }
 
-
 	/* -------------------------------------------------------------------------- */
-	/*                              LISRA DE Alumnos                              */
+	/*        METODO PARA HACER EL CONTEO DE LAS VENTAS, USERS, ETC..             */
 	/* -------------------------------------------------------------------------- */
-      //
-      // public function get_entries()
-      //   {
-      //       $query = $this->db->get('cod');
-      //       return $query->result();
-      //   }
-
-
-
-    // public function obteneridnull($mesa){
-    //
-    //     $this->db->select(" CONCAT(alu.nombres, ' ', alu.apellido_paterno, ' ', alu.apellido_materno) As Nombre_Completo, ban.nombre_archivo, alu.numero_control");
-    //     $this->db->from("alumnos alu");
-    //      $this->db->join("alta_baucher_banco ban","alu.numero_control = ban.numero_control");
-    //
-    //     $resultados = $this->db->get();
-    //     return $resultados->row_array();
-    // }
-
-//  SELECT  CONCAT(alu.nombres, ' ', alu.apellido_paterno, ' ', alu.apellido_materno) As
-//  Nombre_Completo, ban.nombre_archivo, alu.numero_control
-//  FROM alumnos alu
-//  INNER JOIN alta_baucher_banco ban ON alu.numero_control = ban.numero_control
-
-
-
-
-
-
-
-
-
-
-
-    //
-    // public function getArchivoId($id){
-    //   $query = $this->db->query("select * FROM cod where id=?", array($id));
-    //   return $query->row_array();
-    //   }
-
-
-
-
-    /*=====  METODO PARA HACER EL CONTEO DE LAS VENTAS, USERS, ETC..  =====*/
     public function rowcount($tabla){
         if ($tabla == "alta_baucher_banco") {
       // $this->db->select("COUNT(*)");
@@ -74,11 +29,24 @@ class Modelo_DarAccesoAlumnos extends CI_Model { // INICIO DEL MODELO
 // 1.- Se obtiene el nombre completo de la tabla de alumnos y el no control
 // 2.- Se obt. id de la tabla de los baucher y la fecha en k se subio el baucher
 
+
+// public function obtenerListaDeAlumnosConBaucherRegistrado(){
+//    $this->db->select("CONCAT(alu.nombres, ' ', alu.apellido_paterno, ' ', alu.apellido_materno) As nombre_completo, ban.id_alta_baucher_banco, ban.fecha_registro, ban.nombre_archivo, alu.numero_control, , hab.estatus_acceso");
+//    $this->db->from("alumnos alu");
+//    $this->db->join("alta_baucher_banco ban","alu.numero_control = ban.numero_control");
+//    $this->db->join("habilitar_accesoalumnos hab","alu.numero_control = hab.numero_control",'LEFT');
+//
+//     $resultados = $this->db->get();
+//     return $resultados->result();
+// }
+
+
   public function obtenerListaDeAlumnosConBaucherRegistrado(){
-     $this->db->select("CONCAT(alu.nombres, ' ', alu.apellido_paterno, ' ', alu.apellido_materno) As nombre_completo, ban.id_alta_baucher_banco, ban.fecha_registro, ban.nombre_archivo, alu.numero_control, , hab.estatus_acceso");
+     $this->db->select("CONCAT(alu.nombres, ' ', alu.apellido_paterno, ' ', alu.apellido_materno) As nombre_completo, ban.id_alta_baucher_banco, ban.fecha_registro, alu.numero_control, alu.estatus, car.carrera_descripcion");
      $this->db->from("alumnos alu");
      $this->db->join("alta_baucher_banco ban","alu.numero_control = ban.numero_control");
-     $this->db->join("habilitar_accesoalumnos hab","alu.numero_control = hab.numero_control",'LEFT');
+     $this->db->join("detalles det ","alu.numero_control = det.alumno");
+     $this->db->join("carrera car","car.id_carrera = det.carrera");
 
       $resultados = $this->db->get();
       return $resultados->result();
@@ -86,16 +54,31 @@ class Modelo_DarAccesoAlumnos extends CI_Model { // INICIO DEL MODELO
 
 
 // Se recupera el baucher k se dio de alta para mostrarselo al ADMIN para corroborar k si sea
-  public function getBaucherId($id_alta_baucher_banco){
-    $query = $this->db->query("select * FROM alta_baucher_banco where id_alta_baucher_banco=?", array($id_alta_baucher_banco));
+  public function getBaucherId($numero_control){
+    $query = $this->db->query("select * FROM alta_baucher_banco where numero_control=?", array($numero_control));
     return $query->row_array();
     }
+
+    //    ===========================   here star  ==========================================
+    public function update($numero_control, $data){
+      $this->db->where("numero_control",$numero_control);
+       return $this->db->update("alumnos", $data);
+      }
+
+      // public function update($numero_control){
+      //     return $this->db->update('alumnos', $numero_control, array('numero_control' => $numero_control['numero_control']));
+      // }
+
+//    ===========================   here star  ==========================================
+
+
+
 
 
 
     public function insert_entry($data){
 
-              return $this->db->insert('habilitar_accesoalumnos', $data);
+              return $this->db->insert('datos_recibo', $data);
           }
 
           public function getTipoDePagos(){

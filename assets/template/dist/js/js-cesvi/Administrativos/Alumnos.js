@@ -77,7 +77,7 @@ $(document).on("click", "#btnaddalumno", function(e) {
     if (numero_control == "" || nombre_alumno == "" || apellidop_alumno == "" || apellidom_alumno == "" || direccion_alumno == ""||
     municipmunicipio_alumno == "" ||  estestado_alumnodo == "" || datepicker_fecha_nacimiento_alumno == "" || datepicker_fecha_inscripcion_alumno == ""||
     lugar_nacimiento_alumno == "" || municipio_nacimiento_alumno == "" || estado_nacimiento_alumno == "" || estado_civil_alumno == "" || sexo_alumno == ""||
-    institucion_procedencia_alumno == "" || tipo_escuela_alumno == "" || telefono_alumno == "" || 
+    institucion_procedencia_alumno == "" || tipo_escuela_alumno == "" || telefono_alumno == "" ||
     email_alumno == "" || facebook_alumno == "" || twitter_alumno == "" || instagram_alumno == "" || licenciaturas_alumno == ""||
     horarios_alumno == "" || img_acta_alumno.name == "" ){/*|| img_certificado_alumno.name == "" || img_curp_alumno.name == "" || img_certificado_medico_alumno.name=="" ) {
       */  alert("Debe llenar todos los campos vacios...!");
@@ -118,7 +118,7 @@ $(document).on("click", "#btnaddalumno", function(e) {
 
         fd.append("nombre_acta", img_acta_alumno); //Obt principalmente el name file
         fd.append("acta_nacimiento", archivo_acta_alumno); // Obt el file como tal
-        
+
         fd.append("nombre_certificado_bachillerato", img_certificado_alumno); //Obt principalmente el name file
         fd.append("certificado_bachillerato", archivo_certificado_alumno); // Obt el file como tal
 
@@ -206,18 +206,18 @@ $(document).on("click", "#update_profesor", function (e) {
     var experiencia_profesor = $("#experiencia_profesor_update").val();
     var trabajosprevios_profesor = $("#trabajosprevios_profesor_update").val();
     var img = $("#archivo_profesor_update")[0].files[0]; // this is file
-    
+
     if (nombre_profesor == "" || edad_profesor == "" || sexo_profesor == "" || direccion_profesor == "" || ciudad_profesor == ""||
     nacionalidad_profesor == "" ||  telefono_profesor == "" || email_profesor == "" || estadocivil_profesor == ""||
     niveldeestudios_profesor == "" || titulado_profesor == "" || cedula_profesor == "" || ocupacion_profesor == "" || tipodetrabajo_profesor == ""||
-    universidadprocedente_profesor == "" || experiencia_profesor == "" || trabajosprevios_profesor == "" || img.name == "" ) {
+    universidadprocedente_profesor == "" || experiencia_profesor == "" || trabajosprevios_profesor == "" ) { // || img.name == ""
         alert("Debe llenar todos los campos vacios...!");
     } else {
-        
+
         var fd = new FormData();
-        var archivo = $("#archivo_profesor_update")[0].files[0];  
-              
-        fd.append("id_profesores", id_profesores);      
+        var archivo = $("#archivo_profesor_update")[0].files[0];
+
+        fd.append("id_profesores", id_profesores);
         fd.append("nombres", nombre_profesor);
         fd.append("edad", edad_profesor);
         fd.append("sexo", sexo_profesor);
@@ -281,7 +281,7 @@ function llenarTablaAlumnos() {
                 data: response,
                 responsive: true,
                 columns: [{
-                        data: "id_profesores",  
+                        data: "id_profesores",
                         "visible": false,
                         "searchable": false
                       },

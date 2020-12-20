@@ -54,15 +54,8 @@ public function insert_entry($data)
       }
 
 
-
-
-
-      public function delete_entry($id)
-          {
-              return $this->db->delete('cod', array('id' => $id));
-          }
-
-          public function single_entry($id)
+//  )))))))))))============================== EUDTAR ==================0
+      public function single_entry($id)
           {
               $this->db->select('*');
               $this->db->from('cod');
@@ -71,6 +64,12 @@ public function insert_entry($data)
               if (count($query->result()) > 0) {
                   return $query->row();
               }
+          }
+
+
+      public function delete_entry($id)
+          {
+              return $this->db->delete('cod', array('id' => $id));
           }
 
 

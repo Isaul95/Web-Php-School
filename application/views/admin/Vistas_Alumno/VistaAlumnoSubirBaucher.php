@@ -25,25 +25,18 @@
                     <!-- no control -->
                     <div class="form-group">
                       <label for="">Número de control: *</label>
-                      <input type="text" class="form-control" id="numero_control" placeholder="numero control">
+                      <input type="text" class="form-control" id="numero_control" readonly value="<?php echo $username;?>" >
                     </div>
 
                     <div class="form-group">
                         <label for="">Nombre Alumno: *</label>
-                      <input type="text" class="form-control" id="nombre" readonly>
+                      <input type="text" class="form-control" id="nombre" readonly value="<?php echo $nombres;?>" >
                     </div>
 
-
-                  <!-- <div class="form-group">
-                      <label for="">Carrera: *</label>
-                      <input type="text" class="form-control" id="carrera" placeholder="Mobile No.">
-                    </div> -->
-
-
-                    <div class="form-group">
+                    <!-- <div class="form-group">
                       <label for="">Semestre: *</label>
                       <input type="text" class="form-control" id="semestre" readonly>
-                    </div>
+                    </div> -->
 
                     <div class="form-group">
                         <label for="">Tipo de pago:</label>

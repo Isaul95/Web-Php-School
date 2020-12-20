@@ -101,75 +101,82 @@
         </div>
       </div>
 
+
+
       <!-- Modal preparado para editar datos y file -->
-      <!-- <div class="modal fade" id="editRecords" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">Edit Record</h5>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <div class="modal-body">
-              <div class="container-fluid">
-                <div class="row text-center">
-                  <div class="col-md-12 my-3">
-                    <div id="show_img"></div>
-                  </div>
+      <div class="modal fade" id="editRecords" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Edit Record</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="container-fluid">
+              <div class="row text-center">
+                <div class="col-md-12 my-3">
+                  <div id="show_archivo"></div>
                 </div>
-                <div class="row">
-                  <div class="col-md-12">
+              </div>
+              <div class="row">
+                <div class="col-md-12">
 
-                    < Edit Record Form >
-                    <form id="editForm">
+                  <!-- Edit Record Form -->
+                  <form id="editForm">
 
-                      < ID >
-                      <input type="hidden" id="edit_record_id">
+                    <!-- ID -->
+                    <input type="hidden" id="edit_record_id">
 
-                      < Name >
-                      <div class="input-group mb-3">
-                        <div class="input-group-prepend">
-                          <span class="input-group-text bg-info text-white" id="basic-addon1"><i class="fas fa-user"></i></span>
-                        </div>
-                        <input type="text" class="form-control" id="edit_name" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
+                    <!-- Name -->
+                    <div class="input-group mb-3">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text bg-info text-white" id="basic-addon1"><i class="fas fa-user"></i></span>
                       </div>
+                      <input type="text" class="form-control" id="edit_nombre" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
+                    </div>
 
-                      < Email ->
-                      <div class="input-group mb-3">
-                        <div class="input-group-prepend">
-                          <span class="input-group-text bg-info text-white" id="basic-addon1"><i class="fas fa-envelope"></i></span>
-                        </div>
-                        <input type="text" class="form-control" id="edit_email" placeholder="Email Address">
+                    <!-- Email -->
+                    <div class="input-group mb-3">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text bg-info text-white" id="basic-addon1"><i class="fas fa-envelope"></i></span>
                       </div>
+                      <input type="text" class="form-control" id="edit_numero_con" placeholder="numero control">
+                    </div>
 
-                      < Mobile ->
-                      <div class="input-group mb-3">
-                        <div class="input-group-prepend">
-                          <span class="input-group-text bg-info text-white" id="basic-addon1"><i class="fas fa-phone-alt"></i></span>
-                        </div>
-                        <input type="text" class="form-control" id="edit_mob" placeholder="Mobile No.">
+                    <!-- Mobile -->
+                    <div class="input-group mb-3">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text bg-info text-white" id="basic-addon1"><i class="fas fa-phone-alt"></i></span>
                       </div>
+                      <input type="text" class="form-control" id="edit_carrera" placeholder="Mobile No.">
+                    </div>
 
-                      < Image ->
-                      <div class="custom-file">
-                        <input type="file" class="custom-file-input" id="edit_img">
-                        <label class="custom-file-label" for="customFile">Choose file</label>
-                      </div>
-                    </form>
-                  </div>
+                    <div class="form-group">
+                      <label for="">Semestre: *</label>
+                      <input type="text" class="form-control" id="edit_semestre" placeholder="semestre">
+                    </div>
+
+                    <!-- Image -->
+                    <div class="custom-file">
+                      <input type="file" class="custom-file-input" id="edit_archivo">
+                      <label class="custom-file-label" for="customFile">Choose file</label>
+                    </div>
+                  </form>
                 </div>
               </div>
             </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-
-              < Update Button >
-              <button type="button" class="btn btn-primary" id="update">Update Record</button>
-            </div>
           </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <!-- Update Button -->
+            <button type="button" class="btn btn-primary" id="update">Update Record</button>
+          </div>
+
         </div>
-      </div> -->
+      </div>
+    </div>
 
 
 

@@ -47,7 +47,7 @@ $(document).on("click", "#addPagos", function(e) {
     var img = $("#archivo")[0].files[0]; // this is file
 
     if (nombre == "" || numero_con == "" || carrera == "" || img.name == "" || semestre == "") {
-        alert("Debe llenar todos los campos vacios...!");
+        alert("Debe llenar todos los campos vacios here isaul x...!");
     } else {
         var fd = new FormData();
 
@@ -136,6 +136,7 @@ function llenarTablaPagos() {
                         data: function(row, type, set) {
                             return `
                                 <a href="#" id="del" class="btn btn-danger btn-remove" value="${row.id}"><i class="fas fa-trash-alt"></i></a>
+                                <a href="#" id="editar" class="btn btn-sm btn-outline-info" value="${row.id}"><i class="fas fa-edit"></i></a>
                             `;
                         },
                     },
@@ -191,6 +192,91 @@ $(document).on("click", "#del", function(e) {
     });
 });
 
+
+
+/* -------------------------------------------------------------------------- */
+/*                                Edit Records                                */
+/* -------------------------------------------------------------------------- */
+
+$(document).on("click", "#editar", function(e) {
+    e.preventDefault();
+debugger;
+    var edit_id = $(this).attr("value");
+
+    $.ajax({
+    //  url: base_url + "edit",
+        url: base_url+'Finanzas/FormatoRegistroPago/edit',
+        type: "get",
+        dataType: "JSON",
+        data: {
+            edit_id: edit_id,
+        },
+        success: function(data) {
+            if (data.res == "success") {
+                $("#editRecords").modal("show");
+                $("#edit_record_id").val(data.post.id);
+                $("#edit_nombre").val(data.post.nombre);
+                $("#edit_numero_con").val(data.post.numero_con);
+                $("#edit_carrera").val(data.post.carrera);
+                $("#edit_semestre").val(data.post.semestre);
+                $("#show_archivo").html(`
+                    <img href="FormatoRegistroPago/verArchivo/${row.id} width="150" height="150" class="rounded img-thumbnail">
+                `);
+            } else {
+                toastr["error"](data.message, "Error");
+            }
+        },
+    });
+});
+
+/* -------------------------------------------------------------------------- */
+/*                               Update Records                               */
+/* -------------------------------------------------------------------------- */
+
+$(document).on("click", "#update", function(e) {
+    e.preventDefault();
+
+    var edit_id = $("#edit_record_id").val();
+    var name = $("#edit_name").val();
+    var email = $("#edit_email").val();
+    var mob = $("#edit_mob").val();
+    var edit_img = $("#edit_img")[0].files[0];
+
+    if (name == "" || email == "" || mob == "") {
+        alert("All field are required");
+    } else {
+        var fd = new FormData();
+
+        fd.append("edit_id", edit_id);
+        fd.append("name", name);
+        fd.append("email", email);
+        fd.append("mob", mob);
+        if ($("#edit_img")[0].files.length > 0) {
+            fd.append("edit_img", edit_img);
+        }
+
+        $.ajax({
+            type: "post",
+            url: base_url + "update",
+            data: fd,
+            processData: false,
+            contentType: false,
+            dataType: "json",
+            success: function(response) {
+                if (response.res == "success") {
+                    toastr["success"](response.message);
+                    $("#editRecords").modal("hide");
+                    $("#editForm")[0].reset();
+                    $(".edit-file-label").html("Choose file");
+                    $("#recordTable").DataTable().destroy();
+                    fetch();
+                } else {
+                    toastr["error"](response.message);
+                }
+            },
+        });
+    }
+});
 
 
 

@@ -38,13 +38,14 @@ $(document).on("click", "#darAltaBaucher", function(e) {
     var numero_control = $("#numero_control").val();
     var img = $("#archivo")[0].files[0]; // this is file
     var tipo_de_pago = $("#pago").val();
+    var archivo = $("#archivo")[0].files[0];
 
-    if (numero_control == "" || img.name == "") {
-        alert("Debe llenar todos los campos vacios...!");
+    if (archivo == undefined) {
+        alert("No seleccionó el documento a guardar...!");
     } else {
         var fd = new FormData();
 
-    var archivo = $("#archivo")[0].files[0];
+    // var archivo = $("#archivo")[0].files[0];
 
         fd.append("numero_control", numero_control);
         fd.append("archivo", img); //Obt principalmente el name file
@@ -62,37 +63,13 @@ $(document).on("click", "#darAltaBaucher", function(e) {
             success: function(response) {
                 if (response.res == "success") {
                     toastr["success"](response.message);
-                    // $("#addRecords").modal("hide");
                     $("#formularioaltaBaucher")[0].reset();
-                    // $(".add-file-label").html("RAFAEL");
-                    // $("#tbl_regPagos").DataTable().destroy();
-                    // llenarTablaPagos();
+                    // $('#darAltaBaucher').attr('disabled','disabled');
                 } else {
                     toastr["error"](response.message);
                 }
             },
         });
     }
+
 });
-
-
-
-
-
-
-// ********************   variable PARA CAMBIAR DE IDIOMA AL ESPAÑOL EL DataTable  *************************
-    // var language_espaniol = {
-    //   "lengthMenu": "Mostrar _MENU_ registros por pagina",
-    //   "zeroRecords": "No se encontraron resultados en su busqueda",
-    //   "searchPlaceholder": "Buscar Registros",
-    //   "info": "Total: _TOTAL_ registros",
-    //   "infoEmpty": "No Existen Registros",
-    //   "infoFiltered": "(filtrado de un total de _MAX_ registros)",
-    //   "search": "Buscar:",
-    //   "paginate": {
-    //     "first": "Primero",
-    //     "last": "Último",
-    //     "next": "Siguiente",
-    //     "previous": "Anterior"
-    //   }, /* TODO ESTO ES PARA CAMBIAR DE IDIOMA */
-    // }

@@ -35,39 +35,120 @@ $("#modaleditprofesor").on("hide.bs.modal", function(e) {
 
 
 /* -------------------------------------------------------------------------- */
-/*                               Insert Records                               */
+/*                               Insert Records
+    ESTE SCRITP NO PUEDE INSERTAR SI NO LLEVA EL ARCHIVO, SOLO SI LLEVA INSERTA */
 /* -------------------------------------------------------------------------- */
+// $(document).on("click", "#btnaddprofesor", function(e) {
+//     e.preventDefault();
+//     debugger;
+//
+//     var nombre_profesor = $("#nombre_profesor").val();
+//     var edad_profesor = $("#edad_profesor").val();
+//     var sexo_profesor = $("#sexo_profesor").val();
+//     var direccion_profesor = $("#direccion_profesor").val();
+//     var ciudad_profesor = $("#ciudad_profesor").val();
+//     var nacionalidad_profesor = $("#nacionalidad_profesor").val();
+//     var telefono_profesor = $("#telefono_profesor").val();
+//     var email_profesor = $("#email_profesor").val();
+//     var estadocivil_profesor = $("#estadocivil_profesor").val();
+//     var niveldeestudios_profesor = $("#niveldeestudios_profesor").val();
+//     var titulado_profesor = $("#titulado_profesor").val();
+//     var cedula_profesor = $("#cedula_profesor").val();
+//     var ocupacion_profesor = $("#ocupacion_profesor").val();
+//     var tipodetrabajo_profesor = $("#tipodetrabajo_profesor").val();
+//     var universidadprocedente_profesor = $("#universidadprocedente_profesor").val();
+//     var experiencia_profesor = $("#experiencia_profesor").val();
+//     var trabajosprevios_profesor = $("#trabajosprevios_profesor").val();
+//     var img = $("#archivo_profesor")[0].files[0]; // this is file
+//
+//     if (nombre_profesor == "" || edad_profesor == "" || sexo_profesor == "" || direccion_profesor == "" || ciudad_profesor == ""||
+//     nacionalidad_profesor == "" ||  telefono_profesor == "" || email_profesor == "" || estadocivil_profesor == ""||
+//     niveldeestudios_profesor == "" || titulado_profesor == "" || cedula_profesor == "" || ocupacion_profesor == "" || tipodetrabajo_profesor == ""||
+//     universidadprocedente_profesor == "" || experiencia_profesor == "" || trabajosprevios_profesor == "" ) { // || img.name == ""
+//         alert("Debe llenar todos los campos vacios...!");
+//     } else {
+//         var fd = new FormData();
+//
+//     var archivo = $("#archivo_profesor")[0].files[0];
+//
+//         fd.append("nombres", nombre_profesor);
+//         fd.append("edad", edad_profesor);
+//         fd.append("sexo", sexo_profesor);
+//         fd.append("direccion", direccion_profesor);
+//         fd.append("ciudad_radicando", ciudad_profesor);
+//         fd.append("nacionalidad", nacionalidad_profesor);
+//         fd.append("telefono_celular", telefono_profesor);
+//         fd.append("correo", email_profesor);
+//         fd.append("estado_civil", estadocivil_profesor);
+//         fd.append("nivel_de_estudios", niveldeestudios_profesor);
+//         fd.append("titulado", titulado_profesor);
+//         fd.append("cedula", cedula_profesor);
+//         fd.append("ocupacion", ocupacion_profesor);
+//         fd.append("tipo_de_trabajo", tipodetrabajo_profesor);
+//         fd.append("universidad_procedente", universidadprocedente_profesor);
+//         fd.append("experiencia_docente", experiencia_profesor);
+//         fd.append("trabajos_anteriores", trabajosprevios_profesor);
+//         fd.append("nombre_archivo", img); //Obt principalmente el name file
+//         fd.append("curriculum", archivo); // Obt el file como tal
+//
+//         $.ajax({
+//             type: "post",
+//             url: base_url+'Administrativos/Profesores/insertarprofesor',
+//             data: fd,
+//             processData: false,
+//             contentType: false,
+//             dataType: "json",
+//             enctype : 'multipart/form-data',
+//             success: function(response) {
+//                 if (response.res == "success") {
+//                     toastr["success"](response.message);
+//                     $("#modaladdprofesor").modal("hide");
+//                     $("#formaddprofesor")[0].reset();
+//                     $(".add-file-label").html("Choose file");
+//                     $("#tbl_profesores").DataTable().destroy();
+//                     llenarTablaProfesores();
+//                 } else {
+//                     toastr["error"](response.message);
+//                 }
+//             },
+//         });
+//     }
+// });
+
+
+// ESTE CODIGO EVALUA SI LLEVA FILE O NO, PUEDE INSERTAR SOLO DATES SIN FILE PDF
 $(document).on("click", "#btnaddprofesor", function(e) {
     e.preventDefault();
-    var nombre_profesor = $("#nombre_profesor").val();
-    var edad_profesor = $("#edad_profesor").val();
-    var sexo_profesor = $("#sexo_profesor").val();
-    var direccion_profesor = $("#direccion_profesor").val();
-    var ciudad_profesor = $("#ciudad_profesor").val();
-    var nacionalidad_profesor = $("#nacionalidad_profesor").val();
-    var telefono_profesor = $("#telefono_profesor").val();
-    var email_profesor = $("#email_profesor").val();
-    var estadocivil_profesor = $("#estadocivil_profesor").val();
-    var niveldeestudios_profesor = $("#niveldeestudios_profesor").val();
-    var titulado_profesor = $("#titulado_profesor").val();
-    var cedula_profesor = $("#cedula_profesor").val();
-    var ocupacion_profesor = $("#ocupacion_profesor").val();
-    var tipodetrabajo_profesor = $("#tipodetrabajo_profesor").val();
-    var universidadprocedente_profesor = $("#universidadprocedente_profesor").val();
-    var experiencia_profesor = $("#experiencia_profesor").val();
-    var trabajosprevios_profesor = $("#trabajosprevios_profesor").val();
-    var img = $("#archivo_profesor")[0].files[0]; // this is file
+    debugger;
+
+        var nombre_profesor = $("#nombre_profesor").val();
+        var edad_profesor = $("#edad_profesor").val();
+        var sexo_profesor = $("#sexo_profesor").val();
+        var direccion_profesor = $("#direccion_profesor").val();
+        var ciudad_profesor = $("#ciudad_profesor").val();
+        var nacionalidad_profesor = $("#nacionalidad_profesor").val();
+        var telefono_profesor = $("#telefono_profesor").val();
+        var email_profesor = $("#email_profesor").val();
+        var estadocivil_profesor = $("#estadocivil_profesor").val();
+        var niveldeestudios_profesor = $("#niveldeestudios_profesor").val();
+        var titulado_profesor = $("#titulado_profesor").val();
+        var cedula_profesor = $("#cedula_profesor").val();
+        var ocupacion_profesor = $("#ocupacion_profesor").val();
+        var tipodetrabajo_profesor = $("#tipodetrabajo_profesor").val();
+        var universidadprocedente_profesor = $("#universidadprocedente_profesor").val();
+        var experiencia_profesor = $("#experiencia_profesor").val();
+        var trabajosprevios_profesor = $("#trabajosprevios_profesor").val();
+        var img = $("#archivo_profesor")[0].files[0]; // this is file
 
     if (nombre_profesor == "" || edad_profesor == "" || sexo_profesor == "" || direccion_profesor == "" || ciudad_profesor == ""||
-    nacionalidad_profesor == "" ||  telefono_profesor == "" || email_profesor == "" || estadocivil_profesor == ""||
-    niveldeestudios_profesor == "" || titulado_profesor == "" || cedula_profesor == "" || ocupacion_profesor == "" || tipodetrabajo_profesor == ""||
-    universidadprocedente_profesor == "" || experiencia_profesor == "" || trabajosprevios_profesor == "" || img.name == "" ) {
+        nacionalidad_profesor == "" ||  telefono_profesor == "" || email_profesor == "" || estadocivil_profesor == ""||
+        niveldeestudios_profesor == "" || titulado_profesor == "" || cedula_profesor == "" || ocupacion_profesor == "" || tipodetrabajo_profesor == ""||
+        universidadprocedente_profesor == "" || experiencia_profesor == "" || trabajosprevios_profesor == "" ) { // || img.name == ""
         alert("Debe llenar todos los campos vacios...!");
     } else {
         var fd = new FormData();
+        var archivo = $("#archivo_profesor")[0].files[0];
 
-    var archivo = $("#archivo_profesor")[0].files[0];
-        
         fd.append("nombres", nombre_profesor);
         fd.append("edad", edad_profesor);
         fd.append("sexo", sexo_profesor);
@@ -85,8 +166,11 @@ $(document).on("click", "#btnaddprofesor", function(e) {
         fd.append("universidad_procedente", universidadprocedente_profesor);
         fd.append("experiencia_docente", experiencia_profesor);
         fd.append("trabajos_anteriores", trabajosprevios_profesor);
-        fd.append("nombre_archivo", img); //Obt principalmente el name file
-        fd.append("curriculum", archivo); // Obt el file como tal
+
+        if ($("#archivo_profesor")[0].files.length > 0) {
+              fd.append("nombre_archivo", img); //Obt principalmente el name file
+              fd.append("curriculum", archivo); // Obt el file como tal
+          }
 
         $.ajax({
             type: "post",
@@ -115,6 +199,7 @@ $(document).on("click", "#btnaddprofesor", function(e) {
 
 $(document).on("click", "#edit_profe", function (e) {
     e.preventDefault();
+    debugger;
     var edit_id = $(this).attr("value");
     $.ajax({
         type: "post",
@@ -150,37 +235,39 @@ $(document).on("click", "#edit_profe", function (e) {
 
 $(document).on("click", "#update_profesor", function (e) {
     e.preventDefault();
+    debugger;
     var id_profesores = $('#id_profesores_update').val();
-    var nombre_profesor = $("#nombre_profesor_update").val();
-    var edad_profesor = $("#edad_profesor_update").val();
-    var sexo_profesor = $("#sexo_profesor_update").val();
-    var direccion_profesor = $("#direccion_profesor_update").val();
-    var ciudad_profesor = $("#ciudad_profesor_update").val();
-    var nacionalidad_profesor = $("#nacionalidad_profesor_update").val();
-    var telefono_profesor = $("#telefono_profesor_update").val();
-    var email_profesor = $("#email_profesor_update").val();
-    var estadocivil_profesor = $("#estadocivil_profesor_update").val();
-    var niveldeestudios_profesor = $("#niveldeestudios_profesor_update").val();
-    var titulado_profesor = $("#titulado_profesor_update").val();
-    var cedula_profesor = $("#cedula_profesor_update").val();
-    var ocupacion_profesor = $("#ocupacion_profesor_update").val();
-    var tipodetrabajo_profesor = $("#tipodetrabajo_profesor_update").val();
-    var universidadprocedente_profesor = $("#universidadprocedente_profesor_update").val();
-    var experiencia_profesor = $("#experiencia_profesor_update").val();
-    var trabajosprevios_profesor = $("#trabajosprevios_profesor_update").val();
-    var img = $("#archivo_profesor_update")[0].files[0]; // this is file
-    
+   var nombre_profesor = $("#nombre_profesor_update").val();
+   var edad_profesor = $("#edad_profesor_update").val();
+   var sexo_profesor = $("#sexo_profesor_update").val();
+   var direccion_profesor = $("#direccion_profesor_update").val();
+   var ciudad_profesor = $("#ciudad_profesor_update").val();
+   var nacionalidad_profesor = $("#nacionalidad_profesor_update").val();
+   var telefono_profesor = $("#telefono_profesor_update").val();
+   var email_profesor = $("#email_profesor_update").val();
+   var estadocivil_profesor = $("#estadocivil_profesor_update").val();
+   var niveldeestudios_profesor = $("#niveldeestudios_profesor_update").val();
+   var titulado_profesor = $("#titulado_profesor_update").val();
+   var cedula_profesor = $("#cedula_profesor_update").val();
+   var ocupacion_profesor = $("#ocupacion_profesor_update").val();
+   var tipodetrabajo_profesor = $("#tipodetrabajo_profesor_update").val();
+   var universidadprocedente_profesor = $("#universidadprocedente_profesor_update").val();
+   var experiencia_profesor = $("#experiencia_profesor_update").val();
+   var trabajosprevios_profesor = $("#trabajosprevios_profesor_update").val();
+   // var archivo_profesor_update = $("#archivo_profesor_update")[0].files[0]; // this is file
+    var edit_img = $("#edit_img")[0].files[0]; // this is file
+
     if (nombre_profesor == "" || edad_profesor == "" || sexo_profesor == "" || direccion_profesor == "" || ciudad_profesor == ""||
-    nacionalidad_profesor == "" ||  telefono_profesor == "" || email_profesor == "" || estadocivil_profesor == ""||
-    niveldeestudios_profesor == "" || titulado_profesor == "" || cedula_profesor == "" || ocupacion_profesor == "" || tipodetrabajo_profesor == ""||
-    universidadprocedente_profesor == "" || experiencia_profesor == "" || trabajosprevios_profesor == "" || img.name == "" ) {
+   nacionalidad_profesor == "" ||  telefono_profesor == "" || email_profesor == "" || estadocivil_profesor == ""||
+   niveldeestudios_profesor == "" || titulado_profesor == "" || cedula_profesor == "" || ocupacion_profesor == "" || tipodetrabajo_profesor == ""||
+   universidadprocedente_profesor == "" || experiencia_profesor == "" || trabajosprevios_profesor == "" ) {  // || img.name == ""
         alert("Debe llenar todos los campos vacios...!");
     } else {
-        
+
         var fd = new FormData();
-        var archivo = $("#archivo_profesor_update")[0].files[0];  
-              
-        fd.append("id_profesores", id_profesores);      
+        var archivo = $("#edit_img")[0].files[0];
+
+        fd.append("id_profesores", id_profesores);
         fd.append("nombres", nombre_profesor);
         fd.append("edad", edad_profesor);
         fd.append("sexo", sexo_profesor);
@@ -198,9 +285,11 @@ $(document).on("click", "#update_profesor", function (e) {
         fd.append("universidad_procedente", universidadprocedente_profesor);
         fd.append("experiencia_docente", experiencia_profesor);
         fd.append("trabajos_anteriores", trabajosprevios_profesor);
-        fd.append("nombre_archivo", img); //Obt principalmente el name file
-        fd.append("curriculum", archivo); // Obt el file como tal
 
+        if ($("#edit_img")[0].files.length > 0) {
+             fd.append("nombre_archivo", edit_img);
+             fd.append("curriculum", archivo); // Obt el file como tal
+           }
         $.ajax({
             type: "post",
             url: base_url + 'Administrativos/Profesores/updateprofesor',
@@ -210,19 +299,16 @@ $(document).on("click", "#update_profesor", function (e) {
             dataType: "json",
             enctype : 'multipart/form-data',
             success: function (response) {
-                if (response.responce == "success") {
+                if (response.res == "success") {
                     toastr["success"](response.message);
                     $("#modaleditprofesor").modal("hide");
                     $("#formeditprofesor")[0].reset();
                     $("#tbl_profesores").DataTable().destroy();
                     llenarTablaProfesores();
                 } else {
-                    toastr["error"](data.message);
+                    toastr["error"](response.message);
                 }
             },
-            error: function(response){
-                toastr["error"](response.message);
-            }
         });
     }
 });
@@ -242,7 +328,7 @@ function llenarTablaProfesores() {
                 data: response,
                 responsive: true,
                 columns: [{
-                        data: "id_profesores",  
+                        data: "id_profesores",
                         "visible": false,
                         "searchable": false
                       },
@@ -275,10 +361,19 @@ function llenarTablaProfesores() {
                     },
                     {
                         data: "curriculum",
-                        render: function(data, type, row, meta) {
-                            var a = `
-                               <a title="Descarga Documento" href="Profesores/verArchivo/${row.id_profesores}" target="_blank"><i class="far fa-file-pdf fa-2x"></i></a>
-                            `;
+                        orderable: false,
+                        searchable: false,
+                        "render": function(data, type, row, meta) {
+                          debugger;
+                          var mostrarCV = `${row.nombre_archivo}`;
+                          var a;
+                            if(mostrarCV != "null"){
+                                 a = `
+                                 <a title="Descarga Documento" href="Profesores/verArchivo/${row.id_profesores}" target="_blank"><i class="far fa-file-pdf fa-2x"></i></a>
+                              `;
+                            }else{
+                                 a = 'SIN CV';
+                            }
                             return a;
                         },
                     },
@@ -294,7 +389,6 @@ function llenarTablaProfesores() {
                     },
                 ],
                   "language" : language_espaniol,
-
             });
         },
     });
@@ -307,6 +401,7 @@ function llenarTablaProfesores() {
 /* -------------------------------------------------------------------------- */
 $(document).on("click", "#del_profesor", function(e) {
     e.preventDefault();
+    debugger;
 
     var del_id = $(this).attr("value");
 

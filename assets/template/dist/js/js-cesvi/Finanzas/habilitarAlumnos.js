@@ -11,8 +11,8 @@
       /*                      llenarTablaPagos Records                              */
       /* -------------------------------------------------------------------------- */
       function litarAlumnosConBaucherRegistrados() {
-        // here litarAlumnosConBaucherRegistrados
-          // debugger;
+         console.log("Lista de alumnos con baucher...!");
+          debugger;
           $.ajax({
               type: "get",
               url: base_url+'Finanzas/HabilitarAlumnos/listaDeAlumnosConBaucherRegistrado',
@@ -25,15 +25,13 @@
                       columns: [
                         {
                               data: "id_alta_baucher_banco",
-                              // render: function(data, type, row, meta) {
-                              //     return i++;
-                              // },
+                              "visible": false, // ocultar la columna
                           },
                           {
                               data: "nombre_completo",
                           },
                           {
-                              data: "nombre_archivo",
+                              data: "carrera_descripcion",
                           },
                           {
                               data: "numero_control",
@@ -44,25 +42,26 @@
                           {
                               data: "archivo",
                               render: function(data, type, row, meta) {
-                                //  HabilitarAlumnos/
+                                //  Se consulta el file.pdf x el no. de control
                                   var a = `
-                                      <a title="Descarga Baucher" href="verBaucher/${row.id_alta_baucher_banco}" target="_blank"><i class="far fa-file-pdf fa-2x"></i></a>
+                                      <a title="Descarga Baucher" href="verBaucher/${row.numero_control}" target="_blank"><i class="far fa-file-pdf fa-2x"></i></a>
                                   `;
                                   return a;
                               },
                           },
 
                           {
-                              data: "estatus_acceso",
+                        //   Es el estatus de la tabla de alumnos
+                              data: "estatus",
                               orderable: false,
                               searchable: false,
                               "render" : function(data, type, row) {
-                                var habilitarAlumno = `${row.estatus_acceso}`;
+                                var habilitarAlumno = `${row.estatus}`;
                                 var string = '<input type="checkbox" ';
                                 if(habilitarAlumno == 1){
-                                  string = string + `checked onclick=habilitaRegistro('${row.id_alta_baucher_banco}','${row.numero_control}') disabled>`;
+string = string + `checked onclick=habilitaRegistro(0,'${row.numero_control}','${row.id_alta_baucher_banco}')>`;
                                 }else {
-                                  string = string + `onclick=habilitaRegistro('${row.id_alta_baucher_banco}','${row.numero_control}') >`;
+string = string +`onclick=habilitaRegistro(1,'${row.numero_control}','${row.id_alta_baucher_banco}')>`;
                                 }
                                 return string;
 			                         },
@@ -70,11 +69,11 @@
 
 // DEBE ESTAR disabled , ASTA K SE ACTIVE EL CHECK DE DAR ACCESO AL ALUMNO  SE DEBE DE ACTIVE ESTE CHECK PARA GENERAR EL RECIVO PDF
                           {
-                              data: "estatus_acceso",
+                              data: "estatus",
                               orderable: false,
                               searchable: false,
                               "render" : function(data, type, row) {
-                                var checkAGenerarReciboPago = `${row.estatus_acceso}`;
+                                var checkAGenerarReciboPago = `${row.estatus}`;
                                 // var string = '<input type="checkbox" ';
                                 debugger;
                                 if(checkAGenerarReciboPago == 1){
@@ -102,15 +101,16 @@
 
 
 // SOLO SE VA HABILITAR CUANDO ESTE DESHABILITADO, UNA VEZ K SE ABILITE SE DESBLOKEA
-function habilitaRegistro(id_alta_baucher_banco, numero_control){
-    // debugger;
+function habilitaRegistro(estatus, numero_control, id_alta_baucher_banco){
+    debugger;
       		var datos = {
-      				id_alta_baucher_banco : id_alta_baucher_banco,
       				numero_control : numero_control,
-              estatus_acceso : 1,
+              estatus: estatus,
+              id_alta_baucher_banco: id_alta_baucher_banco,
       		}
+
       		$.ajax({
-      			url: base_url+'Finanzas/HabilitarAlumnos/marcarParaRegistro',
+      			url: base_url+'Finanzas/HabilitarAlumnos/marcarParaRegistro/'+numero_control,
             type: "post",
             dataType: "json",
       			data : (datos),
@@ -119,39 +119,60 @@ function habilitaRegistro(id_alta_baucher_banco, numero_control){
           toastr["success"](data.message);
           $("#tbl_listAlumConBaucher").DataTable().destroy();
           litarAlumnosConBaucherRegistrados();
+          addDatoParaReciboPagoAlumno(id_alta_baucher_banco, numero_control);
         }else{
           toastr["error"](data.message);
         }
       			     }
       		});
-
       }
 
 
-
-//  ***********     function GENERAR EL RECIBO PDF     **********************
-      function generarReciboPago(id_alta_baucher_banco, numero_control){
+      // SE RECOGEN LOS DATOS PARA PODER GENERAR EL RECIBO DE PAGO SIN FIRMA NI SELLO  onClick="eliminarRegistroGasto()"
+      function addDatoParaReciboPagoAlumno(id_alta_baucher_banco, numero_control){
           debugger;
-            		var datos = {
-            				id_alta_baucher_banco : id_alta_baucher_banco,
-            				numero_control : numero_control,
-                    // estatus_acceso : 1,
-            		}
-            		$.ajax({
-            			url: base_url+'Reportes_cesvi/Reporte_ReciboPago',
+            	$('#addDatosRecibo').modal({show: true}); // abrir modal al execute la function
+
+              // Aki solo se imprime al numero de control no pude inprimir los demas datos x problemas de los espacios
+              $("#numero_con").val(numero_control);
+
+              $(document).on("click", "#addDatosAGenerarReciboPago", function(e){
+                e.preventDefault();
+                // Se recojern los valores en la variable datos
+              var datos = {
+                  bauche: id_alta_baucher_banco,
+                  desc_concepto : $("#concepto").val(),
+                  cantidad : $("#cantidad").val(),
+                  // var name = $("#concepto").val();
+              }
+
+              // var email = $("#email").val();
+
+              // if (dates.name == "" || dates.email == "") {
+              //   alert("estan vacios los campos OBLIGATORIOS...!");
+              // }else{
+
+                $.ajax({
+          //       registroDatosParaGenerarReciboPago
+                  url: base_url+'Finanzas/HabilitarAlumnos/registroDatosParaGenerarReciboPago',
                   type: "post",
                   dataType: "json",
-            			data : (datos),
-            			success : function(data){
+                  data : (datos),
+                  success: function(data){
                     if (data.responce == "success") {
-                toastr["success"](data.message);
-                $("#tbl_listAlumConBaucher").DataTable().destroy();
-                litarAlumnosConBaucherRegistrados();
-              }else{
-                toastr["error"](data.message);
-              }
-            			     }
-            		});
+                      $('#tbl_listAlumConBaucher').DataTable().destroy();
+                      litarAlumnosConBaucherRegistrados();
+                      toastr["success"](data.message);
+                      $('#addDatosRecibo').modal('hide');
+                    }else{
+                      toastr["error"](data.message);
+                    }
+
+                  }
+                });
+                // $("#form")[0].reset();  // VACIA MODAL DESPUES DE INSERT
+              // }
+                });
 
             }
 

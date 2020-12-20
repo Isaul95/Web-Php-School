@@ -32,7 +32,7 @@
   <div class="row">
     <div class="col-md-12">
       <div class="row">
-          <div class="col-md-12">       
+          <div class="col-md-12">
       <?php if($permisos->insert == 1):?>
         <div class="d-flex flex-row">
               <a type="button" class="btn btn-primary btn-float" data-toggle="modal" data-target="#modaladdprofesor"> <span class="fa fa-plus"></span>  Agregar profesor</a>
@@ -152,7 +152,7 @@
                   </div>
               </div>
             </div>
-             
+
                 <!-- Image -->
                 <div class="form-group">
                   <label for="customFile">Adjuntar archivo (Curriculum vitae)</label>
@@ -189,7 +189,7 @@
                 <div class="row">
                   <div class="col-md-12">
             <form id="formeditprofesor">
-           
+
                     <div class="row">
                     <input type="hidden" id="id_profesores_update">
               <div class="col-sm-12">
@@ -290,8 +290,8 @@
             </div>
                       <div class="custom-file">
                       <label class="custom-file-label" for="customFile">Adjuntar archivo (Curriculum vitae)</label>
-                        <input type="file" class="custom-file-input" id="archivo_profesor_update">
-                      
+                        <input type="file" class="custom-file-input" id="edit_img">
+
                       </div>
                     </form>
                   </div>
@@ -329,7 +329,7 @@
             <th>Trabajos ants.</th>
             <th class="text-center" width="7%">CV</th>
             <th class="text-center" width="7%">Acciones</th>
-          </tr> 
+          </tr>
         </thead>
       </table>
 

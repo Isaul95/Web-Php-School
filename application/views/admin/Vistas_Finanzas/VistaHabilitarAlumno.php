@@ -20,18 +20,80 @@
   <div class="row">
     <div class="col-md-12">
 
-
-
 <hr> <!-- Le da una linea sombreada para ver la divicion -->
-
-
-
-
-
-
 
     </div>
   </div>
+
+
+  <!-- Modal Agregar nueuvo registro -->
+  <div class="modal fade" id="addDatosRecibo" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header bg-primary text-center">
+          <strong class="modal-title" id="exampleModalLabel">Registrar datos para generar recibo de pago</strong>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <!-- Add Record Form -->
+      <form id="addRecordForm">
+            <!-- Name -->
+            <div class="form-group">
+              <?php foreach($nameAlumno as $name):?>
+                <label for="">Nombre Alumno: *</label>
+              <input type="text" class="form-control"  id="nombre" readonly value="<?php echo $name->nombre_completo;?>">
+              <?php endforeach;?>
+            </div>
+
+            <!-- Email -->
+            <div class="form-group">
+              <label for="">Número de control: *</label>
+              <input type="text" class="form-control" id="numero_con" readonly>
+            </div>
+
+            <!-- Mobile No. -->
+          <div class="form-group">
+              <?php foreach($nameAlumno as $name):?>
+                <label for="">Carrera: *</label>
+                <input type="text" class="form-control" id="carrera" readonly value="<?php echo $name->carrera_descripcion;?>">
+              <?php endforeach;?>
+            </div>
+
+
+            <!-- <div class="form-group">
+                <label for="">Tipo de pago:</label>
+                <select name="pago" id="pago" class="form-control">
+                    <?php foreach($tipoDePagos as $pago):?>
+                        <option value="<?php echo $pago->id_tipo_pago;?>"><?php echo $pago->pago;?></option>
+                    <?php endforeach;?>
+                </select>
+            </div> -->
+
+            <div class="form-group">
+              <label for="">Cantidad de pago: *</label>
+              <input type="text" class="form-control" id="cantidad" placeholder="Cantidad $">
+            </div>
+
+            <div class="form-group">
+              <label for="">Descripción del concepto: *</label>
+              <input type="text" class="form-control" id="concepto" placeholder="Descripción del concepto">
+            </div>
+
+      </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+          <!-- Insert Button -->
+          <button type="button" class="btn btn-primary" id="addDatosAGenerarReciboPago">Agregar Pago</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
 
   <div class="row my-4">
     <div class="col-md-12 mx-auto">
@@ -42,9 +104,9 @@
           <tr>
             <th width="3%">#</th>
             <th>Nombre Completo</th>
-            <th class="text-center">nombre_archivo</th>
+            <th class="text-center">Carrera</th>
             <th class="text-center">No. Control</th>
-            <th class="text-center">Fecha registro</th>
+            <th class="text-center">Registro baucher</th>
             <th class="text-center">Baucher</th>
             <!-- <th class="text-center" width="8%">Recibo</th> -->
             <th class="text-center">Habilitar</th>
@@ -58,19 +120,8 @@
 
 
 
-<hr>
-  <div class="row">
-      <div class="col-md-12">
-          <a href="<?php echo base_url();?>Reportes_cesvi/Reporte_ReciboPago" class="btn btn-primary btn-float"> <span class="fa fa-plus"></span> Genera Reporte PDF</a>
-      </div>
-  </div>
-
   <hr>
-    <div class="row">
-        <div class="col-md-12">
-            <a href="<?php echo base_url();?>Reportes_cesvi/Reporte_Recibo_PagoCesvi" class="btn btn-primary btn-float"> <span class="fa fa-plus"></span> Genera OTHER PDF</a>
-        </div>
-    </div>
+
 
 
 

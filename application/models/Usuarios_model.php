@@ -37,7 +37,7 @@ class Usuarios_model extends CI_Model {
 		$this->db->where("username", $username);
 		$this->db->where("password", $password);
 
-		$this->db->select("us.*, r.nombre as rol");
+		$this->db->select("us.*, us.username, r.nombre as rol");
 		$this->db->from("usuarios us");
 		$this->db->join("roles r","us.rol_id = r.id");
 

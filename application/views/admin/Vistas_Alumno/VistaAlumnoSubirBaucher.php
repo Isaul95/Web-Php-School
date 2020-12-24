@@ -15,8 +15,7 @@
                         </div>
                       </div>
 
-
-            <div class="modal-dialog">
+            <div class="modal-dialog" id="formularioRegistroBaucher">
               <div class="modal-content">
                 <div class="modal-body">
 
@@ -53,25 +52,30 @@
                       <input type="file" class="custom-file-input" id="archivo">
                     </div>
 
-              </form>
-                </div>
-                <div class="modal-footer">
-                  <!-- <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button> -->
-                  <!-- Insert Button -->
-  <?php if($permisos->insert == 1):?>
-                  <button type="button" class="btn btn-primary" id="darAltaBaucher">Agregar Pago</button>
-  <?php endif;?>
-                </div>
-              </div>
-            </div>
+                  </form>
+                    </div>
+                    <div class="modal-footer">
 
-
-
-<!-- AKI TERMIAN LO MIO LO NUEVO QUE AGREGUE -->
-                      </div>
-
+                      <?php if($permisos->insert == 1):?>
+                            <button type="button" class="btn btn-primary" id="darAltaBaucher">Agregar Pago</button>
+                      <?php endif;?>
+                    </div>
                   </div>
+                </div>
 
+
+          <!-- *****************  EL DIV DE LA OPCION DEL ICONO PARA LA DESCARGA DEL BAUCHER *******************  -->
+              <div class="modal-dialog" id="baucherPdf">
+                <center>
+                  <h3><font color="#3498DB">Usted ya registro su Comprobante de pago</font></h3> <br> <br>
+                 <a href="AltaBaucherBanco/verBaucher/<?php echo $username;?>" target="_blank">
+                   <i class="far fa-file-pdf fa-2x"></i></a>
+                 </center> <br> <br>
+                 <strong><font color="#E74C3C">NOTA: Para hacer el cambio del comprobante, es necesario notificar al departamento de finanzas</font></strong> <br>
+              </div>
+
+
+                      </div>
+                  </div>
             </section>
-
     </div> <!-- /END ALL CONTENT -->

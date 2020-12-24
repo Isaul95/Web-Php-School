@@ -1,35 +1,40 @@
-$(document).ready(function(){
-// llenarTablaPagos();
+    $(document).ready(function(){
 
-  }); // FIN DE LA FUNCION PRINCIPAL
+    ccontadordealumnos();
 
+    }); // FIN DE LA FUNCION PRINCIPAL
 
-// $(".custom-file-input").on("change", function() {
-//     let fileName = $(this).val().split("\\").pop();
-//     let label = $(this).siblings(".custom-file-label");
-//
-//     if (label.data("default-title") === undefined) {
-//         label.data("default-title", label.html());
-//     }
-//
-//     if (fileName === "") {
-//         label.removeClass("selected").html(label.data("default-title"));
-//     } else {
-//         label.addClass("selected").html(fileName);
-//     }
-// });
+/*         1.-  FUNCTIO CONSULTA QUE NO EXISTA Comprobante PARA EL ALUMNO K SE ESTA LOGUEANDO;
+           1.- SI EXISTE BAUCHER LE MUESTRA EL ICONO PARA PODER MOSTRAR EL DOCUMENRO QUE SUIO
+           2.- DE LO CONTRARIO SI NO EXISTE EL BAUCHER LE MUESTRA EL FORMULARIO PARA DARLO DE ALTA               ************/
 
-/* ---------------------------- Add Records Modal --------------------------- */
-// $("#addRecords").on("hide.bs.modal", function(e) {
-//     // do something...
-//     $("#addRecordForm")[0].reset();
-//     $(".custom-file-label").html("Choose file");
-// });
-
+  function ccontadordealumnos(){
+      debugger;
+        		var datos = {
+        				numero_control : $("#numero_control").val(),
+        		    }
+        		$.ajax({
+              url: base_url+'Alumnos/AltaBaucherBanco/consultaCountAlumnos',
+              type: "post",
+              dataType: "json",
+        			data : (datos),
+        			success : function(data){
+                if (data.responce == "success") {
+                    toastr["success"](data.message);
+                        // debugger;
+                        $('#formularioRegistroBaucher').hide();
+                        $('#baucherPdf').show();
+                      }else{
+                        // toastr["error"](data.message);
+                        $('#baucherPdf').hide();
+                      }
+        			    }
+        		});
+        }
 
 
 /* -------------------------------------------------------------------------- */
-/*                               Insert Records                               */
+/*                               Insert baucher                               */
 /* -------------------------------------------------------------------------- */
 $(document).on("click", "#darAltaBaucher", function(e) {
     e.preventDefault();
@@ -44,8 +49,6 @@ $(document).on("click", "#darAltaBaucher", function(e) {
         alert("No seleccionó el documento a guardar...!");
     } else {
         var fd = new FormData();
-
-    // var archivo = $("#archivo")[0].files[0];
 
         fd.append("numero_control", numero_control);
         fd.append("archivo", img); //Obt principalmente el name file
@@ -64,12 +67,12 @@ $(document).on("click", "#darAltaBaucher", function(e) {
                 if (response.res == "success") {
                     toastr["success"](response.message);
                     $("#formularioaltaBaucher")[0].reset();
-                    // $('#darAltaBaucher').attr('disabled','disabled');
+                    //  Si se inserto bien el baucher se recarga la pagina
+                    location.reload();
                 } else {
                     toastr["error"](response.message);
                 }
             },
         });
     }
-
 });

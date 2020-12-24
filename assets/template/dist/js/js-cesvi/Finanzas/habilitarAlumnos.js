@@ -59,9 +59,9 @@
                                 var habilitarAlumno = `${row.estatus}`;
                                 var string = '<input type="checkbox" ';
                                 if(habilitarAlumno == 1){
-string = string + `checked onclick=habilitaRegistro(0,'${row.numero_control}','${row.id_alta_baucher_banco}')>`;
+                                  string = string + `checked onclick=habilitaRegistro(0,'${row.numero_control}','${row.id_alta_baucher_banco}')>`;
                                 }else {
-string = string +`onclick=habilitaRegistro(1,'${row.numero_control}','${row.id_alta_baucher_banco}')>`;
+                                  string = string +`onclick=habilitaRegistro(1,'${row.numero_control}','${row.id_alta_baucher_banco}')>`;
                                 }
                                 return string;
 			                         },
@@ -69,33 +69,293 @@ string = string +`onclick=habilitaRegistro(1,'${row.numero_control}','${row.id_a
 
 // DEBE ESTAR disabled , ASTA K SE ACTIVE EL CHECK DE DAR ACCESO AL ALUMNO  SE DEBE DE ACTIVE ESTE CHECK PARA GENERAR EL RECIVO PDF
                           {
-                              data: "estatus",
+                              data: "cantidad",
                               orderable: false,
                               searchable: false,
                               "render" : function(data, type, row) {
-                                var checkAGenerarReciboPago = `${row.estatus}`;
-                                // var string = '<input type="checkbox" ';
+                                var hayCantidad = `${row.cantidad}`;
+                                var hayDescConcepto = `${row.desc_concepto}`;
                                 debugger;
-                                if(checkAGenerarReciboPago == 1){
-                                  //string = string + `  href="Reportes_cesvi/Reporte_ReciboPago" target="_blank"  >`;
-
-                                  var a = `
-                                      <a title="Descarga Recibo" href="generaPdfRcibo" target="_blank"><i class="far fa-file-pdf fa-2x"></i></a>
-                                  `;
-                                }else {
-                                  var a = 'No hay recibo';
-                                }
-                                return a;
+                                    if(hayCantidad != "null" && hayDescConcepto!= "null"){
+                                      var a = `
+                                          <a title="Descarga Recibo" href="generaPdfRcibo" target="_blank"><i class="far fa-file-pdf fa-2x"></i></a>
+                                      `;
+                                    }else {
+                                      var a = 'No hay recibo';
+                                    }
+                                  return a;
                                },
                           },
+                            {
+                                orderable: false,
+                                searchable: false,
+                                "render" : function(data, type, row) {
+                                    return `
+                                    <button type='button' class="btn btn-danger" onclick=noAplicaRegistro('${row.numero_control}','${row.id_alta_baucher_banco}')>No Aplica</button>
+                                    `;
+                                },
+                            },
+                            {
+                                orderable: false,
+                                searchable: false,
+                                "render" : function(data, type, row) {
+var a = `
+    <a title="Agregar Recibo Valido" onclick=recuperarDocumentos('${row.numero_control}','${row.id_alta_baucher_banco}','${row.id_recibo}')><i class="fa fa-upload iconbig azul fa-2x"></i></a>
+`;
+return a;
 
+                                },
+                            },
                       ],
                         "language" : language_espaniol,
-
                   });
               },
           });
       }
+
+
+
+    function recuperarDocumentos(numero_control, id_alta_baucher_banco,id_recibo){
+    		debugger;
+    		// $('#mensajeErrorDoc').hide();
+    		// $('#mensaje').hide();
+    		// $('#modalDocumento').find('input[type="file"]').val('');
+
+    		$("#modalDocumento").modal("show");
+    		$("#numero_controlVarHide").val(numero_control);
+    		$("#id_alta_baucher_bancoVarHide").val(id_alta_baucher_banco);
+    		$("#id_reciboVarHide").val(id_recibo);
+    		llenarTablaDeDocumentosFirmados();
+    }
+
+
+    function llenarTablaDeDocumentosFirmados() {
+       console.log("Lista de los recibos firmados de cada alumno...!");
+        debugger;
+        $.ajax({
+            type: "get",
+            url: base_url+'Finanzas/HabilitarAlumnos/verRecibosFirmados',
+            dataType: "json",
+            success: function(response) {
+                var i = "1";
+                $("#tbl_listaRecibosFirmados").DataTable({
+                    data: response,
+                    responsive: true,
+                    columns: [
+                      {
+                            data: "id_recibo_valido",
+                            // "visible": false,
+                            // "searchable": false
+                        },
+                        {
+                            data: "nombre_archivo",
+                        },
+                        {
+                            data: "archivo",
+                            render: function(data, type, row, meta) {
+                              var namePdf = `${row.nombre_archivo}`;
+                                      if(namePdf != "null"){
+                              							$('#archivoPDF').hide();
+                              							$('#altaReciboValidado').attr('disabled','disabled');
+                              						}
+                                return a = `
+                      <a title="Descarga Baucher" href="verReciboFirmado/${row.id_recibo_valido}" target="_blank"><i class="far fa-file-pdf fa-2x"></i></a>
+                                `;
+                            },
+                        },
+                        {
+                            orderable: false,
+                            searchable: false,
+                            data: function (row, type, set) {
+                                return `
+                <a class="btn btn-danger btn-remove" onclick=deleteRecFirmado('${row.id_recibo_valido}')><i class="fas fa-trash-alt"></i></a>
+                                     `;
+                            },
+                        },
+                    ],
+                      "language" : language_espaniol,
+                });
+            },
+        });
+    }
+
+
+
+    function deleteRecFirmado(id_recibo_valido){
+        debugger;
+
+              const swalWithBootstrapButtons = Swal.mixin({
+                customClass: {
+                  confirmButton: 'btn btn-success',
+                  cancelButton: 'btn btn-danger mr-2'
+                },
+                buttonsStyling: false
+              })
+
+              swalWithBootstrapButtons.fire({
+                title: 'Esta seguro de borrar el recibo firmado del alumno...?',
+                text: "!Esta acción es irreversile!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Si, bórralo!',
+                cancelButtonText: 'No, cancelar!',
+                reverseButtons: true
+              }).then((result) => {
+                if (result.value) {
+
+                    $.ajax({
+                     url: base_url+'Finanzas/HabilitarAlumnos/eliminarReciboFirmadoAlum',
+                      type: "post",
+                      dataType: "json",
+                      data: {
+                        id_recibo_valido: id_recibo_valido
+                      },
+                      success: function(data){
+                        if (data.responce == "success") {
+                            swalWithBootstrapButtons.fire(
+                              '¡Eliminado!',
+                              'Su archivo ha sido eliminado.!',
+                              'success'
+                            );
+                            $('#tbl_listaRecibosFirmados').DataTable().destroy();
+                            llenarTablaDeDocumentosFirmados();
+                            $('#archivoPDF').show();
+                            $('#altaReciboValidado').removeAttr('disabled');
+                        }else{
+                            swalWithBootstrapButtons.fire(
+                              '¡Eliminado',
+                              'El registro no se elimino...!',
+                              'error'
+                            );
+                        }
+                      }
+                    });
+
+                } else if (
+                  /* Read more about handling dismissals below */
+                  result.dismiss === Swal.DismissReason.cancel
+                ) {
+                  swalWithBootstrapButtons.fire(
+                    'Cancelada',
+                    'El registro no se elimino...!',
+                    'error'
+                  )
+                }
+              });
+
+          }
+
+
+
+    /* -------------------------------------------------------------------------- */
+    /*            DAR DE ALTA EL RECIBO DE PAGO FIRMADO Y SELLADO                 */
+    /* -------------------------------------------------------------------------- */
+    $(document).on("click", "#altaReciboValidado", function(e) {
+        e.preventDefault();
+        debugger;
+
+        var id_recibo = $("#id_reciboVarHide").val();
+        var img = $("#archivo")[0].files[0]; // this is file
+        var archivo = $("#archivo")[0].files[0];
+
+        if (archivo == undefined) {
+            alert("No seleccionó el documento a guardar...!");
+        } else {
+            var fd = new FormData();
+
+            fd.append("id_recibo", id_recibo);
+            fd.append("archivo", img); //Obt principalmente el name file
+            fd.append("archivo", archivo); // Obt el file como tal
+
+            $.ajax({
+                type: "post",
+                url: base_url+'Finanzas/HabilitarAlumnos/agregarReciboFirmado',
+                data: fd,
+                processData: false,
+                contentType: false,
+                dataType: "json",
+                enctype : 'multipart/form-data',
+                success: function(response) {
+                    if (response.res == "success") {
+                        toastr["success"](response.message);
+                        $('#tbl_listaRecibosFirmados').DataTable().destroy();
+                        llenarTablaDeDocumentosFirmados();
+			    	            $('#archivoPDF').hide();
+                    } else {
+                        toastr["error"](response.message);
+                    }
+                },
+            });
+        }
+    });
+
+
+
+      function noAplicaRegistro(numero_control){
+          debugger;
+                var datos = {
+                    numero_control : numero_control,
+                }
+
+                const swalWithBootstrapButtons = Swal.mixin({
+                  customClass: {
+                    confirmButton: 'btn btn-success',
+                    cancelButton: 'btn btn-danger mr-2'
+                  },
+                  buttonsStyling: false
+                })
+
+                swalWithBootstrapButtons.fire({
+                  title: 'Esta seguro de borrar el baucher del alumno...?',
+                  text: "!Esta acción es irreversile!",
+                  icon: 'warning',
+                  showCancelButton: true,
+                  confirmButtonText: 'Si, bórralo!',
+                  cancelButtonText: 'No, cancelar!',
+                  reverseButtons: true
+                }).then((result) => {
+                  if (result.value) {
+
+                      $.ajax({
+                        // url: base_url+'mantenimiento/RegistroPagos/eliminar',
+                           url: base_url+'Finanzas/HabilitarAlumnos/eliminarAllRegistro',
+                        type: "post",
+                        dataType: "json",
+                        data: {
+                          numero_control: numero_control
+                        },
+                        success: function(data){
+                          if (data.responce == "success") {
+                              swalWithBootstrapButtons.fire(
+                                '¡Eliminado!',
+                                'Su archivo ha sido eliminado.!',
+                                'success'
+                              );
+                              $('#tbl_listAlumConBaucher').DataTable().destroy();
+                              litarAlumnosConBaucherRegistrados();
+                          }else{
+                              swalWithBootstrapButtons.fire(
+                                '¡Eliminado',
+                                'El registro no se elimino...!',
+                                'error'
+                              );
+                          }
+                        }
+                      });
+
+                  } else if (
+                    /* Read more about handling dismissals below */
+                    result.dismiss === Swal.DismissReason.cancel
+                  ) {
+                    swalWithBootstrapButtons.fire(
+                      'Cancelada',
+                      'El registro no se elimino...!',
+                      'error'
+                    )
+                  }
+                });
+
+            }
 
 
 
@@ -119,7 +379,7 @@ function habilitaRegistro(estatus, numero_control, id_alta_baucher_banco){
           toastr["success"](data.message);
           $("#tbl_listAlumConBaucher").DataTable().destroy();
           litarAlumnosConBaucherRegistrados();
-          addDatoParaReciboPagoAlumno(id_alta_baucher_banco, numero_control);
+          addDatoParaReciboPagoAlumno(id_alta_baucher_banco, numero_control, estatus);
         }else{
           toastr["error"](data.message);
         }
@@ -129,14 +389,15 @@ function habilitaRegistro(estatus, numero_control, id_alta_baucher_banco){
 
 
       // SE RECOGEN LOS DATOS PARA PODER GENERAR EL RECIBO DE PAGO SIN FIRMA NI SELLO  onClick="eliminarRegistroGasto()"
-      function addDatoParaReciboPagoAlumno(id_alta_baucher_banco, numero_control){
+      function addDatoParaReciboPagoAlumno(id_alta_baucher_banco, numero_control, estatus){
           debugger;
-            	$('#addDatosRecibo').modal({show: true}); // abrir modal al execute la function
+              if(estatus == 1){  // si habilitan debe mostrar modal si es DESHABILITADO no debe mostrarse
+              	$('#addDatosRecibo').modal({show: true}); // abrir modal al execute la function
+              }
+              // Aki solo se imprime al num de control no pude inprimir los demas datos x problemas de los espacios
+              $("#numero_con").val(numero_control); // DATO K SE MUESTRA EN EL TXT DEL MODAL
 
-              // Aki solo se imprime al numero de control no pude inprimir los demas datos x problemas de los espacios
-              $("#numero_con").val(numero_control);
-
-              $(document).on("click", "#addDatosAGenerarReciboPago", function(e){
+              $(document).on("click", "#addDatosAGenerarReciboPago", function(e){ // ADD DATES FOR REVIBO DE PAGO
                 e.preventDefault();
                 // Se recojern los valores en la variable datos
               var datos = {
@@ -146,14 +407,11 @@ function habilitaRegistro(estatus, numero_control, id_alta_baucher_banco){
                   // var name = $("#concepto").val();
               }
 
-              // var email = $("#email").val();
-
-              // if (dates.name == "" || dates.email == "") {
-              //   alert("estan vacios los campos OBLIGATORIOS...!");
-              // }else{
+              if (datos.desc_concepto == "" || datos.cantidad == "") {
+                alert("Los dato del recibo son obligatorios...!!!");
+              }else{
 
                 $.ajax({
-          //       registroDatosParaGenerarReciboPago
                   url: base_url+'Finanzas/HabilitarAlumnos/registroDatosParaGenerarReciboPago',
                   type: "post",
                   dataType: "json",
@@ -167,11 +425,10 @@ function habilitaRegistro(estatus, numero_control, id_alta_baucher_banco){
                     }else{
                       toastr["error"](data.message);
                     }
-
                   }
                 });
                 // $("#form")[0].reset();  // VACIA MODAL DESPUES DE INSERT
-              // }
+              }
                 });
 
             }

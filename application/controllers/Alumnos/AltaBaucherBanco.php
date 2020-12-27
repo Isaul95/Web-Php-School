@@ -51,21 +51,21 @@ class AltaBaucherBanco extends CI_Controller {
 				if (!$this->upload->do_upload("archivo")) {
 					$data = array('res' => "error", 'message' => $this->upload->display_errors());
 				} else {
-	  $file_name = $_FILES['archivo']['name'];
-		$file_size = $_FILES['archivo']['size'];
-		$file_tmp = $_FILES['archivo']['tmp_name'];
-		$file_type = $_FILES['archivo']['type'];
+				  $file_name = $_FILES['archivo']['name'];
+					$file_size = $_FILES['archivo']['size'];
+					$file_tmp = $_FILES['archivo']['tmp_name'];
+					$file_type = $_FILES['archivo']['type'];
 
-		$imagen_temporal = $file_tmp;
-		$tipo = $file_type;
+					$imagen_temporal = $file_tmp;
+					$tipo = $file_type;
 
-		$fp = fopen($imagen_temporal, 'r+b');
-		$binario = fread($fp, filesize($imagen_temporal));
-		fclose($fp);
+					$fp = fopen($imagen_temporal, 'r+b');
+					$binario = fread($fp, filesize($imagen_temporal));
+					fclose($fp);
 
-		$ajax_data = $this->input->post();
-		$ajax_data['archivo'] = $binario; // Documento pdf
-		$ajax_data['nombre_archivo'] = $this->upload->data('file_name'); // name file
+					$ajax_data = $this->input->post();
+					$ajax_data['archivo'] = $binario; // Documento pdf
+					$ajax_data['nombre_archivo'] = $this->upload->data('file_name'); // name file
 
 					if ($this->Modelo_DarAccesoAlumnos->insert_baucher($ajax_data)) {
 						$data = array('res' => "success", 'message' => "Archivo guardado correctamente...!");
@@ -78,62 +78,31 @@ class AltaBaucherBanco extends CI_Controller {
 		} else {
 			echo "No se permite este acceso directo...!!!";
 		}
-
 	}
 
 
+		public function consultaCountAlumnos(){
+					// $data['estatus'] = $this->input->post('estatus');
+	 				$numero_control = $this->input->post('numero_control');
+
+							if ($this->Modelo_DarAccesoAlumnos->consultaCountAlumnosXxx($numero_control)) {
+								$data = array('responce' => 'success', 'message' => 'Ya Registro su Comprobante de pago...!!!');
+							} else {
+								// $data = array('responce' => 'error', 'message' => 'No ha realizado el Registro de su Comprobante de pago...!!!');
+								$data = array('responce' => 'error');
+							}
+					echo json_encode($data);
+		}
 
 
-	/* -------------------------------------------------------------------------- */
-	/*                                Fetch Records                               */
-	/* -------------------------------------------------------------------------- */
-
-	// public function listaAccesoAlumnosARecibos() {
-	//
-	// 	$posts = $this->Modelo_DarAccesoAlumnos->obtenerListaDeAlumnosInscritos();
-	// 	echo json_encode($posts);
-	//
-	// }
-
-
-
-	//
-	// public function verArchivo($id){
-	// 	$consulta = $this->Modelo_RegistrosPag->getArchivoId($id);
-	// 	$archivo = $consulta['archivo'];
-	// 	$img = $consulta['img'];
-	// 	header("Content-type: application/pdf");
-	// 	header("Content-Disposition: inline; filename=$img.pdf");
-	// 	print_r($archivo);
-	//
-	// }
-
-
-	/* -------------------------------------------------------------------------- */
-/*                               Delete Records                               */
-/* -------------------------------------------------------------------------- */
-//
-// public function eliminarPagos()
-// {
-// 	if ($this->input->is_ajax_request()) {
-//
-// 		$del_id = $this->input->post('del_id');
-//
-// 		$post = $this->Modelo_RegistrosPag->single_entry($del_id);
-//
-// 		unlink(APPPATH . '../assets/template/dist/img/uploads/' . $post->img);
-//
-// 		if ($this->Modelo_RegistrosPag->delete_entry($del_id)) {
-// 			$data = array('res' => "success", 'message' => "Datos eliminados con éxito...!");
-// 		} else {
-// 			$data = array('res' => "error", 'message' => "No se pudo eliminar...!");
-// 		}
-// 		echo json_encode($data);
-// 	} else {
-// 		echo "No se permite este acceso directo...!!!";
-// 	}
-// }
-//
+			public function verBaucher($numero_control){
+				$consulta = $this->Modelo_DarAccesoAlumnos->getBaucherId($numero_control);
+				$archivo = $consulta['archivo'];
+				$img = $consulta['nombre_archivo'];
+				header("Content-type: application/pdf");
+				header("Content-Disposition: inline; filename=$img.pdf");
+				print_r($archivo);
+			}
 
 
 }  // Fin del controller

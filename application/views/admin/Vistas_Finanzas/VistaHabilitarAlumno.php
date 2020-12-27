@@ -93,6 +93,58 @@
   </div>
 
 
+  <!-- Modal Agregar nueuvo registro -->
+  <div class="modal fade" id="modalDocumento" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header bg-primary text-center">
+          <strong class="modal-title" id="exampleModalLabel">Guardar recibo de pago</strong>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+              <input type="hidden" id="numero_controlVarHide" name="numero_controlVarHide">
+				      <input type="hidden" id="id_alta_baucher_bancoVarHide" name="id_alta_baucher_bancoVarHide">
+				      <input type="hidden" id="id_reciboVarHide" name="id_reciboVarHide">
+
+            <div>
+              <label> <span class="rojo">*</span>Seleccione el archivo formato PDF </label>
+            </div>
+            <div class="panel panel-default">
+              <div class="panel-body">
+              <div class="row">
+              <div class="col-xs-12 col-sm-8 col-md-8">
+                  <div class="form-group" id="archivoPDF">
+                      <input id="archivo" name="archivo"  type="file" size="60" accept=".pdf"/>
+                  </div>
+              </div>
+              </div>
+
+              <table id="tbl_listaRecibosFirmados" class="table table-striped table-bordered table-hover table-condensed" cellspacing="0" style="background:white!important" width="100%">
+                <thead class="bg-primary">
+                  <tr>
+                    <th width="3%">#</th>
+                    <center><th width="25%">Nombre del recibo</th></center>
+                    <center><th width="10%">Descarga</th></center>
+                    <center><th width="10%">Eliminar</th></center>
+                  </tr>
+                </thead>
+              </table>
+              </div>
+            </div>
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+          <!-- Insert Button -->
+          <button type="button" class="btn btn-primary" id="altaReciboValidado">Agregar Pago</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
 
 
   <div class="row my-4">
@@ -105,12 +157,14 @@
             <th width="3%">#</th>
             <th>Nombre Completo</th>
             <th class="text-center">Carrera</th>
-            <th class="text-center">No. Control</th>
-            <th class="text-center">Registro baucher</th>
-            <th class="text-center">Baucher</th>
+            <th class="text-center">No.Control</th>
+            <th class="text-center">Fecha registro</th>
+            <th class="text-center">Ver Baucher</th>
             <!-- <th class="text-center" width="8%">Recibo</th> -->
             <th class="text-center">Habilitar</th>
             <th class="text-center">Recibo</th>
+            <th class="text-center">No aplica</th>
+            <th class="text-center">Subir</th>
           </tr>
         </thead>
       </table>

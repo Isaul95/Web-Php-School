@@ -48,26 +48,40 @@ class HabilitarAlumnos extends CI_Controller {
 		}
 
 
-public function verBaucher($numero_control){
-	$consulta = $this->Modelo_DarAccesoAlumnos->getBaucherId($numero_control);
-	$archivo = $consulta['archivo'];
-	$img = $consulta['nombre_archivo'];
-	header("Content-type: application/pdf");
-	header("Content-Disposition: inline; filename=$img.pdf");
-	print_r($archivo);
-}
+		public function verBaucher($numero_control){
+			$consulta = $this->Modelo_DarAccesoAlumnos->getBaucherId($numero_control);
+			$archivo = $consulta['archivo'];
+			$img = $consulta['nombre_archivo'];
+			header("Content-type: application/pdf");
+			header("Content-Disposition: inline; filename=$img.pdf");
+			print_r($archivo);
+		}
 
 //  ESYE ES MI NEW METODO PARA EL UPDATE DEL CHECKEN
 // ========================================================================
 public function marcarParaRegistro($numero_control){
-					$data['estatus'] = $this->input->post('estatus');
-			if ($this->Modelo_DarAccesoAlumnos->update($numero_control, $data)) {
-				$data = array('responce' => 'success', 'message' => 'Alumno habilitado correctamente...!');
-			} else {
-				$data = array('responce' => 'error', 'message' => 'Fallo habilitar alumno...!');
-			}
-		echo json_encode($data);
+			$data['estatus'] = $this->input->post('estatus');
+			// $data['id_alta_baucher_banco'] = $this->input->post('id_alta_baucher_banco');
+			$id_alta_baucher_banco = $this->input->post('id_alta_baucher_banco');
 
+ 				$estatus = $this->input->post('estatus');
+		if($estatus != 0){  // Depende del estatus k se mande se hace a accion
+						if ($this->Modelo_DarAccesoAlumnos->update($numero_control, $data)) {
+// 1.- Cuando se habilita solo es estatus en la tabla de alumnos => estatus =1
+							$data = array('responce' => 'success', 'message' => 'Alumno habilitado correctamente...!');
+						} else {
+							$data = array('responce' => 'error', 'message' => 'Fallo habilitar alumno...!');
+						}
+		} else {
+// 2.- Cuando se DES-habilita cambia el estatus en la tabla de alumnos => estatus =0 y delete los datos del revibo para k cuando se vuelva habilitar metan nuevos datoos
+						if ($this->Modelo_DarAccesoAlumnos->update($numero_control, $data)) {
+							$this->Modelo_DarAccesoAlumnos->deleteDatosDelRecibo($id_alta_baucher_banco);
+							$data = array('responce' => 'success', 'message' => 'Alumno fue habilitado...!');
+						} else {
+							$data = array('responce' => 'error', 'message' => 'Fallo al deshabilitar el Alumno...!');
+						}
+		}
+		echo json_encode($data);
 }
 
 
@@ -100,14 +114,112 @@ public function marcarParaRegistro($numero_control){
 
 
 
+//   ************************  FUINCTION PARA ELIMINAR  el registro del alumno nauchere  ********************
+		public function eliminarAllRegistro(){
+
+			if ($this->input->is_ajax_request()) {
+				$numero_control = $this->input->post('numero_control');
+
+				if ($this->Modelo_DarAccesoAlumnos->eliminarTodoRegistroAlumno($numero_control)) {
+					$data = array('responce' => 'success');
+				} else {
+					$data = array('responce' => 'error');
+				}
+				echo json_encode($data);
+			} else {
+				echo "No direct script access allowed";
+			}
+		}
 
 
 
 
+		public function verRecibosFirmados()
+		{
+		    $posts = $this->Modelo_DarAccesoAlumnos->obtenerRecibosFirmadosDelAlumno();
+		    echo json_encode($posts);
+		}
 
 
 
+		/* -------------------------------------------------------------------------- */
+		/*        AGREGA EL RECIVO DE PAGO FURMADO Y SELLADO INSTITUXION             */
+		/* -------------------------------------------------------------------------- */
 
+		public function agregarReciboFirmado(){
+
+			if ($this->input->is_ajax_request()) {
+
+				$this->form_validation->set_rules('id_recibo', 'Número de control', 'required');
+
+				if ($this->form_validation->run() == FALSE) {
+					$data = array('res' => "error", 'message' => validation_errors());
+				} else {
+					$config['upload_path'] = "./assets/template/dist/img/uploads";
+					$config['allowed_types'] = 'gif|jpg|png|pdf';
+					$config['max_size']     = '1000';
+
+					$this->load->library('upload', $config);
+
+					if (!$this->upload->do_upload("archivo")) {
+						$data = array('res' => "error", 'message' => $this->upload->display_errors());
+					} else {
+					  $file_name = $_FILES['archivo']['name'];
+						$file_size = $_FILES['archivo']['size'];
+						$file_tmp = $_FILES['archivo']['tmp_name'];
+						$file_type = $_FILES['archivo']['type'];
+
+						$imagen_temporal = $file_tmp;
+						$tipo = $file_type;
+
+						$fp = fopen($imagen_temporal, 'r+b');
+						$binario = fread($fp, filesize($imagen_temporal));
+						fclose($fp);
+
+						$ajax_data = $this->input->post();
+						$ajax_data['archivo'] = $binario; // Documento pdf
+						$ajax_data['nombre_archivo'] = $this->upload->data('file_name'); // name file
+
+						if ($this->Modelo_DarAccesoAlumnos->insert_reciboValidadoXlaIntitucion($ajax_data)) {
+							$data = array('res' => "success", 'message' => "Archivo guardado correctamente...!");
+						} else {
+							$data = array('res' => "error", 'message' => "Error al guardado el archivo...!");
+						}
+					}
+				}
+				echo json_encode($data);
+			} else {
+				echo "No se permite este acceso directo...!!!";
+			}
+		}
+
+
+		public function verReciboFirmado($id_recibo_valido){
+			$consulta = $this->Modelo_DarAccesoAlumnos->getReciboValidado($id_recibo_valido);
+			$archivo = $consulta['archivo'];
+			$img = $consulta['nombre_archivo'];
+			header("Content-type: application/pdf");
+			header("Content-Disposition: inline; filename=$img.pdf");
+			print_r($archivo);
+		}
+
+
+		//   ************************  FUINCTION PARA ELIMINAR  el registro del alumno nauchere  ********************
+				public function eliminarReciboFirmadoAlum(){
+
+					if ($this->input->is_ajax_request()) {
+						$id_recibo_valido = $this->input->post('id_recibo_valido');
+
+						if ($this->Modelo_DarAccesoAlumnos->eliminarReciboFirmadodelAlumno($id_recibo_valido)) {
+							$data = array('responce' => 'success');
+						} else {
+							$data = array('responce' => 'error');
+						}
+						echo json_encode($data);
+					} else {
+						echo "No direct script access allowed";
+					}
+				}
 
 
 

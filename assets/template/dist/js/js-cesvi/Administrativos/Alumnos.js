@@ -1,11 +1,11 @@
-$(document).ready(function(){
+$(document).ready(function () {
     llenarTablaAlumnos(); // SEINICIALIZA LA FUNCTIO DE LA CARGA DEL LISTADO DE LA TABLA
     date_picker_alumno();
     periodo_activo();
-  }); // FIN DE LA FUNCION PRINCIPAL
+}); // FIN DE LA FUNCION PRINCIPAL
 
 
-$(".custom-file-input").on("change", function() {
+$(".custom-file-input").on("change", function () {
     let fileName = $(this).val().split("\\").pop();
     let label = $(this).siblings(".custom-file-label");
 
@@ -21,21 +21,21 @@ $(".custom-file-input").on("change", function() {
 });
 
 /* ---------------------------- Add Records Modal --------------------------- */
-$("#modaladdalumno").on("hide.bs.modal", function(e) {
+$("#modaladdalumno").on("hide.bs.modal", function (e) {
     // do something...
     $("#formaddalumno")[0].reset();
     $(".custom-file-label").html("Adjuntar archivo (Curriculum vitae)");
 });
 
 /* ---------------------------- Add Records Modal --------------------------- */
-$("#modaladdtutor").on("hide.bs.modal", function(e) {
+$("#modaladdtutor").on("hide.bs.modal", function (e) {
     // do something...
     $("#formaddtutor")[0].reset();
     $(".custom-file-label").html("Adjuntar archivo (Curriculum vitae)");
 });
 
 /* ---------------------------- Edit Record Modal --------------------------- */
-$("#modaleditprofesor").on("hide.bs.modal", function(e) {
+$("#modaleditprofesor").on("hide.bs.modal", function (e) {
     // do something...
     $("#formeditprofesor")[0].reset();
     $(".custom-file-label").html("Adjuntar archivo (Curriculum vitae)");
@@ -45,7 +45,7 @@ $("#modaleditprofesor").on("hide.bs.modal", function(e) {
 /* -------------------------------------------------------------------------- */
 /*                               Insert Records                               */
 /* -------------------------------------------------------------------------- */
-$(document).on("click", "#btnaddalumno", function(e) {
+$(document).on("click", "#btnaddalumno", function (e) {
     e.preventDefault();
     var numero_control = $("#numero_control_alumno").val();
     var nombre_alumno = $("#nombre_alumno").val();
@@ -76,13 +76,13 @@ $(document).on("click", "#btnaddalumno", function(e) {
     var img_certificado_medico_alumno = $("#certificado_medico_alumno")[0].files[0]; // this is file
     var perido_activo_escolar = $('#id_perido_escolar_activo').val();
 
-    if (numero_control == "" || nombre_alumno == "" || apellidop_alumno == "" || apellidom_alumno == "" || direccion_alumno == ""||
-    municipmunicipio_alumno == "" ||  estestado_alumnodo == "" || datepicker_fecha_nacimiento_alumno == "" || datepicker_fecha_inscripcion_alumno == ""||
-    lugar_nacimiento_alumno == "" || municipio_nacimiento_alumno == "" || estado_nacimiento_alumno == "" || estado_civil_alumno == "" || sexo_alumno == ""||
-    institucion_procedencia_alumno == "" || tipo_escuela_alumno == "" || telefono_alumno == "" ||
-    email_alumno == "" || facebook_alumno == "" || twitter_alumno == "" || instagram_alumno == "" || licenciaturas_alumno == ""||
-    horarios_alumno == "" ){//|| img_acta_alumno.name == "" ){/*|| img_certificado_alumno.name == "" || img_curp_alumno.name == "" || img_certificado_medico_alumno.name=="" ) {
-       alert("Debe llenar todos los campos vacios...!");
+    if (numero_control == "" || nombre_alumno == "" || apellidop_alumno == "" || apellidom_alumno == "" || direccion_alumno == "" ||
+        municipmunicipio_alumno == "" || estestado_alumnodo == "" || datepicker_fecha_nacimiento_alumno == "" || datepicker_fecha_inscripcion_alumno == "" ||
+        lugar_nacimiento_alumno == "" || municipio_nacimiento_alumno == "" || estado_nacimiento_alumno == "" || estado_civil_alumno == "" || sexo_alumno == "" ||
+        institucion_procedencia_alumno == "" || tipo_escuela_alumno == "" || telefono_alumno == "" ||
+        email_alumno == "" || facebook_alumno == "" || twitter_alumno == "" || instagram_alumno == "" || licenciaturas_alumno == "" ||
+        horarios_alumno == "") {//|| img_acta_alumno.name == "" ){/*|| img_certificado_alumno.name == "" || img_curp_alumno.name == "" || img_certificado_medico_alumno.name=="" ) {
+        alert("Debe llenar todos los campos vacios...!");
     } else {
         var a = periodo_activo();
         alert(a);
@@ -94,6 +94,8 @@ $(document).on("click", "#btnaddalumno", function(e) {
         var archivo_certificado_alumno = $("#certificado_alumno")[0].files[0]; // this is file
         var archivo_curp_alumno = $("#curp_alumno")[0].files[0]; // this is file
         var archivo_certificado_medico_alumno = $("#certificado_medico_alumno")[0].files[0]; // this is file
+
+        armar_numero_de_control(nombre_alumno, apellidop_alumno, licenciaturainicial(licenciaturas_alumno));
 
         fd.append("numero_control", numero_control);
         fd.append("nombres", nombre_alumno);
@@ -109,18 +111,14 @@ $(document).on("click", "#btnaddalumno", function(e) {
         fd.append("estado_localidad", estado_nacimiento_alumno);
         fd.append("estado_civil", estado_civil_alumno);
         fd.append("sexo", sexo_alumno);
-
         fd.append("tipo_escuela_nivel_medio_superior", tipo_escuela_alumno);
         fd.append("institucion", institucion_procedencia_alumno);
-
         fd.append("email", email_alumno);
         fd.append("telefono", telefono_alumno);
         fd.append("facebook", facebook_alumno);
         fd.append("twitter", twitter_alumno);
         fd.append("instagram", instagram_alumno);
-        fd.append("estatus", 1); // Obt el file como tal
-      /*  fd.append("universidad_procedente", licenciaturas_alumno);
-        fd.append("experiencia_docente", horarios_alumno);*/
+        fd.append("estatus", 1);
 
         fd.append("nombre_acta", img_acta_alumno); //Obt principalmente el name file
         fd.append("acta_nacimiento", archivo_acta_alumno); // Obt el file como tal
@@ -134,11 +132,10 @@ $(document).on("click", "#btnaddalumno", function(e) {
         fd.append("nombre_certificado_medico", img_certificado_medico_alumno); //Obt principalmente el name file
         fd.append("certificado_medico", archivo_certificado_medico_alumno); // Obt el file como tal
         //EL REGISTRO DEL ALUMNO COMO USUARIO
-        var apellidos="";
+        var apellidos = "";
         apellidos = apellidos.concat(apellidop_alumno);
         apellidos = apellidos.concat(" ");
-        apellidos = apellidos.concat(apellidop_alumno);
-
+        apellidos = apellidos.concat(apellidom_alumno);
         fd2.append("nombres", nombre_alumno);
         fd2.append("apellidos", apellidos);
         fd2.append("telefono", telefono_alumno);
@@ -155,18 +152,18 @@ $(document).on("click", "#btnaddalumno", function(e) {
         fd3.append("opcion", horarios_alumno);
         fd3.append("cuatrimestre", 1);
         fd3.append("ciclo_escolar", perido_activo_escolar);
-        
+
         agregar_alumno(fd);
         agregar_alumno_como_maestro(fd2);
         agregar_alumno_a_su_carrera(fd3);
-        
+
     }
 });
 
 
 
 
-$(document).on("click", "#update_profesor", function (e) {
+$(document).on("click", "#update_alumno", function (e) {
     e.preventDefault();
     var id_profesores = $('#id_profesores_update').val();
     var nombre_profesor = $("#nombre_profesor_update").val();
@@ -188,10 +185,10 @@ $(document).on("click", "#update_profesor", function (e) {
     var trabajosprevios_profesor = $("#trabajosprevios_profesor_update").val();
     var img = $("#archivo_profesor_update")[0].files[0]; // this is file
 
-    if (nombre_profesor == "" || edad_profesor == "" || sexo_profesor == "" || direccion_profesor == "" || ciudad_profesor == ""||
-    nacionalidad_profesor == "" ||  telefono_profesor == "" || email_profesor == "" || estadocivil_profesor == ""||
-    niveldeestudios_profesor == "" || titulado_profesor == "" || cedula_profesor == "" || ocupacion_profesor == "" || tipodetrabajo_profesor == ""||
-    universidadprocedente_profesor == "" || experiencia_profesor == "" || trabajosprevios_profesor == "" ) { // || img.name == ""
+    if (nombre_profesor == "" || edad_profesor == "" || sexo_profesor == "" || direccion_profesor == "" || ciudad_profesor == "" ||
+        nacionalidad_profesor == "" || telefono_profesor == "" || email_profesor == "" || estadocivil_profesor == "" ||
+        niveldeestudios_profesor == "" || titulado_profesor == "" || cedula_profesor == "" || ocupacion_profesor == "" || tipodetrabajo_profesor == "" ||
+        universidadprocedente_profesor == "" || experiencia_profesor == "" || trabajosprevios_profesor == "") { // || img.name == ""
         alert("Debe llenar todos los campos vacios...!");
     } else {
 
@@ -226,7 +223,7 @@ $(document).on("click", "#update_profesor", function (e) {
             processData: false,
             contentType: false,
             dataType: "json",
-            enctype : 'multipart/form-data',
+            enctype: 'multipart/form-data',
             success: function (response) {
                 if (response.responce == "success") {
                     toastr["success"](response.message);
@@ -238,7 +235,7 @@ $(document).on("click", "#update_profesor", function (e) {
                     toastr["error"](data.message);
                 }
             },
-            error: function(response){
+            error: function (response) {
                 toastr["error"](response.message);
             }
         });
@@ -254,75 +251,75 @@ function llenarTablaAlumnos() {
     // debugger;
     $.ajax({
         type: "get",
-        url: base_url+'Administrativos/Alumnos/veralumno',
+        url: base_url + 'Administrativos/Alumnos/veralumno',
         dataType: "json",
-        success: function(response) {
+        success: function (response) {
             var i = "1";
             $("#tbl_alumnos_inscripcion").DataTable({
                 data: response,
                 responsive: true,
                 columns: [{
-                        data: "id_profesores",
-                        "visible": false,
-                        "searchable": false
-                      },
-                    {
-                        data: "nombres",
-                    },
-                    {
-                        data: "nivel_de_estudios",
-                    },
-                    {
-                        data: "titulado",
-                    },
-                    {
-                        data: "cedula",
-                    },
-                    {
-                        data: "ocupacion",
-                    },
-                    {
-                        data: "tipo_de_trabajo",
-                    },
-                    {
-                        data: "universidad_procedente",
-                    },
-                    {
-                        data: "experiencia_docente",
-                    },
-                    {
-                        data: "trabajos_anteriores",
-                    },
-                    {
-                        data: "curriculum",
-                        render: function(data, type, row, meta) {
-                            var a = `
+                    data: "id_profesores",
+                    "visible": false,
+                    "searchable": false
+                },
+                {
+                    data: "nombres",
+                },
+                {
+                    data: "nivel_de_estudios",
+                },
+                {
+                    data: "titulado",
+                },
+                {
+                    data: "cedula",
+                },
+                {
+                    data: "ocupacion",
+                },
+                {
+                    data: "tipo_de_trabajo",
+                },
+                {
+                    data: "universidad_procedente",
+                },
+                {
+                    data: "experiencia_docente",
+                },
+                {
+                    data: "trabajos_anteriores",
+                },
+                {
+                    data: "curriculum",
+                    render: function (data, type, row, meta) {
+                        var a = `
                                <a title="Descarga Documento" href="Alumnos/verArchivoalumno/${row.id_profesores}" target="_blank"><i class="far fa-file-pdf fa-2x"></i></a>
                             `;
-                            return a;
-                        },
+                        return a;
                     },
-                    {
-                        orderable: false,
-                        searchable: false,
-                        data: function(row, type, set) {
-                            return `
+                },
+                {
+                    orderable: false,
+                    searchable: false,
+                    data: function (row, type, set) {
+                        return `
                                 <a href="#" id="agregar_tutor" class="btn btn-success btn-remove" value="${row.id_profesores}"><i class="far fa-edit"></i></a>
                                  `;
-                        },
                     },
-                    {
-                        orderable: false,
-                        searchable: false,
-                        data: function(row, type, set) {
-                            return `
-                                <a href="#" id="edit_profe" class="btn btn-success btn-remove" value="${row.id_profesores}"><i class="far fa-edit"></i></a>
-                                <a href="#" id="del_profesor" class="btn btn-danger btn-remove" value="${row.id_profesores}"><i class="fas fa-trash-alt"></i></a>
+                },
+                {
+                    orderable: false,
+                    searchable: false,
+                    data: function (row, type, set) {
+                        return `
+                                <a href="#" id="edit_alumno" class="btn btn-success btn-remove" value="${row.id_profesores}"><i class="far fa-edit"></i></a>
+                                <a href="#" id="del_alumno" class="btn btn-danger btn-remove" value="${row.id_profesores}"><i class="fas fa-trash-alt"></i></a>
                             `;
-                        },
                     },
+                },
                 ],
-                  "language" : language_espaniol,
+                "language": language_espaniol,
 
             });
         },
@@ -338,12 +335,12 @@ $(document).on("click", "#agregar_tutor", function (e) {
 });
 
 
-$(document).on("click", "#edit_profe", function (e) {
+$(document).on("click", "#edit_alumno", function (e) {
     e.preventDefault();
     var edit_id = $(this).attr("value");
     $.ajax({
         type: "post",
-        url: base_url+'Administrativos/Alumnos/editaralumno',
+        url: base_url + 'Administrativos/Alumnos/editaralumno',
         data: {
             edit_id: edit_id,
         },
@@ -375,7 +372,7 @@ $(document).on("click", "#edit_profe", function (e) {
 /* -------------------------------------------------------------------------- */
 /*                               Delete Records                               */
 /* -------------------------------------------------------------------------- */
-$(document).on("click", "#del_profesor", function(e) {
+$(document).on("click", "#del_alumno", function (e) {
     e.preventDefault();
 
     var del_id = $(this).attr("value");
@@ -394,12 +391,12 @@ $(document).on("click", "#del_profesor", function(e) {
             $.ajax({
                 type: "post",
                 // url: base_url + "delete",
-                url: base_url+'Administrativos/Alumnos/eliminaralumno',
+                url: base_url + 'Administrativos/Alumnos/eliminaralumno',
                 data: {
                     del_id: del_id,
                 },
                 dataType: "json",
-                success: function(data) {
+                success: function (data) {
                     if (data.responce == "success") {
                         Swal.fire(
                             '¡Eliminado!',
@@ -408,7 +405,7 @@ $(document).on("click", "#del_profesor", function(e) {
                         );
                         $("#tbl_alumnos_inscripcion").DataTable().destroy();
                         llenarTablaAlumnos();
-                    }else{
+                    } else {
                         console.log(data);
                     }
                 },
@@ -423,54 +420,54 @@ $(document).on("click", "#del_profesor", function(e) {
 
 
 // ********************   variable PARA CAMBIAR DE IDIOMA AL ESPAÑOL EL DataTable  *************************
-    var language_espaniol = {
-      "lengthMenu": "Mostrar _MENU_ registros por pagina",
-      "zeroRecords": "No se encontraron resultados en su busqueda",
-      "searchPlaceholder": "Buscar Registros",
-      "info": "Total: _TOTAL_ registros",
-      "infoEmpty": "No Existen Registros",
-      "infoFiltered": "(filtrado de un total de _MAX_ registros)",
-      "search": "Buscar:",
-      "paginate": {
+var language_espaniol = {
+    "lengthMenu": "Mostrar _MENU_ registros por pagina",
+    "zeroRecords": "No se encontraron resultados en su busqueda",
+    "searchPlaceholder": "Buscar Registros",
+    "info": "Total: _TOTAL_ registros",
+    "infoEmpty": "No Existen Registros",
+    "infoFiltered": "(filtrado de un total de _MAX_ registros)",
+    "search": "Buscar:",
+    "paginate": {
         "first": "Primero",
         "last": "Último",
         "next": "Siguiente",
         "previous": "Anterior"
-      }, /* TODO ESTO ES PARA CAMBIAR DE IDIOMA */
-    }
+    }, /* TODO ESTO ES PARA CAMBIAR DE IDIOMA */
+}
 
-    function date_picker_alumno() {
-        $("#datepicker_fecha_nacimiento_alumno,#datepicker_fecha_inscripcion_alumno").datepicker({
-            closeText: 'Cerrar',
-            currentText: 'Hoy',
-            monthNames: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio',
-                'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
-            monthNamesShort: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun',
-                'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'],
-            dayNames: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'],
-            dayNamesShort: ['Dom', 'Lun', 'Mar', 'Mié;', 'Juv', 'Vie', 'Sáb'],
-            dayNamesMin: ['Do', 'Lu', 'Ma', 'Mi', 'Ju', 'Vi', 'Sá'],
-            weekHeader: 'Sm',
-            dateFormat: 'yy/mm/dd',
-            firstDay: 1,
-            isRTL: false,
-            showMonthAfterYear: false,
-            yearSuffix: ''
-        });
-        $.datepicker.setDefaults($.datepicker.regional['es']);
-    }
+function date_picker_alumno() {
+    $("#datepicker_fecha_nacimiento_alumno,#datepicker_fecha_inscripcion_alumno").datepicker({
+        closeText: 'Cerrar',
+        currentText: 'Hoy',
+        monthNames: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio',
+            'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+        monthNamesShort: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun',
+            'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'],
+        dayNames: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'],
+        dayNamesShort: ['Dom', 'Lun', 'Mar', 'Mié;', 'Juv', 'Vie', 'Sáb'],
+        dayNamesMin: ['Do', 'Lu', 'Ma', 'Mi', 'Ju', 'Vi', 'Sá'],
+        weekHeader: 'Sm',
+        dateFormat: 'yy/mm/dd',
+        firstDay: 1,
+        isRTL: false,
+        showMonthAfterYear: false,
+        yearSuffix: ''
+    });
+    $.datepicker.setDefaults($.datepicker.regional['es']);
+}
 
 
-function agregar_alumno(fd){
+function agregar_alumno(fd) {
     $.ajax({
         type: "post",
-        url: base_url+'Administrativos/Alumnos/insertaralumno',
+        url: base_url + 'Administrativos/Alumnos/insertaralumno',
         data: fd,
         processData: false,
         contentType: false,
         dataType: "json",
-        enctype : 'multipart/form-data',
-        success: function(data) {
+        enctype: 'multipart/form-data',
+        success: function (data) {
             if (data.response == "success") {
                 toastr["success"](data.response.message);
                 $("#modaladdalumno").modal("hide");
@@ -485,16 +482,16 @@ function agregar_alumno(fd){
     });
 }
 
-function agregar_alumno_como_maestro(fd2){
+function agregar_alumno_como_maestro(fd2) {
     $.ajax({
         type: "post",
-        url: base_url+'Administrativos/Alumnos/insertaralumnocomousuario',
+        url: base_url + 'Administrativos/Alumnos/insertaralumnocomousuario',
         data: fd2,
         processData: false,
         contentType: false,
         dataType: "json",
-        enctype : 'multipart/form-data',
-        success: function(data) {
+        enctype: 'multipart/form-data',
+        success: function (data) {
             if (data.response == "success") {
                 toastr["success"](data.response.message);
             } else {
@@ -504,16 +501,16 @@ function agregar_alumno_como_maestro(fd2){
     });
 }
 
-function agregar_alumno_a_su_carrera(fd3){
+function agregar_alumno_a_su_carrera(fd3) {
     $.ajax({
         type: "post",
-        url: base_url+'Administrativos/Alumnos/insertaralumnoasucarrera',
+        url: base_url + 'Administrativos/Alumnos/insertaralumnoasucarrera',
         data: fd3,
         processData: false,
         contentType: false,
         dataType: "json",
-        enctype : 'multipart/form-data',
-        success: function(data) {
+        enctype: 'multipart/form-data',
+        success: function (data) {
             if (data.response == "success") {
                 toastr["success"](data.response.message);
             } else {
@@ -522,13 +519,32 @@ function agregar_alumno_a_su_carrera(fd3){
         },
     });
 }
-function periodo_activo(){
+function periodo_activo() {
     $.ajax({
         type: "get",
-        url: base_url+'Administrativos/Alumnos/verperiodo_activo',
+        url: base_url + 'Administrativos/Alumnos/verperiodo_activo',
         dataType: "json",
-        success: function(response) {
+        success: function (response) {
             $("#id_perido_escolar_activo").val(response['id_periodo_escolar']);
         },
     });
+}
+
+function armar_numero_de_control(nombre, apellidop) {
+    var numero_de_control = "";
+    numero_de_control = numero_de_control.concat(apellidop_alumno);
+    numero_de_control = numero_de_control.concat(" ");
+    numero_de_control = numero_de_control.concat(apellidop_alumno);
+    return numero_de_control;
+}
+
+function licenciaturainicial(licenciatura) {
+    var inicial;
+    switch (licenciatura) {
+        case 19:inicial='DG';break;
+        case 21:inicial='C';break;
+        case 22:inicial='CC';break;
+        case 23:inicial='D';break;
+        case 24:inicial='P';break;
+    }
 }

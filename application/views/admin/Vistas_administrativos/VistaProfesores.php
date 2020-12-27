@@ -173,8 +173,8 @@
      <div class="modal fade" id="modaleditprofesor" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
           <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">Edit Record</h5>
+          <div class="modal-header bg-primary text-center">
+              <strong class="modal-title" id="exampleModalLabel">Editar profesor</strong>
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
               </button>
@@ -309,7 +309,140 @@
 
     </div>
   </div>
+<!--VER FICHA COMPLETA DEL PROFESOR-->
+<div class="modal fade" id="modalviewprofesor" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+          <div class="modal-header bg-primary text-center">
+              <strong class="modal-title" id="exampleModalLabel">información del profesor</strong>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <div class="container-fluid">
+                <div class="row text-center">
+                  <div class="col-md-12 my-3">
+                    <div id="show_img"></div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-12">
+            <form id="formeditprofesor">
 
+            <div class="row">
+                    <input type="hidden" id="id_profesores_view">
+              <div class="col-sm-12">
+                <label for="">Datos personales</label>
+                  <div class="row">
+                    <div class="col-8 col-sm-8">
+                    <label for="">Nombre completo</label>
+                    <input type="text" class="form-control" id="nombre_profesor_view" placeholder="Nombre del profesor">
+                    </div>
+                    <div class="col-4 col-sm-2">
+                    <label for="">Edad</label>
+                    <input type="text" class="form-control" id="edad_profesor_view" placeholder="Edad">
+                    </div>
+                    <div class="col-4 col-sm-2">
+                    <label for="">Sexo</label>
+                    <input type="text" class="form-control" id="sexo_profesor_view" placeholder="Sexo">
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-8 col-sm-12">
+                    <label for="">Dirección</label>
+                    <input type="text" class="form-control" id="direccion_profesor_view" placeholder="Dirección">
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-8 col-sm-6">
+                    <label for="">Ciudad donde radica</label>
+                    <input type="text" class="form-control" id="ciudad_profesor_view" placeholder="Ciudad">
+                    </div>
+                    <div class="col-8 col-sm-6">
+                    <label for="">Nacionalidad</label>
+                    <input type="text" class="form-control" id="nacionalidad_profesor_view" placeholder="Nacionalidad">
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-8 col-sm-6">
+                    <label for="">Telefono celular</label>
+                    <input type="text" class="form-control" id="telefono_profesor_view" placeholder="Celular">
+                    </div>
+                    <div class="col-8 col-sm-6">
+                    <label for="">Correo electronico</label>
+                    <input type="text" class="form-control" id="email_profesor_view" placeholder="Email">
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-8 col-sm-6">
+                    <label for="">Estado civil</label>
+                    <input type="text" class="form-control" id="estadocivil_profesor_view" placeholder="estado civil">
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <br>
+            <div class="row">
+              <div class="col-sm-12">
+                <label for="">Datos acádemicos</label>
+                 <div class="row">
+                    <div class="col-8 col-sm-6">
+                    <label for="">Nivel de estudios</label>
+                    <input type="text" class="form-control" id="niveldeestudios_profesor_view" placeholder="Nivel de estudios">
+                    </div>
+                    <div class="col-4 col-sm-3">
+                    <label for="">Titulado</label>
+                    <input type="text" class="form-control" id="titulado_profesor_view" placeholder="Titulado">
+                    </div>
+                    <div class="col-4 col-sm-3">
+                    <label for="">Cedula</label>
+                    <input type="text" class="form-control" id="cedula_profesor_view" placeholder="Cedula">
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-8 col-sm-6">
+                    <label for="">Ocupación</label>
+                    <input type="text" class="form-control" id="ocupacion_profesor_view" placeholder="Ocupación">
+                    </div>
+                    <div class="col-4 col-sm-6">
+                    <label for="">Tipo de trabajo</label>
+                    <input type="text" class="form-control" id="tipodetrabajo_profesor_view" placeholder="Tipo de trabajo">
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-8 col-sm-6">
+                    <label for="">Universidad procedente</label>
+                    <input type="text" class="form-control" id="universidadprocedente_profesor_view" placeholder="Universidad procedente">
+                    </div>
+                    <div class="col-4 col-sm-6">
+                    <label for="">Experiencia docente</label>
+                    <input type="text" class="form-control" id="experiencia_profesor_view" placeholder="Experiencia docente">
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-8 col-sm-12">
+                    <label for="">Trabajos anteriores (minimo 3)</label>
+                    <input type="text" class="form-control" id="trabajosprevios_profesor_view" placeholder="Trabajos anteriores">
+                    </div>
+                  </div>
+              </div>
+            </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+  </div>
   <div class="row my-4">
     <div class="col-md-12 mx-auto">
 
@@ -329,6 +462,7 @@
             <th>Trabajos ants.</th>
             <th class="text-center" width="7%">CV</th>
             <th class="text-center" width="7%">Acciones</th>
+            <th class="text-center" width="7%">Ficha completa</th>
           </tr>
         </thead>
       </table>

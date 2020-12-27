@@ -22,7 +22,7 @@ class Modelo_Profesores extends CI_Model { // INICIO DEL MODELO
             $this->db->from("profesores");
             $resultados = $this->db->get();
             return $resultados->result();
-            }
+        }
 
 
 
@@ -70,17 +70,17 @@ public function insert_entry($data)
               return $this->db->delete('profesores', array('id_profesores' => $id));
           }
 
-          // public function single_entry($id_profesores)
-          // {
-          //     $this->db->select('id_profesores, nombres, edad, sexo , direccion,ciudad_radicando,nacionalidad,telefono_celular,
-          //     correo,estado_civil,nivel_de_estudios,titulado,cedula,ocupacion,tipo_de_trabajo,universidad_procedente,experiencia_docente,trabajos_anteriores');
-          //     $this->db->from('profesores');
-          //     $this->db->where('id_profesores', $id_profesores);
-          //     $query = $this->db->get();
-          //     if (count($query->result()) > 0) {
-          //         return $query->row();
-          //     }
-          // }
+           public function single_entry_sincv($id_profesores)
+           {
+              $this->db->select('id_profesores, nombres, edad, sexo , direccion,ciudad_radicando,nacionalidad,telefono_celular,
+               correo,estado_civil,nivel_de_estudios,titulado,cedula,ocupacion,tipo_de_trabajo,universidad_procedente,experiencia_docente,trabajos_anteriores');
+             $this->db->from('profesores');
+               $this->db->where('id_profesores', $id_profesores);
+               $query = $this->db->get();
+               if (count($query->result()) > 0) {
+                   return $query->row();
+               }
+          }
           public function single_entry($id_profesores)
           {
               $this->db->select('*');

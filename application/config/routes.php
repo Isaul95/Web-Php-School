@@ -87,6 +87,7 @@ $route['editarcarrera']      = 'Administrativos/Carreras/editarcarrera';
 $route['updatecarrera']      = 'Administrativos/Carreras/updatecarrera';
 // ==========================  Profesores  ===================================
 $route['verprofesor']        = 'Administrativos/Profesores/verprofesor';
+$route['verprofesor']        = 'Administrativos/Profesores/viewprofesor';
 $route['insertarprofesor']      = 'Administrativos/Profesores/insertarprofesor';
 $route['editarprofesor']      = 'Administrativos/Profesores/editarprofesor';
 $route['verArchivo']      = 'Administrativos/Profesores/verArchivo';

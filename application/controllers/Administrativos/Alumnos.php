@@ -202,7 +202,7 @@ class Alumnos extends CI_Controller {
 			$ajax_data['estatus'] = $this ->input->post('estatus');
 
 
-
+            
 			if ($this->Modelo_Alumnos->insert_entry($ajax_data)) {
 				$data = array('response' => "success", 'message' => "Datos agregados correctamente...!");
 			} else {

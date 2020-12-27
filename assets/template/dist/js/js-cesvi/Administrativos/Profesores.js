@@ -1,6 +1,6 @@
 $(document).ready(function(){
     llenarTablaProfesores(); // SEINICIALIZA LA FUNCTIO DE LA CARGA DEL LISTADO DE LA TABLA
-
+    habilitar_deshabilitar();
   }); // FIN DE LA FUNCION PRINCIPAL
 
 
@@ -33,88 +33,9 @@ $("#modaleditprofesor").on("hide.bs.modal", function(e) {
     $(".custom-file-label").html("Adjuntar archivo (Curriculum vitae)");
 });
 
-
-/* -------------------------------------------------------------------------- */
-/*                               Insert Records
-    ESTE SCRITP NO PUEDE INSERTAR SI NO LLEVA EL ARCHIVO, SOLO SI LLEVA INSERTA */
-/* -------------------------------------------------------------------------- */
-// $(document).on("click", "#btnaddprofesor", function(e) {
-//     e.preventDefault();
-//     debugger;
-//
-//     var nombre_profesor = $("#nombre_profesor").val();
-//     var edad_profesor = $("#edad_profesor").val();
-//     var sexo_profesor = $("#sexo_profesor").val();
-//     var direccion_profesor = $("#direccion_profesor").val();
-//     var ciudad_profesor = $("#ciudad_profesor").val();
-//     var nacionalidad_profesor = $("#nacionalidad_profesor").val();
-//     var telefono_profesor = $("#telefono_profesor").val();
-//     var email_profesor = $("#email_profesor").val();
-//     var estadocivil_profesor = $("#estadocivil_profesor").val();
-//     var niveldeestudios_profesor = $("#niveldeestudios_profesor").val();
-//     var titulado_profesor = $("#titulado_profesor").val();
-//     var cedula_profesor = $("#cedula_profesor").val();
-//     var ocupacion_profesor = $("#ocupacion_profesor").val();
-//     var tipodetrabajo_profesor = $("#tipodetrabajo_profesor").val();
-//     var universidadprocedente_profesor = $("#universidadprocedente_profesor").val();
-//     var experiencia_profesor = $("#experiencia_profesor").val();
-//     var trabajosprevios_profesor = $("#trabajosprevios_profesor").val();
-//     var img = $("#archivo_profesor")[0].files[0]; // this is file
-//
-//     if (nombre_profesor == "" || edad_profesor == "" || sexo_profesor == "" || direccion_profesor == "" || ciudad_profesor == ""||
-//     nacionalidad_profesor == "" ||  telefono_profesor == "" || email_profesor == "" || estadocivil_profesor == ""||
-//     niveldeestudios_profesor == "" || titulado_profesor == "" || cedula_profesor == "" || ocupacion_profesor == "" || tipodetrabajo_profesor == ""||
-//     universidadprocedente_profesor == "" || experiencia_profesor == "" || trabajosprevios_profesor == "" ) { // || img.name == ""
-//         alert("Debe llenar todos los campos vacios...!");
-//     } else {
-//         var fd = new FormData();
-//
-//     var archivo = $("#archivo_profesor")[0].files[0];
-//
-//         fd.append("nombres", nombre_profesor);
-//         fd.append("edad", edad_profesor);
-//         fd.append("sexo", sexo_profesor);
-//         fd.append("direccion", direccion_profesor);
-//         fd.append("ciudad_radicando", ciudad_profesor);
-//         fd.append("nacionalidad", nacionalidad_profesor);
-//         fd.append("telefono_celular", telefono_profesor);
-//         fd.append("correo", email_profesor);
-//         fd.append("estado_civil", estadocivil_profesor);
-//         fd.append("nivel_de_estudios", niveldeestudios_profesor);
-//         fd.append("titulado", titulado_profesor);
-//         fd.append("cedula", cedula_profesor);
-//         fd.append("ocupacion", ocupacion_profesor);
-//         fd.append("tipo_de_trabajo", tipodetrabajo_profesor);
-//         fd.append("universidad_procedente", universidadprocedente_profesor);
-//         fd.append("experiencia_docente", experiencia_profesor);
-//         fd.append("trabajos_anteriores", trabajosprevios_profesor);
-//         fd.append("nombre_archivo", img); //Obt principalmente el name file
-//         fd.append("curriculum", archivo); // Obt el file como tal
-//
-//         $.ajax({
-//             type: "post",
-//             url: base_url+'Administrativos/Profesores/insertarprofesor',
-//             data: fd,
-//             processData: false,
-//             contentType: false,
-//             dataType: "json",
-//             enctype : 'multipart/form-data',
-//             success: function(response) {
-//                 if (response.res == "success") {
-//                     toastr["success"](response.message);
-//                     $("#modaladdprofesor").modal("hide");
-//                     $("#formaddprofesor")[0].reset();
-//                     $(".add-file-label").html("Choose file");
-//                     $("#tbl_profesores").DataTable().destroy();
-//                     llenarTablaProfesores();
-//                 } else {
-//                     toastr["error"](response.message);
-//                 }
-//             },
-//         });
-//     }
-// });
-
+$("#modalviewprofesor").on("hide.bs.modal", function(e) {
+    // do something...
+});
 
 // ESTE CODIGO EVALUA SI LLEVA FILE O NO, PUEDE INSERTAR SOLO DATES SIN FILE PDF
 $(document).on("click", "#btnaddprofesor", function(e) {
@@ -195,7 +116,41 @@ $(document).on("click", "#btnaddprofesor", function(e) {
         });
     }
 });
-
+$(document).on("click", "#view_profe", function (e) {
+    e.preventDefault();
+    debugger;
+    var view_id = $(this).attr("value");
+    $.ajax({
+        type: "post",
+        url: base_url+'Administrativos/Profesores/viewprofesor',
+        data: {
+            view_id: view_id,
+        },
+        dataType: "json",
+        success: function (data) {
+            console.log(data); //ver la respuesta del json, los valores que contiene
+            $('#modalviewprofesor').modal('show');
+            $('#id_profesores_view').val(data.post.id_profesores)
+            $("#nombre_profesor_view").val(data.post.nombres);
+            $("#edad_profesor_view").val(data.post.edad);
+            $("#sexo_profesor_view").val(data.post.sexo);
+            $("#direccion_profesor_view").val(data.post.direccion);
+            $("#ciudad_profesor_view").val(data.post.ciudad_radicando);
+            $("#nacionalidad_profesor_view").val(data.post.nacionalidad);
+            $("#telefono_profesor_view").val(data.post.telefono_celular);
+            $("#email_profesor_view").val(data.post.correo);
+            $("#estadocivil_profesor_view").val(data.post.estado_civil);
+            $("#niveldeestudios_profesor_view").val(data.post.nivel_de_estudios);
+            $("#titulado_profesor_view").val(data.post.titulado);
+            $("#cedula_profesor_view").val(data.post.cedula);
+            $("#ocupacion_profesor_view").val(data.post.ocupacion);
+            $("#tipodetrabajo_profesor_view").val(data.post.tipo_de_trabajo);
+            $("#universidadprocedente_profesor_view").val(data.post.universidad_procedente);
+            $("#experiencia_profesor_view").val(data.post.experiencia_docente);
+            $("#trabajosprevios_profesor_view").val(data.post.trabajos_anteriores);
+        },
+    });
+});
 
 $(document).on("click", "#edit_profe", function (e) {
     e.preventDefault();
@@ -317,7 +272,7 @@ $(document).on("click", "#update_profesor", function (e) {
 /*                                llenarllenarTablaProfesores                 */
 /* -------------------------------------------------------------------------- */
 function llenarTablaProfesores() {
-    // debugger;
+    // debugger; select concat(nombres,concat(' ',concat(apellido_paterno,concat(' ',apellido_materno)))) as nombre_completo from alumnos
     $.ajax({
         type: "get",
         url: base_url+'Administrativos/Profesores/verprofesor',
@@ -387,6 +342,16 @@ function llenarTablaProfesores() {
                             `;
                         },
                     },
+                    {
+                        orderable: false,
+                        searchable: false,
+                        data: function(row, type, set) {
+                            return `
+                                <a href="#" id="view_profe" class="btn btn-info" value="${row.id_profesores}"><i class="far fa-edit"></i></a>
+                                   `;
+                        },
+                    },
+                    
                 ],
                   "language" : language_espaniol,
             });
@@ -462,4 +427,26 @@ $(document).on("click", "#del_profesor", function(e) {
         "next": "Siguiente",
         "previous": "Anterior"
       }, /* TODO ESTO ES PARA CAMBIAR DE IDIOMA */
+    }
+
+    function habilitar_deshabilitar(){
+  
+$('#id_profesores_view').prop('disabled', true);
+$("#nombre_profesor_view").prop('disabled', true);
+$("#edad_profesor_view").prop('disabled', true);
+$("#sexo_profesor_view").prop('disabled', true);
+$("#direccion_profesor_view").prop('disabled', true);
+$("#ciudad_profesor_view").prop('disabled', true);
+$("#nacionalidad_profesor_view").prop('disabled', true);
+$("#telefono_profesor_view").prop('disabled', true);
+$("#email_profesor_view").prop('disabled', true);
+$("#estadocivil_profesor_view").prop('disabled', true);
+$("#niveldeestudios_profesor_view").prop('disabled', true);
+$("#titulado_profesor_view").prop('disabled', true);
+$("#cedula_profesor_view").prop('disabled', true);
+$("#ocupacion_profesor_view").prop('disabled', true);
+$("#tipodetrabajo_profesor_view").prop('disabled', true);
+$("#universidadprocedente_profesor_view").prop('disabled', true);
+$("#experiencia_profesor_view").prop('disabled', true);
+$("#trabajosprevios_profesor_view").prop('disabled', true);
     }

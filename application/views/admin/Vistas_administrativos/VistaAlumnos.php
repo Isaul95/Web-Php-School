@@ -63,16 +63,21 @@
               <!-- Add Record Form -->
           <form id="formaddalumno">
           <input type="hidden" id="id_perido_escolar_activo">
+          <input type="hidden" id="perido_escolar_activo">
+          <!--SECUENCIAS-->
+          <input type="hidden" id="id_secuencia_derecho">
+          <input type="hidden" id="id_secuencia_psicologia">
+          <input type="hidden" id="id_secuencia_criminalistica">
+          <input type="hidden" id="id_secuencia_diseno">
+          <input type="hidden" id="id_secuencia_contaduria">
+
+          <input type="hidden" id="secuencia_derecho">
+          <input type="hidden" id="secuencia_psicologia">
+          <input type="hidden" id="secuencia_criminalistica">
+          <input type="hidden" id="secuencia_diseno">
+          <input type="hidden" id="secuencia_contaduria">
           <div class="row">
               <div class="col-sm-12">
-                  <div class="row">
-                   <div class="col-8 col-sm-6">
-                    <label for="">Numero de control</label>
-                    <input type="text" class="form-control" id="numero_control_alumno" placeholder="Número de control">
-                    </div>
-                    </div>
-
-
                 <label for="">Datos personales</label>
                   <div class="row">
                   
@@ -142,17 +147,17 @@
                     <div class="col-4 col-sm-4">
                         <label for="">Estado civil</label>
                         <select background-color="red" id="estado_civil_alumno" class="form-select form-select-lg mb-3">
-                        <option value="1">Soltero(a)</option>
-                        <option value="2">Casado(a)</option>
-                        <option value="3">Divorciado(a)</option>
-                        <option value="4">Viudo(a)</option>
+                        <option value="Soltero(a)">Soltero(a)</option>
+                        <option value="Casado(a)">Casado(a)</option>
+                        <option value="Divorciado(a)">Divorciado(a)</option>
+                        <option value="Viudo(a)">Viudo(a)</option>
                         </select>
                     </div>
                       <div class="col-4 col-sm-6">
                               <label for="">Sexo</label>
                               <select background-color="red" id="sexo_alumno" class="form-select form-select-lg mb-3">
-                              <option value="1">Masculino</option>
-                              <option value="2">Femenino</option>
+                              <option value="Masculino">Masculino</option>
+                              <option value="Femenino">Femenino</option>
                               </select> 
                      </div>
                   </div>
@@ -166,8 +171,8 @@
                     <div class="col-4 col-sm-4">
                         <label for="">Tipo de escuela nivel medio superior</label>
                         <select background-color="red" id="tipo_escuela_alumno" class="form-select form-select-lg mb-3">
-                        <option value="1">Bachillerato</option>
-                        <option value="2">Equivalente</option>
+                        <option value="Bachillerato">Bachillerato</option>
+                        <option value="Equivalente">Equivalente</option>
                         </select>
                     </div>
                   </div>
@@ -204,11 +209,10 @@
                         <select background-color="red" id="licenciaturas_alumno" class="form-select form-select-lg mb-3">
                         <option value="23">Derecho</option>
                         <option value="24">Psicología</option>
-                        <option value="22">Criminalística, Criminología y Ténicas Periciales</option>
-                         <option value="19">Diseño Gráfico</option>
-                          <option value="21">Contaduría</option>
-                          
-                         </select>
+                        <option value="22">Criminalística, Criminología y Técnicas Periciales</option>
+                        <option value="19">Diseño Gráfico</option>
+                        <option value="21">Contaduría</option>
+                        </select>
                      </div>
                      <div class="col-6 col-sm-6">
                             <label for="">Horarios</label>
@@ -364,12 +368,6 @@
                 </div>
 
             </div>
-            
-             
-                <!-- Image -->
-                
-                
-
                 </form>
              </div>
             <div class="modal-footer">
@@ -380,14 +378,16 @@
           </div>
         </div>
       </div>
-    <!--FIN DEL MODAL DE AGREGAR ALUMNO-->
+    <!--FIN DEL MODAL DE AGREGAR TUTOR-->
+    </div>
+  </div>
 
-
-     <div class="modal fade" id="modaleditprofesor" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<!--MODAL EDITAR ALUMNO-->
+<div class="modal fade" id="modaleditalumno" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
           <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">Edit Record</h5>
+          <div class="modal-header bg-primary text-center">
+              <strong class="modal-title" id="exampleModalLabel">Editar alumno</strong>
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
               </button>
@@ -401,56 +401,23 @@
                 </div>
                 <div class="row">
                   <div class="col-md-12">
-            <form id="formeditprofesor">
-           
-                    <div class="row">
-                    <input type="hidden" id="id_profesores_update">
+            <form id="formeditalumno">
+            <div class="row">
               <div class="col-sm-12">
                 <label for="">Datos personales</label>
                   <div class="row">
-                    <div class="col-8 col-sm-8">
-                    <label for="">Nombre completo</label>
-                    <input type="text" class="form-control" id="nombre_profesor_update" placeholder="Nombre del profesor">
-                    </div>
-                    <div class="col-4 col-sm-2">
-                    <label for="">Edad</label>
-                    <input type="text" class="form-control" id="edad_profesor_update" placeholder="Edad">
-                    </div>
-                    <div class="col-4 col-sm-2">
-                    <label for="">Sexo</label>
-                    <input type="text" class="form-control" id="sexo_profesor_update" placeholder="Sexo">
-                    </div>
-                  </div>
-                  <div class="row">
-                    <div class="col-8 col-sm-12">
-                    <label for="">Dirección</label>
-                    <input type="text" class="form-control" id="direccion_profesor_update" placeholder="Dirección">
-                    </div>
-                  </div>
-                  <div class="row">
+                  <input type="hidden" id="numero_control_update">
                     <div class="col-8 col-sm-6">
-                    <label for="">Ciudad donde radica</label>
-                    <input type="text" class="form-control" id="ciudad_profesor_update" placeholder="Ciudad">
+                    <label for="">Nombre(s)</label>
+                    <input type="text" class="form-control" id="nombre_alumno_update" placeholder="Nombre del alumno">
                     </div>
-                    <div class="col-8 col-sm-6">
-                    <label for="">Nacionalidad</label>
-                    <input type="text" class="form-control" id="nacionalidad_profesor_update" placeholder="Nacionalidad">
+                    <div class="col-4 col-sm-3">
+                    <label for="">Apellido paterno</label>
+                    <input type="text" class="form-control" id="apellidop_alumno_update" placeholder="Apellido paterno">
                     </div>
-                  </div>
-                  <div class="row">
-                    <div class="col-8 col-sm-6">
-                    <label for="">Telefono celular</label>
-                    <input type="text" class="form-control" id="telefono_profesor_update" placeholder="Celular">
-                    </div>
-                    <div class="col-8 col-sm-6">
-                    <label for="">Correo electronico</label>
-                    <input type="text" class="form-control" id="email_profesor_update" placeholder="Email">
-                    </div>
-                  </div>
-                  <div class="row">
-                    <div class="col-8 col-sm-6">
-                    <label for="">Estado civil</label>
-                    <input type="text" class="form-control" id="estadocivil_profesor_update" placeholder="estado civil">
+                    <div class="col-4 col-sm-3">
+                    <label for="">Apellido materno</label>
+                    <input type="text" class="form-control" id="apellidom_alumno_update" placeholder="Apellido materno">
                     </div>
                   </div>
                 </div>
@@ -458,54 +425,143 @@
               <br>
             <div class="row">
               <div class="col-sm-12">
-                <label for="">Datos acádemicos</label>
+                <label for="">Domicilio</label>
                  <div class="row">
                     <div class="col-8 col-sm-6">
-                    <label for="">Nivel de estudios</label>
-                    <input type="text" class="form-control" id="niveldeestudios_profesor_update" placeholder="Nivel de estudios">
+                    <label for="">Dirección</label>
+                    <input type="text" class="form-control" id="direccion_alumno_update" placeholder="Calle, número y colonia.">
                     </div>
                     <div class="col-4 col-sm-3">
-                    <label for="">Titulado</label>
-                    <input type="text" class="form-control" id="titulado_profesor_update" placeholder="Titulado">
+                    <label for="">Municipio</label>
+                    <input type="text" class="form-control" id="municipio_alumno_update" placeholder="Municipio">
                     </div>
                     <div class="col-4 col-sm-3">
-                    <label for="">Cedula</label>
-                    <input type="text" class="form-control" id="cedula_profesor_update" placeholder="Cedula">
+                    <label for="">Estado</label>
+                    <input type="text" class="form-control" id="estado_alumno_update" placeholder="Estado">
                     </div>
                   </div>
+                 <br>
                   <div class="row">
                     <div class="col-8 col-sm-6">
-                    <label for="">Ocupación</label>
-                    <input type="text" class="form-control" id="ocupacion_profesor_update" placeholder="Ocupación">
+                    <label for="">Fecha de nacimiento</label>
+                    <input type="text" id="datepicker_fecha_nacimiento_alumno_update"/>
+                     </div>
+                     <div class="col-8 col-sm-6">
+                    <label for="">Fecha de inscripcion</label>
+                    <input type="text" id="datepicker_fecha_inscripcion_alumno_update"/>
+                     </div>
+                  </div>
+                  <br>
+                  <label for="">Lugar de nacimiento</label>
+                  <div class="row">
+                    <div class="col-4 col-sm-4">
+                    <label for="">Localidad</label>
+                    <input type="text" class="form-control" id="lugar_nacimiento_alumno_update" placeholder="localidad">
                     </div>
-                    <div class="col-4 col-sm-6">
-                    <label for="">Tipo de trabajo</label>
-                    <input type="text" class="form-control" id="tipodetrabajo_profesor_update" placeholder="Tipo de trabajo">
+                    <div class="col-4 col-sm-4">
+                    <label for="">Municipio</label>
+                    <input type="text" class="form-control" id="municipio_nacimiento_alumno_update" placeholder="municipio">
+                    </div>
+                    <div class="col-4 col-sm-4">
+                    <label for="">Estado</label>
+                    <input type="text" class="form-control" id="estado_nacimiento_alumno_update" placeholder="estado">
+                    </div>
+                  </div>
+                  <br>
+                  <label for="">Estado civil y sexo</label>
+                  <div class="row">
+                    <div class="col-4 col-sm-4">
+                        <label for="">Estado civil</label>
+                        <select background-color="red" id="estado_civil_alumno_update" class="form-select form-select-lg mb-3">
+                        <option value="Soltero(a)">Soltero(a)</option>
+                        <option value="Casado(a)">Casado(a)</option>
+                        <option value="Divorciado(a)">Divorciado(a)</option>
+                        <option value="Viudo(a)">Viudo(a)</option>
+                        </select>
+                    </div>
+                      <div class="col-4 col-sm-6">
+                              <label for="">Sexo</label>
+                              <select background-color="red" id="sexo_alumno_update" class="form-select form-select-lg mb-3">
+                              <option value="Masculino">Masculino</option>
+                              <option value="Femenino">Femenino</option>
+                              </select> 
+                     </div>
+                  </div>
+                  <br>
+                  <label for="">Escuela de procedencia</label>
+                  <div class="row">
+                    <div class="col-8 col-sm-8">
+                    <label for="">Nombre de la institución</label>
+                    <input type="text" class="form-control" id="institucion_procedencia_alumno_update" placeholder="institución">
+                    </div>
+                    <div class="col-4 col-sm-4">
+                        <label for="">Tipo de escuela nivel medio superior</label>
+                        <select background-color="red" id="tipo_escuela_alumno_update" class="form-select form-select-lg mb-3">
+                        <option value="Bachillerato">Bachillerato</option>
+                        <option value="Equivalente">Equivalente</option>
+                        </select>
+                    </div>
+                  </div>
+                  <br>
+                  <label for="">Datos de contacto</label>
+                  <div class="row">
+                    <div class="col-4 col-sm-4">
+                    <label for="">Telefono</label>
+                    <input type="text" class="form-control" id="telefono_alumno_update" placeholder="telefono">
+                    </div>
+                    <div class="col-4 col-sm-4">
+                    <label for="">Email</label>
+                    <input type="text" class="form-control" id="email_alumno_update" placeholder="email">
+                    </div>
+                    <div class="col-4 col-sm-4">
+                    <label for="">Facebook</label>
+                    <input type="text" class="form-control" id="facebook_alumno_update" placeholder="perfil de facebook">
                     </div>
                   </div>
                   <div class="row">
-                    <div class="col-8 col-sm-6">
-                    <label for="">Universidad procedente</label>
-                    <input type="text" class="form-control" id="universidadprocedente_profesor_update" placeholder="Universidad procedente">
+                  <div class="col-4 col-sm-4">
+                    <label for="">Twitter</label>
+                    <input type="text" class="form-control" id="twitter_alumno_update" placeholder="perfil de twitter">
                     </div>
-                    <div class="col-4 col-sm-6">
-                    <label for="">Experiencia docente</label>
-                    <input type="text" class="form-control" id="experiencia_profesor_update" placeholder="Experiencia docente">
-                    </div>
-                  </div>
-                  <div class="row">
-                    <div class="col-8 col-sm-12">
-                    <label for="">Trabajos anteriores (minimo 3)</label>
-                    <input type="text" class="form-control" id="trabajosprevios_profesor_update" placeholder="Trabajos anteriores">
+                    <div class="col-4 col-sm-4">
+                    <label for="">Instagram</label>
+                    <input type="text" class="form-control" id="instagram_alumno_update" placeholder="perfil de instagram">
                     </div>
                   </div>
+                  <br>
+                  
+                  <br> 
+                  <br> 
+                  <br> 
+                  <div class="col-4 col-sm-4">
+                <div class="form-group">
+                  <label for="customFile">Acta de nacimiento</label>
+                  <input type="file" class="custom-file-input" id="acta_alumno_update">
+                </div>
+                </div>
+                <div class="col-4 col-sm-4">
+                <div class="form-group">
+                  <label for="customFile">Certificado de bachillerato</label>
+                  <input type="file" class="custom-file-input" id="certificado_alumno_update">
+                </div>
+                </div>
+                <div class="col-4 col-sm-4">
+                <div class="form-group">
+                  <label for="customFile">CURP</label>
+                  <input type="file" class="custom-file-input" id="curp_alumno_update">
+                </div>
+                </div>
+                <div class="col-4 col-sm-4">
+                <div class="form-group">
+                  <label for="customFile">Certificado medico</label>
+                  <input type="file" class="custom-file-input" id="certificado_medico_alumno_update">
+                </div>
+                </div>
+
+
               </div>
             </div>
-                      <div class="custom-file">
-                      <label class="custom-file-label" for="customFile">Adjuntar archivo (Curriculum vitae)</label>
-                        <input type="file" class="custom-file-input" id="archivo_profesor_update">
-                      
-                      </div>
+                    
                     </form>
                   </div>
                 </div>
@@ -518,10 +574,162 @@
           </div>
         </div>
       </div>
+<!--MODAL EDITAR ALUMNO-->
 
+<!--MODAL VER ALUMNO -->
 
-    </div>
-  </div>
+<!-- Modal Agregar nueuvo alumno -->
+<div class="modal fade" id="modalviewalumno" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+            <div class="modal-header bg-primary text-center">
+              <strong class="modal-title" id="exampleModalLabel">Información del alumno</strong>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+            <div class="row">
+              <div class="col-sm-12">
+                <label for="">Datos personales</label>
+                <div class="row">
+                <div class="col-8 col-sm-6">
+                <input type="text" class="form-control" id="numero_control_view" placeholder="Numero de control">
+                </div>
+                </div>
+                  <div class="row">
+                    <div class="col-8 col-sm-6">
+                    <label for="">Nombre(s)</label>
+                    <input type="text" class="form-control" id="nombre_alumno_view" placeholder="Nombre del alumno">
+                    </div>
+                    <div class="col-4 col-sm-3">
+                    <label for="">Apellido paterno</label>
+                    <input type="text" class="form-control" id="apellidop_alumno_view" placeholder="Apellido paterno">
+                    </div>
+                    <div class="col-4 col-sm-3">
+                    <label for="">Apellido materno</label>
+                    <input type="text" class="form-control" id="apellidom_alumno_view" placeholder="Apellido materno">
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <br>
+            <div class="row">
+              <div class="col-sm-12">
+                <label for="">Domicilio</label>
+                 <div class="row">
+                    <div class="col-8 col-sm-6">
+                    <label for="">Dirección</label>
+                    <input type="text" class="form-control" id="direccion_alumno_view" placeholder="Calle, número y colonia.">
+                    </div>
+                    <div class="col-4 col-sm-3">
+                    <label for="">Municipio</label>
+                    <input type="text" class="form-control" id="municipio_alumno_view" placeholder="Municipio">
+                    </div>
+                    <div class="col-4 col-sm-3">
+                    <label for="">Estado</label>
+                    <input type="text" class="form-control" id="estado_alumno_view" placeholder="Estado">
+                    </div>
+                  </div>
+                 <br>
+                  <div class="row">
+                    <div class="col-8 col-sm-6">
+                    <label for="">Fecha de nacimiento</label>
+                    <input type="text" class="form-control" id="fecha_nacimiento_alumno_view"/>
+                     </div>
+                     <div class="col-8 col-sm-6">
+                    <label for="">Fecha de inscripcion</label>
+                    <input type="text" class="form-control" id="fecha_inscripcion_alumno_view"/>
+                     </div>
+                  </div>
+                  <br>
+                  <label for="">Lugar de nacimiento</label>
+                  <div class="row">
+                    <div class="col-4 col-sm-4">
+                    <label for="">Localidad</label>
+                    <input type="text" class="form-control" id="lugar_nacimiento_alumno_view" placeholder="localidad">
+                    </div>
+                    <div class="col-4 col-sm-4">
+                    <label for="">Municipio</label>
+                    <input type="text" class="form-control" id="municipio_nacimiento_alumno_view" placeholder="municipio">
+                    </div>
+                    <div class="col-4 col-sm-4">
+                    <label for="">Estado</label>
+                    <input type="text" class="form-control" id="estado_nacimiento_alumno_view" placeholder="estado">
+                    </div>
+                  </div>
+                  <br>
+                  <label for="">Estado civil y sexo</label>
+                  <div class="row">
+                    <div class="col-4 col-sm-4">
+                    <label for="">Estado civil</label>
+                    <input type="text" class="form-control" id="estado_civil_alumno_view" placeholder="estado">
+                    </div>
+                      <div class="col-4 col-sm-6">
+                              <label for="">Sexo</label>
+                              <input type="text" class="form-control" id="sexo_alumno_view" placeholder="estado">
+                     </div>
+                  </div>
+                  <br>
+                  <label for="">Escuela de procedencia</label>
+                  <div class="row">
+                    <div class="col-8 col-sm-8">
+                    <label for="">Nombre de la institución</label>
+                    <input type="text" class="form-control" id="institucion_procedencia_alumno_view" placeholder="institución">
+                    </div>
+                    <div class="col-4 col-sm-4">
+                        <label for="">Tipo de escuela nivel medio superior</label>
+                        <input type="text" class="form-control" id="tipo_escuela_alumno_view" placeholder="estado">
+                    </div>
+                  </div>
+                  <br>
+                  <label for="">Datos de contacto</label>
+                  <div class="row">
+                    <div class="col-4 col-sm-4">
+                    <label for="">Telefono</label>
+                    <input type="text" class="form-control" id="telefono_alumno_view" placeholder="telefono">
+                    </div>
+                    <div class="col-4 col-sm-4">
+                    <label for="">Email</label>
+                    <input type="text" class="form-control" id="email_alumno_view" placeholder="email">
+                    </div>
+                    <div class="col-4 col-sm-4">
+                    <label for="">Facebook</label>
+                    <input type="text" class="form-control" id="facebook_alumno_view" placeholder="perfil de facebook">
+                    </div>
+                  </div>
+                  <div class="row">
+                  <div class="col-4 col-sm-4">
+                    <label for="">Twitter</label>
+                    <input type="text" class="form-control" id="twitter_alumno_view" placeholder="perfil de twitter">
+                    </div>
+                    <div class="col-4 col-sm-4">
+                    <label for="">Instagram</label>
+                    <input type="text" class="form-control" id="instagram_alumno_view" placeholder="perfil de instagram">
+                    </div>
+                  </div>
+                  <br>
+                  <div class="row">
+                    <div class="col-6 col-sm-6">
+                        <label for="">Licenciatura</label>
+                        <input type="text" class="form-control" id="licenciaturas_alumno_view">
+                     </div>
+                     <div class="col-6 col-sm-6">
+                            <label for="">Horario</label>
+                            <input type="text" class="form-control" id="horarios_alumno_view">
+                    </div>
+                  </div>
+              </div>
+            </div>
+             </div>
+            <div class="modal-footer">
+            </div>
+          </div>
+        </div>
+      </div>
+    <!--FIN DEL MODAL DE AGREGAR ALUMNO-->
+
+<!--MODAL VER ALUMNO -->
 
   <div class="row my-4">
     <div class="col-md-12 mx-auto">
@@ -530,19 +738,16 @@
       <table id="tbl_alumnos_inscripcion" class="table table-striped table-bordered dt-responsive nowrap table-hover table-condensed" cellspacing="0" style="background:white!important">
         <thead class="text-center bg-primary">
           <tr>
-            <th width="3%">#</th>
-            <th>Profesor</th>
-            <th>Estudios</th>
-            <th>Titulo</th>
-            <th>Cedula</th>
-            <th>Ocupación</th>
-            <th>Tipo de trabajo</th>
-            <th>Univ. procedente</th>
-            <th>Experiencia docente</th>
-            <th>Trabajos ants.</th>
-            <th class="text-center" width="7%">CV</th>
-            <th>Agregar tutor</th>
+            <th>Numero de control</th>
+            <th>Alumno</th>
+            <th>Cuatrimetre</th>
+            <th>Carrera</th>
+            <th class="text-center" width="7%">Acta</th>
+            <th class="text-center" width="7%">Certificado</th>
+            <th class="text-center" width="7%">Curp</th>
+            <th class="text-center" width="7%">Certificado medico</th>
             <th class="text-center" width="7%">Acciones</th>
+            <th class="text-center" width="7%">Información</th>
           </tr> 
         </thead>
       </table>

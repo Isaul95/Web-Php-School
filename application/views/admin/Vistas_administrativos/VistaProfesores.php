@@ -189,8 +189,7 @@
                 <div class="row">
                   <div class="col-md-12">
             <form id="formeditprofesor">
-
-                    <div class="row">
+<div class="row">
                     <input type="hidden" id="id_profesores_update">
               <div class="col-sm-12">
                 <label for="">Datos personales</label>
@@ -293,6 +292,7 @@
                         <input type="file" class="custom-file-input" id="edit_img">
 
                       </div>
+                    
                     </form>
                   </div>
                 </div>
@@ -328,7 +328,6 @@
                 </div>
                 <div class="row">
                   <div class="col-md-12">
-            <form id="formeditprofesor">
 
             <div class="row">
                     <input type="hidden" id="id_profesores_view">
@@ -428,7 +427,6 @@
                   </div>
               </div>
             </div>
-                    </form>
                   </div>
                 </div>
               </div>

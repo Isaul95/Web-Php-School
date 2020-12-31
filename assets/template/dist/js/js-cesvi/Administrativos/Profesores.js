@@ -1,6 +1,6 @@
 $(document).ready(function(){
     llenarTablaProfesores(); // SEINICIALIZA LA FUNCTIO DE LA CARGA DEL LISTADO DE LA TABLA
-    habilitar_deshabilitar();
+    deshabilitar_view_profesor();
   }); // FIN DE LA FUNCION PRINCIPAL
 
 
@@ -429,7 +429,7 @@ $(document).on("click", "#del_profesor", function(e) {
       }, /* TODO ESTO ES PARA CAMBIAR DE IDIOMA */
     }
 
-    function habilitar_deshabilitar(){
+    function deshabilitar_view_profesor(){
   
 $('#id_profesores_view').prop('disabled', true);
 $("#nombre_profesor_view").prop('disabled', true);

@@ -159,9 +159,8 @@ class Profesores extends CI_Controller {
 							}
 	   				}
 
-		$id_profesores = $this->input->post('id_profesores');
-// 	$data['id_profesores'] = $this ->input->post('id_profesores');
-					$ajax_data['nombres'] = $this ->input->post('nombres');
+	            	$id_profesores = $this->input->post('id_profesores');
+                 	$ajax_data['nombres'] = $this ->input->post('nombres');
 					$ajax_data['edad'] = $this ->input->post('edad');
 					$ajax_data['sexo'] = $this ->input->post('sexo');
 					$ajax_data['direccion'] = $this ->input->post('direccion');
@@ -202,7 +201,19 @@ class Profesores extends CI_Controller {
 	}
 
 
-
+	public function editarprofesor(){
+		if ($this->input->is_ajax_request()) {
+			$edit_id = $this->input->post('edit_id');
+			if ($post = $this->Modelo_Profesores->single_entry($edit_id)) {
+				$data = array('responce' => "success", "post" => $post);
+			}else{
+				$data = array('responce' => "error", "failed to fetch");
+			}
+			echo json_encode($data);
+		}else {
+			echo "No se permite este acceso directo...!!!";
+		}
+	}
 
 	public function verArchivo($id){
 		$consulta = $this->Modelo_Profesores->getArchivoId($id);
@@ -219,7 +230,7 @@ class Profesores extends CI_Controller {
 	public function viewprofesor(){
 		if ($this->input->is_ajax_request()) {
 			$view_id = $this->input->post('view_id');
-			if ($post = $this->Modelo_Profesores->single_entry_sincv($view_id)) {
+			if ($post = $this->Modelo_Profesores->single_entry($view_id)) {
 				$data = array('responce' => "success", "post" => $post);
 			}else{
 				$data = array('responce' => "error", "failed to fetch");

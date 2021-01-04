@@ -2,6 +2,12 @@ $(document).ready(function () {
     llenarTablaAlumnos(); // SEINICIALIZA LA FUNCTIO DE LA CARGA DEL LISTADO DE LA TABLA
     date_picker_alumno();
     periodo_activo();
+    deshabilitar_view_alumno();
+    secuencia_derecho();
+    secuencia_psicologia();
+    secuencia_criminalistica();
+    secuencia_diseño();
+    secuencia_contaduria();
 }); // FIN DE LA FUNCION PRINCIPAL
 
 
@@ -35,10 +41,13 @@ $("#modaladdtutor").on("hide.bs.modal", function (e) {
 });
 
 /* ---------------------------- Edit Record Modal --------------------------- */
-$("#modaleditprofesor").on("hide.bs.modal", function (e) {
+$("#modaleditalumno").on("hide.bs.modal", function (e) {
     // do something...
-    $("#formeditprofesor")[0].reset();
-    $(".custom-file-label").html("Adjuntar archivo (Curriculum vitae)");
+    $("#formeditalumno")[0].reset();
+});
+
+$("#modalviewalumno").on("hide.bs.modal", function (e) {
+    // do something...
 });
 
 
@@ -47,7 +56,6 @@ $("#modaleditprofesor").on("hide.bs.modal", function (e) {
 /* -------------------------------------------------------------------------- */
 $(document).on("click", "#btnaddalumno", function (e) {
     e.preventDefault();
-    var numero_control = $("#numero_control_alumno").val();
     var nombre_alumno = $("#nombre_alumno").val();
     var apellidop_alumno = $("#apellidop_alumno").val();
     var apellidom_alumno = $("#apellidom_alumno").val();
@@ -75,17 +83,34 @@ $(document).on("click", "#btnaddalumno", function (e) {
     var img_curp_alumno = $("#curp_alumno")[0].files[0]; // this is file
     var img_certificado_medico_alumno = $("#certificado_medico_alumno")[0].files[0]; // this is file
     var perido_activo_escolar = $('#id_perido_escolar_activo').val();
+    //SECUENCIAS
+    var secuencia_derecho = $('#secuencia_derecho').val();
+    var secuencia_psicologia = $('#secuencia_psicologia').val();
+    var secuencia_criminalistica = $('#secuencia_criminalistica').val();
+    var secuencia_diseno = $('#secuencia_diseno').val();
+    var secuencia_contaduria = $('#secuencia_contaduria').val();
 
-    if (numero_control == "" || nombre_alumno == "" || apellidop_alumno == "" || apellidom_alumno == "" || direccion_alumno == "" ||
+    var id_secuencia_derecho = $('#id_secuencia_derecho').val();
+    var id_secuencia_psicologia = $('#id_secuencia_psicologia').val();
+    var id_secuencia_criminalistica = $('#id_secuencia_criminalistica').val();
+    var id_secuencia_diseno = $('#id_secuencia_diseno').val();
+    var id_secuencia_contaduria = $('#id_secuencia_contaduria').val();
+
+
+
+
+
+
+
+    if (nombre_alumno == "" || apellidop_alumno == "" || apellidom_alumno == "" || direccion_alumno == "" ||
         municipmunicipio_alumno == "" || estestado_alumnodo == "" || datepicker_fecha_nacimiento_alumno == "" || datepicker_fecha_inscripcion_alumno == "" ||
         lugar_nacimiento_alumno == "" || municipio_nacimiento_alumno == "" || estado_nacimiento_alumno == "" || estado_civil_alumno == "" || sexo_alumno == "" ||
         institucion_procedencia_alumno == "" || tipo_escuela_alumno == "" || telefono_alumno == "" ||
         email_alumno == "" || facebook_alumno == "" || twitter_alumno == "" || instagram_alumno == "" || licenciaturas_alumno == "" ||
-        horarios_alumno == "") {//|| img_acta_alumno.name == "" ){/*|| img_certificado_alumno.name == "" || img_curp_alumno.name == "" || img_certificado_medico_alumno.name=="" ) {
+        horarios_alumno == "") {
         alert("Debe llenar todos los campos vacios...!");
     } else {
-        var a = periodo_activo();
-        alert(a);
+    
         var fd = new FormData();
         var fd2 = new FormData();
         var fd3 = new FormData();
@@ -94,11 +119,55 @@ $(document).on("click", "#btnaddalumno", function (e) {
         var archivo_certificado_alumno = $("#certificado_alumno")[0].files[0]; // this is file
         var archivo_curp_alumno = $("#curp_alumno")[0].files[0]; // this is file
         var archivo_certificado_medico_alumno = $("#certificado_medico_alumno")[0].files[0]; // this is file
+        var numero="";
+    
+        var ciclo =  $("#perido_escolar_activo").val();
 
-        armar_numero_de_control(nombre_alumno, apellidop_alumno, licenciaturainicial(licenciaturas_alumno));
-
-        fd.append("numero_control", numero_control);
-        fd.append("nombres", nombre_alumno);
+        if(licenciaturas_alumno==19){
+            var numero_de_control = numero.concat(nombre_alumno.substring(0,1).toUpperCase(),apellidop_alumno.substring(0,1).toUpperCase(),
+            apellidom_alumno.substring(0,1).toUpperCase(),"DG",ciclo.substring(2,4),
+            ciclo.substring(7,9),secuencia_diseno);
+            var nuevasecuencia =Number(secuencia_diseno)+1;
+            fd.append("id_secuencia",  id_secuencia_diseno); 
+            fd.append("valor_secuencia", nuevasecuencia);
+               
+        }
+        if(licenciaturas_alumno==21){
+            var numero_de_control = numero.concat(nombre_alumno.substring(0,1).toUpperCase(),apellidop_alumno.substring(0,1).toUpperCase(),
+            apellidom_alumno.substring(0,1).toUpperCase(),"C",ciclo.substring(2,4),
+            ciclo.substring(7,9),secuencia_contaduria);
+            var nuevasecuencia =Number(secuencia_contaduria)+1;
+            fd.append("id_secuencia",  id_secuencia_contaduria); 
+            fd.append("valor_secuencia", nuevasecuencia);
+        }  
+        if(licenciaturas_alumno==22){
+            var numero_de_control = numero.concat(nombre_alumno.substring(0,1).toUpperCase(),apellidop_alumno.substring(0,1).toUpperCase(),
+            apellidom_alumno.substring(0,1).toUpperCase(),"CC",ciclo.substring(2,4),
+            ciclo.substring(7,9),secuencia_criminalistica);
+            var nuevasecuencia =Number(secuencia_criminalistica)+1;
+            fd.append("id_secuencia",  id_secuencia_criminalistica); 
+            fd.append("valor_secuencia", nuevasecuencia);
+        }
+        if(licenciaturas_alumno==23){
+            var numero_de_control = numero.concat(nombre_alumno.substring(0,1).toUpperCase(),apellidop_alumno.substring(0,1).toUpperCase(),
+            apellidom_alumno.substring(0,1).toUpperCase(),"D",ciclo.substring(2,4),
+            ciclo.substring(7,9),secuencia_derecho);
+            var nuevasecuencia = Number(secuencia_derecho)+1;
+            fd.append("id_secuencia",  id_secuencia_derecho); 
+            fd.append("valor_secuencia", nuevasecuencia); 
+        }
+        if(licenciaturas_alumno==24){
+            var numero_de_control = numero.concat(nombre_alumno.substring(0,1).toUpperCase(),apellidop_alumno.substring(0,1).toUpperCase(),
+            apellidom_alumno.substring(0,1).toUpperCase(),"P",ciclo.substring(2,4),
+            ciclo.substring(7,9),secuencia_psicologia);
+            var nuevasecuencia =Number(secuencia_psicologia)+1;
+            fd.append("id_secuencia",  id_secuencia_psicologia); 
+            fd.append("valor_secuencia", nuevasecuencia); 
+        }
+        
+  
+        fd.append("numero_control",  numero_de_control); 
+        fd.append("nombres", nombre_alumno);        
         fd.append("apellido_paterno", apellidop_alumno);
         fd.append("apellido_materno", apellidom_alumno);
         fd.append("direccion", direccion_alumno);
@@ -118,7 +187,8 @@ $(document).on("click", "#btnaddalumno", function (e) {
         fd.append("facebook", facebook_alumno);
         fd.append("twitter", twitter_alumno);
         fd.append("instagram", instagram_alumno);
-        fd.append("estatus", 1);
+        fd.append("estatus", 0); //EL ESTADO PARA CUALQUIER MOVIMIENTO DEL ALUMNO
+        fd.append("estatus_alumno_activo", 1); // EL ESTADO INICIAL PARA EL ALUMNO QUE SE INGRESA AL SISTEMA
 
         fd.append("nombre_acta", img_acta_alumno); //Obt principalmente el name file
         fd.append("acta_nacimiento", archivo_acta_alumno); // Obt el file como tal
@@ -131,32 +201,30 @@ $(document).on("click", "#btnaddalumno", function (e) {
 
         fd.append("nombre_certificado_medico", img_certificado_medico_alumno); //Obt principalmente el name file
         fd.append("certificado_medico", archivo_certificado_medico_alumno); // Obt el file como tal
+
+        //EL REGISTRO DEL ALUMNO A SU RESPECTIVA CARRERA Y OOPCION DE ESTUDIO
+        fd.append("alumno", numero_de_control);
+        fd.append("carrera", licenciaturas_alumno);
+        fd.append("opcion", horarios_alumno);
+        fd.append("cuatrimestre", 1);
+        fd.append("ciclo_escolar", perido_activo_escolar);
+
         //EL REGISTRO DEL ALUMNO COMO USUARIO
         var apellidos = "";
         apellidos = apellidos.concat(apellidop_alumno);
         apellidos = apellidos.concat(" ");
         apellidos = apellidos.concat(apellidom_alumno);
-        fd2.append("nombres", nombre_alumno);
-        fd2.append("apellidos", apellidos);
-        fd2.append("telefono", telefono_alumno);
-        fd2.append("email", email_alumno);
-        fd2.append("username", numero_control);
-        fd2.append("password", 123456);
-        fd2.append("rol_id", 2);
-        fd2.append("estado", 1);
+        fd.append("nombres", nombre_alumno);
+        fd.append("apellidos", apellidos);
+        fd.append("telefono", telefono_alumno);
+        fd.append("email", email_alumno);
+        fd.append("username", numero_de_control);
+        fd.append("password", 123456);
+        fd.append("rol_id", 2);
+        fd.append("estado", 1);
 
-
-        //EL REGISTRO DEL ALUMNO A SU RESPECTIVA CARRERA Y OOPCION DE ESTUDIO
-        fd3.append("alumno", numero_control);
-        fd3.append("carrera", licenciaturas_alumno);
-        fd3.append("opcion", horarios_alumno);
-        fd3.append("cuatrimestre", 1);
-        fd3.append("ciclo_escolar", perido_activo_escolar);
-
-        agregar_alumno(fd);
-        agregar_alumno_como_maestro(fd2);
-        agregar_alumno_a_su_carrera(fd3);
-
+        agregar_alumno(fd); //Se registra el usuario a la tabla alumnos y a la tabla detalles
+      
     }
 });
 
@@ -165,56 +233,89 @@ $(document).on("click", "#btnaddalumno", function (e) {
 
 $(document).on("click", "#update_alumno", function (e) {
     e.preventDefault();
-    var id_profesores = $('#id_profesores_update').val();
-    var nombre_profesor = $("#nombre_profesor_update").val();
-    var edad_profesor = $("#edad_profesor_update").val();
-    var sexo_profesor = $("#sexo_profesor_update").val();
-    var direccion_profesor = $("#direccion_profesor_update").val();
-    var ciudad_profesor = $("#ciudad_profesor_update").val();
-    var nacionalidad_profesor = $("#nacionalidad_profesor_update").val();
-    var telefono_profesor = $("#telefono_profesor_update").val();
-    var email_profesor = $("#email_profesor_update").val();
-    var estadocivil_profesor = $("#estadocivil_profesor_update").val();
-    var niveldeestudios_profesor = $("#niveldeestudios_profesor_update").val();
-    var titulado_profesor = $("#titulado_profesor_update").val();
-    var cedula_profesor = $("#cedula_profesor_update").val();
-    var ocupacion_profesor = $("#ocupacion_profesor_update").val();
-    var tipodetrabajo_profesor = $("#tipodetrabajo_profesor_update").val();
-    var universidadprocedente_profesor = $("#universidadprocedente_profesor_update").val();
-    var experiencia_profesor = $("#experiencia_profesor_update").val();
-    var trabajosprevios_profesor = $("#trabajosprevios_profesor_update").val();
-    var img = $("#archivo_profesor_update")[0].files[0]; // this is file
+    var numero_control_update = $("#numero_control_update").val();
+    var nombre_alumno_update = $("#nombre_alumno_update").val();
+    var apellidop_alumno_update = $("#apellidop_alumno_update").val();
+    var apellidom_alumno_update = $("#apellidom_alumno_update").val();
+    var direccion_alumno_update = $("#direccion_alumno_update").val();
+    var municipmunicipio_alumno_update = $("#municipio_alumno_update").val();
+    var estestado_alumno_updatedo = $("#estado_alumno_update").val();
+    var datepicker_fecha_nacimiento_alumno_update = $("#datepicker_fecha_nacimiento_alumno_update").val();
+    var datepicker_fecha_inscripcion_alumno_update = $("#datepicker_fecha_inscripcion_alumno_update").val();
+    var lugar_nacimiento_alumno_update = $("#lugar_nacimiento_alumno_update").val();
+    var municipio_nacimiento_alumno_update = $("#municipio_nacimiento_alumno_update").val();
+    var estado_nacimiento_alumno_update = $("#estado_nacimiento_alumno_update").val();
+    var estado_civil_alumno_update = $("#estado_civil_alumno_update").val();
+    var sexo_alumno_update = $("#sexo_alumno_update").val();
+    var institucion_procedencia_alumno_update = $("#institucion_procedencia_alumno_update").val();
+    var tipo_escuela_alumno_update = $("#tipo_escuela_alumno_update").val();
+    var telefono_alumno_update = $("#telefono_alumno_update").val();
+    var email_alumno_update = $("#email_alumno_update").val();
+    var facebook_alumno_update = $("#facebook_alumno_update").val();
+    var twitter_alumno_update = $("#twitter_alumno_update").val();
+    var instagram_alumno_update = $("#instagram_alumno_update").val();
+    var img_acta_alumno_update = $("#acta_alumno_update")[0].files[0]; // this is file
+    var img_certificado_alumno_update = $("#certificado_alumno_update")[0].files[0]; // this is file
+    var img_curp_alumno_update = $("#curp_alumno_update")[0].files[0]; // this is file
+    var img_certificado_medico_alumno_update = $("#certificado_medico_alumno_update")[0].files[0]; // this is file
 
-    if (nombre_profesor == "" || edad_profesor == "" || sexo_profesor == "" || direccion_profesor == "" || ciudad_profesor == "" ||
-        nacionalidad_profesor == "" || telefono_profesor == "" || email_profesor == "" || estadocivil_profesor == "" ||
-        niveldeestudios_profesor == "" || titulado_profesor == "" || cedula_profesor == "" || ocupacion_profesor == "" || tipodetrabajo_profesor == "" ||
-        universidadprocedente_profesor == "" || experiencia_profesor == "" || trabajosprevios_profesor == "") { // || img.name == ""
-        alert("Debe llenar todos los campos vacios...!");
+      if (nombre_alumno_update == "" || apellidop_alumno_update == "" || apellidom_alumno_update == "" || direccion_alumno_update == "" ||
+        municipmunicipio_alumno_update == "" || estestado_alumno_updatedo == "" || datepicker_fecha_nacimiento_alumno_update == "" || datepicker_fecha_inscripcion_alumno_update == "" ||
+        lugar_nacimiento_alumno_update == "" || municipio_nacimiento_alumno_update == "" || estado_nacimiento_alumno_update == "" || estado_civil_alumno_update == "" || sexo_alumno_update == "" ||
+        institucion_procedencia_alumno_update == "" || tipo_escuela_alumno_update == "" || telefono_alumno_update == "" ||
+        email_alumno_update == "" || facebook_alumno_update == "" || twitter_alumno_update == "" || instagram_alumno_update == "" ) {   
+    alert("Debe llenar todos los campos vacios...!");
     } else {
 
         var fd = new FormData();
-        var archivo = $("#archivo_profesor_update")[0].files[0];
+        var archivo_acta_alumno_update = $("#acta_alumno_update")[0].files[0]; // this is file
+        var archivo_certificado_alumno_update = $("#certificado_alumno_update")[0].files[0]; // this is file
+        var archivo_curp_alumno_update = $("#curp_alumno_update")[0].files[0]; // this is file
+        var archivo_certificado_medico_alumno_update = $("#certificado_medico_alumno_update")[0].files[0]; // this is file
 
-        fd.append("id_profesores", id_profesores);
-        fd.append("nombres", nombre_profesor);
-        fd.append("edad", edad_profesor);
-        fd.append("sexo", sexo_profesor);
-        fd.append("direccion", direccion_profesor);
-        fd.append("ciudad_radicando", ciudad_profesor);
-        fd.append("nacionalidad", nacionalidad_profesor);
-        fd.append("telefono_celular", telefono_profesor);
-        fd.append("correo", email_profesor);
-        fd.append("estado_civil", estadocivil_profesor);
-        fd.append("nivel_de_estudios", niveldeestudios_profesor);
-        fd.append("titulado", titulado_profesor);
-        fd.append("cedula", cedula_profesor);
-        fd.append("ocupacion", ocupacion_profesor);
-        fd.append("tipo_de_trabajo", tipodetrabajo_profesor);
-        fd.append("universidad_procedente", universidadprocedente_profesor);
-        fd.append("experiencia_docente", experiencia_profesor);
-        fd.append("trabajos_anteriores", trabajosprevios_profesor);
-        fd.append("nombre_archivo", img); //Obt principalmente el name file
-        fd.append("curriculum", archivo); // Obt el file como tal
+        fd.append("numero_control",  numero_control_update); 
+        fd.append("nombres", nombre_alumno_update);        
+        fd.append("apellido_paterno", apellidop_alumno_update);
+        fd.append("apellido_materno", apellidom_alumno_update);
+        fd.append("direccion", direccion_alumno_update);
+        fd.append("municipio_direccion", municipmunicipio_alumno_update);
+        fd.append("estado_direccion", estestado_alumno_updatedo);
+        fd.append("fecha_nacimiento", datepicker_fecha_nacimiento_alumno_update);
+        fd.append("fecha_inscripcion", datepicker_fecha_inscripcion_alumno_update);
+        fd.append("localidad", lugar_nacimiento_alumno_update);
+        fd.append("municipio_localidad", municipio_nacimiento_alumno_update);
+        fd.append("estado_localidad", estado_nacimiento_alumno_update);
+        fd.append("estado_civil", estado_civil_alumno_update);
+        fd.append("sexo", sexo_alumno_update);
+        fd.append("tipo_escuela_nivel_medio_superior", tipo_escuela_alumno_update);
+        fd.append("institucion", institucion_procedencia_alumno_update);
+        fd.append("email", email_alumno_update);
+        fd.append("telefono", telefono_alumno_update);
+        fd.append("facebook", facebook_alumno_update);
+        fd.append("twitter", twitter_alumno_update);
+        fd.append("instagram", instagram_alumno_update);
+     
+        if ($("#acta_alumno_update")[0].files.length > 0) {
+            alert("Existe acta");
+            fd.append("nombre_acta", img_acta_alumno_update); //Obt principalmente el name file
+            fd.append("acta_nacimiento", archivo_acta_alumno_update); // Obt el file como tal    
+           }
+        if ($("#certificado_alumno_update")[0].files.length > 0) {
+            alert("Existe certificado_bachillerato");
+            fd.append("nombre_certificado_bachillerato", img_certificado_alumno_update); //Obt principalmente el name file
+        fd.append("certificado_bachillerato", archivo_certificado_alumno_update); // Obt el file como tal
+        
+          }
+        if ($("#curp_alumno_update")[0].files.length > 0) {
+            alert("Existe curp");
+            fd.append("nombre_curp", img_curp_alumno_update); //Obt principalmente el name file
+            fd.append("curp", archivo_curp_alumno_update); // Obt el file como tal    
+          }
+        if ($("#certificado_medico_alumno_update")[0].files.length > 0) {
+            alert("Existe certificado_medico");
+            fd.append("nombre_certificado_medico", img_certificado_medico_alumno_update); //Obt principalmente el name file
+            fd.append("certificado_medico", archivo_certificado_medico_alumno_update); // Obt el file como tal    
+          }
 
         $.ajax({
             type: "post",
@@ -225,14 +326,16 @@ $(document).on("click", "#update_alumno", function (e) {
             dataType: "json",
             enctype: 'multipart/form-data',
             success: function (response) {
-                if (response.responce == "success") {
+                if (response.response == "success") {
+                    alert("success");
                     toastr["success"](response.message);
-                    $("#modaleditprofesor").modal("hide");
-                    $("#formeditprofesor")[0].reset();
+                    $("#modaleditalumno").modal("hide");
+                    $("#formeditalumno")[0].reset();
                     $("#tbl_alumnos_inscripcion").DataTable().destroy();
                     llenarTablaAlumnos();
                 } else {
-                    toastr["error"](data.message);
+                    alert("no success");
+                    toastr["error"](response.message);
                 }
             },
             error: function (response) {
@@ -243,7 +346,7 @@ $(document).on("click", "#update_alumno", function (e) {
 });
 
 /* -------------------------------------------------------------------------- */
-/*                                llenarllenarTablaProfesores                 */
+/*                                llenarllenarTablaalumnos               */
 /* -------------------------------------------------------------------------- */
 
 
@@ -259,43 +362,87 @@ function llenarTablaAlumnos() {
                 data: response,
                 responsive: true,
                 columns: [{
-                    data: "id_profesores",
-                    "visible": false,
-                    "searchable": false
+                    data: "numero_control",
                 },
                 {
-                    data: "nombres",
+                    data: "alumno",
                 },
                 {
-                    data: "nivel_de_estudios",
+                    data: "cuatrimestre",
                 },
                 {
-                    data: "titulado",
+                    data: "carrera_descripcion",
                 },
                 {
-                    data: "cedula",
-                },
-                {
-                    data: "ocupacion",
-                },
-                {
-                    data: "tipo_de_trabajo",
-                },
-                {
-                    data: "universidad_procedente",
-                },
-                {
-                    data: "experiencia_docente",
-                },
-                {
-                    data: "trabajos_anteriores",
-                },
-                {
-                    data: "curriculum",
+                    data: "nombre_acta",
+                    orderable: false,
+                    searchable: false,
                     render: function (data, type, row, meta) {
-                        var a = `
-                               <a title="Descarga Documento" href="Alumnos/verArchivoalumno/${row.id_profesores}" target="_blank"><i class="far fa-file-pdf fa-2x"></i></a>
+                        var nombre_acta = `${row.nombre_acta}`;
+                          var a;
+                            if(nombre_acta != "null"&&nombre_acta != "undefined"){
+                                var a = `
+                                <a title="Descarga Documento" href="Alumnos/verActaalumno/${row.numero_control}" target="_blank"><i class="far fa-file-pdf fa-2x"></i></a>
+                             `;
+                            }
+                            else{
+                                a = 'Sin archivo';
+                            }
+                        
+                        return a;
+                    },
+                },
+                {
+                    data: "nombre_certificado_bachillerato",
+                    orderable: false,
+                    searchable: false,
+                    render: function (data, type, row, meta) {
+                        var nombre_certificado_bachillerato = `${row.nombre_certificado_bachillerato}`;
+                        var a;
+                          if(nombre_certificado_bachillerato != "null"&&nombre_certificado_bachillerato != "undefined"){
+                            var a = `
+                            <a title="Descarga Documento" href="Alumnos/verCertificadoalumno/${row.numero_control}" target="_blank"><i class="far fa-file-pdf fa-2x"></i></a>
                             `;
+                          }
+                          else{
+                            a = 'Sin archivo';
+                        }
+                        return a;
+                    },
+                },
+                {
+                    data: "curp",
+                    orderable: false,
+                    searchable: false,
+                    render: function (data, type, row, meta) {
+                        var nombre_curp = `${row.nombre_curp}`;
+                        var a;
+                          if(nombre_curp != "null"&&nombre_curp != "undefined"){
+                            var a = `
+                            <a title="Descarga Documento" href="Alumnos/verCurpalumno/${row.numero_control}" target="_blank"><i class="far fa-file-pdf fa-2x"></i></a>
+                         `;
+                          }
+                          else{
+                            a = 'Sin archivo';
+                        }
+                        return a;
+                    },
+                },
+                {
+                    data: "certificado_medico",
+                    orderable: false,
+                    searchable: false,
+                    render: function (data, type, row, meta) {
+                        var nombre_certificado_medico = `${row.nombre_certificado_medico}`;
+                        var a;
+                          if(nombre_certificado_medico != "null"&&nombre_certificado_medico != "undefined"){
+                        var a = `
+                               <a title="Descarga Documento" href="Alumnos/verCertificadoMedicoalumno/${row.numero_control}" target="_blank"><i class="far fa-file-pdf fa-2x"></i></a>
+                            `;
+                          }
+                          else{
+                            a = 'Sin archivo';
+                        }
                         return a;
                     },
                 },
@@ -304,20 +451,21 @@ function llenarTablaAlumnos() {
                     searchable: false,
                     data: function (row, type, set) {
                         return `
-                                <a href="#" id="agregar_tutor" class="btn btn-success btn-remove" value="${row.id_profesores}"><i class="far fa-edit"></i></a>
-                                 `;
+                                <a href="#" id="edit_alumno" class="btn btn-success btn-remove" value="${row.numero_control}"><i class="far fa-edit"></i></a>
+                                <a href="#" id="del_alumno" class="btn btn-danger btn-remove" value="${row.numero_control}"><i class="fas fa-trash-alt"></i></a>
+                            `;
                     },
                 },
                 {
                     orderable: false,
                     searchable: false,
-                    data: function (row, type, set) {
+                    data: function(row, type, set) {
                         return `
-                                <a href="#" id="edit_alumno" class="btn btn-success btn-remove" value="${row.id_profesores}"><i class="far fa-edit"></i></a>
-                                <a href="#" id="del_alumno" class="btn btn-danger btn-remove" value="${row.id_profesores}"><i class="fas fa-trash-alt"></i></a>
-                            `;
+                            <a href="#" id="view_alumno" class="btn btn-info" value="${row.numero_control}"><i class="far fa-edit"></i></a>
+                               `;
                     },
                 },
+                
                 ],
                 "language": language_espaniol,
 
@@ -326,6 +474,46 @@ function llenarTablaAlumnos() {
     });
 }
 
+$(document).on("click", "#view_alumno", function (e) {
+    e.preventDefault();
+    debugger;
+    var view_id = $(this).attr("value");
+    $.ajax({
+        type: "post",
+        url: base_url+'Administrativos/Alumnos/viewalumno',
+        data: {
+            view_id: view_id,
+        },
+        dataType: "json",
+        success: function (data) {
+            console.log(data); //ver la respuesta del json, los valores que contiene
+            $('#modalviewalumno').modal('show');
+            $('#numero_control_view').val(data.post.numero_control);
+            $("#nombre_alumno_view").val(data.post.nombres);
+            $("#apellidop_alumno_view").val(data.post.apellido_paterno);
+            $("#apellidom_alumno_view").val(data.post.apellido_materno);
+            $("#direccion_alumno_view").val(data.post.direccion);
+            $("#municipio_alumno_view").val(data.post.municipio_direccion);
+            $("#estado_alumno_view").val(data.post.estado_direccion);
+            $("#fecha_nacimiento_alumno_view").val(data.post.fecha_nacimiento);
+            $("#fecha_inscripcion_alumno_view").val(data.post.fecha_inscripcion);
+            $("#lugar_nacimiento_alumno_view").val(data.post.localidad);
+            $("#municipio_nacimiento_alumno_view").val(data.post.municipio_localidad);
+            $("#estado_nacimiento_alumno_view").val(data.post.estado_localidad);
+            $("#estado_civil_alumno_view").val(data.post.estado_civil);
+            $("#sexo_alumno_view").val(data.post.sexo);
+            $("#institucion_procedencia_alumno_view").val(data.post.institucion);
+            $("#tipo_escuela_alumno_view").val(data.post.tipo_escuela_nivel_medio_superior);
+            $("#telefono_alumno_view" ).val(data.post.telefono);
+            $("#email_alumno_view").val(data.post.email);
+            $("#facebook_alumno_view").val(data.post.facebook);
+            $("#twitter_alumno_view").val(data.post.twitter);
+            $("#instagram_alumno_view").val(data.post.instagram);
+            $("#licenciaturas_alumno_view").val(data.post.carrera_descripcion);
+            $("#horarios_alumno_view").val(data.post.descripcion);
+        },
+    });
+});
 // <a href="#" id="edit" class="btn btn-sm btn-outline-info" value="${row.id}"><i class="fas fa-edit"></i></a>
 
 $(document).on("click", "#agregar_tutor", function (e) {
@@ -347,25 +535,29 @@ $(document).on("click", "#edit_alumno", function (e) {
         dataType: "json",
         success: function (data) {
             console.log(data); //ver la respuesta del json, los valores que contiene
-            $('#modaleditprofesor').modal('show');
-            $('#id_profesores_update').val(data.post.id_profesores)
-            $("#nombre_profesor_update").val(data.post.nombres);
-            $("#edad_profesor_update").val(data.post.edad);
-            $("#sexo_profesor_update").val(data.post.sexo);
-            $("#direccion_profesor_update").val(data.post.direccion);
-            $("#ciudad_profesor_update").val(data.post.ciudad_radicando);
-            $("#nacionalidad_profesor_update").val(data.post.nacionalidad);
-            $("#telefono_profesor_update").val(data.post.telefono_celular);
-            $("#email_profesor_update").val(data.post.correo);
-            $("#estadocivil_profesor_update").val(data.post.estado_civil);
-            $("#niveldeestudios_profesor_update").val(data.post.nivel_de_estudios);
-            $("#titulado_profesor_update").val(data.post.titulado);
-            $("#cedula_profesor_update").val(data.post.cedula);
-            $("#ocupacion_profesor_update").val(data.post.ocupacion);
-            $("#tipodetrabajo_profesor_update").val(data.post.tipo_de_trabajo);
-            $("#universidadprocedente_profesor_update").val(data.post.universidad_procedente);
-            $("#experiencia_profesor_update").val(data.post.experiencia_docente);
-            $("#trabajosprevios_profesor_update").val(data.post.trabajos_anteriores);
+            $('#modaleditalumno').modal('show');
+            $('#numero_control_update').val(data.post.numero_control);
+            $("#nombre_alumno_update").val(data.post.nombres);
+            $("#apellidop_alumno_update").val(data.post.apellido_paterno);
+            $("#apellidom_alumno_update").val(data.post.apellido_materno);
+            $("#direccion_alumno_update").val(data.post.direccion);
+            $("#municipio_alumno_update").val(data.post.municipio_direccion);
+            $("#estado_alumno_update").val(data.post.estado_direccion);
+            $("#datepicker_fecha_nacimiento_alumno_update").val(data.post.fecha_nacimiento);
+            $("#datepicker_fecha_inscripcion_alumno_update").val(data.post.fecha_inscripcion);
+            $("#lugar_nacimiento_alumno_update").val(data.post.localidad);
+            $("#municipio_nacimiento_alumno_update").val(data.post.municipio_localidad);
+            $("#estado_nacimiento_alumno_update").val(data.post.estado_localidad);
+            $("#estado_civil_alumno_update").val(data.post.estado_civil);
+            $("#sexo_alumno_update").val(data.post.sexo);
+            $("#institucion_procedencia_alumno_update").val(data.post.institucion);
+            $("#tipo_escuela_alumno_update").val(data.post.tipo_escuela_nivel_medio_superior);
+            $("#telefono_alumno_update" ).val(data.post.telefono);
+            $("#email_alumno_update").val(data.post.email);
+            $("#facebook_alumno_update").val(data.post.facebook);
+            $("#twitter_alumno_update").val(data.post.twitter);
+            $("#instagram_alumno_update").val(data.post.instagram);
+            
         },
     });
 });
@@ -378,29 +570,32 @@ $(document).on("click", "#del_alumno", function (e) {
     var del_id = $(this).attr("value");
 
     Swal.fire({
-        title: "¿Estás seguro de Borrar?",
+        title: "¿Estás seguro de dar de baja al alumno?",
         text: "¡Esta acción es irreversile!",
         icon: "warning",
         showCancelButton: true,
         confirmButtonColor: "#3085d6",
         cancelButtonColor: "#d33",
-        confirmButtonText: "¡Si, bórralo!",
+        confirmButtonText: "¡Si, darlo de baja!",
         cancelButtonText: "¡No, cancelar!",
     }).then((result) => {
         if (result.isConfirmed) {
+            var fd = new FormData();
+            fd.append("numero_control",del_id);
+            fd.append("estatus_alumno_activo",0);
             $.ajax({
-                type: "post",
-                // url: base_url + "delete",
-                url: base_url + 'Administrativos/Alumnos/eliminaralumno',
-                data: {
-                    del_id: del_id,
-                },
-                dataType: "json",
+            type: "post",
+            url: base_url + 'Administrativos/Alumnos/eliminaralumno',
+            data: fd,
+            processData: false,
+            contentType: false,
+            dataType: "json",
+            enctype: 'multipart/form-data',
                 success: function (data) {
                     if (data.responce == "success") {
                         Swal.fire(
-                            '¡Eliminado!',
-                            'El profesor fue eliminado',
+                            '¡Dado de baja!',
+                            'El alumno fue dado de baja',
                             'success'
                         );
                         $("#tbl_alumnos_inscripcion").DataTable().destroy();
@@ -413,6 +608,7 @@ $(document).on("click", "#del_alumno", function (e) {
         }
     });
 });
+
 
 
 
@@ -437,7 +633,7 @@ var language_espaniol = {
 }
 
 function date_picker_alumno() {
-    $("#datepicker_fecha_nacimiento_alumno,#datepicker_fecha_inscripcion_alumno").datepicker({
+    $("#datepicker_fecha_nacimiento_alumno,#datepicker_fecha_inscripcion_alumno,#datepicker_fecha_nacimiento_alumno_update,#datepicker_fecha_inscripcion_alumno_update").datepicker({
         closeText: 'Cerrar',
         currentText: 'Hoy',
         monthNames: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio',
@@ -467,58 +663,25 @@ function agregar_alumno(fd) {
         contentType: false,
         dataType: "json",
         enctype: 'multipart/form-data',
-        success: function (data) {
-            if (data.response == "success") {
-                toastr["success"](data.response.message);
+        success: function (response) {
+            if (response.response == "success") {
+                toastr["success"](response.message);
+                alert("hila");
                 $("#modaladdalumno").modal("hide");
                 $("#formaddalumno")[0].reset();
                 $(".add-file-label").html("No se eligió archivo");
                 $("#tbl_alumnos_inscripcion").DataTable().destroy();
                 llenarTablaAlumnos();
             } else {
-                toastr["error"](data.response.message);
+                toastr["error"](response.message);
             }
         },
     });
 }
 
-function agregar_alumno_como_maestro(fd2) {
-    $.ajax({
-        type: "post",
-        url: base_url + 'Administrativos/Alumnos/insertaralumnocomousuario',
-        data: fd2,
-        processData: false,
-        contentType: false,
-        dataType: "json",
-        enctype: 'multipart/form-data',
-        success: function (data) {
-            if (data.response == "success") {
-                toastr["success"](data.response.message);
-            } else {
-                toastr["error"](data.response.message);
-            }
-        },
-    });
-}
 
-function agregar_alumno_a_su_carrera(fd3) {
-    $.ajax({
-        type: "post",
-        url: base_url + 'Administrativos/Alumnos/insertaralumnoasucarrera',
-        data: fd3,
-        processData: false,
-        contentType: false,
-        dataType: "json",
-        enctype: 'multipart/form-data',
-        success: function (data) {
-            if (data.response == "success") {
-                toastr["success"](data.response.message);
-            } else {
-                toastr["error"](data.response.message);
-            }
-        },
-    });
-}
+
+
 function periodo_activo() {
     $.ajax({
         type: "get",
@@ -526,25 +689,89 @@ function periodo_activo() {
         dataType: "json",
         success: function (response) {
             $("#id_perido_escolar_activo").val(response['id_periodo_escolar']);
+            $("#perido_escolar_activo").val(response['nombre_ciclo']);
+        },
+    });
+}
+function secuencia_derecho() {
+    $.ajax({
+        type: "get",
+        url: base_url + 'Administrativos/Alumnos/secuencia_derecho',
+        dataType: "json",
+        success: function (response) {
+            $("#id_secuencia_derecho").val(response['id_secuencia']);
+            $("#secuencia_derecho").val(response['valor_secuencia']);
+        },
+    });
+}
+function secuencia_psicologia() {
+    $.ajax({
+        type: "get",
+        url: base_url + 'Administrativos/Alumnos/secuencia_psicologia',
+        dataType: "json",
+        success: function (response) {
+            $("#id_secuencia_psicologia").val(response['id_secuencia']);
+            $("#secuencia_psicologia").val(response['valor_secuencia']);
+        },
+    });
+}
+function secuencia_criminalistica() {
+    $.ajax({
+        type: "get",
+        url: base_url + 'Administrativos/Alumnos/secuencia_criminalistica',
+        dataType: "json",
+        success: function (response) {
+            $("#id_secuencia_criminalistica").val(response['id_secuencia']);
+            $("#secuencia_criminalistica").val(response['valor_secuencia']);
+        },
+    });
+}
+function secuencia_diseño() {
+    $.ajax({
+        type: "get",
+        url: base_url + 'Administrativos/Alumnos/secuencia_diseno',
+        dataType: "json",
+        success: function (response) {
+            $("#id_secuencia_diseno").val(response['id_secuencia']);
+            $("#secuencia_diseno").val(response['valor_secuencia']);
+        },
+    });
+}
+function secuencia_contaduria() {
+    $.ajax({
+        type: "get",
+        url: base_url + 'Administrativos/Alumnos/secuencia_contaduria',
+        dataType: "json",
+        success: function (response) {
+            $("#id_secuencia_contaduria").val(response['id_secuencia']);
+            $("#secuencia_contaduria").val(response['valor_secuencia']);
         },
     });
 }
 
-function armar_numero_de_control(nombre, apellidop) {
-    var numero_de_control = "";
-    numero_de_control = numero_de_control.concat(apellidop_alumno);
-    numero_de_control = numero_de_control.concat(" ");
-    numero_de_control = numero_de_control.concat(apellidop_alumno);
-    return numero_de_control;
+function deshabilitar_view_alumno(){
+$('#numero_control_view').prop('disabled', true);
+$("#nombre_alumno_view").prop('disabled', true);
+$("#apellidop_alumno_view").prop('disabled', true);
+$("#apellidom_alumno_view").prop('disabled', true);
+$("#direccion_alumno_view").prop('disabled', true);
+$("#municipio_alumno_view").prop('disabled', true);
+$("#estado_alumno_view").prop('disabled', true);
+$("#fecha_nacimiento_alumno_view").prop('disabled', true);
+$("#fecha_inscripcion_alumno_view").prop('disabled', true);
+$("#lugar_nacimiento_alumno_view").prop('disabled', true);
+$("#municipio_nacimiento_alumno_view").prop('disabled', true);
+$("#estado_nacimiento_alumno_view").prop('disabled', true);
+$("#estado_civil_alumno_view").prop('disabled', true);
+$("#sexo_alumno_view").prop('disabled', true);
+$("#institucion_procedencia_alumno_view").prop('disabled', true);
+$("#tipo_escuela_alumno_view").prop('disabled', true);
+$("#telefono_alumno_view" ).prop('disabled', true);
+$("#email_alumno_view").prop('disabled', true);
+$("#facebook_alumno_view").prop('disabled', true);
+$("#twitter_alumno_view").prop('disabled', true);
+$("#instagram_alumno_view").prop('disabled', true);
+$("#licenciaturas_alumno_view").prop('disabled', true);
+$("#horarios_alumno_view").prop('disabled', true);
 }
 
-function licenciaturainicial(licenciatura) {
-    var inicial;
-    switch (licenciatura) {
-        case 19:inicial='DG';break;
-        case 21:inicial='C';break;
-        case 22:inicial='CC';break;
-        case 23:inicial='D';break;
-        case 24:inicial='P';break;
-    }
-}

@@ -351,7 +351,7 @@ function llenarTablaProfesores() {
                                    `;
                         },
                     },
-                    
+
                 ],
                   "language" : language_espaniol,
             });
@@ -430,7 +430,7 @@ $(document).on("click", "#del_profesor", function(e) {
     }
 
     function habilitar_deshabilitar(){
-  
+
 $('#id_profesores_view').prop('disabled', true);
 $("#nombre_profesor_view").prop('disabled', true);
 $("#edad_profesor_view").prop('disabled', true);

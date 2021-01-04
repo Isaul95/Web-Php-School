@@ -1,8 +1,85 @@
     $(document).ready(function(){
-
-    ccontadordealumnos();
+      litaHistorialPagosAlumnos();
+      ccontadordealumnos();
 
     }); // FIN DE LA FUNCION PRINCIPAL
+
+
+    /* -------------------------------------------------------------------------- */
+    /*                      llenarTablaPagos Records                              */
+    /* -------------------------------------------------------------------------- */
+    function litaHistorialPagosAlumnos() {
+      debugger;
+      var datos = {
+          numero_control : $("#numero_control").val(),
+          }
+  var url = base_url+'Alumnos/AltaBaucherBanco/consultaHistDePagosXAlumnos/'+datos.numero_control;
+
+        $.ajax({
+            type: "post",
+            // url: base_url+'Alumnos/AltaBaucherBanco/consultaHistDePagosXAlumnos/'+datos.numero_control,
+        url: url,
+            dataType: "json",
+            data : (datos),
+            success: function(response) {
+                // var i = "1";
+                $("#tbl_histPagosRealizadosXAlumno").DataTable({
+                    data: response,
+                    responsive: true,
+                    columns: [
+                      {
+                            data: "id_alta_baucher_banco",
+                            "visible": false, // ocultar la columna
+                        },
+                        {
+                            data: "nombre_completo",
+                        },
+                        {
+                            data: "numero_control",
+                        },
+                        {
+                            data: "carrera_descripcion",
+                        },
+                        {
+                            data: "fecha_registro",
+                        },
+                        {
+                            data: "pago",
+                        },
+                        {
+                            data: "archivo",
+                            render: function(data, type, row, meta) {
+                              //  Se consulta el file.pdf x el no. de control
+                                var a = `
+                                    <a title="Descarga Baucher" href="AltaBaucherBanco/verBaucher/${row.numero_control}" target="_blank"><i class="far fa-file-pdf fa-2x"></i></a>
+                                `;
+                                return a;
+                            },
+                        },
+                        {
+                            data: "estado",
+                        },
+                        {
+                            data: "archivo",
+                            render: function(data, type, row, meta) {
+                              var existeRecibFirmado = `${row.id_recibo_valido}`;
+                            if(existeRecibFirmado != "null"){
+                                  var a = `<a title="Descarga Recibo de Pago" href="AltaBaucherBanco/verReciboFirmadoValidado/${row.id_recibo_valido}" target="_blank"><i class="far fa-file-pdf fa-2x text-success"></i></a>`;
+                            }else {
+                              var a = 'No hay recibo';
+                            }
+                        return a;
+                            },
+                        },
+
+                    ],
+                      "language" : language_espaniol,
+                });
+            },
+        });
+    }
+
+
 
 /*         1.-  FUNCTIO CONSULTA QUE NO EXISTA Comprobante PARA EL ALUMNO K SE ESTA LOGUEANDO;
            1.- SI EXISTE BAUCHER LE MUESTRA EL ICONO PARA PODER MOSTRAR EL DOCUMENRO QUE SUIO
@@ -54,6 +131,7 @@ $(document).on("click", "#darAltaBaucher", function(e) {
         fd.append("archivo", img); //Obt principalmente el name file
         fd.append("archivo", archivo); // Obt el file como tal
         fd.append("tipo_de_pago", tipo_de_pago);
+        fd.append("estado_archivo", 0);
 
         $.ajax({
             type: "post",

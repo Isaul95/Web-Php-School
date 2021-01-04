@@ -84,7 +84,6 @@ class AltaBaucherBanco extends CI_Controller {
 		public function consultaCountAlumnos(){
 					// $data['estatus'] = $this->input->post('estatus');
 	 				$numero_control = $this->input->post('numero_control');
-
 							if ($this->Modelo_DarAccesoAlumnos->consultaCountAlumnosXxx($numero_control)) {
 								$data = array('responce' => 'success', 'message' => 'Ya Registro su Comprobante de pago...!!!');
 							} else {
@@ -103,6 +102,25 @@ class AltaBaucherBanco extends CI_Controller {
 				header("Content-Disposition: inline; filename=$img.pdf");
 				print_r($archivo);
 			}
+
+
+		public function consultaHistDePagosXAlumnos($numero_control){
+			// $numero_control = $this->input->post('numero_control');
+			$posts = $this->Modelo_DarAccesoAlumnos->obtenerHistorialDePagosXAlumnos($numero_control);
+
+			echo json_encode($posts);
+		}
+
+
+		public function verReciboFirmadoValidado($id_recibo_valido){
+			$consulta = $this->Modelo_DarAccesoAlumnos->getReciboValidado($id_recibo_valido);
+			$archivo = $consulta['archivo'];
+			$img = $consulta['nombre_archivo'];
+			header("Content-type: application/pdf");
+			header("Content-Disposition: inline; filename=$img.pdf");
+			print_r($archivo);
+		}
+
 
 
 }  // Fin del controller

@@ -13,9 +13,15 @@
       function litarAlumnosConBaucherRegistrados() {
          console.log("Lista de alumnos con baucher...!");
           debugger;
+          var datos = {
+              tipoPago : $("#tipoPago").val(),
+              }
+              var url = base_url+'Finanzas/HabilitarAlumnos/listaDeAlumnosConBaucherRegistrado/'+datos.tipoPago;
+
           $.ajax({
-              type: "get",
-              url: base_url+'Finanzas/HabilitarAlumnos/listaDeAlumnosConBaucherRegistrado',
+              type: "post",
+              // url: base_url+'Finanzas/HabilitarAlumnos/listaDeAlumnosConBaucherRegistrado',
+              url: url,
               dataType: "json",
               success: function(response) {
                   var i = "1";
@@ -78,7 +84,7 @@
                                 debugger;
                                     if(hayCantidad != "null" && hayDescConcepto!= "null"){
                                       var a = `
-                                          <a title="Descarga Recibo" href="generaPdfRcibo" target="_blank"><i class="far fa-file-pdf fa-2x"></i></a>
+                                          <a title="Descarga Recibo" href="generaPdfRcibo/${row.numero_control}" target="_blank"><i class="far fa-file-pdf fa-2x"></i></a>
                                       `;
                                     }else {
                                       var a = 'No hay recibo';
@@ -257,6 +263,7 @@ return a;
         var id_recibo = $("#id_reciboVarHide").val();
         var img = $("#archivo")[0].files[0]; // this is file
         var archivo = $("#archivo")[0].files[0];
+        var usuario_alta = $("#userAlta").val();
 
         if (archivo == undefined) {
             alert("No seleccionó el documento a guardar...!");
@@ -266,6 +273,7 @@ return a;
             fd.append("id_recibo", id_recibo);
             fd.append("archivo", img); //Obt principalmente el name file
             fd.append("archivo", archivo); // Obt el file como tal
+            fd.append("usuario_alta", usuario_alta);
 
             $.ajax({
                 type: "post",
@@ -376,14 +384,18 @@ function habilitaRegistro(estatus, numero_control, id_alta_baucher_banco){
       			data : (datos),
       			success : function(data){
               if (data.responce == "success") {
+                    if (estatus == 0) {  // SI SE DESABILITA SE CARGA LA PAGINA PARA K NO SE INSERTE DOBLE LA INORMACION
+                      // alert("estra en el reload");
+                        location.reload();
+                    }
           toastr["success"](data.message);
           $("#tbl_listAlumConBaucher").DataTable().destroy();
-          litarAlumnosConBaucherRegistrados();
+            litarAlumnosConBaucherRegistrados();
           addDatoParaReciboPagoAlumno(id_alta_baucher_banco, numero_control, estatus);
-        }else{
-          toastr["error"](data.message);
-        }
-      			     }
+              }else{
+                toastr["error"](data.message);
+              }
+      			}
       		});
       }
 
@@ -404,10 +416,12 @@ function habilitaRegistro(estatus, numero_control, id_alta_baucher_banco){
                   bauche: id_alta_baucher_banco,
                   desc_concepto : $("#concepto").val(),
                   cantidad : $("#cantidad").val(),
+                  importe_letra : $("#numletra").val()+"PESOS 00/100 M.N",
+                  usuario_creacion : $("#username").val(),
                   // var name = $("#concepto").val();
               }
 
-              if (datos.desc_concepto == "" || datos.cantidad == "") {
+              if (datos.desc_concepto == "" || datos.cantidad == "" || datos.importe_letra == "") {
                 alert("Los dato del recibo son obligatorios...!!!");
               }else{
 

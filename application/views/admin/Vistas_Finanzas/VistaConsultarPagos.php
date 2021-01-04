@@ -51,8 +51,6 @@
                   </div>
           </div>
 
-
-
           <div class="tab-pane" id="tab_Cursos">
             <div class="col-lg-4"></div>
               <div class="col-lg-4 text-center">

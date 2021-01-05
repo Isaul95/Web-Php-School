@@ -103,7 +103,7 @@ where alu.numero_control = $P{numcontrol}]]>
 			</textField>
 			<image>
 				<reportElement x="4" y="3" width="164" height="76" uuid="80fdefb5-cdd3-429f-9583-2b909203904f"/>
-				<imageExpression><![CDATA["assets/template/dist/img/LogCesvi.jpg"]]></imageExpression>
+				<imageExpression><![CDATA["C:\\Users\\COMIMSA\\Downloads\\LogCesvi.jpg"]]></imageExpression>
 			</image>
 			<staticText>
 				<reportElement x="402" y="41" width="46" height="19" uuid="b61c424e-566d-4da0-b84f-4a331c93cb56"/>

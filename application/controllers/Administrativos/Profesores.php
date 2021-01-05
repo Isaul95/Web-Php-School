@@ -227,19 +227,6 @@ class Profesores extends CI_Controller {
 	}
 
 
-	public function editarprofesor(){
-		if ($this->input->is_ajax_request()) {
-			$edit_id = $this->input->post('edit_id');
-			if ($post = $this->Modelo_Profesores->single_entry($edit_id)) {
-				$data = array('responce' => "success", "post" => $post);
-			}else{
-				$data = array('responce' => "error", "failed to fetch");
-			}
-			echo json_encode($data);
-		}else {
-			echo "No se permite este acceso directo...!!!";
-		}
-	}
 
 
 	public function viewprofesor(){

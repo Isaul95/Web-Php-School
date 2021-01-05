@@ -3,19 +3,21 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class ConsultarPagos extends CI_Controller {
 
-		 private $permisos;
+		 // private $permisos;
 	   public function __construct(){
 	 	 parent::__construct();
 		 $this->load->helper(array('form', 'url'));
 	 	 $this->load->library(array('session', 'form_validation'));
-		 $this->permisos = $this->backend_lib->control();
+		 // $this->permisos = $this->backend_lib->control();
 	 	 $this->load->model("Modelo_RegistrosPag");
 	 }
 
 
 	public function index(){
 
-		
+		// $data = array(
+		// 	'permisos' => $this->permisos,
+		// );
 
 		$this->load->view('layouts/header');
 		$this->load->view('layouts/aside');

@@ -17,7 +17,10 @@ class HabilitarAlumnos extends CI_Controller {
 	public function index(){
 
 		$data = array(
-		'countAlumnosConBaucher' => $this->Modelo_DarAccesoAlumnos->rowcount("alta_baucher_banco"),
+		'countAlumnosColegiatura' 	 => $this->Modelo_DarAccesoAlumnos->rowcountColegiatura("alta_baucher_banco"),
+		'countAlumnosCursos'         => $this->Modelo_DarAccesoAlumnos->rowcountCursos("alta_baucher_banco"),
+		'countAlumnosExtraordinario' => $this->Modelo_DarAccesoAlumnos->rowcountExtraordinario("alta_baucher_banco"),
+		'countAlumnosTitulo'				 => $this->Modelo_DarAccesoAlumnos->rowcountTitulo("alta_baucher_banco"),
  );
 
 		$this->load->view('layouts/header');
@@ -32,7 +35,8 @@ class HabilitarAlumnos extends CI_Controller {
 		public function Vista_HabilitarAlumnoDespuesDeSubirBaucher(){
 			$data = array(
 				'tipoDePagos' => $this->Modelo_DarAccesoAlumnos->getTipoDePagos(),
-				'nameAlumno' => $this->Modelo_DarAccesoAlumnos->obtenerListaDeAlumnosConBaucherRegistrado(),
+				// 'nameAlumno' => $this->Modelo_DarAccesoAlumnos->obtenerListaDeAlumnosConBaucherRegistrado(),
+				'username' => $this->session->userdata('username'),
 			);
 			$this->load->view('layouts/header');
 			$this->load->view('layouts/aside');
@@ -41,31 +45,32 @@ class HabilitarAlumnos extends CI_Controller {
 		}
 
 
-		public function listaDeAlumnosConBaucherRegistrado(){
+		public function listaDeAlumnosConBaucherRegistrado($tipoPago){
 
-			$posts = $this->Modelo_DarAccesoAlumnos->obtenerListaDeAlumnosConBaucherRegistrado();
+			$posts = $this->Modelo_DarAccesoAlumnos->obtenerListaDeAlumnosConBaucherRegistrado($tipoPago);
 			echo json_encode($posts);
 		}
 
 
 		public function verBaucher($numero_control){
-			$consulta = $this->Modelo_DarAccesoAlumnos->getBaucherId($numero_control);
-			$archivo = $consulta['archivo'];
-			$img = $consulta['nombre_archivo'];
-			header("Content-type: application/pdf");
-			header("Content-Disposition: inline; filename=$img.pdf");
-			print_r($archivo);
+				$consulta = $this->Modelo_DarAccesoAlumnos->getBaucherId($numero_control);
+				$archivo = $consulta['archivo'];
+				$img = $consulta['nombre_archivo'];
+				header("Content-type: application/pdf");
+				header("Content-Disposition: inline; filename=$img.pdf");
+				print_r($archivo);
 		}
 
-//  ESYE ES MI NEW METODO PARA EL UPDATE DEL CHECKEN
-// ========================================================================
+// ================    ESYE ES MI NEW METODO PARA EL UPDATE DEL CHECKEN    =======================
 public function marcarParaRegistro($numero_control){
 			$data['estatus'] = $this->input->post('estatus');
 			// $data['id_alta_baucher_banco'] = $this->input->post('id_alta_baucher_banco');
 			$id_alta_baucher_banco = $this->input->post('id_alta_baucher_banco');
 
  				$estatus = $this->input->post('estatus');
+			$data2['estado_archivo'] =	1; // ==>> 1= ¡El alumno se ha inscrito!
 		if($estatus != 0){  // Depende del estatus k se mande se hace a accion
+			$this->Modelo_DarAccesoAlumnos->updateStatusComprobPago($numero_control, $data2);  //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>><xxxxxxxxxxxxxxxxxxxx
 						if ($this->Modelo_DarAccesoAlumnos->update($numero_control, $data)) {
 // 1.- Cuando se habilita solo es estatus en la tabla de alumnos => estatus =1
 							$data = array('responce' => 'success', 'message' => 'Alumno habilitado correctamente...!');
@@ -76,7 +81,7 @@ public function marcarParaRegistro($numero_control){
 // 2.- Cuando se DES-habilita cambia el estatus en la tabla de alumnos => estatus =0 y delete los datos del revibo para k cuando se vuelva habilitar metan nuevos datoos
 						if ($this->Modelo_DarAccesoAlumnos->update($numero_control, $data)) {
 							$this->Modelo_DarAccesoAlumnos->deleteDatosDelRecibo($id_alta_baucher_banco);
-							$data = array('responce' => 'success', 'message' => 'Alumno fue habilitado...!');
+							$data = array('responce' => 'success', 'message' => 'Alumno fue Deshabilitado...!');
 						} else {
 							$data = array('responce' => 'error', 'message' => 'Fallo al deshabilitar el Alumno...!');
 						}
@@ -85,7 +90,24 @@ public function marcarParaRegistro($numero_control){
 }
 
 
-// ??========================================================================
+
+
+
+
+// >>>>>>>>>>>  ESTA FUNCION ACTUALIZA EL ESTATUS DE LA TABLE AltaBaucherBanco EL ESTADO DE COMO VA EL DOCUMENTO Comprobante DE PAGO   <<<<<<<<<
+public function actualizaEstadoDelComprobantePago($numero_control, $estatus){
+			// $data['estatus'] = $this->input->post('estatus');
+			// $id_alta_baucher_banco = $this->input->post('id_alta_baucher_banco');
+ 			// $estatus = $this->input->post('estatus');
+
+						$this->Modelo_DarAccesoAlumnos->updateStatusComprobPago($numero_control, $estatus);
+
+		echo json_encode($data);
+}
+
+
+
+
 
 
 
@@ -224,8 +246,7 @@ public function marcarParaRegistro($numero_control){
 
 
 
-
-	public function generaPdfRcibo(){
+	public function generaPdfRcibo($numero_control){
 		/*
 		 * Se crea la function para hacer el llamado en el js
 		 * se hace todo la parte del reporte
@@ -234,6 +255,7 @@ public function marcarParaRegistro($numero_control){
 
 		include_once('src/phpjasperxml_0.9d/class/tcpdf/tcpdf.php');
 		include_once("src/phpjasperxml_0.9d/class/PHPJasperXML.inc.php");
+		// 	include_once("ajuste.php"); // nuestra clase donde esta nuestra conf de ingreso a la bd
 
 		// SE HACE LA CONECION PARA CADA HOJA DE ESTAS
 		$server = "localhost";
@@ -242,23 +264,29 @@ public function marcarParaRegistro($numero_control){
 		$db = "cesvi_webapp";
 
 		$PHPJasperXML = new PHPJasperXML();
-		//$PHPJasperXML->debugsql=true;
-		$PHPJasperXML->arrayParameter=array("parameter1"=>1);
-		// $PHPJasperXML->arrayParameter.put("firma5",this.getClass().getResourceAsStream("src/logo-cesvi.jpg"));
+		//  $PHPJasperXML->debugsql=true;
+		// 	$PHPJasperXML-> debugsql = false; // Si desea ver la setencia del sql del reporte lo pones en true
 
+		$PHPJasperXML->arrayParameter=array("numcontrol"=>$numero_control);
+		// $PHPJasperXML->arrayParameter=array("parameter1"=>1);
+
+		// $PHPJasperXML->arrayParameter.put("firma5",this.getClass().getResourceAsStream("src/logo-cesvi.jpg"));
 
 		// $PHPJasperXML->load_xml_file("report1_prueba.jrxml"); recibo_cesvi
 		$PHPJasperXML->load_xml_file("src/ReportesPDF_Cesvi_jrxml/recibo_cesvi.jrxml");
 
 		$PHPJasperXML->transferDBtoArray($server,$user,$pass,$db);
-		$PHPJasperXML->outpage("I");    //page output method I:standard output  D:Download file
+//  $PHPJasperXML->transferDBtoArray($server,$user,$pass,$db); // las opciones de conexion de base de datos
+		$PHPJasperXML->outpage('I','Recibo_de_Pago.pdf');
+//  $PHPJasperXML->outpage("D");    //page output method I:standard output  D:Download file
+
+//$PHPJasperXML->outpage('I=render in browser/D=Download/F=save as server side filename according 2nd parameter','filename.pdf or filename.xls or filename.xls depends on constructor')
 
 	}
 
-// JOIN K ME TRAE LOS DATES K NECESITO pa el recibo de pago
-// 	SELECT CONCAT(alu.nombres, ' ', alu.apellido_paterno, ' ', alu.apellido_materno) As nombre_completo, rec.id_recibo, rec.cantidad_de, rec.pago_de, rec.concepto
-// FROM alumnos alu
-// INNER JOIN datos_recibo rec ON alu.numero_control = rec.numero_control
+
+
+
 
 
 }  // Fin del controller

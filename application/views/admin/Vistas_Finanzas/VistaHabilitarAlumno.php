@@ -10,10 +10,12 @@
 <div class="container">
   <div class="row">
     <div class="col-md-12 mt-5">
-      <h2>
-            <center><strong><font color="#D34787">Dar de Alta alumnos</font></strong></center>
+      <h3>
+        <input type="hidden" id="tipoPago" name="tipoPago" value="<?php echo $_GET["Pago"]; ?>" >
+            <center><strong><font color="#D34787">Dar de Alta Alumnos Para: <?php echo $_GET["Pago"]; ?></font></strong></center>
+<!-- var "saludo": <?php echo $_GET["Pago"]; ?>    <<<== DE ESTA FORMA RECIBO EL PARAMETO QUE SE ENVIA DEPENDEIDNDO DE LA OPCION ELEGIDA -->
     <center><small><font color="#2F4D97" face="Comic Sans MS,arial,verdana">Ciudad Iguala de la Independencia, Guerrero</font></small></center>
-  </h2>
+  </h3>
       <hr style="background-color: black; color: black; height: 1px;">
     </div>
   </div>
@@ -37,15 +39,17 @@
           </button>
         </div>
         <div class="modal-body">
+          <input type="hidden" id="username" name="username" value="<?php echo $username;?>" >
+
           <!-- Add Record Form -->
       <form id="addRecordForm">
             <!-- Name -->
-            <div class="form-group">
+            <!-- <div class="form-group">
               <?php foreach($nameAlumno as $name):?>
                 <label for="">Nombre Alumno: *</label>
               <input type="text" class="form-control"  id="nombre" readonly value="<?php echo $name->nombre_completo;?>">
               <?php endforeach;?>
-            </div>
+            </div> -->
 
             <!-- Email -->
             <div class="form-group">
@@ -54,12 +58,12 @@
             </div>
 
             <!-- Mobile No. -->
-          <div class="form-group">
+          <!-- <div class="form-group">
               <?php foreach($nameAlumno as $name):?>
                 <label for="">Carrera: *</label>
                 <input type="text" class="form-control" id="carrera" readonly value="<?php echo $name->carrera_descripcion;?>">
               <?php endforeach;?>
-            </div>
+            </div> -->
 
 
             <!-- <div class="form-group">
@@ -79,6 +83,11 @@
             <div class="form-group">
               <label for="">Descripción del concepto: *</label>
               <input type="text" class="form-control" id="concepto" placeholder="Descripción del concepto">
+            </div>
+
+            <div class="form-group">
+              <label for="">Capturar cantidad en letra: *</label>
+              <input type="text" class="form-control" id="numletra" placeholder="Cantidad en letra">
             </div>
 
       </form>
@@ -107,6 +116,7 @@
               <input type="hidden" id="numero_controlVarHide" name="numero_controlVarHide">
 				      <input type="hidden" id="id_alta_baucher_bancoVarHide" name="id_alta_baucher_bancoVarHide">
 				      <input type="hidden" id="id_reciboVarHide" name="id_reciboVarHide">
+              <input type="hidden" id="userAlta" name="userAlta" value="<?php echo $username;?>" >
 
             <div>
               <label> <span class="rojo">*</span>Seleccione el archivo formato PDF </label>

@@ -28,63 +28,66 @@ CONTADOR DE CUANTOS ALUMNOS YA SUBIERON SU BAUCHER AL SISTEMA -->
                       <div class="inner">
           <!-- TIENE UN style PARA DARLE EL % ->> -->
           <!-- <h3>53<sup style="font-size: 20px">%</sup></h3>  -->
-                           <h3><?php echo $countAlumnosConBaucher;?></h3>
-                          <p>Baucher Ingresados</p>
+                           <h3><?php echo $countAlumnosColegiatura;?></h3>
+                          <strong><p>Pago de Colegiaturas</p></strong>
                       </div>
                       <div class="icon">
                           <i class="fas fa-money-check-alt"></i>
                       </div>
-                        <a href="<?php echo base_url();?>Finanzas/HabilitarAlumnos/Vista_HabilitarAlumnoDespuesDeSubirBaucher" class="small-box-footer">Ver Lista <i class="fa fa-arrow-circle-right"></i></a>
+                        <a href="<?php echo base_url();?>Finanzas/HabilitarAlumnos/Vista_HabilitarAlumnoDespuesDeSubirBaucher?Pago=Colegiatura" class="small-box-footer">Ver Lista <i class="fa fa-arrow-circle-right"></i></a>
                   </div>
               </div>
-<!-- ******************    CUADRO #1   *********************** 
+ <!-- ******************    CUADRO #1   *********************** -->
 <div class="col-lg-3 col-xs-6">
-                    small box 
+
                     <div class="small-box bg-aqua">
                         <div class="inner">
-                            <h3>0</h3>
-
-                            <p>Total Ingresos</p>
+                            <h3><?php echo $countAlumnosCursos;?></h3>
+                          <strong>  <p>Pago de Cursos</p></strong>
                         </div>
                         <div class="icon">
-                            <i class="ion ion-bag"></i>
+                            <i class="fa fa-chalkboard-teacher"></i>
                         </div>
-                        <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+            <!-- <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a> -->
+            <a href="<?php echo base_url();?>Finanzas/HabilitarAlumnos/Vista_HabilitarAlumnoDespuesDeSubirBaucher?Pago=Cursos" class="small-box-footer">Ver Lista <i class="fa fa-arrow-circle-right"></i></a>
                     </div>
                 </div>
 
-    ******************    CUADRO #3   ***********************
+    <!-- ******************    CUADRO #3   *********************** -->
         <div class="col-lg-3 col-xs-6">
             <div class="small-box bg-yellow">
                 <div class="inner">
-                    <h3><?php echo $cantventa;?></h3> 
-                    <h3>53<sup style="font-size: 20px">%</sup></h3>
-           SE IMPRIME (consulta) LA CANTIDAD DE VENTAS REALIZADAS
-                    <p>Ventas Completadas</p>
+                    <h3><?php echo $countAlumnosExtraordinario;?></h3>
+                    <!-- <h3>53<sup style="font-size: 20px">%</sup></h3> -->
+           <!-- SE IMPRIME (consulta) LA CANTIDAD DE VENTAS REALIZADAS -->
+                  <strong> <p>Pago de Extraordinarios</p></strong>
                 </div>
                 <div class="icon">
-                    <i class="fas fa-money-check-alt"></i>   
+                  <i class="fa fa-user-edit"></i>
                 </div>
-                <a href="<?php echo base_url();?>menuventas" class="small-box-footer">Ver Ventas <i class="fa fa-arrow-circle-right"></i></a>
+    <!-- <a href="<?php echo base_url();?>menuventas" class="small-box-footer">Ver Ventas <i class="fa fa-arrow-circle-right"></i></a> -->
+    <a href="<?php echo base_url();?>Finanzas/HabilitarAlumnos/Vista_HabilitarAlumnoDespuesDeSubirBaucher?Pago=Extraordinario" class="small-box-footer">Ver Lista <i class="fa fa-arrow-circle-right"></i></a>
             </div>
         </div>
 
 
-     ******************    CUADRO #4  *********************** 
+     <!-- ******************    CUADRO #4  *********************** -->
             <div class="col-lg-3 col-xs-6">
-                 small box
+
                 <div class="small-box bg-red">
                     <div class="inner">
-                         <h3><?php echo $cantdescripcion_de_venta;?></h3>
-                          <h3>53<sup style="font-size: 20px">%</sup></h3>
-                        <p>Ventas Canceladas</p>
+                      <h3><?php echo $countAlumnosTitulo;?></h3>
+                          <!-- <h3>53<sup style="font-size: 20px">%</sup></h3> -->
+          <!-- <strong><font color="#D34787">  <p>Pago de Titulos*</p> </font></strong> -->
+                        <strong><p>Pago de Titulos</p></strong>
                     </div>
                     <div class="icon">
-                        <i class="fas fa-trash"></i> 
+                        <i class="fa fa-graduation-cap"></i>
                     </div>
-                    <a href="<?php echo base_url();?>menuventascanceladas" class="small-box-footer">Ver Cancelaciones <i class="fa fa-arrow-circle-right"></i></a>
+  <!-- <a href="<?php echo base_url();?>menuventascanceladas" class="small-box-footer">Ver Cancelaciones <i class="fa fa-arrow-circle-right"></i></a> -->
+  <a href="<?php echo base_url();?>Finanzas/HabilitarAlumnos/Vista_HabilitarAlumnoDespuesDeSubirBaucher?Pago=Titulo" class="small-box-footer">Ver Lista <i class="fa fa-arrow-circle-right"></i></a>
                 </div>
-            </div>-->
+            </div>
 
 
 </div>

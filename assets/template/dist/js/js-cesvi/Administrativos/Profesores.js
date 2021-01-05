@@ -1,6 +1,6 @@
 $(document).ready(function(){
     llenarTablaProfesores(); // SEINICIALIZA LA FUNCTIO DE LA CARGA DEL LISTADO DE LA TABLA
-    deshabilitar_view_profesor();
+    habilitar_deshabilitar();
   }); // FIN DE LA FUNCION PRINCIPAL
 
 
@@ -351,7 +351,7 @@ function llenarTablaProfesores() {
                                    `;
                         },
                     },
-                    
+
                 ],
                   "language" : language_espaniol,
             });
@@ -429,8 +429,8 @@ $(document).on("click", "#del_profesor", function(e) {
       }, /* TODO ESTO ES PARA CAMBIAR DE IDIOMA */
     }
 
-    function deshabilitar_view_profesor(){
-  
+    function habilitar_deshabilitar(){
+
 $('#id_profesores_view').prop('disabled', true);
 $("#nombre_profesor_view").prop('disabled', true);
 $("#edad_profesor_view").prop('disabled', true);

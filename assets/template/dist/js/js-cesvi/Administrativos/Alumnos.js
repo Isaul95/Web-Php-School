@@ -112,8 +112,6 @@ $(document).on("click", "#btnaddalumno", function (e) {
     } else {
     
         var fd = new FormData();
-        var fd2 = new FormData();
-        var fd3 = new FormData();
 
         var archivo_acta_alumno = $("#acta_alumno")[0].files[0]; // this is file
         var archivo_certificado_alumno = $("#certificado_alumno")[0].files[0]; // this is file
@@ -296,23 +294,19 @@ $(document).on("click", "#update_alumno", function (e) {
         fd.append("instagram", instagram_alumno_update);
      
         if ($("#acta_alumno_update")[0].files.length > 0) {
-            alert("Existe acta");
             fd.append("nombre_acta", img_acta_alumno_update); //Obt principalmente el name file
             fd.append("acta_nacimiento", archivo_acta_alumno_update); // Obt el file como tal    
            }
         if ($("#certificado_alumno_update")[0].files.length > 0) {
-            alert("Existe certificado_bachillerato");
             fd.append("nombre_certificado_bachillerato", img_certificado_alumno_update); //Obt principalmente el name file
         fd.append("certificado_bachillerato", archivo_certificado_alumno_update); // Obt el file como tal
         
           }
         if ($("#curp_alumno_update")[0].files.length > 0) {
-            alert("Existe curp");
             fd.append("nombre_curp", img_curp_alumno_update); //Obt principalmente el name file
             fd.append("curp", archivo_curp_alumno_update); // Obt el file como tal    
           }
         if ($("#certificado_medico_alumno_update")[0].files.length > 0) {
-            alert("Existe certificado_medico");
             fd.append("nombre_certificado_medico", img_certificado_medico_alumno_update); //Obt principalmente el name file
             fd.append("certificado_medico", archivo_certificado_medico_alumno_update); // Obt el file como tal    
           }
@@ -327,14 +321,12 @@ $(document).on("click", "#update_alumno", function (e) {
             enctype: 'multipart/form-data',
             success: function (response) {
                 if (response.response == "success") {
-                    alert("success");
                     toastr["success"](response.message);
                     $("#modaleditalumno").modal("hide");
                     $("#formeditalumno")[0].reset();
                     $("#tbl_alumnos_inscripcion").DataTable().destroy();
                     llenarTablaAlumnos();
                 } else {
-                    alert("no success");
                     toastr["error"](response.message);
                 }
             },
@@ -614,7 +606,6 @@ $(document).on("click", "#del_alumno", function (e) {
 
 
 
-
 // ********************   variable PARA CAMBIAR DE IDIOMA AL ESPAÑOL EL DataTable  *************************
 var language_espaniol = {
     "lengthMenu": "Mostrar _MENU_ registros por pagina",
@@ -666,7 +657,6 @@ function agregar_alumno(fd) {
         success: function (response) {
             if (response.response == "success") {
                 toastr["success"](response.message);
-                alert("hila");
                 $("#modaladdalumno").modal("hide");
                 $("#formaddalumno")[0].reset();
                 $(".add-file-label").html("No se eligió archivo");

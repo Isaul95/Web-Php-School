@@ -373,7 +373,7 @@
             <div class="modal-footer">
               <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
               <!-- Insert Button -->
-              <button type="button" class="btn btn-primary" id="btnaddalumno">Agregar</button>
+              <button type="button" class="btn btn-primary" id="btnaddtutor">Agregar</button>
             </div>
           </div>
         </div>

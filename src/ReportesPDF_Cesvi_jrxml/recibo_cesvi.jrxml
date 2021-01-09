@@ -24,18 +24,18 @@
 		</box>
 	</style>
 	<subDataset name="Table Dataset 1" uuid="ec9ae651-b4e0-4b35-89bf-8cf73a00db47"/>
-	<parameter name="numcontrol" class="java.lang.Integer"/>
+	<parameter name="numcontrol" class="java.lang.String">
+		<defaultValueExpression><![CDATA[$P{numcontrol}]]></defaultValueExpression>
+	</parameter>
 	<queryString>
 		<![CDATA[SELECT CONCAT(alu.nombres, ' ', alu.apellido_paterno, ' ', alu.apellido_materno) As nombre_completo, rec.id_recibo, rec.cantidad, rec.desc_concepto, tdp.pago, alu.numero_control, alu.direccion, rec.importe_letra
 FROM datos_recibo rec
 INNER JOIN alta_baucher_banco abb ON abb.id_alta_baucher_banco = rec.bauche
 INNER JOIN alumnos alu ON alu.numero_control = abb.numero_control
 INNER JOIN tipos_de_pagos tdp ON tdp.id_tipo_pago = abb.tipo_de_pago
-where alu.numero_control = $P{numcontrol}]]>
+where alu.numero_control = "$P{numcontrol}" ]]>
 	</queryString>
-	<field name="nombre_completo" class="java.lang.String">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
+	<field name="nombre_completo" class="java.lang.String"/>
 	<field name="id_recibo" class="java.lang.Integer">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
@@ -48,7 +48,7 @@ where alu.numero_control = $P{numcontrol}]]>
 	<field name="pago" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
-	<field name="numero_control" class="java.lang.Integer">
+	<field name="numero_control" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
 	<field name="direccion" class="java.lang.String">

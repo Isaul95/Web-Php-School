@@ -122,7 +122,7 @@ $(document).on("click", "#btnaddalumno", function (e) {
         var ciclo =  $("#perido_escolar_activo").val();
 
         if(licenciaturas_alumno==19){
-            var numero_de_control = numero.concat(nombre_alumno.substring(0,1).toUpperCase(),apellidop_alumno.substring(0,1).toUpperCase(),
+            var numero_control = numero.concat(nombre_alumno.substring(0,1).toUpperCase(),apellidop_alumno.substring(0,1).toUpperCase(),
             apellidom_alumno.substring(0,1).toUpperCase(),"DG",ciclo.substring(2,4),
             ciclo.substring(7,9),secuencia_diseno);
             var nuevasecuencia =Number(secuencia_diseno)+1;
@@ -131,7 +131,7 @@ $(document).on("click", "#btnaddalumno", function (e) {
 
         }
         if(licenciaturas_alumno==21){
-            var numero_de_control = numero.concat(nombre_alumno.substring(0,1).toUpperCase(),apellidop_alumno.substring(0,1).toUpperCase(),
+            var numero_control = numero.concat(nombre_alumno.substring(0,1).toUpperCase(),apellidop_alumno.substring(0,1).toUpperCase(),
             apellidom_alumno.substring(0,1).toUpperCase(),"C",ciclo.substring(2,4),
             ciclo.substring(7,9),secuencia_contaduria);
             var nuevasecuencia =Number(secuencia_contaduria)+1;
@@ -139,7 +139,7 @@ $(document).on("click", "#btnaddalumno", function (e) {
             fd.append("valor_secuencia", nuevasecuencia);
         }
         if(licenciaturas_alumno==22){
-            var numero_de_control = numero.concat(nombre_alumno.substring(0,1).toUpperCase(),apellidop_alumno.substring(0,1).toUpperCase(),
+            var numero_control = numero.concat(nombre_alumno.substring(0,1).toUpperCase(),apellidop_alumno.substring(0,1).toUpperCase(),
             apellidom_alumno.substring(0,1).toUpperCase(),"CC",ciclo.substring(2,4),
             ciclo.substring(7,9),secuencia_criminalistica);
             var nuevasecuencia =Number(secuencia_criminalistica)+1;
@@ -147,7 +147,7 @@ $(document).on("click", "#btnaddalumno", function (e) {
             fd.append("valor_secuencia", nuevasecuencia);
         }
         if(licenciaturas_alumno==23){
-            var numero_de_control = numero.concat(nombre_alumno.substring(0,1).toUpperCase(),apellidop_alumno.substring(0,1).toUpperCase(),
+            var numero_control = numero.concat(nombre_alumno.substring(0,1).toUpperCase(),apellidop_alumno.substring(0,1).toUpperCase(),
             apellidom_alumno.substring(0,1).toUpperCase(),"D",ciclo.substring(2,4),
             ciclo.substring(7,9),secuencia_derecho);
             var nuevasecuencia = Number(secuencia_derecho)+1;
@@ -155,7 +155,7 @@ $(document).on("click", "#btnaddalumno", function (e) {
             fd.append("valor_secuencia", nuevasecuencia);
         }
         if(licenciaturas_alumno==24){
-            var numero_de_control = numero.concat(nombre_alumno.substring(0,1).toUpperCase(),apellidop_alumno.substring(0,1).toUpperCase(),
+            var numero_control = numero.concat(nombre_alumno.substring(0,1).toUpperCase(),apellidop_alumno.substring(0,1).toUpperCase(),
             apellidom_alumno.substring(0,1).toUpperCase(),"P",ciclo.substring(2,4),
             ciclo.substring(7,9),secuencia_psicologia);
             var nuevasecuencia =Number(secuencia_psicologia)+1;
@@ -164,7 +164,7 @@ $(document).on("click", "#btnaddalumno", function (e) {
         }
 
 
-        fd.append("numero_control",  numero_de_control);
+        fd.append("numero_control",  numero_control);
         fd.append("nombres", nombre_alumno);
         fd.append("apellido_paterno", apellidop_alumno);
         fd.append("apellido_materno", apellidom_alumno);
@@ -201,7 +201,7 @@ $(document).on("click", "#btnaddalumno", function (e) {
         fd.append("certificado_medico", archivo_certificado_medico_alumno); // Obt el file como tal
 
         //EL REGISTRO DEL ALUMNO A SU RESPECTIVA CARRERA Y OOPCION DE ESTUDIO
-        fd.append("alumno", numero_de_control);
+        fd.append("alumno", numero_control);
         fd.append("carrera", licenciaturas_alumno);
         fd.append("opcion", horarios_alumno);
         fd.append("cuatrimestre", 1);
@@ -216,7 +216,7 @@ $(document).on("click", "#btnaddalumno", function (e) {
         fd.append("apellidos", apellidos);
         fd.append("telefono", telefono_alumno);
         fd.append("email", email_alumno);
-        fd.append("username", numero_de_control);
+        fd.append("username", numero_control);
         fd.append("password", 123456);
         fd.append("rol_id", 2);
         fd.append("estado", 1);

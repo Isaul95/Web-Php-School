@@ -263,8 +263,9 @@ public function actualizaEstadoDelComprobantePago($numero_control, $estatus){
 		$pass = "";
 		$db = "cesvi_webapp";
 
+
 		$PHPJasperXML = new PHPJasperXML();
-		//  $PHPJasperXML->debugsql=true;
+		 // $PHPJasperXML->debugsql=true;
 		// 	$PHPJasperXML-> debugsql = false; // Si desea ver la setencia del sql del reporte lo pones en true
 
 		$PHPJasperXML->arrayParameter=array("numcontrol"=>$numero_control);

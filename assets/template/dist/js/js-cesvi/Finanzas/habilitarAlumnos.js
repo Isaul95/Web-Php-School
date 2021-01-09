@@ -86,6 +86,9 @@
                                       var a = `
                                           <a title="Descarga Recibo" href="generaPdfRcibo/${row.numero_control}" target="_blank"><i class="far fa-file-pdf fa-2x"></i></a>
                                       `;
+                                      // var a = `
+                                      //     <a title="Descarga Recibo" onclick=mostrarDocumento('${row.numero_control}')><i class="far fa-file-pdf fa-2x"></i></a>
+                                      // `;
                                     }else {
                                       var a = 'No hay recibo';
                                     }
@@ -117,6 +120,15 @@ return a;
                   });
               },
           });
+      }
+
+
+      function mostrarDocumento(numero_control) {
+        debugger;
+          	// var idProyectoAnexo = $('#idProyectoAnexo').val();
+// var url = base_url+'Finanzas/HabilitarAlumnos/listaDeAlumnosConBaucherRegistrado/'+datos.tipoPago;
+   var url = base_url+"Finanzas/HabilitarAlumnos/generaPdfRcibo/" + numero_control + ".html";
+          	window.open(url, "_blank", numero_control);
       }
 
 

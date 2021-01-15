@@ -25,7 +25,7 @@
                       <div class="icon">
                           <i class="fas fa-money-check-alt"></i>
                       </div>
-                        <a href="<?php echo base_url();?>Finanzas/HabilitarAlumnos/Vista_HabilitarAlumnoDespuesDeSubirBaucher?Pago=Colegiatura" class="small-box-footer">Ver Lista <i class="fa fa-arrow-circle-right"></i></a>
+<a href="<?php echo base_url();?>Administrativos/Calificaciones/VistaCalificacionesPorSemestre?Semestre=Primero&Num=1" class="small-box-footer">Ver Lista <i class="fa fa-arrow-circle-right"></i></a>
                   </div>
               </div>
  <!-- ******************    CUADRO #1   *********************** -->
@@ -41,7 +41,7 @@
                             <i class="fa fa-chalkboard-teacher"></i>
                         </div>
             <!-- <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a> -->
-            <a href="<?php echo base_url();?>Finanzas/HabilitarAlumnos/Vista_HabilitarAlumnoDespuesDeSubirBaucher?Pago=Cursos" class="small-box-footer">Ver Lista <i class="fa fa-arrow-circle-right"></i></a>
+<a href="<?php echo base_url();?>Administrativos/Calificaciones/VistaCalificacionesPorSemestre?Semestre=Segundo&Num=2" class="small-box-footer">Ver Lista <i class="fa fa-arrow-circle-right"></i></a>
                     </div>
                 </div>
 
@@ -56,7 +56,7 @@
                 <div class="icon">
                   <i class="fa fa-user-edit"></i>
                 </div>
-    <a href="<?php echo base_url();?>Finanzas/HabilitarAlumnos/Vista_HabilitarAlumnoDespuesDeSubirBaucher?Pago=Extraordinario" class="small-box-footer">Ver Lista <i class="fa fa-arrow-circle-right"></i></a>
+                <a href="<?php echo base_url();?>Administrativos/Calificaciones/VistaCalificacionesPorSemestre?Semestre=Tercero&Num=3" class="small-box-footer">Ver Lista <i class="fa fa-arrow-circle-right"></i></a>
             </div>
         </div>
 
@@ -73,7 +73,7 @@
                     <div class="icon">
                         <i class="fa fa-graduation-cap"></i>
                     </div>
-  <a href="<?php echo base_url();?>Finanzas/HabilitarAlumnos/Vista_HabilitarAlumnoDespuesDeSubirBaucher?Pago=Titulo" class="small-box-footer">Ver Lista <i class="fa fa-arrow-circle-right"></i></a>
+                    <a href="<?php echo base_url();?>Administrativos/Calificaciones/VistaCalificacionesPorSemestre?Semestre=Cuarto&Num=4" class="small-box-footer">Ver Lista <i class="fa fa-arrow-circle-right"></i></a>
                 </div>
             </div>
 
@@ -89,7 +89,7 @@
                                   <div class="icon">
                                       <i class="fas fa-money-check-alt"></i>
                                   </div>
-                                    <a href="<?php echo base_url();?>Finanzas/HabilitarAlumnos/Vista_HabilitarAlumnoDespuesDeSubirBaucher?Pago=Colegiatura" class="small-box-footer">Ver Lista <i class="fa fa-arrow-circle-right"></i></a>
+                                    <a href="<?php echo base_url();?>Administrativos/Calificaciones/VistaCalificacionesPorSemestre?Semestre=Quinto&Num=5" class="small-box-footer">Ver Lista <i class="fa fa-arrow-circle-right"></i></a>
                               </div>
                           </div>
 
@@ -106,7 +106,7 @@
                                                      <i class="fa fa-chalkboard-teacher"></i>
                                                  </div>
                                      <!-- <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a> -->
-                                     <a href="<?php echo base_url();?>Finanzas/HabilitarAlumnos/Vista_HabilitarAlumnoDespuesDeSubirBaucher?Pago=Cursos" class="small-box-footer">Ver Lista <i class="fa fa-arrow-circle-right"></i></a>
+                                     <a href="<?php echo base_url();?>Administrativos/Calificaciones/VistaCalificacionesPorSemestre?Semestre=Sexto&Num=6" class="small-box-footer">Ver Lista <i class="fa fa-arrow-circle-right"></i></a>
                                              </div>
                                          </div>
 
@@ -120,7 +120,7 @@
                                          <div class="icon">
                                            <i class="fa fa-user-edit"></i>
                                          </div>
-                             <a href="<?php echo base_url();?>Finanzas/HabilitarAlumnos/Vista_HabilitarAlumnoDespuesDeSubirBaucher?Pago=Extraordinario" class="small-box-footer">Ver Lista <i class="fa fa-arrow-circle-right"></i></a>
+                             <a href="<?php echo base_url();?>Administrativos/Calificaciones/VistaCalificacionesPorSemestre?Semestre=Septimo&Num=7" class="small-box-footer">Ver Lista <i class="fa fa-arrow-circle-right"></i></a>
                                      </div>
                                  </div>
 
@@ -137,7 +137,7 @@
                                              <div class="icon">
                                                  <i class="fa fa-graduation-cap"></i>
                                              </div>
-                           <a href="<?php echo base_url();?>Finanzas/HabilitarAlumnos/Vista_HabilitarAlumnoDespuesDeSubirBaucher?Pago=Titulo" class="small-box-footer">Ver Lista <i class="fa fa-arrow-circle-right"></i></a>
+                           <a href="<?php echo base_url();?>Administrativos/Calificaciones/VistaCalificacionesPorSemestre?Semestre=Octavo&Num=8" class="small-box-footer">Ver Lista <i class="fa fa-arrow-circle-right"></i></a>
                                          </div>
                                      </div>
 
@@ -153,7 +153,7 @@
                                                            <div class="icon">
                                                                <i class="fas fa-money-check-alt"></i>
                                                            </div>
-                                                             <a href="<?php echo base_url();?>Finanzas/HabilitarAlumnos/Vista_HabilitarAlumnoDespuesDeSubirBaucher?Pago=Colegiatura" class="small-box-footer">Ver Lista <i class="fa fa-arrow-circle-right"></i></a>
+                                                             <a href="<?php echo base_url();?>Administrativos/Calificaciones/VistaCalificacionesPorSemestre?Semestre=Noveno&Num=9" class="small-box-footer">Ver Lista <i class="fa fa-arrow-circle-right"></i></a>
                                                        </div>
                                                    </div>
                                       <!-- ******************    CUADRO #1   *********************** -->
@@ -168,7 +168,7 @@
                                                                  <i class="fa fa-chalkboard-teacher"></i>
                                                              </div>
                                                  <!-- <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a> -->
-                                                 <a href="<?php echo base_url();?>Finanzas/HabilitarAlumnos/Vista_HabilitarAlumnoDespuesDeSubirBaucher?Pago=Cursos" class="small-box-footer">Ver Lista <i class="fa fa-arrow-circle-right"></i></a>
+                                                 <a href="<?php echo base_url();?>Administrativos/Calificaciones/VistaCalificacionesPorSemestre?Semestre=Decimo&Num=10" class="small-box-footer">Ver Lista <i class="fa fa-arrow-circle-right"></i></a>
                                                          </div>
                                                      </div>
 

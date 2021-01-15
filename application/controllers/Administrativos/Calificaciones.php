@@ -20,6 +20,20 @@ class Calificaciones extends CI_Controller {
 	}
 
 
+
+	public function VistaCalificacionesPorSemestre(){
+		$data = array(
+			// 'tipoDePagos' => $this->Modelo_DarAccesoAlumnos->getTipoDePagos(),
+			'username' => $this->session->userdata('username'),
+			'rol' => $this->session->userdata('rol'),
+		);
+		$this->load->view('layouts/header');
+		$this->load->view('layouts/aside');
+		 $this->load->view('admin/Vistas_administrativos/VistaAlumnosPorSemestre',$data);
+		$this->load->view('layouts/footer');
+	}
+
+
 	/* -------------------------------------------------------------------------- */
 	/*                               Insert Records                               */
 	/* -------------------------------------------------------------------------- */

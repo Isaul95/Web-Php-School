@@ -4,6 +4,16 @@
         <aside class="main-sidebar" >
             <!-- sidebar: style can be found in sidebar.less -->
             <section class="sidebar">
+<!-- ========= empieza here -->
+      <?php
+          $user=null;
+          $student=2;
+          $admin=1;
+          $user= $this->session->userdata("rol");
+          // echo $user;
+      ?>
+<!-- ========= finally here -->
+
                 <!-- sidebar menu: : style can be found in sidebar.less -->
                 <ul class="sidebar-menu" data-widget="tree">
                     <li class="header"><strong>OPCIONES DE MENU</strong></li>
@@ -39,6 +49,35 @@
 
                         </ul>
                     </li> -->
+
+
+
+
+<!--  AKI EMPIEZA  PARA LOS ALUMNOS EN EL ASide =============================00 -->
+<!-- <?php echo $this->session->userdata("username")?> <br>
+<?php echo $this->session->userdata("rol")?> -->
+
+ <?php if($user==$student):?>
+                                <li class="treeview">
+                                   <a href="#">   <!--- class="fa fa-cogs" -->
+                                       <i class="fas fa-user-graduate"></i>  <span>Alumnos</span>
+                                       <span class="pull-right-container">
+                                           <i class="fa fa-angle-left pull-right"></i>
+                                       </span>
+                                   </a>
+                                   <ul class="treeview-menu">
+
+                            <li><a href="<?php echo base_url();?>alumnos/altaBaucherBanco">
+                               <i class="fas fa-money-check-alt"></i> Subir Baucher</a>
+                           </li>
+                                   </ul>
+                               </li>
+ <?php endif;?>
+<!--  AKI termina finally  PARA LOS ALUMNOS EN EL ASide =============================00 -->
+
+
+
+<?php if($user==$admin):?>
                     <li class="treeview">
                         <a href="#">
                             <i class="fas fa-balance-scale"></i> <span>Administrativos</span>
@@ -62,23 +101,15 @@
 
                           <li><a href="<?php echo base_url();?>Administrativos/Alumnos">
                                 <i class="far fa-dot-circle"></i> Alumnos </a></li>
+
+                          <li><a href="<?php echo base_url();?>Administrativos/DocumentosAlumnos">
+                                <i class="far fa-dot-circle"></i> Documentacion Alumnos</a></li>
+
+                          <li><a href="<?php echo base_url();?>Administrativos/Calificaciones">
+                              <i class="far fa-dot-circle"></i> Calificaciones</a></li>
+
                         </ul>
                     </li>
-
-                                <li class="treeview">
-                                   <a href="#">   <!--- class="fa fa-cogs" -->
-                                       <i class="fas fa-user-graduate"></i>  <span>Alumnos</span>
-                                       <span class="pull-right-container">
-                                           <i class="fa fa-angle-left pull-right"></i>
-                                       </span>
-                                   </a>
-                                   <ul class="treeview-menu">
-
-                            <li><a href="<?php echo base_url();?>alumnos/altaBaucherBanco">
-                               <i class="fas fa-money-check-alt"></i> Subir Baucher</a>
-                           </li>
-                                   </ul>
-                               </li>
 
 
                     <li class="treeview">
@@ -97,19 +128,10 @@
                           <li><a href="<?php echo base_url();?>Finanzas/FormatoRegistroPago">
                             <i class="far fa-dot-circle"></i> Formato de registro de pago</a></li>
 
-                          <li><a href="<?php echo base_url();?>Finanzas/RegistrarPago">
-                            <i class="far fa-dot-circle"></i> Registrar pago <br>
-                            (Formato/Archivo)</a></li>
-
-                          <li><a href="<?php echo base_url();?>Finanzas/SolicitarReciboPago">
-                                <i class="far fa-dot-circle"></i> Solicitar recibo pago <br> (Formato solicitud)</a></li>
-
-
-                          <li><a href="<?php echo base_url();?>Finanzas/ConsultarPagos">
-                            <i class="far fa-dot-circle"></i> Consultar pagos</a></li>
-
                         </ul>
                     </li>
+
+
                     <li class="treeview">
                         <a href="#">
                             <i class="fas fa-balance-scale"></i> <span>Profesores</span>
@@ -132,6 +154,20 @@
                     </li>
 
 
+                    <li class="treeview">
+                      <a href="#">
+                      <i class="fas fa-user-shield"></i> <span>Administrador</span>
+                      <span class="pull-right-container">
+                      <i class="fa fa-angle-left pull-right"></i>
+                      </span>
+                            </a>
+                      <ul class="treeview-menu">
+                      <li><a href="<?php echo base_url();?>administrador/usuarios"><i class="far fa-dot-circle"></i>  Usuarios</a></li>
+                    <li><a href="<?php echo base_url();?>administrador/permisos"><i class="far fa-dot-circle"></i>  Permisos</a></li>
+                                  </ul>
+                </li>
+
+<?php endif;?>
 
               <!-- <li class="treeview">
                   <a href="#">
@@ -270,19 +306,7 @@
 
 
 
-                    <li class="treeview">
-                      <a href="#">
-                      <i class="fas fa-user-shield"></i> <span>Administrador</span>
-                      <span class="pull-right-container">
-                      <i class="fa fa-angle-left pull-right"></i>
-                      </span>
-                            </a>
-                                  <ul class="treeview-menu">
 
-<li><a href="<?php echo base_url();?>administrador/usuarios"><i class="far fa-dot-circle"></i>  Usuarios</a></li>
-<li><a href="<?php echo base_url();?>administrador/permisos"><i class="far fa-dot-circle"></i>  Permisos</a></li>
-                                  </ul>
-                </li>
 
 
 

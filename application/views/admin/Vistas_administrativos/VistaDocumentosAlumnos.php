@@ -12,7 +12,7 @@
   <div class="row">
     <div class="col-md-12 mt-5">
       <h2 class="text-center">
-      <strong><font color="#D34787">Habilitar para generar Recibo y acceso elegir materias</font></strong>
+      <strong><font color="#D34787">Documentos Alumnos</font></strong>
     </h2>
       <hr style="background-color: black; color: black; height: 1px;">
     </div>
@@ -26,23 +26,25 @@
   <div class="col-md-12 mx-auto">
 
     <!-- <table class="table table-borderless" id="tbl_regPagos" style="width:100%"> -->
-    <table id="tbl_regPagos" class="table table-striped table-bordered dt-responsive nowrap table-hover table-condensed" cellspacing="0" style="background:white!important">
+    <table id="tbl_alumnosDocumentacion" class="table table-striped table-bordered dt-responsive nowrap table-hover table-condensed" cellspacing="0" style="background:white!important">
       <thead class="text-center bg-primary">
         <tr>
-          <th width="3%">#</th>
-          <th>Nombre</th>
-          <th>No. Control</th>
+          <th>Numero de control</th>
+          <th>Alumno</th>
+          <th class="text-center" width="7%">Semestre</th>
           <th>Carrera</th>
-          <th>Semestre</th>
-          <th class="text-center" width="7%">Pdf</th>
-          <th class="text-center" width="7%">Acciones</th>
+          <th class="text-center" width="7%">Constancia</th>
+          <th class="text-center" width="7%">Boleta</th>
+          <th class="text-center" width="7%">Hist. academico</th>
+          <th class="text-center" width="7%">Cert. parcial</th>
+          <th class="text-center" width="7%">Cert. total</th>
+          <!-- <th class="text-center" width="7%">Información</th> -->
         </tr>
       </thead>
     </table>
 
   </div>
 </div>
-
 
 
     </div>

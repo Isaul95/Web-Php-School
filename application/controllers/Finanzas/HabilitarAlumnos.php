@@ -278,7 +278,7 @@ public function actualizaEstadoDelComprobantePago($numero_control, $estatus){
 
 		$PHPJasperXML->transferDBtoArray($server,$user,$pass,$db);
 //  $PHPJasperXML->transferDBtoArray($server,$user,$pass,$db); // las opciones de conexion de base de datos
-		$PHPJasperXML->outpage('I','Recibo_de_Pago.pdf');
+		$PHPJasperXML->outpage('I','ReciboPago_'.$numero_control.'.pdf');
 //  $PHPJasperXML->outpage("D");    //page output method I:standard output  D:Download file
 
 //$PHPJasperXML->outpage('I=render in browser/D=Download/F=save as server side filename according 2nd parameter','filename.pdf or filename.xls or filename.xls depends on constructor')

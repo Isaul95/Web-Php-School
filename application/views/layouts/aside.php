@@ -96,7 +96,7 @@
                           <li><a href="<?php echo base_url();?>Administrativos/Profesores">
                             <i class="far fa-dot-circle"></i> Profesores </a></li>
 
-                          <li><a href="<?php echo base_url();?>Finanzas/SolicitarReciboPago">
+                          <li><a href="<?php echo base_url();?>Administrativos/Materias">
                                 <i class="far fa-dot-circle"></i> Materias </a></li>
 
                           <li><a href="<?php echo base_url();?>Administrativos/Alumnos">

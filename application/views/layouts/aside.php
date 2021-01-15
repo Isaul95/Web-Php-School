@@ -77,7 +77,7 @@
 
 
 
-<?php if($user==$admin):?>
+<?php if($user!=$student):?>
                     <li class="treeview">
                         <a href="#">
                             <i class="fas fa-balance-scale"></i> <span>Administrativos</span>

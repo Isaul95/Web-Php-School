@@ -33,7 +33,7 @@
           <th>Alumno</th>
           <th class="text-center" width="7%">Semestre</th>
           <th>Carrera</th>
-          <th class="text-center" width="7%">Constancia</th>
+          <th class="text-center" width="7%">Cert. Estudios</th>
           <th class="text-center" width="7%">Boleta</th>
           <th class="text-center" width="7%">Hist. academico</th>
           <th class="text-center" width="7%">Cert. parcial</th>

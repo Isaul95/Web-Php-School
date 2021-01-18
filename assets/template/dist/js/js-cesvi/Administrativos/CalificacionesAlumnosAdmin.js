@@ -8,7 +8,7 @@ $(document).ready(function () {
 /*                                llenarllenarTablaalumnos               */
 /* -------------------------------------------------------------------------- */
 
-
+/*
 function llenarTablaAlumnosParaDocumentacion() {
     // debugger;
     $.ajax({
@@ -33,7 +33,7 @@ function llenarTablaAlumnosParaDocumentacion() {
                     data: "carrera_descripcion",
                 },
                 {
-                    data: "nombre_acta",
+                    data: "constancia",
                     orderable: false,
                     searchable: false,
                     render: function (data, type, row, meta) {
@@ -52,7 +52,7 @@ function llenarTablaAlumnosParaDocumentacion() {
                     },
                 },
                 {
-                    data: "nombre_certificado_bachillerato",
+                    data: "boleta",
                     orderable: false,
                     searchable: false,
                     render: function (data, type, row, meta) {
@@ -70,7 +70,7 @@ function llenarTablaAlumnosParaDocumentacion() {
                     },
                 },
                 {
-                    data: "curp",
+                    data: "Historial_academico",
                     orderable: false,
                     searchable: false,
                     render: function (data, type, row, meta) {
@@ -88,7 +88,25 @@ function llenarTablaAlumnosParaDocumentacion() {
                     },
                 },
                 {
-                    data: "certificado_medico",
+                    data: "certificado_parcial",
+                    orderable: false,
+                    searchable: false,
+                    render: function (data, type, row, meta) {
+                        var nombre_certificado_medico = `${row.nombre_certificado_medico}`;
+                        var a;
+                          if(nombre_certificado_medico != "null"&&nombre_certificado_medico != "undefined"){
+                        var a = `
+                               <a title="Descarga Documento" href="Alumnos/verCertificadoMedicoalumno/${row.numero_control}" target="_blank"><i class="far fa-file-pdf fa-2x"></i></a>
+                            `;
+                          }
+                          else{
+                            a = 'Sin archivo';
+                        }
+                        return a;
+                    },
+                },
+                {
+                    data: "certificado_total",
                     orderable: false,
                     searchable: false,
                     render: function (data, type, row, meta) {
@@ -108,16 +126,6 @@ function llenarTablaAlumnosParaDocumentacion() {
                 // {
                 //     orderable: false,
                 //     searchable: false,
-                //     data: function (row, type, set) {
-                //         return `
-                //                 <a href="#" id="edit_alumno" class="btn btn-success btn-remove" value="${row.numero_control}"><i class="far fa-edit"></i></a>
-                //                 <a href="#" id="del_alumno" class="btn btn-danger btn-remove" value="${row.numero_control}"><i class="fas fa-trash-alt"></i></a>
-                //             `;
-                //     },
-                // },
-                // {
-                //     orderable: false,
-                //     searchable: false,
                 //     data: function(row, type, set) {
                 //         return `
                 //             <a href="#" id="view_alumno" class="btn btn-info" value="${row.numero_control}"><i class="far fa-edit"></i></a>
@@ -131,7 +139,7 @@ function llenarTablaAlumnosParaDocumentacion() {
             });
         },
     });
-}
+}    */
 
 
 

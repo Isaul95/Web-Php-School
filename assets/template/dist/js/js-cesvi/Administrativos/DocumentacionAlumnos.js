@@ -27,68 +27,48 @@ function llenarTablaAlumnosParaDocumentacion() {
                     data: "alumno",
                 },
                 {
-                    data: "cuatrimestre",
+                    data: "semestre",
                 },
                 {
                     data: "carrera_descripcion",
                 },
                 {
-                    data: "nombre_acta",
+                    // data: "certificado_estudios",
                     orderable: false,
                     searchable: false,
-                    render: function (data, type, row, meta) {
-                        var nombre_acta = `${row.nombre_acta}`;
-                          var a;
-                            if(nombre_acta != "null"&&nombre_acta != "undefined"){
-                                var a = `
-                                <a title="Descarga Documento" href="Alumnos/verActaalumno/${row.numero_control}" target="_blank"><i class="far fa-file-pdf fa-2x"></i></a>
-                             `;
-                            }
-                            else{
-                                a = 'Sin archivo';
-                            }
-
-                        return a;
+                    render : function(data, type, row) {
+                        var a = `
+                            <a title="Generar Certificado de Estudios" href="DocumentosAlumnos/generaCertificadoEstudios" target="_blank"><i class="far fa-file-pdf fa-2x"></i></a>
+                        `;
+                         return a;
                     },
                 },
                 {
-                    data: "nombre_certificado_bachillerato",
+                    // data: "nombre_certificado_bachillerato",
                     orderable: false,
                     searchable: false,
                     render: function (data, type, row, meta) {
-                        var nombre_certificado_bachillerato = `${row.nombre_certificado_bachillerato}`;
                         var a;
-                          if(nombre_certificado_bachillerato != "null"&&nombre_certificado_bachillerato != "undefined"){
                             var a = `
-                            <a title="Descarga Documento" href="Alumnos/verCertificadoalumno/${row.numero_control}" target="_blank"><i class="far fa-file-pdf fa-2x"></i></a>
+                            <a title="Generar Boleta Calificaciones" href="DocumentosAlumnos/generaBoletaCalificaciones" target="_blank"><i class="far fa-file-pdf fa-2x"></i></a>
                             `;
-                          }
-                          else{
-                            a = 'Sin archivo';
-                        }
                         return a;
                     },
                 },
                 {
-                    data: "curp",
+                    // data: "curp",
                     orderable: false,
                     searchable: false,
                     render: function (data, type, row, meta) {
-                        var nombre_curp = `${row.nombre_curp}`;
-                        var a;
-                          if(nombre_curp != "null"&&nombre_curp != "undefined"){
-                            var a = `
-                            <a title="Descarga Documento" href="Alumnos/verCurpalumno/${row.numero_control}" target="_blank"><i class="far fa-file-pdf fa-2x"></i></a>
+
+                        return  a = `
+<a title="Generar Historial Academico" href="DocumentosAlumnos/generaHistAcademico/${row.numero_control}/${row.id_carrera}" target="_blank"><i class="far fa-file-pdf fa-2x"></i></a>
                          `;
-                          }
-                          else{
-                            a = 'Sin archivo';
-                        }
-                        return a;
+
                     },
                 },
                 {
-                    data: "certificado_medico",
+                    // data: "certificado_medico",
                     orderable: false,
                     searchable: false,
                     render: function (data, type, row, meta) {
@@ -115,15 +95,15 @@ function llenarTablaAlumnosParaDocumentacion() {
                 //             `;
                 //     },
                 // },
-                // {
-                //     orderable: false,
-                //     searchable: false,
-                //     data: function(row, type, set) {
-                //         return `
-                //             <a href="#" id="view_alumno" class="btn btn-info" value="${row.numero_control}"><i class="far fa-edit"></i></a>
-                //                `;
-                //     },
-                // },
+                {
+                    orderable: false,
+                    searchable: false,
+                    data: function(row, type, set) {
+                        return `
+                            <a href="#" id="view_alumno" class="btn btn-info" value="${row.numero_control}"><i class="far fa-edit"></i></a>
+                               `;
+                    },
+                },
 
                 ],
                 "language": language_espaniol,

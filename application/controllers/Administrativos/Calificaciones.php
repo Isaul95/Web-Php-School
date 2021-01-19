@@ -7,7 +7,7 @@ class Calificaciones extends CI_Controller {
 	 	 parent::__construct();
 		 $this->load->helper(array('form', 'url'));
 	 	 $this->load->library(array('session', 'form_validation'));
-	 	 // $this->load->model("Modelo_DarAccesoAlumnos");
+	 	 $this->load->model("Modelo_Calificaciones");
 	 }
 
 
@@ -33,7 +33,35 @@ class Calificaciones extends CI_Controller {
 		$this->load->view('layouts/footer');
 	}
 
-
+	public function vermateriasdelprofesor(){
+		$profesor = $this->input->post('profesor');
+		$semestre = $this->input->post('semestre');
+		$posts = $this->Modelo_Calificaciones->obtenermaterias($profesor,$semestre);
+		echo json_encode($posts);
+	}
+	
+	public function obtenercarreras(){
+		$posts = $this->Modelo_Calificaciones->obtenercarreras();
+		echo json_encode($posts);
+		
+	}
+		
+	public function obteneropciones(){
+		$posts = $this->Modelo_Calificaciones->obteneropciones();
+		echo json_encode($posts);
+		
+	}
+	public function veralumnos_asignados_ala_materia_del_profesor(){
+		$edit_id = $this->input->post('materia_a_consultar');
+		$posts = $this->Modelo_Calificaciones->alumnos_asignados_a_la_materia_del_profesor($edit_id);
+		echo json_encode($posts);
+	}
+	public function veralumnos_asignados_porcarrera_opcion(){
+		$carrera = $this->input->post('carrera');
+		$opcion = $this->input->post('opcion');
+		$posts = $this->Modelo_Calificaciones->alumnos_asignados_a_la_carrera_y_opcion_administrativo($carrera,$opcion);
+		echo json_encode($posts);
+	}
 	/* -------------------------------------------------------------------------- */
 	/*                               Insert Records                               */
 	/* -------------------------------------------------------------------------- */

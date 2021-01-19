@@ -1,24 +1,97 @@
 $(document).ready(function () {
-    llenarTablaAlumnosParaDocumentacion();
-
+    //llenarTablaAlumnosParaDocumentacion();
+    var semestre = $("#numero").val();
+    var profesor = $("#usuario").val();
+    llenar_combo_materias_administrativos_profesores(semestre,profesor);
+    $("#combo_materias_administrativos_profesores").change(function () {
+        $("#tbl_list_calificaciones_profesor_por_materia").DataTable().destroy();
+        llenartablaalumnosasignadosalamateriadelprofesorp($("#combo_materias_administrativos_profesores").val())
+    });
+    llenar_combo_carreras_administrativos_profesores();
+    $("#combo_carreras_administrativos_profesores").change(function () {
+        $("#tbl_list_calificaciones_administrativos_por_carrera_horario").DataTable().destroy();
+        llenartablaalumnosasignados_por_carrerayopcion($("#combo_carreras_administrativos_profesores").val(),$("#combo_opciones_administrativos_profesores").val());
+   });
+    llenar_combo_opciones_administrativos_profesores();
+    $("#combo_opciones_administrativos_profesores").change(function () {
+        $("#tbl_list_calificaciones_administrativos_por_carrera_horario").DataTable().destroy();
+        llenartablaalumnosasignados_por_carrerayopcion($("#combo_carreras_administrativos_profesores").val(),$("#combo_opciones_administrativos_profesores").val());
+    });
 }); // FIN DE LA FUNCION PRINCIPAL
 
-
+//SELECT - ON CHANGE
+//https://stackoverflow.com/questions/11179406/jquery-get-value-of-select-onchange
+// SELECT - ADD VALUES
+//https://es.stackoverflow.com/questions/33853/crear-select-con-html-usando-ajax
 /* -------------------------------------------------------------------------- */
 /*                                llenarllenarTablaalumnos               */
 /* -------------------------------------------------------------------------- */
 
 
-function llenarTablaAlumnosParaDocumentacion() {
-    // debugger;
+
+
+function llenar_combo_materias_administrativos_profesores(semestre,profesor){
+    var fd = new FormData();
+        fd.append("profesor", profesor);
+        fd.append("semestre", semestre);
+    $.ajax({
+        type: "post",
+        url: base_url + 'Administrativos/Calificaciones/vermateriasdelprofesor',
+        data: fd,
+        processData: false,
+        contentType: false,
+        dataType: "json",
+        enctype: 'multipart/form-data',
+        success: function (data) {
+            $.each(data,function(key, registro) {
+                $("#combo_materias_administrativos_profesores").append('<option value='+registro.id_materia+'>'+registro.nombre_materia+'</option>');
+              });   
+        
+      },
+    });
+  }
+  function llenar_combo_carreras_administrativos_profesores(){
     $.ajax({
         type: "get",
-        url: base_url + 'Administrativos/DocumentosAlumnos/datosGnralDelAlumno',
+        url: base_url + 'Administrativos/Calificaciones/obtenercarreras',
         dataType: "json",
-        success: function (response) {
+        success: function (data) {
+            $.each(data,function(key, registro) {
+                $("#combo_carreras_administrativos_profesores").append('<option value='+registro.id_carrera+'>'+registro.carrera_descripcion+'</option>');
+              });   
+        
+      },
+    });
+  }
+  function llenar_combo_opciones_administrativos_profesores(){
+    $.ajax({
+        type: "get",
+        url: base_url + 'Administrativos/Calificaciones/obteneropciones',
+        dataType: "json",
+        success: function (data) {
+            $.each(data,function(key, registro) {
+                $("#combo_opciones_administrativos_profesores").append('<option value='+registro.id_opcion+'>'+registro.descripcion+'</option>');
+              });   
+        
+      },
+    });
+  }
+  //LLENAR LA TABLA DE ALUMNOS QUE CORRESPONDEN A LAS MATERIAS A LAS QUE EL PROFESOR TIENE ACCESO
+function llenartablaalumnosasignadosalamateriadelprofesorp($materia) {
+    // debugger;
+    var idmateria = $materia;
+    $.ajax({
+        type: "post",
+        url: base_url + 'Administrativos/Calificaciones/veralumnos_asignados_ala_materia_del_profesor',
+        data: {
+            materia_a_consultar: idmateria,
+        },
+        dataType: "json",
+        success: function (data) {
+            console.log(data);
             var i = "1";
-            $("#tbl_alumnosDocumentacion").DataTable({
-                data: response,
+            $("#tbl_list_calificaciones_profesor_por_materia").DataTable({
+                data: data,
                 responsive: true,
                 columns: [{
                     data: "numero_control",
@@ -33,98 +106,21 @@ function llenarTablaAlumnosParaDocumentacion() {
                     data: "carrera_descripcion",
                 },
                 {
-                    data: "nombre_acta",
+                    data: "calificacion",
+                },
+                {
+                    data: "tiempo_extension",
+                },
+                {
                     orderable: false,
                     searchable: false,
-                    render: function (data, type, row, meta) {
-                        var nombre_acta = `${row.nombre_acta}`;
-                          var a;
-                            if(nombre_acta != "null"&&nombre_acta != "undefined"){
-                                var a = `
-                                <a title="Descarga Documento" href="Alumnos/verActaalumno/${row.numero_control}" target="_blank"><i class="far fa-file-pdf fa-2x"></i></a>
+                     data: function (row, type, set) {
+                         return `
+                                 <a href="#" id="edit_alumno" class="btn btn-success btn-remove" value="${row.numero_control}"><i class="far fa-edit"></i></a>
+                                <a href="#" id="del_alumno" class="btn btn-danger btn-remove" value="${row.numero_control}"><i class="fas fa-trash-alt"></i></a>
                              `;
-                            }
-                            else{
-                                a = 'Sin archivo';
-                            }
-
-                        return a;
-                    },
                 },
-                {
-                    data: "nombre_certificado_bachillerato",
-                    orderable: false,
-                    searchable: false,
-                    render: function (data, type, row, meta) {
-                        var nombre_certificado_bachillerato = `${row.nombre_certificado_bachillerato}`;
-                        var a;
-                          if(nombre_certificado_bachillerato != "null"&&nombre_certificado_bachillerato != "undefined"){
-                            var a = `
-                            <a title="Descarga Documento" href="Alumnos/verCertificadoalumno/${row.numero_control}" target="_blank"><i class="far fa-file-pdf fa-2x"></i></a>
-                            `;
-                          }
-                          else{
-                            a = 'Sin archivo';
-                        }
-                        return a;
-                    },
                 },
-                {
-                    data: "curp",
-                    orderable: false,
-                    searchable: false,
-                    render: function (data, type, row, meta) {
-                        var nombre_curp = `${row.nombre_curp}`;
-                        var a;
-                          if(nombre_curp != "null"&&nombre_curp != "undefined"){
-                            var a = `
-                            <a title="Descarga Documento" href="Alumnos/verCurpalumno/${row.numero_control}" target="_blank"><i class="far fa-file-pdf fa-2x"></i></a>
-                         `;
-                          }
-                          else{
-                            a = 'Sin archivo';
-                        }
-                        return a;
-                    },
-                },
-                {
-                    data: "certificado_medico",
-                    orderable: false,
-                    searchable: false,
-                    render: function (data, type, row, meta) {
-                        var nombre_certificado_medico = `${row.nombre_certificado_medico}`;
-                        var a;
-                          if(nombre_certificado_medico != "null"&&nombre_certificado_medico != "undefined"){
-                        var a = `
-                               <a title="Descarga Documento" href="Alumnos/verCertificadoMedicoalumno/${row.numero_control}" target="_blank"><i class="far fa-file-pdf fa-2x"></i></a>
-                            `;
-                          }
-                          else{
-                            a = 'Sin archivo';
-                        }
-                        return a;
-                    },
-                },
-                // {
-                //     orderable: false,
-                //     searchable: false,
-                //     data: function (row, type, set) {
-                //         return `
-                //                 <a href="#" id="edit_alumno" class="btn btn-success btn-remove" value="${row.numero_control}"><i class="far fa-edit"></i></a>
-                //                 <a href="#" id="del_alumno" class="btn btn-danger btn-remove" value="${row.numero_control}"><i class="fas fa-trash-alt"></i></a>
-                //             `;
-                //     },
-                // },
-                // {
-                //     orderable: false,
-                //     searchable: false,
-                //     data: function(row, type, set) {
-                //         return `
-                //             <a href="#" id="view_alumno" class="btn btn-info" value="${row.numero_control}"><i class="far fa-edit"></i></a>
-                //                `;
-                //     },
-                // },
-
                 ],
                 "language": language_espaniol,
 
@@ -133,14 +129,58 @@ function llenarTablaAlumnosParaDocumentacion() {
     });
 }
 
+  //LLENAR LA TABLA DE ALUMNOS QUE CORRESPONDEN A LAS MATERIAS A LAS QUE EL PROFESOR TIENE ACCESO
+  function llenartablaalumnosasignados_por_carrerayopcion($carrera,$opcion) {
+    // debugger;
+    var carrera = $carrera;
+    var opcion = $opcion
+    var fd = new FormData();
+    fd.append("carrera",carrera);
+    fd.append("opcion",opcion);
 
+    $.ajax({
+        type: "post",
+        url: base_url + 'Administrativos/Calificaciones/veralumnos_asignados_porcarrera_opcion',
+        data: fd,
+        processData: false,
+        contentType: false,        
+        dataType: "json",
+        enctype: 'multipart/form-data',
+        success: function (data) {
+            console.log(data);
+            var i = "1";
+            $("#tbl_list_calificaciones_administrativos_por_carrera_horario").DataTable({
+                data: data,
+                responsive: true,
+                columns: [{
+                    data: "numero_control",
+                },
+                {
+                    data: "alumno",
+                },
+                {
+                    data: "cuatrimestre",
+                },
+                {
+                    data: "carrera_descripcion",
+                },
+                {
+                    orderable: false,
+                    searchable: false,
+                     data: function (row, type, set) {
+                         return `
+                                 <a href="#" id="edit_alumno" class="btn btn-success btn-remove" value="${row.numero_control}"><i class="far fa-edit"></i></a>
+                              `;
+                },
+                },
+                ],
+                "language": language_espaniol,
 
-
-
-
-
-
-
+            });
+        },
+    });
+}
+//LLENAR LA TABLA DE ALUMNOS QUE CORRESPONDEN A CARRERA Y OPCIÓN DE ESTUDIO
 
 // ********************   variable PARA CAMBIAR DE IDIOMA AL ESPAÑOL EL DataTable  *************************
 var language_espaniol = {

@@ -1,5 +1,5 @@
 $(document).ready(function () {
-    llenarTablaAlumnosParaDocumentacion();
+    //llenarTablaAlumnosParaDocumentacion();
 
 }); // FIN DE LA FUNCION PRINCIPAL
 

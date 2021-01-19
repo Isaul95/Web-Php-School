@@ -27,33 +27,117 @@
   </div>
 
 
+  <div class="row">
+    <div class="col-sm-18">
+ 
+<br>
+<div class="row">
+  <div class="col-4 col-sm-12">
 
 
+                    
+                  <div class="row">
+                    <div class="col-8 col-sm-6">
+                    <?php if($rol==1):?>
+                      <label for="">Seleccione alguna carrera: </label>
+                    <select background-color="red" id="combo_carreras_administrativos_profesores" class="form-select form-select-lg mb-3"></select>
+                    <?php endif;?>
+                    </div>
+                  </div>
+                  <br>
+                  
+                  <div class="row">
+                    <div class="col-8 col-sm-6">
+                    <?php if($rol==1):?>
+                      <label for="">Seleccione alguna opción de estudio: </label>
+                    <select background-color="red" id="combo_opciones_administrativos_profesores" class="form-select form-select-lg mb-3"></select>
+                    <?php endif;?>
+                    </div>
+                  </div>
+                  <br>
+                  
+                  <div class="row">
+                    <div class="col-8 col-sm-6">
+                    <?php if($rol==3):?>
+                      <label for="">Seleccione alguna de las materias que tiene asignada: </label>
+                    <select background-color="red" id="combo_materias_administrativos_profesores" class="form-select form-select-lg mb-3"></select>
+                    <?php endif;?>
+                    </div>
+                  </div>
 
+    </div>
+  </div>
+<br>
+
+
+      <!-- Modal Agregar nueuvo registro -->
+      <div class="modal fade" id="modal_calificaciones_profesores" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header bg-primary text-center">
+              <strong class="modal-title" id="exampleModalLabel">Agregar licenciatura</strong>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+            <table id="tbl_list_asinar_calificaciones_administrativoe_por_materia" class="table table-striped table-bordered table-hover table-condensed" cellspacing="0" style="background:white!important">
+        <thead class="bg-primary">
+          <tr>
+            <th>Numero de control</th>
+            <th>Alumno</th>
+            <th>Semestre</th>
+            <th>Carrera</th>
+            <th>Calificacion</th>
+            <th>T.EX.</th>
+            <th class="text-center" width="7%">Acciones</th>
+          </tr>
+        </thead>
+      </table>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+              <!-- Insert Button -->
+              <button type="button" class="btn btn-primary" id="btnaddcarrera">Agregar</button>
+            </div>
+          </div>
+        </div>
+      </div>
 
 
   <div class="row my-4">
     <div class="col-md-12 mx-auto">
 
       <!--       tbl_listAlumConBaucher -->
-      <table id="tbl_listAlumConBaucher" class="table table-striped table-bordered table-hover table-condensed" cellspacing="0" style="background:white!important">
+      <?php if($rol==3):?>
+      <table id="tbl_list_calificaciones_profesor_por_materia" class="table table-striped table-bordered table-hover table-condensed" cellspacing="0" style="background:white!important">
         <thead class="bg-primary">
           <tr>
-            <th width="3%">#</th>
-            <th>Nombre Completo</th>
-            <th class="text-center">Carrera</th>
-            <th class="text-center">No.Control</th>
-            <th class="text-center">Fecha registro</th>
-            <th class="text-center">Ver Baucher</th>
-            <!-- <th class="text-center" width="8%">Recibo</th> -->
-            <th class="text-center">Habilitar</th>
-            <th class="text-center">Recibo</th>
-            <th class="text-center">No aplica</th>
-            <th class="text-center">Subir</th>
+          <th>Numero de control</th>
+            <th>Alumno</th>
+            <th>Semestre</th>
+            <th>Carrera</th>
+            <th>Calificacion</th>
+            <th>T.EX.</th>
+            <th class="text-center" width="7%">Acciones</th>
           </tr>
         </thead>
       </table>
-
+      <?php endif;?>
+ <!--       tbl_listAlumConBaucher -->
+ <?php if($rol==1):?>
+ <table id="tbl_list_calificaciones_administrativos_por_carrera_horario" class="table table-striped table-bordered table-hover table-condensed" cellspacing="0" style="background:white!important">
+        <thead class="bg-primary">
+          <tr>
+          <th>Numero de control</th>
+            <th>Alumno</th>
+            <th>Semestre</th>
+            <th>Carrera</th>
+            <th cclass="text-center" width="7%">Asignar calificaciones</th>
+          </tr>
+        </thead>
+      </table>
+      <?php endif;?>
     </div>
   </div>
       <hr>

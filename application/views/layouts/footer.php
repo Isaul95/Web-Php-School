@@ -132,6 +132,8 @@ $('#btn_RegistroPago').DataTable( {
 <script src="<?php echo base_url();?>assets/template/dist/js/js-cesvi/Administrativos/Profesores.js"></script>
 <!-------------------- Alumnos ------------------------>
 <script src="<?php echo base_url();?>assets/template/dist/js/js-cesvi/Administrativos/Alumnos.js"></script>
+<!-------------------- Materias ------------------------>
+<script src="<?php echo base_url();?>assets/template/dist/js/js-cesvi/Administrativos/Materias.js"></script>
 <!-- ========== Documentos de Alumnos (constancias, boleta, horarios etc,)=========  -->
 <script src="<?php echo base_url();?>assets/template/dist/js/js-cesvi/Administrativos/DocumentacionAlumnos.js"></script>
 <!-- ========== Calificaciones de alumnos x parte del administrador =========  -->

@@ -9,6 +9,7 @@
           $user=null;
           $student=2;
           $admin=1;
+          $profesor=3;
           $user= $this->session->userdata("rol");
           // echo $user;
       ?>
@@ -77,7 +78,7 @@
 
 
 
-<?php if($user!=$student):?>
+<?php if($user==1):?>
                     <li class="treeview">
                         <a href="#">
                             <i class="fas fa-balance-scale"></i> <span>Administrativos</span>
@@ -110,8 +111,8 @@
 
                         </ul>
                     </li>
-
-
+<?php endif;?>
+<?php if($user==1):?>
                     <li class="treeview">
                         <a href="#">
                             <i class="fas fa-balance-scale"></i> <span>Finanzas</span>
@@ -130,8 +131,8 @@
 
                         </ul>
                     </li>
-
-
+<?php endif;?>
+<?php if($user==3):?>
                     <li class="treeview">
                         <a href="#">
                             <i class="fas fa-balance-scale"></i> <span>Profesores</span>
@@ -144,16 +145,12 @@
                             <li><a href="<?php echo base_url();?>Finanzas/HabilitarAlumnos">
                                 <i class="far fa-dot-circle"></i> Subir planeación</a>
                             </li>
-
-                          <li><a href="<?php echo base_url();?>Finanzas/FormatoRegistroPago">
-                            <i class="far fa-dot-circle"></i>Calificación parcial</a></li>
-
-                          <li><a href="<?php echo base_url();?>Finanzas/RegistrarPago">
-                            <i class="far fa-dot-circle"></i> Calificación semestre</a></li>
+                          <li><a href="<?php echo base_url();?>Administrativos/Calificaciones">
+                            <i class="far fa-dot-circle"></i> Agregar calificaciones</a></li>
                         </ul>
                     </li>
-
-
+<?php endif;?>
+<?php if($user==1):?>
                     <li class="treeview">
                       <a href="#">
                       <i class="fas fa-user-shield"></i> <span>Administrador</span>
@@ -166,8 +163,8 @@
                     <li><a href="<?php echo base_url();?>administrador/permisos"><i class="far fa-dot-circle"></i>  Permisos</a></li>
                                   </ul>
                 </li>
-
 <?php endif;?>
+
 
               <!-- <li class="treeview">
                   <a href="#">

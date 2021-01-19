@@ -110,3 +110,10 @@ $route['secuencias']      = 'Administrativos/Alumnos/secuencia_psicologia';
 $route['secuencias']      = 'Administrativos/Alumnos/secuencia_criminalistica';
 $route['secuencias']      = 'Administrativos/Alumnos/secuencia_diseno';
 $route['secuencias']      = 'Administrativos/Alumnos/secuencia_contaduria';
+// =========================== Materias =======================================
+$route['vermaterias']        = 'Administrativows/Materias/vermaterias';
+$route['insertarmateria']      = 'Administrativos/Materias/insertarmateria';
+$route['editarmateria']      = 'Administrativos/Materias/editarmateria';
+$route['updatemateria']      = 'Administrativos/Materias/updatemateria';
+$route['eliminarmateria']      = 'Administrativos/Materias/eliminarmateria';
+// ============================= Calificaciones ================================

@@ -126,7 +126,7 @@ function llenartablaalumnosasignadosalamateriadelprofesorp($materia) {
                     searchable: false,
                      data: function (row, type, set) {
                          return `
-                                 <a href="#" id="edit_calificacion" class="btn btn-success btn-remove" value="${row.numero_control}"><i class="far fa-edit"></i></a>
+                                 <a href="#" id="edit_calificacion" class="btn btn-success btn-remove" value="${row.id_detalle}"><i class="far fa-edit"></i></a>
                                `;
                 },
                 },
@@ -207,18 +207,73 @@ $(document).on("click", "#edit_calificacion", function (e) {
         type: "post",
         url: base_url + 'Administrativos/Calificaciones/editarcalificacion',
         data: fd,
-            processData: false,
-            contentType: false,
+        processData: false,
+        contentType: false,
         dataType: "json",
-        dataType: "json",
-            enctype: 'multipart/form-data',
         success: function (data) {
             console.log(data); //ver la respuesta del json, los valores que contiene
             $('#modaleditcalificacion').modal('show');
             $('#calificacion_materia_profesor').val(data.post.calificacion);
+            $('#detalle_update').val(data.post.detalle);
+            $('#materia_update').val(data.post.materia);
             
         },
+        error: function (response) {
+            toastr["error"](response.message);
+            $('#modaleditcalificacion').modal('hide');
+        }
     });
+});
+
+$(document).on("click", "#update_calificacion", function (e) {
+    e.preventDefault();
+    var calificacion_materia_profesor = $("#calificacion_materia_profesor").val();
+    var materia_update = $("#materia_update").val();
+    var detalle_update = $("#detalle_update").val();
+    if(calificacion_materia_profesor>60){
+        var tiempo_extension = 'ord.'
+    }else{
+        var tiempo_extension = 'extrd.'
+    }
+
+      if (calificacion_materia_profesor == "") {
+    alert("Debe llenar todos los campos vacios...!");
+    } else {
+
+        var fd = new FormData();
+
+        fd.append("calificacion",  calificacion_materia_profesor);
+        fd.append("detalle", detalle_update);
+        fd.append("materia", materia_update);
+        fd.append("ciclo", '21/01');
+        fd.append("estado_profesor", 2);
+        fd.append("tiempo_extension", tiempo_extension);
+
+
+        $.ajax({
+            type: "post",
+            url: base_url + 'Administrativos/Calificaciones/updatecalificacion',
+            data: fd,
+            processData: false,
+            contentType: false,
+            dataType: "json",
+            enctype: 'multipart/form-data',
+            success: function (response) {
+                if (response.response == "success") {
+                    toastr["success"](response.message);
+                    $("#modaleditcalificacion").modal("hide");
+                    $("#formeditcalificacion")[0].reset();
+                    $("#tbl_list_calificaciones_profesor_por_materia").DataTable().destroy();
+                    llenartablaalumnosasignadosalamateriadelprofesorp($("#combo_materias_administrativos_profesores").val())
+                } else {
+                    toastr["error"](response.message);
+                }
+            },
+            error: function (response) {
+                toastr["error"](response.message);
+            }
+        });
+    }
 });
 //LLENAR LA TABLA DE ALUMNOS QUE CORRESPONDEN A CARRERA Y OPCIÓN DE ESTUDIO
 

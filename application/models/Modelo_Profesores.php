@@ -21,8 +21,9 @@ class Modelo_Profesores extends CI_Model { // INICIO DEL MODELO
       p.tipo_de_trabajo,p.universidad_procedente, p.experiencia_docente, p.trabajos_anteriores, p.nombre_archivo,
       c.estado_profesor, c.id_calificacion");
       $this->db->from("profesores p");
-      $this->db->join("materias m","m.profesor = p.id_profesores","LEFT");
-      $this->db->join("calificaciones c","c.materia = m.id_materia","LEFT");
+      $this->db->join("materias m","m.profesor = p.id_profesores");
+      $this->db->join("calificaciones c","c.materia = m.id_materia");
+      $this->db->group_by('p.id_profesores'); 
       $resultados = $this->db->get();
       return $resultados->result();
     }

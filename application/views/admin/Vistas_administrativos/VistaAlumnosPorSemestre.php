@@ -9,7 +9,7 @@
   <div class="row">
     <div class="col-md-12 mt-5">
       <h3>
-        <input type="hidden" id="semestre" name="semestre" value="<?php echo $_GET["Semestre"]; ?>" >
+        <input type="hidden" id="semestre" name="semestre" value="<?php echo $_GET["Semestre"]; ?>">
         <input type="hidden" id="numero" name="numero" value="<?php echo $_GET["Num"]; ?>" >
         <input type="hidden" id="usuario" name="usuario" value="<?php echo $username;?>" >
         <input type="hidden" id="rol" name="rol" value="<?php echo $rol;?>" >
@@ -126,7 +126,8 @@
                      
           <div class="row">
               <div class="col-sm-12">
-              <input type="hidden" id="id_materia_update">
+              <input type="hidden" id="detalle_update">
+              <input type="hidden" id="materia_update">
                 <label for="">Asignar calificación</label>
                   <div class="row">
                     <div class="col-8 col-sm-6">
@@ -144,7 +145,7 @@
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-              <button type="button" class="btn btn-primary" id="update_materia">Actualizar</button>
+              <button type="button" class="btn btn-primary" id="update_calificacion">Actualizar</button>
             </div>
           </div>
         </div>

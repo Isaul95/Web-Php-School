@@ -62,22 +62,38 @@ class Calificaciones extends CI_Controller {
 		$posts = $this->Modelo_Calificaciones->alumnos_asignados_a_la_carrera_y_opcion_administrativo($carrera,$opcion);
 		echo json_encode($posts);
 	}
+	public function viewalumno(){
+		if ($this->input->is_ajax_request()) {
+			$view_id = $this->input->post('view_id');
+			if ($post = $this->Modelo_Alumnos->ficha_alumno($view_id)) {
+				$data = array('responce' => "success", "post" => $post);
+			}else{
+				$data = array('responce' => "error", "failed to fetch");
+			}
+			echo json_encode($data);
+		}else {
+			echo "No se permite este acceso directo...!!!";
+		}
+	}
 	public function updatecalificacion(){
 		if ($this->input->is_ajax_request()) {	
-			$action = $this->input->post('action');	
-			if($action=='edit'){
-				$id_detalle = $this->input->post('id_detalle');
-				$materia = $this->input->post('materia');
-				$ajax_data['calificacion'] = $this ->input->post('calificacion');
-				if ($this->Modelo_Calificaciones->updatecalificacion($materia,$id_detalle,$ajax_data)) {
-					$data = array('response' => "success", 'message' => "Datos actualizados correctamente");
-				} else {
-					$data = array('response' => "error", 'message' => "Error al agregar datos...!");
-				}
-				
-				echo json_encode($data);
-			}
 			
+				$id_detalle = $this->input->post('detalle');
+				$materia = $this->input->post('materia');
+				if ($post = $this->Modelo_Calificaciones->sepuede_agregar_calificacion($id_detalle,$materia)) {
+					$ajax_data['calificacion'] = $this ->input->post('calificacion');
+				    $ajax_data['ciclo'] = $this ->input->post('ciclo');
+				    $ajax_data['estado_profesor'] = $this ->input->post('estado_profesor');
+				    $ajax_data['tiempo_extension'] = $this ->input->post('tiempo_extension');
+				     if ($this->Modelo_Calificaciones->updatecalificacion($materia,$id_detalle,$ajax_data)) {
+					     $data = array('response' => "success", 'message' => "Datos actualizados correctamente");
+				     } else {
+					   $data = array('response' => "error", 'message' => "Error al agregar datos...!");
+				     }
+				}else{
+					$data = array('response' => "error", 'message' => "No puede agregar calificación nuevamente");		
+				}
+				echo json_encode($data);			
 			}
 		  else{
 			echo "No se permite este acceso directo...!!!";

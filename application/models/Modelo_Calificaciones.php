@@ -86,7 +86,19 @@ class Modelo_calificaciones extends CI_Model { // INICIO DEL MODELO
                         return $query->row();
                     }
                 }
-           
+                public function sepuede_agregar_calificacion($detalle,$materia)
+                {
+                  $this->db->select('*');
+                    $this->db->from('calificaciones');
+                    $this->db->where('detalle', $detalle);
+                    $this->db->where('materia', $materia);
+                    $this->db->where_in('estado_profesor', ['0','1']);
+                    $query = $this->db->get();
+                    if (count($query->result()) > 0) {
+                        return $query->row();
+                    }
+                }
+
 
 // ***************************  INICIO FUNCTION PARA INSRTAR  ************************************
 public function insert_entry($data)

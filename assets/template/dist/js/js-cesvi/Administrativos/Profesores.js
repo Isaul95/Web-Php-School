@@ -319,7 +319,7 @@ function llenarTablaProfesores() {
                         orderable: false,
                         searchable: false,
                         "render": function(data, type, row, meta) {
-                          debugger;
+                          
                           var mostrarCV = `${row.nombre_archivo}`;
                           var a;
                             if(mostrarCV != "null"){

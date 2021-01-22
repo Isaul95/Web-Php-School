@@ -81,7 +81,7 @@
               </button>
             </div>
             <div class="modal-body">
-            <table id="tbl_list_asinar_calificaciones_administrativoe_por_materia" class="table table-striped table-bordered table-hover table-condensed" cellspacing="0" style="background:white!important">
+            <table id="tbl_list_asignar_calificaciones_administrativos_por_materia" class="table table-striped table-bordered table-hover table-condensed" cellspacing="0" style="background:white!important">
         <thead class="bg-primary">
           <tr>
             <th>Numero de control</th>
@@ -103,7 +103,52 @@
           </div>
         </div>
       </div>
-
+<!--MODAL EDITAR Materia-->
+<div class="modal fade" id="modaleditcalificacion" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+          <div class="modal-header bg-primary text-center">
+              <strong class="modal-title" id="exampleModalLabel">Editar materia</strong>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <div class="container-fluid">
+                <div class="row text-center">
+                  <div class="col-md-12 my-3">
+                    <div id="show_img"></div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-12">
+            <form id="formeditcalificacion">
+                     
+          <div class="row">
+              <div class="col-sm-12">
+              <input type="hidden" id="id_materia_update">
+                <label for="">Asignar calificación</label>
+                  <div class="row">
+                    <div class="col-8 col-sm-6">
+                    <label for="">Calificacion</label>
+                    <input type="text" class="form-control" id="calificacion_materia_profesor" placeholder="Calificacion">
+                    </div>
+                  </div>                 
+               </div>
+           </div>
+  
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+              <button type="button" class="btn btn-primary" id="update_materia">Actualizar</button>
+            </div>
+          </div>
+        </div>
+      </div>
 
   <div class="row my-4">
     <div class="col-md-12 mx-auto">
@@ -113,6 +158,7 @@
       <table id="tbl_list_calificaciones_profesor_por_materia" class="table table-striped table-bordered table-hover table-condensed" cellspacing="0" style="background:white!important">
         <thead class="bg-primary">
           <tr>
+          <th></th>
           <th>Numero de control</th>
             <th>Alumno</th>
             <th>Semestre</th>
@@ -129,6 +175,7 @@
  <table id="tbl_list_calificaciones_administrativos_por_carrera_horario" class="table table-striped table-bordered table-hover table-condensed" cellspacing="0" style="background:white!important">
         <thead class="bg-primary">
           <tr>
+          <th></th>
           <th>Numero de control</th>
             <th>Alumno</th>
             <th>Semestre</th>

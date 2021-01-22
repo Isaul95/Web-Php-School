@@ -1,3 +1,5 @@
+//https://www.youtube.com/watch?v=K6IH25Vf8ZA   - table cell editing using plain Javascript | DOM coding challenges
+///https://www.youtube.com/watch?v=oxZj82kh4FA - Table Quick Edit Using Ajax jQuery
 $(document).ready(function () {
     //llenarTablaAlumnosParaDocumentacion();
     var semestre = $("#numero").val();
@@ -26,7 +28,10 @@ $(document).ready(function () {
 /* -------------------------------------------------------------------------- */
 /*                                llenarllenarTablaalumnos               */
 /* -------------------------------------------------------------------------- */
-
+$("#modaleditcalificacion").on("hide.bs.modal", function (e) {
+    // do something...
+    $("#formeditcalificacion")[0].reset();
+});
 
 
 
@@ -94,6 +99,11 @@ function llenartablaalumnosasignadosalamateriadelprofesorp($materia) {
                 data: data,
                 responsive: true,
                 columns: [{
+                    data: "id_detalle",
+                    "visible": false,
+                    "searchable": false
+                },
+                {
                     data: "numero_control",
                 },
                 {
@@ -116,9 +126,8 @@ function llenartablaalumnosasignadosalamateriadelprofesorp($materia) {
                     searchable: false,
                      data: function (row, type, set) {
                          return `
-                                 <a href="#" id="edit_alumno" class="btn btn-success btn-remove" value="${row.numero_control}"><i class="far fa-edit"></i></a>
-                                <a href="#" id="del_alumno" class="btn btn-danger btn-remove" value="${row.numero_control}"><i class="fas fa-trash-alt"></i></a>
-                             `;
+                                 <a href="#" id="edit_calificacion" class="btn btn-success btn-remove" value="${row.numero_control}"><i class="far fa-edit"></i></a>
+                               `;
                 },
                 },
                 ],
@@ -152,7 +161,13 @@ function llenartablaalumnosasignadosalamateriadelprofesorp($materia) {
             $("#tbl_list_calificaciones_administrativos_por_carrera_horario").DataTable({
                 data: data,
                 responsive: true,
-                columns: [{
+                columns: [
+                {
+                    data: "id_detalle",
+                    "visible": false,
+                    "searchable": false
+                },
+                {
                     data: "numero_control",
                 },
                 {
@@ -169,7 +184,7 @@ function llenartablaalumnosasignadosalamateriadelprofesorp($materia) {
                     searchable: false,
                      data: function (row, type, set) {
                          return `
-                                 <a href="#" id="edit_alumno" class="btn btn-success btn-remove" value="${row.numero_control}"><i class="far fa-edit"></i></a>
+                                 <a href="#" id="edit_materia" class="btn btn-success btn-remove" value="${row.id_detalle}"><i class="far fa-edit"></i></a>
                               `;
                 },
                 },
@@ -180,6 +195,31 @@ function llenartablaalumnosasignadosalamateriadelprofesorp($materia) {
         },
     });
 }
+
+$(document).on("click", "#edit_calificacion", function (e) {
+    e.preventDefault();
+    var edit_id = $(this).attr("value");
+    var materia = $('#combo_materias_administrativos_profesores').val();
+    var fd = new FormData();
+            fd.append("detalle",edit_id);
+            fd.append("materia",materia);
+    $.ajax({
+        type: "post",
+        url: base_url + 'Administrativos/Calificaciones/editarcalificacion',
+        data: fd,
+            processData: false,
+            contentType: false,
+        dataType: "json",
+        dataType: "json",
+            enctype: 'multipart/form-data',
+        success: function (data) {
+            console.log(data); //ver la respuesta del json, los valores que contiene
+            $('#modaleditcalificacion').modal('show');
+            $('#calificacion_materia_profesor').val(data.post.calificacion);
+            
+        },
+    });
+});
 //LLENAR LA TABLA DE ALUMNOS QUE CORRESPONDEN A CARRERA Y OPCIÓN DE ESTUDIO
 
 // ********************   variable PARA CAMBIAR DE IDIOMA AL ESPAÑOL EL DataTable  *************************

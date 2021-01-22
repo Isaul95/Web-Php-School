@@ -62,6 +62,41 @@ class Calificaciones extends CI_Controller {
 		$posts = $this->Modelo_Calificaciones->alumnos_asignados_a_la_carrera_y_opcion_administrativo($carrera,$opcion);
 		echo json_encode($posts);
 	}
+	public function updatecalificacion(){
+		if ($this->input->is_ajax_request()) {	
+			$action = $this->input->post('action');	
+			if($action=='edit'){
+				$id_detalle = $this->input->post('id_detalle');
+				$materia = $this->input->post('materia');
+				$ajax_data['calificacion'] = $this ->input->post('calificacion');
+				if ($this->Modelo_Calificaciones->updatecalificacion($materia,$id_detalle,$ajax_data)) {
+					$data = array('response' => "success", 'message' => "Datos actualizados correctamente");
+				} else {
+					$data = array('response' => "error", 'message' => "Error al agregar datos...!");
+				}
+				
+				echo json_encode($data);
+			}
+			
+			}
+		  else{
+			echo "No se permite este acceso directo...!!!";
+		}
+	}
+	public function editarcalificacion(){
+		if ($this->input->is_ajax_request()) {
+			$id_detalle = $this->input->post('detalle');
+			$materia = $this->input->post('materia');
+			if ($post = $this->Modelo_Calificaciones->single_entry($id_detalle,$materia)) {
+				$data = array('responce' => "success", "post" => $post);
+			}else{
+				$data = array('responce' => "error", "failed to fetch");
+			}
+			echo json_encode($data);
+		}else {
+			echo "No se permite este acceso directo...!!!";
+		}
+	}
 	/* -------------------------------------------------------------------------- */
 	/*                               Insert Records                               */
 	/* -------------------------------------------------------------------------- */

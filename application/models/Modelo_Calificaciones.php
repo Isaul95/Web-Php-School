@@ -44,7 +44,7 @@ class Modelo_calificaciones extends CI_Model { // INICIO DEL MODELO
   
             public function alumnos_asignados_a_la_materia_del_profesor($materia){
                 $this->db->distinct();
-                $this->db->select("alumnos.numero_control as numero_control, 
+                $this->db->select("detalles.id_detalle as id_detalle,alumnos.numero_control as numero_control, 
                 concat(alumnos.nombres,' ',alumnos.apellido_paterno,' ',alumnos.apellido_materno) as alumno, 
                 detalles.cuatrimestre as cuatrimestre, carrera.carrera_descripcion as carrera_descripcion,
                 calificaciones.calificacion as calificacion, calificaciones.tiempo_extension as tiempo_extension");
@@ -60,7 +60,7 @@ class Modelo_calificaciones extends CI_Model { // INICIO DEL MODELO
 
                 public function alumnos_asignados_a_la_carrera_y_opcion_administrativo($carrera,$opcion){
                   $this->db->distinct();
-                  $this->db->select("alumnos.numero_control as numero_control, 
+                  $this->db->select("detalles.id_detalle as id_detalle,alumnos.numero_control as numero_control, 
                   concat(alumnos.nombres,' ',alumnos.apellido_paterno,' ',alumnos.apellido_materno) as alumno, 
                   detalles.cuatrimestre as cuatrimestre, carrera.carrera_descripcion as carrera_descripcion");
                   $this->db->from("alumnos");
@@ -72,7 +72,21 @@ class Modelo_calificaciones extends CI_Model { // INICIO DEL MODELO
                   $resultados = $this->db->get();
                   return $resultados->result();
                   }
-
+                  public function updatecalificacion($materia,$id_detalle,$data){
+                    return $this->db->update('calificaciones', $data, array('materia' => $materia,'detalle'=> $id_detalle));
+                }
+                public function single_entry($id,$materia)
+                {
+                  $this->db->select('*');
+                    $this->db->from('calificaciones');
+                    $this->db->where('detalle', $id);
+                    $this->db->where('materia', $materia);
+                    $query = $this->db->get();
+                    if (count($query->result()) > 0) {
+                        return $query->row();
+                    }
+                }
+           
 
 // ***************************  INICIO FUNCTION PARA INSRTAR  ************************************
 public function insert_entry($data)
@@ -87,19 +101,9 @@ public function insert_entry($data)
     }
 
 
-          public function single_entry($id)
-          {
-            $this->db->select('*');
-              $this->db->from('materias');
-              $this->db->where('id_materia', $id);
-              $query = $this->db->get();
-              if (count($query->result()) > 0) {
-                  return $query->row();
-              }
-          }
           public function delete_entry($id)
           {
               return $this->db->delete('materias', array('id_materia' => $id));
           }
-
+     
   } // FIN / CIERRE DEL MODELO

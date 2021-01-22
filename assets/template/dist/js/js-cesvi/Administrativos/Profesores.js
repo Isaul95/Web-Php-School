@@ -290,9 +290,9 @@ function llenarTablaProfesores() {
                     {
                         data: "nombres",
                     },
-                    {
-                        data: "nivel_de_estudios",
-                    },
+                    // {
+                    //     data: "nivel_de_estudios",
+                    // },
                     {
                         data: "titulado",
                     },
@@ -302,18 +302,18 @@ function llenarTablaProfesores() {
                     {
                         data: "ocupacion",
                     },
-                    {
-                        data: "tipo_de_trabajo",
-                    },
-                    {
-                        data: "universidad_procedente",
-                    },
-                    {
-                        data: "experiencia_docente",
-                    },
-                    {
-                        data: "trabajos_anteriores",
-                    },
+                    // {
+                    //     data: "tipo_de_trabajo",
+                    // },
+                    // {
+                    //     data: "universidad_procedente",
+                    // },
+                    // {
+                    //     data: "experiencia_docente",
+                    // },
+                    // {
+                    //     data: "trabajos_anteriores",
+                    // },
                     {
                         data: "curriculum",
                         orderable: false,
@@ -332,6 +332,35 @@ function llenarTablaProfesores() {
                             return a;
                         },
                     },
+
+                    {
+                        data: "estado_profesor",
+                        orderable: false,
+                        searchable: false,
+                        "render" : function(data, type, row) {
+                          var habilitarProfesor = `${row.estado_profesor}`;
+                          var string = '<input type="checkbox" ';
+                          if(habilitarProfesor == 1){
+                            string = string + `checked onclick=habilitaRegistro(0,'${row.id_profesores}','${row.id_calificacion}')>`+'&nbsp;&nbsp;&nbsp;' + '<a class="bg-green ">ACTIVO</a>';
+                          }else {
+                            string = string +`onclick=habilitaRegistro(1,'${row.id_profesores}','${row.id_calificacion}')>` +'&nbsp;&nbsp;&nbsp;' + '<a class="bg-red ">DESACTIVO</a>';
+                          }
+                          return string;
+                         },
+                    },
+
+                    {
+                        // data: "certificado_estudios",
+                        orderable: false,
+                        searchable: false,
+                        render : function(data, type, row) {
+                            var a = `
+                                <a title="Generar Horario Profesor" href="Profesores/generaHorarioProfesor" target="_blank"><i class="far fa-file-pdf fa-2x"></i></a>
+                            `;
+                             return a;
+                        },
+                    },
+
                     {
                         orderable: false,
                         searchable: false,
@@ -359,7 +388,37 @@ function llenarTablaProfesores() {
     });
 }
 
-// <a href="#" id="edit" class="btn btn-sm btn-outline-info" value="${row.id}"><i class="fas fa-edit"></i></a>
+
+
+
+
+// SOLO SE VA HABILITAR CUANDO ESTE DESHABILITADO, UNA VEZ K SE ABILITE SE DESBLOKEA
+function habilitaRegistro(estado_profesor, id_profesores, id_calificacion){
+    debugger;
+      		var datos = {
+      				id_profesores : id_profesores,
+              estado_profesor: estado_profesor,
+              id_calificacion : id_calificacion
+      		}
+      		$.ajax({
+      			url: base_url+'Administrativos/Profesores/marcarParaRegistro/'+id_calificacion,
+            type: "post",
+            dataType: "json",
+      			data : (datos),
+      			success : function(data){
+              if (data.responce == "success") {
+                toastr["success"](data.message);
+                location.reload();
+                $("#tbl_profesores").DataTable().destroy();
+              }else{
+                toastr["error"](data.message);
+              }
+      			}
+      		});
+      }
+
+
+
 
 /* -------------------------------------------------------------------------- */
 /*                               Delete Records                               */

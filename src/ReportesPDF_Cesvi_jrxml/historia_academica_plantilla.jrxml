@@ -20,7 +20,13 @@
 		<defaultValueExpression><![CDATA[$P{idcarrera}]]></defaultValueExpression>
 	</parameter>
 	<queryString>
-		<![CDATA[SELECT a.nombres, carrera.carrera_descripcion, materias.semestre, materias.id_materia, materias.clave as clave_materia, materias.nombre_materia, calificaciones.calificacion, materias.creditos, calificaciones.tiempo_extension, carrera.clave, calificaciones.ciclo
+		<![CDATA[SELECT CONCAT(a.nombres, ' ', a.apellido_paterno, ' ', a.apellido_materno) As nombres, carrera.carrera_descripcion, materias.semestre, materias.id_materia, materias.clave as clave_materia, materias.nombre_materia, calificaciones.calificacion, materias.creditos, calificaciones.tiempo_extension, carrera.clave, calificaciones.ciclo,
+     (select AVG(calificaciones.calificacion)
+     from detalles d
+     INNER join alumnos a on d.alumno = a.numero_control
+     inner join calificaciones on calificaciones.detalle = d.id_detalle
+     inner join carrera on carrera.id_carrera = d.carrera
+     where a.numero_control = "$P{num_control}" and carrera.id_carrera= $P{idcarrera} ) as promedio
 from detalles d
 INNER join alumnos a on d.alumno = a.numero_control
 inner join carrera on carrera.id_carrera = d.carrera
@@ -60,6 +66,7 @@ where a.numero_control = "$P{num_control}" and carrera.id_carrera= $P{idcarrera}
 	<field name="ciclo" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
+	<field name="promedio" class="java.lang.Double"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -77,61 +84,71 @@ where a.numero_control = "$P{num_control}" and carrera.id_carrera= $P{idcarrera}
 				<text><![CDATA[HISTORÍA ACADEMICA]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="177" y="53" width="81" height="19" uuid="58d62af9-0853-4eed-bab7-ca6f13db9aa7"/>
+				<reportElement x="177" y="53" width="84" height="19" uuid="58d62af9-0853-4eed-bab7-ca6f13db9aa7"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Arial" size="10" isBold="true"/>
 				</textElement>
 				<text><![CDATA[NOMBRE:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="178" y="92" width="80" height="19" uuid="8e8843b0-e38c-4c8a-966a-918f0370fe98"/>
+				<reportElement x="178" y="92" width="83" height="19" uuid="8e8843b0-e38c-4c8a-966a-918f0370fe98"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Arial" size="10" isBold="true"/>
 				</textElement>
 				<text><![CDATA[RVOE:]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="257" y="53" width="100" height="19" uuid="549ac5b6-64a4-4812-b401-e8dd0452cd9d"/>
-				<textElement verticalAlignment="Middle"/>
+				<reportElement x="260" y="53" width="100" height="19" uuid="549ac5b6-64a4-4812-b401-e8dd0452cd9d"/>
+				<textElement verticalAlignment="Top"/>
 				<textFieldExpression><![CDATA[$F{nombres}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="257" y="72" width="249" height="19" uuid="523538b6-2b86-4726-90e5-d00720e64ef2"/>
-				<textElement verticalAlignment="Middle"/>
+				<reportElement x="260" y="72" width="249" height="19" uuid="523538b6-2b86-4726-90e5-d00720e64ef2"/>
+				<textElement verticalAlignment="Top"/>
 				<textFieldExpression><![CDATA[$F{carrera_descripcion}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="433" y="107" width="73" height="19" uuid="d151468c-6d75-44a5-b15d-7422b51a045c"/>
+				<reportElement x="405" y="112" width="80" height="19" uuid="d151468c-6d75-44a5-b15d-7422b51a045c"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Arial" size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[PROMEDIO:]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="257" y="92" width="100" height="19" uuid="d8ec3639-ccd6-40b8-9f6b-f9f81ff3ce7b"/>
-				<textElement verticalAlignment="Middle"/>
+				<reportElement x="260" y="92" width="100" height="19" uuid="d8ec3639-ccd6-40b8-9f6b-f9f81ff3ce7b"/>
+				<textElement verticalAlignment="Top"/>
 				<textFieldExpression><![CDATA[$F{clave}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="178" y="72" width="80" height="19" uuid="149e0bae-7d82-4ee0-89dc-380653dac673"/>
+				<reportElement x="178" y="72" width="83" height="19" uuid="149e0bae-7d82-4ee0-89dc-380653dac673"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Arial" size="10" isBold="true"/>
 				</textElement>
 				<text><![CDATA[LICENCIATURA:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="177" y="112" width="81" height="19" uuid="8947fff1-a758-4a84-b8a9-7dc22e21859c"/>
+				<reportElement x="177" y="112" width="84" height="19" uuid="8947fff1-a758-4a84-b8a9-7dc22e21859c"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Arial" size="10" isBold="true"/>
 				</textElement>
 				<text><![CDATA[FECHA:]]></text>
 			</staticText>
 			<textField pattern="EEEEE dd MMMMM yyyy">
-				<reportElement style="Column header" x="258" y="112" width="143" height="19" forecolor="#000000" uuid="e223a04a-bdc0-4d9a-b124-27497d90da34"/>
-				<textElement verticalAlignment="Middle">
+				<reportElement style="Column header" x="261" y="112" width="143" height="19" forecolor="#000000" uuid="e223a04a-bdc0-4d9a-b124-27497d90da34"/>
+				<textElement verticalAlignment="Top">
 					<font size="10" isBold="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="479" y="130" width="73" height="1" forecolor="#000000" backcolor="#000000" uuid="81b7a618-602d-4343-832a-735d8ffbdc12"/>
+			</line>
+			<textField>
+				<reportElement x="485" y="112" width="65" height="19" uuid="14ca07a4-e597-4d4f-857c-f9b425cb5c0d"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{promedio}]]></textFieldExpression>
 			</textField>
 		</band>
 	</title>
@@ -263,7 +280,7 @@ where a.numero_control = "$P{num_control}" and carrera.id_carrera= $P{idcarrera}
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Arial" size="12" isBold="true"/>
 				</textElement>
-				<text><![CDATA[DIRECTO]]></text>
+				<text><![CDATA[DIRECTOR]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="130" y="6" width="256" height="25" uuid="00329689-674a-4d73-a0b8-356c83df9577"/>

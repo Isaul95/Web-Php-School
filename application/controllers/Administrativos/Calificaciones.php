@@ -39,17 +39,17 @@ class Calificaciones extends CI_Controller {
 		$posts = $this->Modelo_Calificaciones->obtenermaterias($profesor,$semestre);
 		echo json_encode($posts);
 	}
-	
+
 	public function obtenercarreras(){
 		$posts = $this->Modelo_Calificaciones->obtenercarreras();
 		echo json_encode($posts);
-		
+
 	}
-		
+
 	public function obteneropciones(){
 		$posts = $this->Modelo_Calificaciones->obteneropciones();
 		echo json_encode($posts);
-		
+
 	}
 	public function veralumnos_asignados_ala_materia_del_profesor(){
 		$edit_id = $this->input->post('materia_a_consultar');

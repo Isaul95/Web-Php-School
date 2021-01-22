@@ -266,6 +266,70 @@ public function eliminarprofesores()
 
 
 
+	// ================    ESYE ES MI NEW METODO PARA EL UPDATE DEL CHECKEN    =======================
+	public function marcarParaRegistro($id_calificacion){
+				$data['estado_profesor'] = $this->input->post('estado_profesor');
+
+	 				$estatus = $this->input->post('estado_profesor');
+			if($estatus != 0){  // Depende del estatus k se mande se hace a accion
+							if ($this->Modelo_Profesores->updateHabProfesor($id_calificacion, $data)) {
+	// 1.- Cuando se habilita solo es estatus en la tabla de alumnos => estatus =1
+								$data = array('responce' => 'success', 'message' => 'Profesor habilitado correctamente...!');
+							} else {
+								$data = array('responce' => 'error', 'message' => 'Fallo habilitar Profesor...!');
+							}
+			} else {
+	// 2.- Cuando se DES-habilita cambia el estatus en la tabla de alumnos => estatus =0 y delete los datos del revibo para k cuando se vuelva habilitar metan nuevos datoos
+							if ($this->Modelo_Profesores->updateHabProfesor($id_calificacion, $data)) {
+								$data = array('responce' => 'success', 'message' => 'Profesor fue Deshabilitado...!');
+							} else {
+								$data = array('responce' => 'error', 'message' => 'Fallo al deshabilitar el Profesor...!');
+							}
+			}
+			echo json_encode($data);
+	}
+
+
+
+
+
+/* -------------------------------------------------------------------------- */
+/*                  1.- Generar certificado de estudios                       */
+/* --------------------------------------- ---------------------------------- */
+
+public function generaHorarioProfesor(){
+	/*
+	 * Se crea la function para hacer el llamado en el js
+	 * se hace todo la parte del reporte
+	 */
+	error_reporting(0);
+
+	include_once('src/phpjasperxml_0.9d/class/tcpdf/tcpdf.php');
+	include_once("src/phpjasperxml_0.9d/class/PHPJasperXML.inc.php");
+
+	// SE HACE LA CONECION PARA CADA HOJA DE ESTAS
+	$server = "localhost";
+	$user = "root";
+	$pass = "";
+	$db = "cesvi_webapp";
+
+
+	$PHPJasperXML = new PHPJasperXML();
+	 // $PHPJasperXML->debugsql=true;
+	// 	$PHPJasperXML-> debugsql = false; // Si desea ver la setencia del sql del reporte lo pones en true
+
+	// $PHPJasperXML->arrayParameter=array("numcontrol"=>$numero_control);
+	// $PHPJasperXML->arrayParameter=array("parameter1"=>1);
+
+	$PHPJasperXML->load_xml_file("src/ReportesPDF_Cesvi_jrxml/certificado_estudios.jrxml");
+
+	$PHPJasperXML->transferDBtoArray($server,$user,$pass,$db);
+	$PHPJasperXML->outpage('I','CertificadoEstudios_.pdf');
+
+}
+
+
+
 }  // Fin del controller
 
 

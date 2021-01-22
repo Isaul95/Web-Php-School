@@ -1,5 +1,5 @@
 $(document).ready(function () {
-    //llenarTablaAlumnosParaDocumentacion();
+    llenarTablaAlumnosParaDocumentacion();
 
 }); // FIN DE LA FUNCION PRINCIPAL
 
@@ -13,7 +13,7 @@ function llenarTablaAlumnosParaDocumentacion() {
     // debugger;
     $.ajax({
         type: "get",
-        url: base_url + 'Administrativos/DocumentosAlumnos/datosGnralDelAlumno',
+        url: base_url + 'Administrativos/DocumentosAlumnos/datosGralDelAlumno',
         dataType: "json",
         success: function (response) {
             var i = "1";
@@ -38,7 +38,7 @@ function llenarTablaAlumnosParaDocumentacion() {
                     searchable: false,
                     render : function(data, type, row) {
                         var a = `
-                            <a title="Generar Certificado de Estudios" href="DocumentosAlumnos/generaCertificadoEstudios" target="_blank"><i class="far fa-file-pdf fa-2x"></i></a>
+                            <a title="Generar Certificado de Estudios" href="DocumentosAlumnos/generaCertificadoEstudios/${row.numero_control}/${row.semestre}" target="_blank"><i class="far fa-file-pdf fa-2x"></i></a>
                         `;
                          return a;
                     },
@@ -50,7 +50,7 @@ function llenarTablaAlumnosParaDocumentacion() {
                     render: function (data, type, row, meta) {
                         var a;
                             var a = `
-                            <a title="Generar Boleta Calificaciones" href="DocumentosAlumnos/generaBoletaCalificaciones" target="_blank"><i class="far fa-file-pdf fa-2x"></i></a>
+                            <a title="Generar Boleta Calificaciones" href="DocumentosAlumnos/generaBoletaCalificaciones/${row.numero_control}/${row.semestre}/${row.id_carrera}" target="_blank"><i class="far fa-file-pdf fa-2x"></i></a>
                             `;
                         return a;
                     },
@@ -67,24 +67,24 @@ function llenarTablaAlumnosParaDocumentacion() {
 
                     },
                 },
-                {
-                    // data: "certificado_medico",
-                    orderable: false,
-                    searchable: false,
-                    render: function (data, type, row, meta) {
-                        var nombre_certificado_medico = `${row.nombre_certificado_medico}`;
-                        var a;
-                          if(nombre_certificado_medico != "null"&&nombre_certificado_medico != "undefined"){
-                        var a = `
-                               <a title="Descarga Documento" href="Alumnos/verCertificadoMedicoalumno/${row.numero_control}" target="_blank"><i class="far fa-file-pdf fa-2x"></i></a>
-                            `;
-                          }
-                          else{
-                            a = 'Sin archivo';
-                        }
-                        return a;
-                    },
-                },
+                // {
+                //     // data: "certificado_medico",
+                //     orderable: false,
+                //     searchable: false,
+                //     render: function (data, type, row, meta) {
+                //         var nombre_certificado_medico = `${row.nombre_certificado_medico}`;
+                //         var a;
+                //           if(nombre_certificado_medico != "null"&&nombre_certificado_medico != "undefined"){
+                //         var a = `
+                //                <a title="Descarga Documento" href="Alumnos/verCertificadoMedicoalumno/${row.numero_control}" target="_blank"><i class="far fa-file-pdf fa-2x"></i></a>
+                //             `;
+                //           }
+                //           else{
+                //             a = 'Sin archivo';
+                //         }
+                //         return a;
+                //     },
+                // },
                 // {
                 //     orderable: false,
                 //     searchable: false,
@@ -96,12 +96,15 @@ function llenarTablaAlumnosParaDocumentacion() {
                 //     },
                 // },
                 {
+                    // data: "curp",
                     orderable: false,
                     searchable: false,
-                    data: function(row, type, set) {
-                        return `
-                            <a href="#" id="view_alumno" class="btn btn-info" value="${row.numero_control}"><i class="far fa-edit"></i></a>
-                               `;
+                    render: function (data, type, row, meta) {
+
+                        return  a = `
+<a title="Generar Horario Alumno" href="DocumentosAlumnos/generaHorarioAlumno/${row.numero_control}/${row.semestre}" target="_blank"><i class="far fa-file-pdf fa-2x"></i></a>
+                         `;
+
                     },
                 },
 

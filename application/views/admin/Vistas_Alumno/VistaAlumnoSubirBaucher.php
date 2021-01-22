@@ -121,6 +121,7 @@
                         <th class="text-center">Fecha registro</th>
                         <th>Tipo de Pago</th>
                         <th class="text-center" width="7%">Pdf</th>
+                        <th class="text-center">Horario</th>
                         <th class="text-center">Estado</th>
                         <th>Recibo de Pago</th>
                       </tr>

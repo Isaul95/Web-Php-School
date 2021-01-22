@@ -36,8 +36,8 @@
           <th class="text-center" width="7%">Cert. Estudios</th>
           <th class="text-center" width="7%">Boleta</th>
           <th class="text-center" width="7%">Hist. academico</th>
-          <th class="text-center" width="7%">Cert. parcial</th>
-          <th class="text-center" width="7%">Cert. total</th>
+          <!-- <th class="text-center" width="7%">Cert. parcial</th> -->
+          <th class="text-center" width="7%">Horario</th>
           <!-- <th class="text-center" width="7%">Información</th> -->
         </tr>
       </thead>

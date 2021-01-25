@@ -23,7 +23,7 @@ class Modelo_Profesores extends CI_Model { // INICIO DEL MODELO
       $this->db->from("profesores p");
       $this->db->join("materias m","m.profesor = p.id_profesores");
       $this->db->join("calificaciones c","c.materia = m.id_materia");
-      $this->db->group_by('p.id_profesores'); 
+      $this->db->group_by('p.id_profesores');
       $resultados = $this->db->get();
       return $resultados->result();
     }
@@ -99,10 +99,26 @@ public function insert_entry($data)
 
 
 //  ===========  ACTUALIZA SIEMPRE EL ESTATUS DE LA TABLA DE calificaciones PARA HABILITAR Y DESHABILITAR  =============
-            public function updateHabProfesor($id_calificacion, $data){
-              $this->db->where("id_calificacion",$id_calificacion);
-               return $this->db->update("calificaciones", $data);
-              }
+            // public function updateHabProfesor($id_calificacion, $data){
+            //   $this->db->where("id_calificacion",$id_calificacion);
+            //    return $this->db->update("calificaciones", $data);
+            //   }
+// Actualiza en base a las materias asignadas al profesor. calificaciones => estado_profesor
+    public function updateHabProfesor($id_profesores, $data){
+      return $this->db->update("calificaciones cal", $data);
+      $this->db->join("materias m","m.id_materia = cal.materia");
+      $this->db->where(" m.profesor ",$id_profesores);
+    }
+// CONSULTA ORIGINAL
+/*
+      update calificaciones cal
+      inner join materias m on m.id_materia = cal.materia
+      set cal.estado_profesor=1
+      where m.profesor=1
+
+*/
+
+
 
 
 

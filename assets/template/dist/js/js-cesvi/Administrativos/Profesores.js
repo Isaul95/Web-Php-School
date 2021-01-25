@@ -319,7 +319,7 @@ function llenarTablaProfesores() {
                         orderable: false,
                         searchable: false,
                         "render": function(data, type, row, meta) {
-                          
+
                           var mostrarCV = `${row.nombre_archivo}`;
                           var a;
                             if(mostrarCV != "null"){
@@ -401,7 +401,7 @@ function habilitaRegistro(estado_profesor, id_profesores, id_calificacion){
               id_calificacion : id_calificacion
       		}
       		$.ajax({
-      			url: base_url+'Administrativos/Profesores/marcarParaRegistro/'+id_calificacion,
+      			url: base_url+'Administrativos/Profesores/marcarParaRegistro/'+datos.id_profesores,
             type: "post",
             dataType: "json",
       			data : (datos),

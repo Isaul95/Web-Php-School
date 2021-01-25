@@ -225,19 +225,25 @@ $(document).on("click", "#edit_calificacion", function (e) {
     });
 });
 
-$(document).on("click", "#update_calificacion", function (e) {
+$(document).on("click", "#update_calificacion_profesor", function (e) {
     e.preventDefault();
     var calificacion_materia_profesor = $("#calificacion_materia_profesor").val();
     var materia_update = $("#materia_update").val();
     var detalle_update = $("#detalle_update").val();
-    if(calificacion_materia_profesor>60){
+    var profesor = $('#usuario').val();
+    var concat="";
+    var fecha = new Date();
+    var fecha_a_insertar = concat.concat(fecha.getFullYear(),"/",fecha.getMonth()+1,"/",fecha.getDate(),"--",
+    fecha.getHours(),":",fecha.getMinutes(),":",fecha.getSeconds());
+
+    if(calificacion_materia_profesor>=60){
         var tiempo_extension = 'ord.'
     }else{
         var tiempo_extension = 'extrd.'
     }
 
       if (calificacion_materia_profesor == "") {
-    alert("Debe llenar todos los campos vacios...!");
+    alert("Debe agregar una calificación");
     } else {
 
         var fd = new FormData();
@@ -248,6 +254,10 @@ $(document).on("click", "#update_calificacion", function (e) {
         fd.append("ciclo", '21/01');
         fd.append("estado_profesor", 2);
         fd.append("tiempo_extension", tiempo_extension);
+        fd.append("profesor_captura", profesor);
+        fd.append("fecha_captura_profesor", fecha_a_insertar);
+        fd.append("fecha_actualizacion_profesor", fecha_a_insertar);
+        fd.append("profesor_actualizacion", profesor);
 
 
         $.ajax({

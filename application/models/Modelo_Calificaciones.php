@@ -98,6 +98,18 @@ class Modelo_calificaciones extends CI_Model { // INICIO DEL MODELO
                         return $query->row();
                     }
                 }
+                public function sepuede_insertar_o_actualizar_sobre_profesor($detalle,$materia)
+                {
+                  $this->db->select('*');
+                    $this->db->from('calificaciones');
+                    $this->db->where('detalle', $detalle);
+                    $this->db->where('materia', $materia);
+                    $this->db->where('profesor_captura is null',null,false);
+                    $query = $this->db->get();
+                    if (count($query->result()) > 0) {
+                        return $query->row();
+                    }
+                }
 
 
 // ***************************  INICIO FUNCTION PARA INSRTAR  ************************************

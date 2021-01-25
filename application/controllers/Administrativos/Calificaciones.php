@@ -81,15 +81,35 @@ class Calificaciones extends CI_Controller {
 				$id_detalle = $this->input->post('detalle');
 				$materia = $this->input->post('materia');
 				if ($post = $this->Modelo_Calificaciones->sepuede_agregar_calificacion($id_detalle,$materia)) {
-					$ajax_data['calificacion'] = $this ->input->post('calificacion');
-				    $ajax_data['ciclo'] = $this ->input->post('ciclo');
-				    $ajax_data['estado_profesor'] = $this ->input->post('estado_profesor');
-				    $ajax_data['tiempo_extension'] = $this ->input->post('tiempo_extension');
-				     if ($this->Modelo_Calificaciones->updatecalificacion($materia,$id_detalle,$ajax_data)) {
-					     $data = array('response' => "success", 'message' => "Datos actualizados correctamente");
-				     } else {
-					   $data = array('response' => "error", 'message' => "Error al agregar datos...!");
-				     }
+					if($post = $this->Modelo_Calificaciones->sepuede_insertar_o_actualizar_sobre_profesor($id_detalle,$materia)){
+						//INSERTA POR PRIMERA VEZ LOS DATOS DE CAPTURA DEL PROFESOR
+						$ajax_data['calificacion'] = $this ->input->post('calificacion');
+						$ajax_data['ciclo'] = $this ->input->post('ciclo');
+						$ajax_data['estado_profesor'] = $this ->input->post('estado_profesor');
+						$ajax_data['tiempo_extension'] = $this ->input->post('tiempo_extension');
+						$ajax_data['profesor_captura'] = $this ->input->post('profesor_captura');
+						$ajax_data['fecha_captura_profesor'] = $this ->input->post('fecha_captura_profesor');
+						 if ($this->Modelo_Calificaciones->updatecalificacion($materia,$id_detalle,$ajax_data)) {
+							 $data = array('response' => "success", 'message' => "Datos actualizados correctamente");
+						 } else {
+						   $data = array('response' => "error", 'message' => "Error al agregar datos...!");
+						 }
+					}
+					else{
+                         //ACTUALIZA LOS DATOS DE CAPTURA DEL PROFESOR
+						$ajax_data['calificacion'] = $this ->input->post('calificacion');
+						$ajax_data['ciclo'] = $this ->input->post('ciclo');
+						$ajax_data['estado_profesor'] = $this ->input->post('estado_profesor');
+						$ajax_data['tiempo_extension'] = $this ->input->post('tiempo_extension');
+						$ajax_data['profesor_actualizacion'] = $this ->input->post('profesor_actualizacion');
+						$ajax_data['fecha_actualizacion_profesor'] = $this ->input->post('fecha_actualizacion_profesor');
+						 if ($this->Modelo_Calificaciones->updatecalificacion($materia,$id_detalle,$ajax_data)) {
+							 $data = array('response' => "success", 'message' => "Datos actualizados correctamente");
+						 } else {
+						   $data = array('response' => "error", 'message' => "Error al agregar datos...!");
+						 }
+					}
+					
 				}else{
 					$data = array('response' => "error", 'message' => "No puede agregar calificación nuevamente");		
 				}

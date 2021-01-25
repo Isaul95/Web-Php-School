@@ -103,7 +103,7 @@
           </div>
         </div>
       </div>
-<!--MODAL EDITAR Materia-->
+<!--MODAL EDITAR calificacion-->
 <div class="modal fade" id="modaleditcalificacion" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
           <div class="modal-content">
@@ -145,7 +145,7 @@
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-              <button type="button" class="btn btn-primary" id="update_calificacion">Actualizar</button>
+              <button type="button" class="btn btn-primary" id="update_calificacion_profesor">Actualizar</button>
             </div>
           </div>
         </div>

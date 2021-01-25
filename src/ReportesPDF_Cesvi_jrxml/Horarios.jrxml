@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="5a43bfc1-b4a8-49ce-8320-586add9e24fc">
-	<property name="ireport.zoom" value="1.5"/>
-	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.zoom" value="3.0"/>
+	<property name="ireport.x" value="570"/>
+	<property name="ireport.y" value="148"/>
 	<style name="Title" fontName="Times New Roman" fontSize="50" isBold="true" pdfFontName="Times-Bold"/>
 	<style name="SubTitle" forecolor="#736343" fontName="Arial" fontSize="18"/>
 	<style name="Column header" forecolor="#666666" fontName="Arial" fontSize="12" isBold="true"/>
@@ -16,7 +16,7 @@
 	<parameter name="num_control" class="java.lang.String"/>
 	<parameter name="Dsemestre" class="java.lang.Integer"/>
 	<queryString>
-		<![CDATA[SELECT materias.semestre, opciones.opcion, CONCAT(a.nombres, ' ', a.apellido_paterno, ' ', a.apellido_materno) As nombres, materias.nombre_materia, materias.horario,materias.inicio, materias.fin,materias.ex_final, carrera.carrera_descripcion
+		<![CDATA[SELECT materias.semestre, opciones.opcion, CONCAT(a.nombres, ' ', a.apellido_paterno, ' ', a.apellido_materno) As nombres, materias.nombre_materia, materias.horario,materias.inicio, materias.fin,materias.ex_final, carrera.carrera_descripcion, opciones.descripcion
 from detalles d
 INNER join alumnos a on d.alumno = a.numero_control
 inner join carrera on carrera.id_carrera = d.carrera
@@ -52,6 +52,9 @@ where a.numero_control = "$P{num_control}" and materias.semestre = $P{Dsemestre}
 	<field name="carrera_descripcion" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
+	<field name="descripcion" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -69,40 +72,60 @@ where a.numero_control = "$P{num_control}" and materias.semestre = $P{Dsemestre}
 				<text><![CDATA[Horario]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="170" y="54" width="84" height="19" uuid="a486d68d-c4b1-4f96-8978-260b0501958c"/>
-				<textElement verticalAlignment="Middle">
+				<reportElement x="170" y="48" width="84" height="19" uuid="a486d68d-c4b1-4f96-8978-260b0501958c"/>
+				<textElement verticalAlignment="Bottom">
 					<font fontName="Arial" size="10" isBold="true"/>
 				</textElement>
 				<text><![CDATA[NOMBRE:]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="253" y="54" width="259" height="19" uuid="07ea426f-5c1b-4f33-a420-1246c3f9880b"/>
-				<textElement verticalAlignment="Middle"/>
+				<reportElement x="253" y="48" width="259" height="19" uuid="07ea426f-5c1b-4f33-a420-1246c3f9880b"/>
+				<textElement verticalAlignment="Top">
+					<font isBold="true"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{nombres}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="170" y="73" width="84" height="19" uuid="36892724-44cb-4a0e-a13f-db42beccfed5"/>
-				<textElement verticalAlignment="Middle">
+				<reportElement x="170" y="67" width="84" height="19" uuid="36892724-44cb-4a0e-a13f-db42beccfed5"/>
+				<textElement verticalAlignment="Bottom">
 					<font fontName="Arial" size="10" isBold="true"/>
 				</textElement>
 				<text><![CDATA[SEMESTRE:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="170" y="92" width="84" height="19" uuid="f28e85b6-bfeb-466a-a7ea-7c171b0b0436"/>
-				<textElement verticalAlignment="Middle">
+				<reportElement x="170" y="86" width="84" height="19" uuid="f28e85b6-bfeb-466a-a7ea-7c171b0b0436"/>
+				<textElement verticalAlignment="Bottom">
 					<font fontName="Arial" size="10" isBold="true"/>
 				</textElement>
 				<text><![CDATA[LICENCIATURA:]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="253" y="73" width="70" height="19" uuid="cad7d5d3-4917-428b-b941-feb69c6e74e1"/>
-				<textElement verticalAlignment="Middle"/>
+				<reportElement x="253" y="67" width="70" height="19" uuid="cad7d5d3-4917-428b-b941-feb69c6e74e1"/>
+				<textElement verticalAlignment="Top">
+					<font isBold="true"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{semestre}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="253" y="92" width="231" height="19" uuid="6b2b7c57-5801-427a-b007-85a8bc41e478"/>
-				<textElement verticalAlignment="Middle"/>
+				<reportElement x="253" y="86" width="231" height="19" uuid="6b2b7c57-5801-427a-b007-85a8bc41e478"/>
+				<textElement verticalAlignment="Top">
+					<font isBold="true"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{carrera_descripcion}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="170" y="105" width="84" height="19" uuid="64971bd3-a632-415f-827a-62e4d38ba0e6"/>
+				<textElement verticalAlignment="Bottom">
+					<font fontName="Arial" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[HORARIO:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="254" y="105" width="230" height="19" uuid="0bf374b0-1acf-4c1a-9de8-13db4754d617"/>
+				<textElement verticalAlignment="Top">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{descripcion}]]></textFieldExpression>
 			</textField>
 		</band>
 	</title>
@@ -120,35 +143,37 @@ where a.numero_control = "$P{num_control}" and materias.semestre = $P{Dsemestre}
 			<staticText>
 				<reportElement style="Column header" mode="Opaque" x="3" y="0" width="187" height="15" forecolor="#FFFFFF" backcolor="#0066CC" uuid="e1ece1b8-c7b2-4b10-a578-826e963d801b"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				<text><![CDATA[nombre_materia]]></text>
+				<text><![CDATA[MATERIA]]></text>
 			</staticText>
 			<staticText>
 				<reportElement style="Column header" mode="Opaque" x="191" y="0" width="110" height="15" forecolor="#FFFFFF" backcolor="#0066CC" uuid="b0194c4c-1579-4a41-a09f-82cf9ce4eceb"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				<text><![CDATA[horario]]></text>
+				<text><![CDATA[HORARIO]]></text>
 			</staticText>
 			<staticText>
 				<reportElement style="Column header" mode="Opaque" x="302" y="0" width="77" height="15" forecolor="#FFFFFF" backcolor="#0066CC" uuid="566a452b-4611-49da-a40b-89ef30b600a8"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				<text><![CDATA[inicio]]></text>
+				<text><![CDATA[INICIO]]></text>
 			</staticText>
 			<staticText>
 				<reportElement style="Column header" mode="Opaque" x="380" y="0" width="70" height="15" forecolor="#FFFFFF" backcolor="#0066CC" uuid="cfd568b6-d5f7-47ff-a396-11aeefb56d7c"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				<text><![CDATA[fin]]></text>
+				<text><![CDATA[FIN]]></text>
 			</staticText>
 			<staticText>
 				<reportElement style="Column header" mode="Opaque" x="451" y="0" width="101" height="15" forecolor="#FFFFFF" backcolor="#0066CC" uuid="3020e5a9-d798-449d-9930-633980098db5"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				<text><![CDATA[ex_final]]></text>
+				<text><![CDATA[EX. FINAL]]></text>
 			</staticText>
 		</band>
 	</columnHeader>
 	<detail>
-		<band height="20" splitType="Stretch">
+		<band height="25" splitType="Stretch">
 			<textField isStretchWithOverflow="true">
 				<reportElement style="Detail" x="3" y="2" width="187" height="15" uuid="c96da76a-8c9c-410f-8db9-257ca148e7d0"/>
-				<textElement verticalAlignment="Middle"/>
+				<textElement verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{nombre_materia}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
@@ -174,7 +199,7 @@ where a.numero_control = "$P{num_control}" and materias.semestre = $P{Dsemestre}
 				<textFieldExpression><![CDATA[$F{inicio}]]></textFieldExpression>
 			</textField>
 			<line>
-				<reportElement x="6" y="17" width="545" height="1" uuid="349aec9d-2ec4-494c-bbbe-c6d47112af9d"/>
+				<reportElement x="6" y="18" width="545" height="1" uuid="349aec9d-2ec4-494c-bbbe-c6d47112af9d"/>
 			</line>
 		</band>
 	</detail>

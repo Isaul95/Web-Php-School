@@ -267,12 +267,12 @@ public function eliminarprofesores()
 
 
 	// ================    ESYE ES MI NEW METODO PARA EL UPDATE DEL CHECKEN    =======================
-	public function marcarParaRegistro($id_calificacion){
+	public function marcarParaRegistro($id_profesores){
 				$data['estado_profesor'] = $this->input->post('estado_profesor');
 
 	 				$estatus = $this->input->post('estado_profesor');
 			if($estatus != 0){  // Depende del estatus k se mande se hace a accion
-							if ($this->Modelo_Profesores->updateHabProfesor($id_calificacion, $data)) {
+							if ($this->Modelo_Profesores->updateHabProfesor($id_profesores, $data)) {
 	// 1.- Cuando se habilita solo es estatus en la tabla de alumnos => estatus =1
 								$data = array('responce' => 'success', 'message' => 'Profesor habilitado correctamente...!');
 							} else {
@@ -280,7 +280,7 @@ public function eliminarprofesores()
 							}
 			} else {
 	// 2.- Cuando se DES-habilita cambia el estatus en la tabla de alumnos => estatus =0 y delete los datos del revibo para k cuando se vuelva habilitar metan nuevos datoos
-							if ($this->Modelo_Profesores->updateHabProfesor($id_calificacion, $data)) {
+							if ($this->Modelo_Profesores->updateHabProfesor($id_profesores, $data)) {
 								$data = array('responce' => 'success', 'message' => 'Profesor fue Deshabilitado...!');
 							} else {
 								$data = array('responce' => 'error', 'message' => 'Fallo al deshabilitar el Profesor...!');

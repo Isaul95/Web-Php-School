@@ -65,9 +65,9 @@
                                 var habilitarAlumno = `${row.estatus}`;
                                 var string = '<input type="checkbox" ';
                                 if(habilitarAlumno == 1){
-                                  string = string + `checked onclick=habilitaRegistro(0,'${row.numero_control}','${row.id_alta_baucher_banco}')>`;
+                                  string = string + `checked onclick=habilitaRegistroFinanzas(0,'${row.numero_control}','${row.id_alta_baucher_banco}')>`;
                                 }else {
-                                  string = string +`onclick=habilitaRegistro(1,'${row.numero_control}','${row.id_alta_baucher_banco}')>`;
+                                  string = string +`onclick=habilitaRegistroFinanzas(1,'${row.numero_control}','${row.id_alta_baucher_banco}')>`;
                                 }
                                 return string;
 			                         },
@@ -381,7 +381,7 @@ return a;
 
 
 // SOLO SE VA HABILITAR CUANDO ESTE DESHABILITADO, UNA VEZ K SE ABILITE SE DESBLOKEA
-function habilitaRegistro(estatus, numero_control, id_alta_baucher_banco){
+function habilitaRegistroFinanzas(estatus, numero_control, id_alta_baucher_banco){
     debugger;
       		var datos = {
       				numero_control : numero_control,

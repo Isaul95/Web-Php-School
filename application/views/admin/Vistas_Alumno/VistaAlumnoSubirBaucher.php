@@ -17,7 +17,7 @@
           <li class="active"><a href="#tab_Colegiaturas" data-toggle="tab">Colegiaturas</a></li>
           <li><a id="tab-consultar" href="#tab_Cursos" data-toggle="tab">Historial de pagos</a></li>
 
-          <li><a href="#tab_Extraordinario" data-toggle="tab">Extraordinario(s)</a></li>
+          <li><a href="#tab_Extraordinario" data-toggle="tab">Avance Reticular</a></li>
           <li><a href="#tab_Tesis" data-toggle="tab">Tesis</a></li>
           <li><a href="#tab_Otros" data-toggle="tab">Otros</a></li>
 
@@ -132,57 +132,70 @@
           </div>
 
 
-<!--   ===============================         3- TAB TRES         ==========================================     -->
+<!--   ====================         3- TAB TRES     Avance Reticular    ========================     -->
           <div class="tab-pane" id="tab_Extraordinario">
             <div class="col-lg-4"></div>
               <div class="col-lg-4 text-center">
-                <h2>Extraordinario(s)</h2>
+                <h2>Avance Reticular</h2>
                 <hr>
               </div>
               <div class="row my-4">
                 <div class="col-md-12 mx-auto">
-                  <table id="tbl_extraordinario" class="table table-striped table-bordered dt-responsive nowrap table-hover table-condensed" cellspacing="0" style="background:white!important">
+                  <table id="tbl_avanceRetucularXX" class="table table-striped table-bordered dt-responsive nowrap table-hover table-condensed" cellspacing="0" style="background:white!important">
                     <thead class="text-center bg-primary">
                       <tr>
-                        <th width="3%">#</th>
-                        <th>Nombre</th>
-                        <th>No. Control</th>
-                        <th>Carrera</th>
-                        <th>Semestre</th>
-                        <th class="text-center" width="7%">Pdf</th>
-                        <th class="text-center" width="7%">Acciones</th>
+                        <!-- <th width="3%">#</th> -->
+                        <!-- <th>ID MATERIA</th> -->
+                        <th>SEMESTRE 1</th>
+
                       </tr>
                     </thead>
+
+
+
+
                   </table>
+
                 </div>
               </div>
           </div>
+
+
 
 
 <!--   ===============================         1- TAB CUATRO         ==========================================     -->
           <div class="tab-pane" id="tab_Tesis">
             <div class="col-lg-4"></div>
               <div class="col-lg-4 text-center">
-                <h2>Tesis</h2>
+                <h2>PRUENA DATATABLE()</h2>
                 <hr>
               </div>
-              <div class="row my-4">
-                <div class="col-md-12 mx-auto">
-                  <table id="tbl_tesis" class="table table-striped table-bordered dt-responsive nowrap table-hover table-condensed" cellspacing="0" style="background:white!important">
-                    <thead class="text-center bg-primary">
-                      <tr>
-                        <th width="3%">#</th>
-                        <th>Nombre</th>
-                        <th>No. Control</th>
-                        <th>Carrera</th>
-                        <th>Semestre</th>
-                        <th class="text-center" width="7%">Pdf</th>
-                        <th class="text-center" width="7%">Acciones</th>
-                      </tr>
-                    </thead>
+
+
+              <table id="example22" class="display" style="width:100%">
+                      <thead>
+                          <tr>
+                              <th>Materias</th>
+                              <!-- <th>Position</th>
+                              <th>Office</th>
+                              <th>Age</th>
+                              <th>Start date</th>
+                              <th>Salary</th> -->
+                          </tr>
+                      </thead>
+                      <tbody>
+                          <?php foreach($semestre1 as $semestre1):?>
+                                <tr>
+                                     <!-- <td><?php echo $semestre1->id_materia;?></td> -->
+                                     <td><?php echo $semestre1->nombre_materia;?></td>
+                                </tr>
+                            <?php endforeach;?>
+                      </tbody>
+
                   </table>
-                </div>
-              </div>
+
+
+
           </div>
 
 

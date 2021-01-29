@@ -52,8 +52,8 @@ class Modelo_calificaciones extends CI_Model { // INICIO DEL MODELO
                 $this->db->join("detalles","alumnos.numero_control = detalles.alumno");
                 $this->db->join("carrera","detalles.carrera = carrera.id_carrera");
                 $this->db->join("calificaciones","detalles.id_detalle = calificaciones.detalle");
-                $this->db->where("estatus_alumno_activo", "1");
-                $this->db->where("materia", $materia);
+                $this->db->where("alumnos.estatus", "1");
+                $this->db->where("calificaciones.materia", $materia);
                 $resultados = $this->db->get();
                 return $resultados->result();
                 }
@@ -66,7 +66,7 @@ class Modelo_calificaciones extends CI_Model { // INICIO DEL MODELO
                   $this->db->from("alumnos");
                   $this->db->join("detalles","alumnos.numero_control = detalles.alumno");
                   $this->db->join("carrera","detalles.carrera = carrera.id_carrera");
-                  $this->db->where("estatus_alumno_activo", "1");
+                  $this->db->where("alumnos.estatus", "1");
                   $this->db->where("detalles.carrera", $carrera);
                   $this->db->where("detalles.opcion", $opcion);
                   $resultados = $this->db->get();

@@ -175,4 +175,24 @@ class Modelo_DarAccesoAlumnos extends CI_Model { // INICIO DEL MODELO
 
 
 
+    public function obtenerAvanceReticulaXAlumnos($numero_control){
+     $this->db->select(" materias.id_materia,materias.semestre, opciones.opcion, CONCAT(a.nombres, ' ', a.apellido_paterno, ' ', a.apellido_materno) As nombres, materias.nombre_materia, carrera.carrera_descripcion ");
+     $this->db->from(" detalles d ");
+     $this->db->join("alumnos a","d.alumno = a.numero_control");
+     $this->db->join("carrera ","carrera.id_carrera = d.carrera");
+     $this->db->join(" periodo_escolar "," periodo_escolar.id_periodo_escolar = d.ciclo_escolar ");
+     $this->db->join(" materias "," materias.especialidad = carrera.id_carrera ");
+     $this->db->join(" opciones "," d.opcion = opciones.id_opcion ");
+     $this->db->where(" a.numero_control = ",$numero_control);
+     $this->db->where(" materias.semestre =1");
+
+     $resultados = $this->db->get();
+      return $resultados->result();
+    }
+
+
+
+
+
+
   } // FIN / CIERRE DEL MODELO

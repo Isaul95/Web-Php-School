@@ -175,16 +175,17 @@ class Modelo_DarAccesoAlumnos extends CI_Model { // INICIO DEL MODELO
 
 
 
-    public function obtenerAvanceReticulaXAlumnos($numero_control){
-     $this->db->select(" materias.id_materia,materias.semestre, opciones.opcion, CONCAT(a.nombres, ' ', a.apellido_paterno, ' ', a.apellido_materno) As nombres, materias.nombre_materia, carrera.carrera_descripcion ");
+    public function obtenerAvanceReticulaXAlumnos($numero_control,$semestre){
+     $this->db->select(" materias.id_materia,materias.semestre, opciones.opcion, CONCAT(a.nombres, ' ', a.apellido_paterno, ' ', a.apellido_materno) As nombres, materias.nombre_materia, carrera.carrera_descripcion,  calificaciones.calificacion");
      $this->db->from(" detalles d ");
      $this->db->join("alumnos a","d.alumno = a.numero_control");
      $this->db->join("carrera ","carrera.id_carrera = d.carrera");
      $this->db->join(" periodo_escolar "," periodo_escolar.id_periodo_escolar = d.ciclo_escolar ");
      $this->db->join(" materias "," materias.especialidad = carrera.id_carrera ");
+     $this->db->join(" calificaciones "," calificaciones.materia = materias.id_materia ", "LEFT");
      $this->db->join(" opciones "," d.opcion = opciones.id_opcion ");
      $this->db->where(" a.numero_control = ",$numero_control);
-     $this->db->where(" materias.semestre =1");
+     $this->db->where(" materias.semestre =",$semestre);
 
      $resultados = $this->db->get();
       return $resultados->result();
@@ -192,6 +193,13 @@ class Modelo_DarAccesoAlumnos extends CI_Model { // INICIO DEL MODELO
 
 
 
+    public function obtenerSemestreCombo(){
+      // $this->db->distinct();
+      $this->db->select("nombre,semestre");
+      $this->db->from("semestres");
+      $resultados = $this->db->get();
+      return $resultados->result();
+      }
 
 
 

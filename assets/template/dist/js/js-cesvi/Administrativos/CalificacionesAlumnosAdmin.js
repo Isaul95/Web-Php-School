@@ -236,7 +236,7 @@ $(document).on("click", "#update_calificacion_profesor", function (e) {
     var fecha_a_insertar = concat.concat(fecha.getFullYear(),"/",fecha.getMonth()+1,"/",fecha.getDate(),"--",
     fecha.getHours(),":",fecha.getMinutes(),":",fecha.getSeconds());
 
-    if(calificacion_materia_profesor>=60){
+    if(calificacion_materia_profesor>=6){
         var tiempo_extension = 'ord.'
     }else{
         var tiempo_extension = 'extrd.'

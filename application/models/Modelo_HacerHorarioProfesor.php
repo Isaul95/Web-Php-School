@@ -1,20 +1,53 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Modelo_calificaciones extends CI_Model { // INICIO DEL MODELO
+class Modelo_HacerHorarioProfesor extends CI_Model { // INICIO DEL MODELO
 
 
       	/* -------------------------------------------------------------------------- */
       	/*                                Fetch Records                               */
-      	/* -------------------------------------------------------------------------- */
- 
-        public function obtenermaterias($profesor,$semestre){
+        /* -------------------------------------------------------------------------- */
+        public function horario_asignado_al_profesor($profesor){
+          $this->db->distinct();
+          $this->db->select("horarios_profesor.materia as materia,
+          horarios_profesor.semestre as semestre,
+          horarios_profesor.ciclo as ciclo,
+          materias.nombre_materia as nombre_materia,
+          horarios_profesor.inicio as inicio,
+          horarios_profesor.fin as fin ,horarios_profesor.ex_final as ex_final,
+          horarios_profesor.horario as horario");
+          $this->db->from("horarios_profesor");
+          $this->db->join("materias","materias.id_materia = horarios_profesor.materia");
+          $this->db->where("horarios_profesor.profesor", $profesor);
+          $resultados = $this->db->get();
+          return $resultados->result();
+          }
+        public function insert_entry($data)
+        {
+            return $this->db->insert('horarios_profesor', $data);
+        }
+        public function sepuede_agregar_materia($opcion_estudio,$semestre,$licenciatura,$profesor,$ciclo,$materia) {
+        
+          $this->db->select('*');
+            $this->db->from('horarios_profesor');
+            $this->db->where('opcion_estudio', $opcion_estudio);
+            $this->db->where('semestre', $semestre);
+            $this->db->where('licenciatura', $licenciatura);
+            $this->db->where('profesor', $profesor);
+            $this->db->where('ciclo', $ciclo);
+            $this->db->where('materia', $materia);
+            $query = $this->db->get();
+            if (count($query->result()) > 0) {
+                return $query->row();
+            }
+        }
+
+        public function obtenermaterias($semestre,$especialidad){
             $this->db->distinct();
-            $this->db->select("m.id_materia,m.nombre_materia");
-            $this->db->from("materias m");
-            $this->db->join("profesores p","m.profesor = p.id_profesores");
-            $this->db->where("p.id_profesores", $profesor);
-            $this->db->where("m.semestre", $semestre);
+            $this->db->select("id_materia,nombre_materia");
+            $this->db->from("materias");
+            $this->db->where("semestre", $semestre);
+            $this->db->where("especialidad", $especialidad);
             $resultados = $this->db->get();
             return $resultados->result();
             }
@@ -32,6 +65,20 @@ class Modelo_calificaciones extends CI_Model { // INICIO DEL MODELO
                 $resultados = $this->db->get();
                 return $resultados->result();
                 }
+                public function obtenerprofesores(){
+                  $this->db->distinct();
+                  $this->db->select("id_profesores,nombres");
+                  $this->db->from("profesores");
+                  $resultados = $this->db->get();
+                  return $resultados->result();
+                  }
+                  public function obtenersemestres(){
+                    $this->db->distinct();
+                    $this->db->select("semestre,nombre");
+                    $this->db->from("semestres");
+                    $resultados = $this->db->get();
+                    return $resultados->result();
+                    }
 
             //select alumnos.numero_control as numero_control, concat(alumnos.nombres,' ',alumnos.apellido_paterno,' ',alumnos.apellido_materno) as alumno,
           //detalles.cuatrimestre as cuatrimestre, carrera.carrera_descripcion as carrera_descripcion, 
@@ -52,8 +99,8 @@ class Modelo_calificaciones extends CI_Model { // INICIO DEL MODELO
                 $this->db->join("detalles","alumnos.numero_control = detalles.alumno");
                 $this->db->join("carrera","detalles.carrera = carrera.id_carrera");
                 $this->db->join("calificaciones","detalles.id_detalle = calificaciones.detalle");
-                $this->db->where("alumnos.estatus", "1");
-                $this->db->where("calificaciones.materia", $materia);
+                $this->db->where("estatus_alumno_activo", "1");
+                $this->db->where("materia", $materia);
                 $resultados = $this->db->get();
                 return $resultados->result();
                 }
@@ -66,33 +113,44 @@ class Modelo_calificaciones extends CI_Model { // INICIO DEL MODELO
                   $this->db->from("alumnos");
                   $this->db->join("detalles","alumnos.numero_control = detalles.alumno");
                   $this->db->join("carrera","detalles.carrera = carrera.id_carrera");
-                  $this->db->where("alumnos.estatus", "1");
+                  $this->db->where("estatus_alumno_activo", "1");
                   $this->db->where("detalles.carrera", $carrera);
                   $this->db->where("detalles.opcion", $opcion);
                   $resultados = $this->db->get();
                   return $resultados->result();
                   }
-                  public function updatecalificacion($materia,$id_detalle,$data){
-                    return $this->db->update('calificaciones', $data, array('materia' => $materia,'detalle'=> $id_detalle));
+                  public function updatecalificacion($materia,$ciclo,$semestre,$profesor,$data){
+                    return $this->db->update('horarios_profesor', $data, array('materia' => $materia,'ciclo'=> $ciclo,'semestre'=> $semestre,'profesor'=> $profesor));
                 }
-                public function single_entry($id,$materia)
+                public function single_entry($profesor,$materia)
                 {
-                  $this->db->select('*');
-                    $this->db->from('calificaciones');
-                    $this->db->where('detalle', $id);
-                    $this->db->where('materia', $materia);
+                  $this->db->select('profesores.nombres as nombres,
+                  materias.nombre_materia as nombre_materia,
+                  horarios_profesor.inicio as inicio,
+                  horarios_profesor.fin as fin,
+                  horarios_profesor.ex_final as ex_final,
+                  horarios_profesor.horario as horario,
+                  horarios_profesor.ciclo as ciclo,
+                  horarios_profesor.semestre as semestre');
+                    $this->db->from('horarios_profesor');
+                    $this->db->join("materias","materias.id_materia = horarios_profesor.materia");
+                    $this->db->join("profesores","profesores.id_profesores = horarios_profesor.profesor");
+                    $this->db->where('horarios_profesor.profesor', $profesor);
+                    $this->db->where('horarios_profesor.materia', $materia);
+                    
                     $query = $this->db->get();
                     if (count($query->result()) > 0) {
                         return $query->row();
                     }
                 }
-                public function sepuede_agregar_calificacion($detalle,$materia)
+                public function sepuede_agregar_calificacion($materia,$ciclo,$semestre,$horario)
                 {
                   $this->db->select('*');
-                    $this->db->from('calificaciones');
-                    $this->db->where('detalle', $detalle);
+                    $this->db->from('horarios_profesor');
+                    $this->db->where('ciclo', $ciclo);
                     $this->db->where('materia', $materia);
-                    $this->db->where_in('estado_profesor', ['0','1']);
+                    $this->db->where('semestre', $semestre);
+                    $this->db->where('horario', $horario);
                     $query = $this->db->get();
                     if (count($query->result()) > 0) {
                         return $query->row();
@@ -113,10 +171,6 @@ class Modelo_calificaciones extends CI_Model { // INICIO DEL MODELO
 
 
 // ***************************  INICIO FUNCTION PARA INSRTAR  ************************************
-public function insert_entry($data)
-    {
-        return $this->db->insert('materias', $data);
-    }
 
 
 
@@ -131,4 +185,3 @@ public function insert_entry($data)
           }
      
   } // FIN / CIERRE DEL MODELO
-  

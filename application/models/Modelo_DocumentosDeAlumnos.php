@@ -16,7 +16,7 @@ public function obtenerDatosGnralDelAlumnos(){
     $this->db->from("alumnos");
     $this->db->join("detalles","alumnos.numero_control = detalles.alumno");
     $this->db->join("carrera","detalles.carrera = carrera.id_carrera");
-    $this->db->where("estatus_alumno_activo", "1");
+    $this->db->where("alumnos.estatus", "1");
     $resultados = $this->db->get();
     return $resultados->result();
     }

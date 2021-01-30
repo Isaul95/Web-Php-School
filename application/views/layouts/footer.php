@@ -138,3 +138,5 @@ $('#btn_RegistroPago').DataTable( {
 <script src="<?php echo base_url();?>assets/template/dist/js/js-cesvi/Administrativos/DocumentacionAlumnos.js"></script>
 <!-- ========== Calificaciones de alumnos x parte del administrador =========  -->
 <script src="<?php echo base_url();?>assets/template/dist/js/js-cesvi/Administrativos/CalificacionesAlumnosAdmin.js"></script>
+<!-- ========== Hacer el horario del profesor =========  -->
+<script src="<?php echo base_url();?>assets/template/dist/js/js-cesvi/Administrativos/HacerHorarioProfesor.js"></script>

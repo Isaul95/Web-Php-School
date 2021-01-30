@@ -119,7 +119,7 @@ class Modelo_HacerHorarioProfesor extends CI_Model { // INICIO DEL MODELO
                   $resultados = $this->db->get();
                   return $resultados->result();
                   }
-                  public function updatecalificacion($materia,$ciclo,$semestre,$profesor,$data){
+                  public function updatehorario($materia,$ciclo,$semestre,$profesor,$data){
                     return $this->db->update('horarios_profesor', $data, array('materia' => $materia,'ciclo'=> $ciclo,'semestre'=> $semestre,'profesor'=> $profesor));
                 }
                 public function single_entry($profesor,$materia)
@@ -143,7 +143,7 @@ class Modelo_HacerHorarioProfesor extends CI_Model { // INICIO DEL MODELO
                         return $query->row();
                     }
                 }
-                public function sepuede_agregar_calificacion($materia,$ciclo,$semestre,$horario)
+                public function sepuede_agregar_horario_materia($materia,$ciclo,$semestre,$horario)
                 {
                   $this->db->select('*');
                     $this->db->from('horarios_profesor');
@@ -156,19 +156,19 @@ class Modelo_HacerHorarioProfesor extends CI_Model { // INICIO DEL MODELO
                         return $query->row();
                     }
                 }
-                public function sepuede_insertar_o_actualizar_sobre_profesor($detalle,$materia)
-                {
-                  $this->db->select('*');
-                    $this->db->from('calificaciones');
-                    $this->db->where('detalle', $detalle);
-                    $this->db->where('materia', $materia);
-                    $this->db->where('profesor_captura is null',null,false);
-                    $query = $this->db->get();
-                    if (count($query->result()) > 0) {
-                        return $query->row();
-                    }
-                }
-
+                public function materias_iguales($materia,$ciclo,$semestre,$profesor,$tabla,$horario){
+                  if ($tabla == "horarios_profesor") {
+                      //$this->db->select("SUM(total)");
+                        //$this->db->from("venta");
+                         $this->db->where("materia", $materia); /* SELECT SUM(`total`) FROM `venta` */
+                         $this->db->where("ciclo", $ciclo);
+                         $this->db->where("semestre", $semestre);
+                         $this->db->where("horario", $horario);
+                         $this->db->where_not_in("profesor", $profesor);
+                        }
+                      $resultados = $this->db->get($tabla);
+                      return $resultados->num_rows();
+              }
 
 // ***************************  INICIO FUNCTION PARA INSRTAR  ************************************
 

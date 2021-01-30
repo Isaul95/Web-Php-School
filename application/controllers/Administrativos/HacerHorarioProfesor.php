@@ -107,25 +107,29 @@ class HacerHorarioProfesor extends CI_Controller {
 				$semestre = $this->input->post('semestre');
 				$horario = $this->input->post('horario');
 				$profesor = $this->input->post('profesor');
-				$nombre_materia = $this->input->post('nombre_materia');
 
-				if ($post = $this->Modelo_HacerHorarioProfesor->sepuede_agregar_calificacion($materia,$ciclo,$semestre,$horario)) {
-					$data = array('response' => "error", 'message' => "Horario ya asignado a la materia: ".$nombre_materia." ");			
-					
-				}else{
-					//INSERTA POR PRIMERA VEZ LOS DATOS DE CAPTURA DEL PROFESOR
+				$nombre_materia = $this->input->post('nombre_materia');
+	
+				$tabla = "horarios_profesor";
+					if($this->Modelo_HacerHorarioProfesor->materias_iguales($materia,$ciclo,$semestre,$profesor,$tabla,$horario)>0){
+						$data = array('response' => "error", 'message' => "Horario ya asignado a la materia: ".$nombre_materia." a otro profesor");			
+								 
+					}else{ // NO HAY MÁS MATERIAS REGISTRADAS EN EL MISMO, SEMESTRE, CICLO, Y CON DIFERENTE PROFESOR
 					$ajax_data['inicio'] = $this ->input->post('inicio');
 					$ajax_data['fin'] = $this ->input->post('fin');
 					$ajax_data['ex_final'] = $this ->input->post('ex_final');
 					$ajax_data['horario'] = $this ->input->post('horario');
-					 if ($this->Modelo_HacerHorarioProfesor->updatecalificacion($materia,$ciclo,$semestre,$profesor,$ajax_data)) {
+					 if ($this->Modelo_HacerHorarioProfesor->updatehorario($materia,$ciclo,$semestre,$profesor,$ajax_data)) {
 						 $data = array('response' => "success", 'message' => "Datos actualizados correctamente");
 					 } else {
 					   $data = array('response' => "error", 'message' => "Error al agregar datos...!");
 					 }		
-				}
-				echo json_encode($data);			
-			}
+				
+					}
+							
+			
+			echo json_encode($data);
+		}
 		  else{
 			echo "No se permite este acceso directo...!!!";
 		}

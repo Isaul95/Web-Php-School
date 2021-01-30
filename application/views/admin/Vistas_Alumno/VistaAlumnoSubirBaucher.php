@@ -135,29 +135,85 @@
 <!--   ====================         3- TAB TRES     Avance Reticular    ========================     -->
           <div class="tab-pane" id="tab_Extraordinario">
             <div class="col-lg-4"></div>
-              <div class="col-lg-4 text-center">
-                <h2>Avance Reticular</h2>
-                <hr>
-              </div>
-              <div class="row my-4">
-                <div class="col-md-12 mx-auto">
-                  <table id="tbl_avanceRetucularXX" class="table table-striped table-bordered dt-responsive nowrap table-hover table-condensed" cellspacing="0" style="background:white!important">
-                    <thead class="text-center bg-primary">
-                      <tr>
-                        <!-- <th width="3%">#</th> -->
-                        <!-- <th>ID MATERIA</th> -->
-                        <th>SEMESTRE 1</th>
 
-                      </tr>
-                    </thead>
+<br>
+  <div class="row">
+    <div class="col-sm-12">
+      <div for="" class="text-center bg-primary"><strong>Datos Personales</strong></div>
+      <br>
+       <div class="row">
+          <div class="col-8 col-sm-6">
+          <label for="">Nombre Completo:</label>
+          <input type="text" class="form-control" id="nameCompletoAlum" readonly placeholder="Nivel de estudios">
+          </div>
+          <div class="col-4 col-sm-3">
+          <label for="">No. Control:</label>
+          <input type="text" class="form-control" id="num_controlAlum" readonly placeholder="Titulado">
+          </div>
+          <div class="col-4 col-sm-3">
+          <label for="">Semestre:</label>
+          <input type="text" class="form-control" id="semestreAlum" readonly placeholder="Cedula">
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-8 col-sm-6">
+          <label for="">Carrera:</label>
+          <input type="text" class="form-control" id="carreraAlum" readonly placeholder="Ocupación">
+          </div>
+          <div class="col-4 col-sm-3">
+          <label for="">Periodo Ecolar:</label>
+          <input type="text" class="form-control" id="periodoAlum" readonly placeholder="Tipo de trabajo">
+          </div>
+        </div>
+
+    </div>
+  </div>
+<br><br>
+
+  <div class="row">
+
+     <div class="col-2 col-sm-3">
+    <label for="">     Materia Reprobado</label>
+     <input type="text" class="bg-red" readonly>
+     </div>
+
+     <div class="col-2 col-sm-3">
+       <label for="">Materia Acreditada</label>
+     <input type="text" class="bg-success" readonly>
+     </div>
+
+     <div class="col-2 col-sm-3">
+       <label for="">Materia por Cursar</label>
+     <input type="text" class="bg-info" readonly>
+     </div>
+
+   </div>
 
 
+  <br><br>
 
-
-                  </table>
-
+              <div class="row">
+                <div class="col-8 col-sm-2">
+                  <label for="">Seleccione semestre: </label>
+                  <select background-color="red" id="combo_semestres" class="form-control"></select>
                 </div>
               </div>
+              <br>
+
+
+              <div class="row my-4">
+                <div class="col-md-12 mx-auto">
+                  <table id="tbl_avanceRetucular" class="table table-striped table-bordered dt-responsive nowrap table-hover table-condensed" cellspacing="0" style="background:white!important" >
+                    <thead class="text-center bg-primary">
+                      <tr>
+                        <!-- <th>ID MATERIA</th> width="100%" -->
+                        <th class="text-center"> MATERIAS </th>
+                      </tr>
+                    </thead>
+                  </table>
+                </div>
+              </div>
+
           </div>
 
 
@@ -255,3 +311,25 @@
 
 
     </div> <!-- /END ALL CONTENT -->
+    <style>
+       .inner {
+         position: absolute;
+         width: 8%;
+         height: 7%;
+         background-color: #00FF00;
+       }
+
+       .inner2 {
+         position: absolute;
+         width: 8%;
+         height: 7%;
+         background-color: #00FF00;
+       }
+
+       .inner3 {
+         position: absolute;
+         width: 8%;
+         height: 7%;
+         background-color: #00FF00;
+       }
+     </style>

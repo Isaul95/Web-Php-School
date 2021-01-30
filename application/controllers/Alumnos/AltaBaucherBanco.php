@@ -14,15 +14,12 @@ class AltaBaucherBanco extends CI_Controller {
 
 
 	public function index(){
-		$numero_control="IGGD212451";
 
 		$data = array(
 			'permisos' => $this->permisos,
 			'tipoDePagos' => $this->Modelo_DarAccesoAlumnos->getTipoDePagos(),
 			'nombres' => $this->session->userdata('nombres'),
 			'username' => $this->session->userdata('username'),
-			'semestre1' => $this->Modelo_DarAccesoAlumnos->obtenerAvanceReticulaXAlumnos($numero_control),
-			// 'xxx2' => $this->Modelo_DarAccesoAlumnos->xxx2($numero_control),
 		);
 
 		$this->load->view('layouts/header');
@@ -83,6 +80,13 @@ class AltaBaucherBanco extends CI_Controller {
 		}
 	}
 
+// LLENAR COMBO DE SEMESTRES
+	public function obtenerSemestre(){
+		$posts = $this->Modelo_DarAccesoAlumnos->obtenerSemestreCombo();
+		echo json_encode($posts);
+
+	}
+
 
 		public function consultaCountAlumnos(){
 					// $data['estatus'] = $this->input->post('estatus');
@@ -115,12 +119,12 @@ class AltaBaucherBanco extends CI_Controller {
 		}
 
 
-		public function consultaAvanceReticulaXAlumnos($numero_control){
-			$posts = $this->Modelo_DarAccesoAlumnos->obtenerAvanceReticulaXAlumnos($numero_control);
+		public function consultaAvanceReticulaXAlumnos(){
+			$numero_control = $this->input->post('numero_control');
+			$semestre = $this->input->post('semestre');
+			$posts = $this->Modelo_DarAccesoAlumnos->obtenerAvanceReticulaXAlumnos($numero_control, $semestre);
 			echo json_encode($posts);
 		}
-
-
 
 
 

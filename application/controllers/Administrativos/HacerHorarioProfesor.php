@@ -106,20 +106,23 @@ class HacerHorarioProfesor extends CI_Controller {
 				$materia = $this->input->post('materia');
 				$ciclo = $this->input->post('ciclo');
 				$semestre = $this->input->post('semestre');
-				$horario = $this->input->post('horario');
+				$horario_inicio = $this->input->post('horario_inicio');
+				$horario_fin = $this->input->post('horario_fin');
 				$profesor = $this->input->post('profesor');
 
 				$nombre_materia = $this->input->post('nombre_materia');
 	
 				$tabla = "horarios_profesor";
-					if($this->Modelo_HacerHorarioProfesor->materias_iguales($materia,$ciclo,$semestre,$profesor,$tabla,$horario)>0){
+					if($this->Modelo_HacerHorarioProfesor->materias_iguales($materia,$ciclo,$semestre,$profesor,$tabla,$horario_inicio,$horario_fin)>0){
 						$data = array('response' => "error", 'message' => "Horario ya asignado a la materia: ".$nombre_materia." a otro profesor");			
 								 
 					}else{ // NO HAY MÁS MATERIAS REGISTRADAS EN EL MISMO, SEMESTRE, CICLO, Y CON DIFERENTE PROFESOR
 					$ajax_data['inicio'] = $this ->input->post('inicio');
 					$ajax_data['fin'] = $this ->input->post('fin');
 					$ajax_data['ex_final'] = $this ->input->post('ex_final');
-					$ajax_data['horario'] = $this ->input->post('horario');
+					$ajax_data['horario_inicio'] = $this ->input->post('horario_inicio');
+					$ajax_data['horario_fin'] = $this ->input->post('horario_fin');
+					$ajax_data['salon'] = $this ->input->post('salon');
 					 if ($this->Modelo_HacerHorarioProfesor->updatehorario($materia,$ciclo,$semestre,$profesor,$ajax_data)) {
 						 $data = array('response' => "success", 'message' => "Datos actualizados correctamente");
 					 } else {

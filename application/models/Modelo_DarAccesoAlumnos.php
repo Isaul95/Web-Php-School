@@ -201,6 +201,104 @@ class Modelo_DarAccesoAlumnos extends CI_Model { // INICIO DEL MODELO
       return $resultados->result();
       }
 
+//////////////////////////////////////// SELECCIÓN DE MATERIAS ////////////////////////////////////////////////////////
+public function obtenermateriasaelegir($numero_control,$licenciatura,$semestre,$opcion,$ciclo){
+  $this->db->select("m.id_materia as materia,
+  d.id_detalle as alumno,
+  m.nombre_materia as nombre_materia,
+  p.nombres as profe, 
+  c.carrera_descripcion as carrera, 
+  o.descripcion as opcion,
+  hp.semestre as semestre,
+  hp.ciclo as ciclo, 
+  concat(hp.horario_inicio,' - ',hp.horario_fin) as horario
+  ");
+  $this->db->from("horarios_profesor hp");
+  $this->db->join("carrera c","hp.licenciatura = c.id_carrera");
+  $this->db->join("opciones o ","hp.opcion_estudio = o.id_opcion");
+  $this->db->join("materias m","hp.materia = m.id_materia");
+  $this->db->join("profesores p","hp.profesor = p.id_profesores");
+  $this->db->join("detalles d","c.id_carrera = d.carrera");
 
+  $this->db->where("hp.ciclo",$ciclo);
+  $this->db->where("hp.licenciatura",$licenciatura);
+  $this->db->where("hp.opcion_estudio",$opcion);
+  $this->db->where("hp.semestre",$semestre);
+  $this->db->where("d.alumno",$numero_control);
 
+  $resultados = $this->db->get();
+   return $resultados->result();
+ }
+ public function obtenermateriasaelegidas($numero_control,$ciclo){
+  $this->db->select("m.id_materia as materia,
+  d.id_detalle as alumno,
+  m.nombre_materia as nombre_materia,
+  p.nombres as profe, 
+  c.carrera_descripcion as carrera, 
+  o.descripcion as opcion,
+  hp.semestre as semestre,
+  hp.ciclo as ciclo, 
+  concat(hp.horario_inicio,' - ',hp.horario_fin) as horario
+  ");
+  $this->db->from("calificaciones cal");
+  $this->db->join("detalles d","d.id_detalle  = cal.detalle");
+  $this->db->join("alumnos a","d.alumno = a.numero_control");
+  $this->db->join("materias m","cal.materia = m.id_materia");
+  $this->db->join("horarios_profesor hp","m.id_materia = hp.materia");
+  $this->db->join("profesores p","hp.profesor  = p.id_profesores");
+  $this->db->join("carrera c","d.carrera = c.id_carrera");
+  $this->db->join("opciones o","d.opcion = o.id_opcion");
+  
+
+  $this->db->where("hp.ciclo",$ciclo);
+  $this->db->where("d.alumno",$numero_control);
+
+  $resultados = $this->db->get();
+   return $resultados->result();
+ }
+ public function materiayaagregada($detalle,$materia,$ciclo){
+  // $this->db->distinct();
+  $this->db->select("*");
+  $this->db->from("calificaciones");
+  $this->db->where("detalle",$detalle);
+  $this->db->where("materia",$materia);
+  $this->db->where("ciclo",$ciclo);
+  $resultados = $this->db->get();
+  return $resultados->result();
+  }
+ public function obtenerlicenciaturadelalumno($numero_control){
+  // $this->db->distinct();
+  $this->db->select("carrera");
+  $this->db->from("detalles");
+  $this->db->where("alumno",$numero_control);
+  $this->db->where("estado","En espera de materias");
+  $resultados = $this->db->get();
+  return $resultados->result();
+  }
+  public function obteneropciondelalumno($numero_control){
+    // $this->db->distinct();
+    $this->db->select("opcion");
+    $this->db->from("detalles");
+    $this->db->where("alumno",$numero_control);
+    $this->db->where("estado","En espera de materias");
+    $resultados = $this->db->get();
+    return $resultados->result();
+    }
+    public function obtenersemestredelalumno($numero_control){
+      // $this->db->distinct();
+      $this->db->select("cuatrimestre");
+      $this->db->from("detalles");
+      $this->db->where("alumno",$numero_control);
+      $this->db->where("estado","En espera de materias");
+      $resultados = $this->db->get();
+      return $resultados->result();
+      }
+
+      public function insertar_materia($data){
+        return $this->db->insert('calificaciones', $data);
+    }
+    public function delete_entry($detalle,$materia,$ciclo)
+{
+    return $this->db->delete('calificaciones', array('detalle' => $detalle,'materia' => $materia, 'ciclo' => $ciclo));
+}
   } // FIN / CIERRE DEL MODELO

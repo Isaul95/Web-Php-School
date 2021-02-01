@@ -1,4 +1,13 @@
     $(document).ready(function(){
+      licenciatura_alumno();
+      opcion_alumno();
+     semestre_alumno();
+      $("#elegirmaterias").click(function () {
+       
+        $("#tbl_elegir_materias").DataTable().destroy();
+        llenartablaseleccionmaterias();
+    });
+      
       litaHistorialPagosAlumnos();
       ccontadordealumnos();
       llenar_comboSemestres();
@@ -298,4 +307,373 @@ $(document).on("click", "#darAltaBaucher", function(e) {
             },
         });
     }
+});
+
+
+//////////////////////////////////////// SELECCIÓN DE MATERIAS ////////////////////////////////////////////////////////
+function llenartablaseleccionmaterias() { 
+  var numero_control = $("#numero_control").val();
+  
+  var licenciatura = $("#licenciatura").val();
+  var semestre = $("#semestre").val();
+  var opcion = $("#opcion").val();
+  var fd = new FormData();
+  var concat = "";
+  var fecha = new Date();
+  switch (fecha.getMonth() + 1) {
+    case 1:
+        var ciclo = concat.concat(fecha.getFullYear().toString().substring(2,4), "/", 1);
+        break;
+    case 2:
+        var ciclo = concat.concat(fecha.getFullYear().toString().substring(2,4), "/", 1);
+        break;
+    case 3:
+        var ciclo = concat.concat(fecha.getFullYear().toString().substring(2,4), "/", 1);
+        break;
+    case 4:
+        var ciclo = concat.concat(fecha.getFullYear().toString().substring(2,4), "/", 1);
+        break;
+    case 5:
+        var ciclo = concat.concat(fecha.getFullYear().toString().substring(2,4), "/", 1);
+        break;
+    case 6:
+        var ciclo = concat.concat(fecha.getFullYear().toString().substring(2,4), "/", 1);
+        break;
+    default:
+        var ciclo = concat.concat(fecha.getFullYear().toString().substring(2,4), "/", 2);
+        break;
+}
+  fd.append("numero_control", numero_control);
+  fd.append("licenciatura", licenciatura);
+  fd.append("semestre", semestre);
+  fd.append("opcion", opcion);
+  fd.append("ciclo", ciclo);
+
+  $.ajax({
+      type: "post",
+      url: base_url + 'Alumnos/AltaBaucherBanco/materiasparaelegir',
+      data: fd,
+      processData: false,
+      contentType: false,
+      dataType: "json",
+      enctype : 'multipart/form-data',
+      success: function (response) {
+          var i = "1";
+          $("#tbl_elegir_materias").DataTable({
+              data: response,
+              responsive: true,
+              columns: [
+                  {
+                      data: "materia",
+                      "visible": false,
+                      "searchable": false
+
+                  },
+                  {
+                    data: "alumno",
+                    "visible": false,
+                    "searchable": false
+
+                  },
+                  {
+                      data: "nombre_materia",
+                  },
+                  {
+                      data: "profe",
+                  },
+                  {
+                      data: "carrera",
+                  },
+                  {
+                    data: "opcion",
+                  },
+                  {
+                    data: "semestre",
+                  },
+                  {
+                    data: "ciclo",
+                  },
+                  {
+                    data: "horario",
+                  },
+                  {
+                      orderable: false,
+                      searchable: false,
+                      data: function (row, type, set) {
+                        var concat="";
+                        var detalle_materia = concat.concat(`${row.alumno}`,'_',`${row.materia}`,'_',`${row.ciclo}`);
+                          return `  
+                      <a href="#" id="agregar_materia" class="btn btn-success btn-remove" value="${detalle_materia}"><i class="far fa-edit"></i></a>
+                              `;
+                      },
+                  },
+              ],
+              "language": language_espaniol,
+          });
+      },
+  });
+}
+function licenciatura_alumno() {
+  var numero_control = $("#numero_control").val();
+  var fd = new FormData();
+  fd.append("numero_control", numero_control);
+  $.ajax({
+      type: "post",
+      url: base_url + 'Alumnos/AltaBaucherBanco/licenciaturadelalumno',
+      data: fd,
+      processData: false,
+      contentType: false,
+      dataType: "json",
+      success: function (data) {
+          $("#licenciatura").val(data.post[0].carrera);
+        
+      },
+  });
+}
+function opcion_alumno() {
+  var numero_control = $("#numero_control").val();
+  var fd = new FormData();
+  fd.append("numero_control", numero_control);
+  $.ajax({
+      type: "post",
+      url: base_url + 'Alumnos/AltaBaucherBanco/opciondelalumno',
+      data: fd,
+      processData: false,
+      contentType: false,
+      dataType: "json",
+      success: function (data) {
+          $("#opcion").val(data.post[0].opcion);
+      },
+  });
+}
+function semestre_alumno() {
+  var numero_control = $("#numero_control").val();
+  var fd = new FormData();
+  fd.append("numero_control", numero_control);
+  $.ajax({
+      type: "post",
+      url: base_url + 'Alumnos/AltaBaucherBanco/semestredelalumno',
+      data: fd,
+      processData: false,
+      contentType: false,
+      dataType: "json",
+      success: function (data) {
+          $("#semestre").val(data.post[0].cuatrimestre);
+
+      },
+  });
+}
+
+$(document).on("click", "#agregar_materia", function (e) {
+  e.preventDefault();
+  var del_id = $(this).attr("value");
+  var array = del_id.split('_');
+  var detalle = array[0];
+  var materia = array[1];
+  var ciclo = array[2];
+
+  var fd = new FormData();
+  fd.append("detalle", detalle);
+  fd.append("materia", materia);
+  fd.append("estado_profesor", 0);
+  fd.append("estado_administrativo", 0);
+  fd.append("ciclo", ciclo);
+
+  Swal.fire({
+      title: "¿Estás seguro?",
+      text: "¡Se agregara la materia a tu horario!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "¡Si, agregar!",
+      cancelButtonText: "¡No, cancelar!",
+  }).then((result) => {
+      if (result.isConfirmed) {
+          $.ajax({
+              type: "post",
+              url: base_url + 'Alumnos/AltaBaucherBanco/agregar_materia',
+              data: fd,
+              processData: false,
+              contentType: false,
+              dataType: "json",
+              success: function (data) {
+                  if (data.responce == "success") {
+                      Swal.fire(
+                          '¡Exito!',
+                          '¡Materia agregada con exito!',
+                          'success'
+                      );
+
+                      $("#tbl_materias_elegidas").DataTable().destroy();
+                      llenartabla_materias_elegidas();
+                  }
+                  else{
+                    Swal.fire(
+                      '¡Error!',
+                      '¡Materia ya agregada!',
+                      'error'
+                  );
+
+                  $("#tbl_materias_elegidas").DataTable().destroy();
+                  llenartabla_materias_elegidas();
+                  }
+              },
+          });
+      }
+  });
+});
+function llenartabla_materias_elegidas() { 
+  var numero_control = $("#numero_control").val();
+  var fd = new FormData();
+  var concat = "";
+  var fecha = new Date();
+
+  switch (fecha.getMonth() + 1) {
+      case 1:
+          var ciclo = concat.concat(fecha.getFullYear().toString().substring(2,4), "/", 1);
+          break;
+      case 2:
+          var ciclo = concat.concat(fecha.getFullYear().toString().substring(2,4), "/", 1);
+          break;
+      case 3:
+          var ciclo = concat.concat(fecha.getFullYear().toString().substring(2,4), "/", 1);
+          break;
+      case 4:
+          var ciclo = concat.concat(fecha.getFullYear().toString().substring(2,4), "/", 1);
+          break;
+      case 5:
+          var ciclo = concat.concat(fecha.getFullYear().toString().substring(2,4), "/", 1);
+          break;
+      case 6:
+          var ciclo = concat.concat(fecha.getFullYear().toString().substring(2,4), "/", 1);
+          break;
+      default:
+          var ciclo = concat.concat(fecha.getFullYear().toString().substring(2,4), "/", 2);
+          break;
+  }
+  fd.append("numero_control", numero_control);
+  fd.append("ciclo", ciclo);
+
+
+  $.ajax({
+      type: "post",
+      url: base_url + 'Alumnos/AltaBaucherBanco/materiaselegidas',
+      data: fd,
+      processData: false,
+      contentType: false,
+      dataType: "json",
+      enctype : 'multipart/form-data',
+      success: function (response) {
+          var i = "1";
+          $("#tbl_materias_elegidas").DataTable({
+              data: response,
+              responsive: true,
+              columns: [
+                  {
+                      data: "materia",
+                      "visible": false,
+                      "searchable": false
+
+                  },
+                  {
+                    data: "alumno",
+                    "visible": false,
+                    "searchable": false
+
+                  },
+                  {
+                      data: "nombre_materia",
+                  },
+                  {
+                      data: "profe",
+                  },
+                  {
+                      data: "carrera",
+                  },
+                  {
+                    data: "opcion",
+                  },
+                  {
+                    data: "semestre",
+                  },
+                  {
+                    data: "ciclo",
+                  },
+                  {
+                    data: "horario",
+                  },
+                  {
+                      orderable: false,
+                      searchable: false,
+                      data: function (row, type, set) {
+                        var concat="";
+                        var detalle_materia = concat.concat(`${row.alumno}`,'_',`${row.materia}`,'_',`${row.ciclo}`);
+                          return `  
+                      <a href="#" id="remover_materia" class="btn btn-danger btn-remove" value="${detalle_materia}"><i class="far fa-edit"></i></a>
+                              `;
+                      },
+                  },
+              ],
+              "language": language_espaniol,
+          });
+      },
+  });
+}
+$(document).on("click", "#remover_materia", function (e) {
+  e.preventDefault();
+  var del_id = $(this).attr("value");
+  var array = del_id.split('_');
+  var detalle = array[0];
+  var materia = array[1];
+  var ciclo = array[2];
+
+  var fd = new FormData();
+  fd.append("detalle", detalle);
+  fd.append("materia", materia);
+  fd.append("ciclo", ciclo);
+
+  Swal.fire({
+      title: "¿Estás seguro?",
+      text: "¡Se removera la materia de tu horario!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "¡Si, remover!",
+      cancelButtonText: "¡No, cancelar!",
+  }).then((result) => {
+      if (result.isConfirmed) {
+          $.ajax({
+              type: "post",
+              url: base_url + 'Alumnos/AltaBaucherBanco/removermateria',
+              data: fd,
+              processData: false,
+              contentType: false,
+              dataType: "json",
+              success: function (data) {
+                  if (data.responce == "success") {
+                      Swal.fire(
+                          '¡Exito!',
+                          '¡Materia removida con exito!',
+                          'success'
+                      );
+
+                      $("#tbl_materias_elegidas").DataTable().destroy();
+                      llenartabla_materias_elegidas();
+                  }
+                  else{
+                    Swal.fire(
+                      '¡Error!',
+                      '¡Materia no removida!',
+                      'error'
+                  );
+
+                  $("#tbl_materias_elegidas").DataTable().destroy();
+                  llenartabla_materias_elegidas();
+                  }
+              },
+          });
+      }
+  });
 });

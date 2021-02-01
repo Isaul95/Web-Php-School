@@ -19,7 +19,7 @@
 
           <li><a href="#tab_Extraordinario" data-toggle="tab">Avance Reticular</a></li>
           <li><a href="#tab_Tesis" data-toggle="tab">Tesis</a></li>
-          <li><a href="#tab_Otros" data-toggle="tab">Otros</a></li>
+          <li><a href="#Elegir_materias" data-toggle="tab">Selección de materias</a></li>
 
       </ul>
 
@@ -256,31 +256,77 @@
 
 
 <!--   ===============================         1- TAB CINCO         ==========================================     -->
-        <div class="tab-pane" id="tab_Otros">
+
+        <div class="tab-pane" id="Elegir_materias">
+        <input type="hidden" id="licenciatura">
+          <input type="hidden" id="opcion">
+          <input type="hidden" id="semestre">
+
+          
             <div class="col-lg-4"></div>
               <div class="col-lg-4 text-center">
-                <h2>Otros</h2>
+                <h2>Seleccion de materias</h2>
                 <hr>
               </div>
+              <div class="row"> 
+                    <div class="col-8 col-sm-6">
+                    <button type="button" class="btn btn-primary btn-sm btn-block" id="elegirmaterias">Seleccionar materias</button>
+                    </div>
+                   </div>
+        <br>
               <div class="row my-4">
                 <div class="col-md-12 mx-auto">
-                  <table id="tbl_otros" class="table table-striped table-bordered dt-responsive nowrap table-hover table-condensed" cellspacing="0" style="background:white!important">
+                  <table id="tbl_elegir_materias" class="table table-striped table-bordered dt-responsive nowrap table-hover table-condensed" cellspacing="0" style="background:white!important">
                     <thead class="text-center bg-primary">
                       <tr>
-                        <th width="3%">#</th>
-                        <th>Nombre</th>
-                        <th>No. Control</th>
+                        <th></th>
+                        <th></th>
+                        <th>Materia</th>
+                        <th>Profesor</th>
                         <th>Carrera</th>
+                        <th>Opcion</th>
                         <th>Semestre</th>
-                        <th class="text-center" width="7%">Pdf</th>
+                        <th>Ciclo</th>
+                        <th>Horario</th>
                         <th class="text-center" width="7%">Acciones</th>
                       </tr>
                     </thead>
                   </table>
                 </div>
               </div>
+              <br>
+              <br>
+              <br>
+              <br>
+              <br>
+              <br>
+              <div class="row my-4">
+                <div class="col-md-12 mx-auto">
+                  <table id="tbl_materias_elegidas" class="table table-striped table-bordered dt-responsive nowrap table-hover table-condensed" cellspacing="0" style="background:white!important">
+                    <thead class="text-center bg-primary">
+                      <tr>
+                        <th></th>
+                        <th></th>
+                        <th>Materia</th>
+                        <th>Profesor</th>
+                        <th>Carrera</th>
+                        <th>Opcion</th>
+                        <th>Semestre</th>
+                        <th>Ciclo</th>
+                        <th>Horario</th>
+                        <th class="text-center" width="7%">Acciones</th>
+                      </tr>
+                    </thead>
+                  </table>
+                </div>
+              </div>
+              <div class="row"> 
+                    <div class="col-8 col-sm-6">
+                    <button type="button" class="btn btn-primary btn-sm btn-block" id="elegirmaterias">Confirmar horario</button>
+                    </div>
+                   </div>
         </div>
-
+      
 
 
 

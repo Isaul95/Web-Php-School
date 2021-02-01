@@ -27,6 +27,11 @@ $(document).ready(function () {
     });
     date_picker_horario();
     deshabilitar_profesor_materia();
+    	// initialize input widgets first
+
+    $('#horario_profesores_inicio').timepicker({ 'forceRoundTime': true });
+    $('#horario_profesores_fin').timepicker({ 'forceRoundTime': true });
+
 }); // FIN DE LA FUNCION PRINCIPAL
 
 
@@ -216,6 +221,10 @@ function llenartablahorariosprofesores($profesor) {
                         
                     },
                     {
+                        data: "salon",
+                        
+                    },
+                    {
                         data: "semestre",
                         
                     },
@@ -275,10 +284,12 @@ $(document).on("click", "#edit_horario", function (e) {
             $('#semestre_horario_update').val(data.post.semestre);
             $('#profesor_horario').val(data.post.nombres);
             $('#materia_horario').val(data.post.nombre_materia);
+            $('#salon_horario').val(data.post.salon);
             $('#datepicker_horario_inicio').val(data.post.inicio);
             $('#datepicker_horario_fin').val(data.post.fin);
             $('#datepicker_horario_ex_final').val(data.post.ex_final);
-            $('#horario_profesores').val(data.post.horario);
+            $('#horario_profesores_inicio').val(data.post.horario_inicio);
+            $('#horario_profesores_fin').val(data.post.horario_fin);
 
         },
         error: function (response) {
@@ -293,18 +304,21 @@ $(document).on("click", "#update_horario_profesor", function (e) {
     
     var profesor_horario_update = $("#profesor_horario_update").val();
     var materia_horario_update = $("#materia_horario_update").val();
+    var salon_horario_update = $("#salon_horario").val();
+    
     var ciclo_horario_update = $("#ciclo_horario_update").val();
     var semestre_horario_update = $("#semestre_horario_update").val();
     
     var datepicker_horario_inicio = $("#datepicker_horario_inicio").val();
     var datepicker_horario_fin = $("#datepicker_horario_fin").val();
     var datepicker_horario_ex_final = $("#datepicker_horario_ex_final").val();
-    var horario_profesores = $("#horario_profesores").val();
+    var horario_profesores_inicio = $("#horario_profesores_inicio").val();
+    var horario_profesores_fin = $("#horario_profesores_fin").val();
 
     var nombre_materia = $("#materia_horario").val();
 
     if (datepicker_horario_inicio == ""||datepicker_horario_fin == ""||
-    datepicker_horario_ex_final == ""||horario_profesores == "") {
+    datepicker_horario_ex_final == ""||horario_profesores_inicio == ""||horario_profesores_fin=="") {
         alert("Llene los datos completos de los horarios");
     } else {
 
@@ -313,11 +327,13 @@ $(document).on("click", "#update_horario_profesor", function (e) {
         fd.append("materia", materia_horario_update);
         fd.append("profesor", profesor_horario_update);
         fd.append("ciclo", ciclo_horario_update);
+        fd.append("salon", salon_horario_update);
         fd.append("semestre", semestre_horario_update);
         fd.append("inicio", datepicker_horario_inicio);
         fd.append("fin", datepicker_horario_fin);
         fd.append("ex_final", datepicker_horario_ex_final);
-        fd.append("horario", horario_profesores);
+        fd.append("horario_inicio", horario_profesores_inicio);
+        fd.append("horario_fin", horario_profesores_fin);
         fd.append("nombre_materia", nombre_materia);
 
 

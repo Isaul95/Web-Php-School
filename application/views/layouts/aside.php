@@ -144,7 +144,7 @@
                         </a>
                         <ul class="treeview-menu">
 
-                            <li><a href="<?php echo base_url();?>Finanzas/HabilitarAlumnos">
+                            <li><a href="<?php echo base_url();?>Profesores/PlaneacionProfesores">
                                 <i class="far fa-dot-circle"></i> Subir planeación</a>
                             </li>
                           <li><a href="<?php echo base_url();?>Administrativos/Calificaciones">

@@ -35,6 +35,11 @@
 <script src="<?php echo base_url();?>assets/template/dist/js/demo.js"></script>
 <!-- Sweet Alert2 -->
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+<!-- Time picker -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-timepicker/1.13.16/jquery.timepicker.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-timepicker/1.13.16/jquery.timepicker.min.js"></script>
+
+
 
 
 
@@ -140,3 +145,5 @@ $('#btn_RegistroPago').DataTable( {
 <script src="<?php echo base_url();?>assets/template/dist/js/js-cesvi/Administrativos/CalificacionesAlumnosAdmin.js"></script>
 <!-- ========== Hacer el horario del profesor =========  -->
 <script src="<?php echo base_url();?>assets/template/dist/js/js-cesvi/Administrativos/HacerHorarioProfesor.js"></script>
+<!-- ========== Subir planeación del profesor =========  -->
+<script src="<?php echo base_url();?>assets/template/dist/js/js-cesvi/Profesores/PlaneacionProfesores.js"></script>

@@ -175,7 +175,109 @@ $PHPJasperXML->load_xml_file("src/ReportesPDF_Cesvi_jrxml/Horarios.jrxml");
 
 			}
 
+//////////////////////////////////////// SELECCIÓN DE MATERIAS ////////////////////////////////////////////////////////
+public function materiasparaelegir(){
+	if ($this->input->is_ajax_request()) {
+		
+	$numero_control = $this->input->post('numero_control');
+	$licenciatura = $this->input->post('licenciatura');
+	$semestre = $this->input->post('semestre');
+	$opcion = $this->input->post('opcion');
+	$ciclo = $this->input->post('ciclo');
 
+	$posts = $this->Modelo_DarAccesoAlumnos->obtenermateriasaelegir($numero_control,$licenciatura,$semestre,$opcion,$ciclo);
+	
+	echo json_encode($posts);
+} else {
+	echo "No se permite este acceso directo...!!!";
+}
+}
+public function materiaselegidas(){
+	if ($this->input->is_ajax_request()) {
+		
+	$numero_control = $this->input->post('numero_control');
+	$ciclo = $this->input->post('ciclo');
+	$posts = $this->Modelo_DarAccesoAlumnos->obtenermateriasaelegidas($numero_control,$ciclo);
+	
+	echo json_encode($posts);
+} else {
+	echo "No se permite este acceso directo...!!!";
+}
+}
 
+public function licenciaturadelalumno(){
+	
+	if ($this->input->is_ajax_request()) {
+	$numero_control = $this->input->post('numero_control');
+	$post = $this->Modelo_DarAccesoAlumnos->obtenerlicenciaturadelalumno($numero_control);
+	$data = array('responce' => "success", "post" => $post);
+	echo json_encode($data);
+} else {
+	echo "No se permite este acceso directo...!!!";
+}
+}
+
+public function opciondelalumno(){
+	if ($this->input->is_ajax_request()) {
+	$numero_control = $this->input->post('numero_control');
+	$post = $this->Modelo_DarAccesoAlumnos->obteneropciondelalumno($numero_control);
+	$data = array('responce' => "success", "post" => $post);
+	echo json_encode($data);
+} else {
+	echo "No se permite este acceso directo...!!!";
+}
+}
+
+public function semestredelalumno(){
+	if ($this->input->is_ajax_request()) {
+	$numero_control = $this->input->post('numero_control');
+	$post = $this->Modelo_DarAccesoAlumnos->obtenersemestredelalumno($numero_control);
+	$data = array('responce' => "success", "post" => $post);
+	echo json_encode($data);
+} else {
+	echo "No se permite este acceso directo...!!!";
+}
+}
+
+public function agregar_materia(){
+	if ($this->input->is_ajax_request()) {
+
+						$ajax_data = $this->input->post();
+						$detalle = $this->input->post('detalle');
+						$materia = $this->input->post('materia');
+						$ciclo = $this->input->post('ciclo');
+						if($post = $this->Modelo_DarAccesoAlumnos->materiayaagregada($detalle,$materia,$ciclo)){
+							$data = array('res' => "error", 'message' => "");
+						}
+						else{
+
+							if ($this->Modelo_DarAccesoAlumnos->insertar_materia($ajax_data)) {
+								$data = array('responce' => "success");
+							} else {
+								$data = array('res' => "error", 'message' => "");
+							}
+						}
+						
+					echo json_encode($data);
+	} else {
+		echo "No se permite este acceso directo...!!!";
+	}
+
+}
+public function removermateria(){
+	if ($this->input->is_ajax_request()) {
+		$detalle = $this->input->post('detalle');
+		$materia = $this->input->post('materia');		
+		$ciclo = $this->input->post('ciclo');
+	if ($this->Modelo_DarAccesoAlumnos->delete_entry($detalle,$materia,$ciclo)) {
+			$data = array('responce' => "success");
+	} else {
+			$data = array('responce' => "error", "No se pudo eliminar...!");
+	}
+		echo json_encode($data);
+	} else {
+		echo "No se permite este acceso directo...!!!";
+	}
+}
 
 }  // Fin del controller

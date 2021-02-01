@@ -1,31 +1,38 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Modelo_HacerHorarioProfesor extends CI_Model { // INICIO DEL MODELO
+class Modelo_PlaneacionesProfesor extends CI_Model { // INICIO DEL MODELO
 
 
       	/* -------------------------------------------------------------------------- */
       	/*                                Fetch Records                               */
         /* -------------------------------------------------------------------------- */
-        public function horario_asignado_al_profesor($profesor){
+        public function horario_asignado_al_profesor($profesor,$licenciatura,$semestre,$opcion){
           $this->db->distinct();
           $this->db->select("horarios_profesor.materia as materia,
           horarios_profesor.semestre as semestre,
-          horarios_profesor.ciclo as ciclo,
           materias.nombre_materia as nombre_materia,
           horarios_profesor.salon as salon,
-          horarios_profesor.inicio as inicio,
-          horarios_profesor.fin as fin ,horarios_profesor.ex_final as ex_final,
           concat
           (horarios_profesor.horario_inicio,' - ',
-          horarios_profesor.horario_fin) as horario
+          horarios_profesor.horario_fin) as horario,
+          horarios_profesor.nombre_planeacion as nombre_planeacion
           ");
           $this->db->from("horarios_profesor");
           $this->db->join("materias","materias.id_materia = horarios_profesor.materia");
           $this->db->where("horarios_profesor.profesor", $profesor);
+          $this->db->where("horarios_profesor.licenciatura", $licenciatura);
+          $this->db->where("horarios_profesor.semestre", $semestre);
+          $this->db->where("horarios_profesor.opcion_estudio", $opcion);
           $resultados = $this->db->get();
           return $resultados->result();
           }
+
+          public function getArchivoId($materia,$profesor){
+            $query = $this->db->query("select * FROM horarios_profesor where materia=? and profesor=?", array($materia,$profesor));
+            return $query->row_array();
+            }
+      
         public function insert_entry($data)
         {
             return $this->db->insert('horarios_profesor', $data);
@@ -69,13 +76,7 @@ class Modelo_HacerHorarioProfesor extends CI_Model { // INICIO DEL MODELO
                 $resultados = $this->db->get();
                 return $resultados->result();
                 }
-                public function obtenerprofesores(){
-                  $this->db->distinct();
-                  $this->db->select("id_profesores,nombres");
-                  $this->db->from("profesores");
-                  $resultados = $this->db->get();
-                  return $resultados->result();
-                  }
+           
                   public function obtenersemestres(){
                     $this->db->distinct();
                     $this->db->select("semestre,nombre");

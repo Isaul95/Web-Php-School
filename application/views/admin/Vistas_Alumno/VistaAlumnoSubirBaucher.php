@@ -42,7 +42,6 @@
 
                   <form id="formularioaltaBaucher">
 
-                        <!-- no control -->
                         <div class="form-group">
                           <label for="">Número de control: *</label>
                           <input type="text" class="form-control" id="numero_control" readonly value="<?php echo $username;?>" >
@@ -137,37 +136,41 @@
             <div class="col-lg-4"></div>
 
 <br>
+<?php foreach($datosTxt as $datosTxt):?>
   <div class="row">
+
     <div class="col-sm-12">
       <div for="" class="text-center bg-primary"><strong>Datos Personales</strong></div>
       <br>
        <div class="row">
           <div class="col-8 col-sm-6">
           <label for="">Nombre Completo:</label>
-          <input type="text" class="form-control" id="nameCompletoAlum" readonly placeholder="Nivel de estudios">
+      <input type="text" class="form-control" id="nameCompletoAlum" readonly value="<?php echo $datosTxt->nombre_completo;?>" >
           </div>
           <div class="col-4 col-sm-3">
           <label for="">No. Control:</label>
-          <input type="text" class="form-control" id="num_controlAlum" readonly placeholder="Titulado">
+          <input type="text" class="form-control text-center" id="num_controlAlum" readonly value="<?php echo $datosTxt->numero_control;?>" >
           </div>
           <div class="col-4 col-sm-3">
           <label for="">Semestre:</label>
-          <input type="text" class="form-control" id="semestreAlum" readonly placeholder="Cedula">
+<input type="text" class="form-control" id="semestreAlum" readonly value="<?php echo $datosTxt->semestre;?>" >
           </div>
         </div>
         <div class="row">
           <div class="col-8 col-sm-6">
           <label for="">Carrera:</label>
-          <input type="text" class="form-control" id="carreraAlum" readonly placeholder="Ocupación">
+          <input type="text" class="form-control" id="carreraAlum" readonly value="<?php echo $datosTxt->carrera_descripcion;?>" >
           </div>
           <div class="col-4 col-sm-3">
           <label for="">Periodo Ecolar:</label>
-          <input type="text" class="form-control" id="periodoAlum" readonly placeholder="Tipo de trabajo">
+          <input type="text" class="form-control text-center" id="periodoAlum" readonly value="<?php echo $datosTxt->nombre_ciclo;?>" >
           </div>
         </div>
-
+<input type="hidden" id="detalleId" name="detalleId" value="<?php echo $datosTxt->id_detalle;?>" >
     </div>
+
   </div>
+  <?php endforeach;?>
 <br><br>
 
   <div class="row">
@@ -240,10 +243,10 @@
                           </tr>
                       </thead>
                       <tbody>
-                          <?php foreach($semestre1 as $semestre1):?>
+                          <?php foreach($datosTxt as $datosTxt):?>
                                 <tr>
                                      <!-- <td><?php echo $semestre1->id_materia;?></td> -->
-                                     <td><?php echo $semestre1->nombre_materia;?></td>
+                                     <td><?php echo $datosTxt->nombre_completo;?></td>
                                 </tr>
                             <?php endforeach;?>
                       </tbody>

@@ -54,6 +54,7 @@
       debugger;
       var datos = {
           numero_control : $("#numero_control").val(),
+          id_detalle : $("#detalleId").val(),
           semestre : semestre,
           }
   var url = base_url+'Alumnos/AltaBaucherBanco/consultaAvanceReticulaXAlumnos';
@@ -80,7 +81,7 @@
                                    var aprobado = `${row.calificacion}`;
                                    var materia = `${row.nombre_materia}`;
                                        if (aprobado == 'null'){
-                                          var a = '<div class="p-3 mb-2 bg-info text-white">'+materia+'</div>'; 
+                                          var a = '<div class="p-3 mb-2 bg-info text-white">'+materia+'</div>';
                                        }
                                           else if (aprobado > 50) {
                                            var a = '<div class="p-3 mb-2 bg-success text-white">'+materia+'</div>';
@@ -124,12 +125,10 @@
 
         $.ajax({
             type: "post",
-            // url: base_url+'Alumnos/AltaBaucherBanco/consultaHistDePagosXAlumnos/'+datos.numero_control,
         url: url,
             dataType: "json",
             data : (datos),
             success: function(response) {
-                // var i = "1";
                 $("#tbl_histPagosRealizadosXAlumno").DataTable({
                     data: response,
                     responsive: true,
@@ -140,12 +139,6 @@
                         },
                         {
                             data: "nombre_completo",
-                            // render: function (data, type, row, meta) {
-                            //   var xnnx = `${row.nombre_completo}`;
-                            //   if (xnnx != 'null') {
-                            //   llenarDatosAlumTxt(row.nombre_completo);
-                            // }
-                            // }
                         },
                         {
                             data: "numero_control",
@@ -174,19 +167,15 @@
                             orderable: false,
                             searchable: false,
                             render: function (data, type, row, meta) {
-
                                 return  a = `
         <a title="Generar Horario Alumno" href="AltaBaucherBanco/generaHorarioAlumno/${row.numero_control}/${row.semestre}" target="_blank"><i class="far fa-file-pdf fa-2x"></i></a>
                                  `;
 
                             },
                         },
-
                         {
                             data: "estado",
                             render: function(data, type, row, meta) {
-                              debugger;
-llenarDatosAlumTxt(row.nombre_completo,row.numero_control,row.carrera_descripcion,row.semestre);
                               var xx = `${row.estado}`;
                               if(xx == "INSCRITO"){
                                 // var a 'background-color', '#A497E5';
@@ -197,7 +186,6 @@ llenarDatosAlumTxt(row.nombre_completo,row.numero_control,row.carrera_descripcio
                           return a;
                               },
                         },
-
                         {
                             data: "archivo",
                             render: function(data, type, row, meta) {
@@ -210,7 +198,6 @@ llenarDatosAlumTxt(row.nombre_completo,row.numero_control,row.carrera_descripcio
                         return a;
                             },
                         },
-
                     ],
                       "language" : language_espaniol,
                 });
@@ -218,14 +205,14 @@ llenarDatosAlumTxt(row.nombre_completo,row.numero_control,row.carrera_descripcio
         });
     }
 
-
-function llenarDatosAlumTxt(nombre, num_control, carrera, semestre){
-    $("#nameCompletoAlum").val(nombre);
-    $("#num_controlAlum").val(num_control);
-    $("#semestreAlum").val(semestre);
-    $("#carreraAlum").val(carrera);
-    // $("#num_controlAlum").val(xnnx);
-}
+//
+// function llenarDatosAlumTxt(nombre, num_control, carrera, semestre){
+//     $("#nameCompletoAlum").val(nombre);
+//     $("#num_controlAlum").val(num_control);
+//     $("#semestreAlum").val(semestre);
+//     $("#carreraAlum").val(carrera);
+//     // $("#num_controlAlum").val(xnnx);
+// }
 /*         1.-  FUNCTIO CONSULTA QUE NO EXISTA Comprobante PARA EL ALUMNO K SE ESTA LOGUEANDO;
            1.- SI EXISTE BAUCHER LE MUESTRA EL ICONO PARA PODER MOSTRAR EL DOCUMENRO QUE SUIO
            2.- DE LO CONTRARIO SI NO EXISTE EL BAUCHER LE MUESTRA EL FORMULARIO PARA DARLO DE ALTA               ************/

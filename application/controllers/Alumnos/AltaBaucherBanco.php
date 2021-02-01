@@ -15,11 +15,15 @@ class AltaBaucherBanco extends CI_Controller {
 
 	public function index(){
 
+		$numero_control =  $this->session->userdata('username');
+
 		$data = array(
 			'permisos' => $this->permisos,
 			'tipoDePagos' => $this->Modelo_DarAccesoAlumnos->getTipoDePagos(),
 			'nombres' => $this->session->userdata('nombres'),
 			'username' => $this->session->userdata('username'),
+		//  consulta de datos para rellenar los txt en la cista reticula avamce
+			'datosTxt' => $this->Modelo_DarAccesoAlumnos->obtenerHistorialDePagosXAlumnos($numero_control),
 		);
 
 		$this->load->view('layouts/header');
@@ -112,7 +116,7 @@ class AltaBaucherBanco extends CI_Controller {
 
 
 		public function consultaHistDePagosXAlumnos($numero_control){
-			// $numero_control = $this->input->post('numero_control');
+
 			$posts = $this->Modelo_DarAccesoAlumnos->obtenerHistorialDePagosXAlumnos($numero_control);
 
 			echo json_encode($posts);
@@ -121,8 +125,9 @@ class AltaBaucherBanco extends CI_Controller {
 
 		public function consultaAvanceReticulaXAlumnos(){
 			$numero_control = $this->input->post('numero_control');
+			$id_detalle = $this->input->post('id_detalle');
 			$semestre = $this->input->post('semestre');
-			$posts = $this->Modelo_DarAccesoAlumnos->obtenerAvanceReticulaXAlumnos($numero_control, $semestre);
+			$posts = $this->Modelo_DarAccesoAlumnos->obtenerAvanceReticulaXAlumnos($numero_control, $semestre, $id_detalle);
 			echo json_encode($posts);
 		}
 

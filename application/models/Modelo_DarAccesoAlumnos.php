@@ -158,12 +158,13 @@ class Modelo_DarAccesoAlumnos extends CI_Model { // INICIO DEL MODELO
 
 
     public function obtenerHistorialDePagosXAlumnos($numero_control){
-     $this->db->select("CONCAT(alu.nombres, ' ', alu.apellido_paterno, ' ', alu.apellido_materno) As nombre_completo, ban.id_alta_baucher_banco, ban.fecha_registro, ban.nombre_archivo, alu.numero_control, car.carrera_descripcion, sta.estado, tip.pago, rec.id_recibo, val.id_recibo_valido, det.cuatrimestre as semestre");
+     $this->db->select("CONCAT(alu.nombres, ' ', alu.apellido_paterno, ' ', alu.apellido_materno) As nombre_completo, ban.id_alta_baucher_banco, ban.fecha_registro, ban.nombre_archivo, alu.numero_control, car.carrera_descripcion, sta.estado, tip.pago, rec.id_recibo, val.id_recibo_valido, det.cuatrimestre as semestre, det.id_detalle, pec.nombre_ciclo");
      $this->db->from("alumnos alu");
      $this->db->join("alta_baucher_banco ban","alu.numero_control = ban.numero_control");
      $this->db->join("detalles det ","alu.numero_control = det.alumno");
      $this->db->join("carrera car","car.id_carrera = det.carrera");
      $this->db->join("estatus sta","sta.estatus = ban.estado_archivo ");
+     $this->db->join(" periodo_escolar pec "," pec.id_periodo_escolar = det.ciclo_escolar ");
      $this->db->join("tipos_de_pagos tip","tip.id_tipo_pago = ban.tipo_de_pago");
        $this->db->join("datos_recibo rec","rec.bauche = ban.id_alta_baucher_banco",'LEFT');
        $this->db->join("recibo_validado val","val.id_recibo = rec.id_recibo",'LEFT');
@@ -174,22 +175,38 @@ class Modelo_DarAccesoAlumnos extends CI_Model { // INICIO DEL MODELO
     }
 
 
+    //
+    // public function obtenerAvanceReticulaXAlumnos($numero_control,$semestre){
+    //  $this->db->select(" materias.id_materia,materias.semestre, opciones.opcion, CONCAT(a.nombres, ' ', a.apellido_paterno, ' ', a.apellido_materno) As nombres, materias.nombre_materia, carrera.carrera_descripcion,  calificaciones.calificacion");
+    //  $this->db->from(" detalles d ");
+    //  $this->db->join("alumnos a","d.alumno = a.numero_control");
+    //  $this->db->join("carrera ","carrera.id_carrera = d.carrera");
+    //  $this->db->join(" periodo_escolar "," periodo_escolar.id_periodo_escolar = d.ciclo_escolar ");
+    //  $this->db->join(" materias "," materias.especialidad = carrera.id_carrera ");
+    //  $this->db->join(" calificaciones "," calificaciones.materia = materias.id_materia ", "LEFT");
+    //  $this->db->join(" opciones "," d.opcion = opciones.id_opcion ");
+    //  $this->db->where(" a.numero_control = ",$numero_control);
+    //  $this->db->where(" materias.semestre =",$semestre);
+    //
+    //  $resultados = $this->db->get();
+    //   return $resultados->result();
+    // }
 
-    public function obtenerAvanceReticulaXAlumnos($numero_control,$semestre){
-     $this->db->select(" materias.id_materia,materias.semestre, opciones.opcion, CONCAT(a.nombres, ' ', a.apellido_paterno, ' ', a.apellido_materno) As nombres, materias.nombre_materia, carrera.carrera_descripcion,  calificaciones.calificacion");
-     $this->db->from(" detalles d ");
-     $this->db->join("alumnos a","d.alumno = a.numero_control");
-     $this->db->join("carrera ","carrera.id_carrera = d.carrera");
-     $this->db->join(" periodo_escolar "," periodo_escolar.id_periodo_escolar = d.ciclo_escolar ");
-     $this->db->join(" materias "," materias.especialidad = carrera.id_carrera ");
-     $this->db->join(" calificaciones "," calificaciones.materia = materias.id_materia ", "LEFT");
-     $this->db->join(" opciones "," d.opcion = opciones.id_opcion ");
-     $this->db->where(" a.numero_control = ",$numero_control);
-     $this->db->where(" materias.semestre =",$semestre);
 
-     $resultados = $this->db->get();
-      return $resultados->result();
-    }
+
+        public function obtenerAvanceReticulaXAlumnos($numero_control,$semestre, $id_detalle){
+         $this->db->select(" d.cuatrimestre, CONCAT(a.nombres, ' ', a.apellido_paterno, ' ', a.apellido_materno) As nombres, m.nombre_materia, calificaciones.calificacion ");
+         $this->db->from(" detalles d ");
+         $this->db->join("alumnos a","d.alumno = a.numero_control");
+         $this->db->join(" calificaciones "," calificaciones.detalle = d.id_detalle ");
+         $this->db->join(" materias m "," calificaciones.materia = m.id_materia ");
+               $this->db->where(" a.numero_control = ",$numero_control);
+               $this->db->where(" calificaciones.detalle =", $id_detalle );
+               $this->db->where(" d.cuatrimestre =",$semestre);
+
+         $resultados = $this->db->get();
+          return $resultados->result();
+        }
 
 
 

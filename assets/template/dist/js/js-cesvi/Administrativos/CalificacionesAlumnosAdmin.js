@@ -236,14 +236,41 @@ $(document).on("click", "#update_calificacion_profesor", function (e) {
     var fecha_a_insertar = concat.concat(fecha.getFullYear(),"/",fecha.getMonth()+1,"/",fecha.getDate(),"--",
     fecha.getHours(),":",fecha.getMinutes(),":",fecha.getSeconds());
 
+    var concat = "";
+    var fecha = new Date();
+
+    switch (fecha.getMonth() + 1) {
+        case 1:
+            var ciclo = concat.concat(fecha.getFullYear().toString().substring(2,4), "/", 1);
+            break;
+        case 2:
+            var ciclo = concat.concat(fecha.getFullYear().toString().substring(2,4), "/", 1);
+            break;
+        case 3:
+            var ciclo = concat.concat(fecha.getFullYear().toString().substring(2,4), "/", 1);
+            break;
+        case 4:
+            var ciclo = concat.concat(fecha.getFullYear().toString().substring(2,4), "/", 1);
+            break;
+        case 5:
+            var ciclo = concat.concat(fecha.getFullYear().toString().substring(2,4), "/", 1);
+            break;
+        case 6:
+            var ciclo = concat.concat(fecha.getFullYear().toString().substring(2,4), "/", 1);
+            break;
+        default:
+            var ciclo = concat.concat(fecha.getFullYear().toString().substring(2,4), "/", 2);
+            break;
+    }
+
     if(calificacion_materia_profesor>=6){
         var tiempo_extension = 'ord.'
     }else{
         var tiempo_extension = 'extrd.'
     }
 
-      if (calificacion_materia_profesor == "") {
-    alert("Debe agregar una calificación");
+      if (calificacion_materia_profesor == "" ||calificacion_materia_profesor>10) {
+    alert("Debe agregar una calificación y esta no debe de ser mayor a 10");
     } else {
 
         var fd = new FormData();
@@ -251,7 +278,7 @@ $(document).on("click", "#update_calificacion_profesor", function (e) {
         fd.append("calificacion",  calificacion_materia_profesor);
         fd.append("detalle", detalle_update);
         fd.append("materia", materia_update);
-        fd.append("ciclo", '21/01');
+        fd.append("ciclo", ciclo);
         fd.append("estado_profesor", 2);
         fd.append("tiempo_extension", tiempo_extension);
         fd.append("profesor_captura", profesor);

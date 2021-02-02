@@ -32,17 +32,7 @@ class Modelo_calificaciones extends CI_Model { // INICIO DEL MODELO
                 $resultados = $this->db->get();
                 return $resultados->result();
                 }
-
-            //select alumnos.numero_control as numero_control, concat(alumnos.nombres,' ',alumnos.apellido_paterno,' ',alumnos.apellido_materno) as alumno,
-          //detalles.cuatrimestre as cuatrimestre, carrera.carrera_descripcion as carrera_descripcion, 
-            //calificaciones.calificacion, calificaciones.tiempo_extension 
-            //from alumnos 
-            //inner join detalles on alumnos.numero_control = detalles.alumno 
-            //inner join carrera on detalles.carrera = carrera.id_carrera
-             //inner join calificaciones on detalles.id_detalle = calificaciones.detalle 
-             //where estatus_alumno_activo = 1 and calificaciones.materia = 189
-  
-            public function alumnos_asignados_a_la_materia_del_profesor($materia){
+        public function alumnos_asignados_a_la_materia_del_profesor($materia){
                 $this->db->distinct();
                 $this->db->select("detalles.id_detalle as id_detalle,alumnos.numero_control as numero_control, 
                 concat(alumnos.nombres,' ',alumnos.apellido_paterno,' ',alumnos.apellido_materno) as alumno, 

@@ -38,7 +38,7 @@ function llenarTablaAlumnosParaDocumentacion() {
                     searchable: false,
                     render : function(data, type, row) {
                         var a = `
-                            <a title="Generar Certificado de Estudios" href="DocumentosAlumnos/generaCertificadoEstudios/${row.numero_control}/${row.semestre}" target="_blank"><i class="far fa-file-pdf fa-2x"></i></a>
+                            <a title="Generar Certificado de Estudios" href="DocumentosAlumnos/generaCertificadoEstudios/${row.numero_control}/${row.detalle}" target="_blank"><i class="far fa-file-pdf fa-2x"></i></a>
                         `;
                          return a;
                     },
@@ -50,7 +50,7 @@ function llenarTablaAlumnosParaDocumentacion() {
                     render: function (data, type, row, meta) {
                         var a;
                             var a = `
-                            <a title="Generar Boleta Calificaciones" href="DocumentosAlumnos/generaBoletaCalificaciones/${row.numero_control}/${row.semestre}/${row.id_carrera}" target="_blank"><i class="far fa-file-pdf fa-2x"></i></a>
+                            <a title="Generar Boleta Calificaciones" href="DocumentosAlumnos/generaBoletaCalificaciones/${row.numero_control}/${row.semestre}/${row.detalle}" target="_blank"><i class="far fa-file-pdf fa-2x"></i></a>
                             `;
                         return a;
                     },
@@ -62,7 +62,7 @@ function llenarTablaAlumnosParaDocumentacion() {
                     render: function (data, type, row, meta) {
 
                         return  a = `
-<a title="Generar Historial Academico" href="DocumentosAlumnos/generaHistAcademico/${row.numero_control}/${row.id_carrera}" target="_blank"><i class="far fa-file-pdf fa-2x"></i></a>
+<a title="Generar Historial Academico" href="DocumentosAlumnos/generaHistAcademico/${row.numero_control}/${row.detalle}" target="_blank"><i class="far fa-file-pdf fa-2x"></i></a>
                          `;
 
                     },
@@ -100,9 +100,8 @@ function llenarTablaAlumnosParaDocumentacion() {
                     orderable: false,
                     searchable: false,
                     render: function (data, type, row, meta) {
-
                         return  a = `
-<a title="Generar Horario Alumno" href="DocumentosAlumnos/generaHorarioAlumno/${row.numero_control}/${row.semestre}" target="_blank"><i class="far fa-file-pdf fa-2x"></i></a>
+<a title="Generar Horario Alumno" href="DocumentosAlumnos/generaHorarioAlumno/${row.numero_control}/${row.semestre}/${row.detalle}" target="_blank"><i class="far fa-file-pdf fa-2x"></i></a>
                          `;
 
                     },

@@ -42,7 +42,7 @@ class DocumentosAlumnos extends CI_Controller {
 		/*                  1.- Generar certificado de estudios                       */
 		/* --------------------------------------- ---------------------------------- */
 
-		public function generaCertificadoEstudios($numero_control,$semestre){
+		public function generaCertificadoEstudios($numero_control,$detalle){
 			/*
 			 * Se crea la function para hacer el llamado en el js
 			 * se hace todo la parte del reporte
@@ -58,12 +58,11 @@ class DocumentosAlumnos extends CI_Controller {
 			$pass = "";
 			$db = "cesvi_webapp";
 
-
 			$PHPJasperXML = new PHPJasperXML();
 			 // $PHPJasperXML->debugsql=true;
 			// 	$PHPJasperXML-> debugsql = false; // Si desea ver la setencia del sql del reporte lo pones en true
 
-			$PHPJasperXML->arrayParameter=array("num_control"=>$numero_control,"Dsemestre"=>$semestre);
+			$PHPJasperXML->arrayParameter=array("num_control"=>$numero_control,"Ddetalle"=>$detalle);
 
 			$PHPJasperXML->load_xml_file("src/ReportesPDF_Cesvi_jrxml/certificado_estudios_plantilla.jrxml");
 
@@ -78,35 +77,34 @@ class DocumentosAlumnos extends CI_Controller {
 /*                  2.- Generar boleta calificaciones                        */
 /* --------------------------------------- ---------------------------------- */
 
-				public function generaBoletaCalificaciones($numero_control,$semestre,$id_carrera){
-					/*
-					 * Se crea la function para hacer el llamado en el js
-					 * se hace todo la parte del reporte
-					 */
-					error_reporting(0);
+		public function generaBoletaCalificaciones($numero_control,$semestre,$detalle){
+		/*
+		 * Se crea la function para hacer el llamado en el js
+		 * se hace todo la parte del reporte
+	 */
+		error_reporting(0);
 
-					include_once('src/phpjasperxml_0.9d/class/tcpdf/tcpdf.php');
-					include_once("src/phpjasperxml_0.9d/class/PHPJasperXML.inc.php");
+		include_once('src/phpjasperxml_0.9d/class/tcpdf/tcpdf.php');
+		include_once("src/phpjasperxml_0.9d/class/PHPJasperXML.inc.php");
 
-					// SE HACE LA CONECION PARA CADA HOJA DE ESTAS
-					$server = "localhost";
-					$user = "root";
-					$pass = "";
-					$db = "cesvi_webapp";
+		// SE HACE LA CONECION PARA CADA HOJA DE ESTAS
+		$server = "localhost";
+		$user = "root";
+		$pass = "";
+		$db = "cesvi_webapp";
 
+		$PHPJasperXML = new PHPJasperXML();
+		// $PHPJasperXML->debugsql=true;
+		// 	$PHPJasperXML-> debugsql = false; // Si desea ver la setencia del sql del reporte lo pones en true
 
-					$PHPJasperXML = new PHPJasperXML();
-					 // $PHPJasperXML->debugsql=true;
-					// 	$PHPJasperXML-> debugsql = false; // Si desea ver la setencia del sql del reporte lo pones en true
+	  $PHPJasperXML->arrayParameter=array("num_control"=>$numero_control,"Dsemestre"=>$semestre,"Ddetalle"=>$detalle);
 
-					$PHPJasperXML->arrayParameter=array("num_control"=>$numero_control,"Dsemestre"=>$semestre,"idcarrera"=>$id_carrera);
+		$PHPJasperXML->load_xml_file("src/ReportesPDF_Cesvi_jrxml/boleta_Calificaciones_plantilla.jrxml");
 
-					$PHPJasperXML->load_xml_file("src/ReportesPDF_Cesvi_jrxml/boleta_Calificaciones_plantilla.jrxml");
+		$PHPJasperXML->transferDBtoArray($server,$user,$pass,$db);
+		$PHPJasperXML->outpage('I','BoletaCalificaciones_'.$numero_control.'.pdf');
 
-					$PHPJasperXML->transferDBtoArray($server,$user,$pass,$db);
-					$PHPJasperXML->outpage('I','BoletaCalificaciones_'.$numero_control.'.pdf');
-
-				}
+		}
 
 
 
@@ -114,74 +112,68 @@ class DocumentosAlumnos extends CI_Controller {
 				/*                      3.- Generar Historial Academico                       */
 				/* --------------------------------------- ---------------------------------- */
 
-		public function generaHistAcademico($numero_control,$id_carrera){
-									/*
-									 * Se crea la function para hacer el llamado en el js
-									 * se hace todo la parte del reporte
-									 */
-									error_reporting(0);
+	public function generaHistAcademico($numero_control,$detalle){
+			/*
+		 * Se crea la function para hacer el llamado en el js
+		 * se hace todo la parte del reporte
+		 */
+		 error_reporting(0);
 
-									include_once('src/phpjasperxml_0.9d/class/tcpdf/tcpdf.php');
-									include_once("src/phpjasperxml_0.9d/class/PHPJasperXML.inc.php");
+		include_once('src/phpjasperxml_0.9d/class/tcpdf/tcpdf.php');
+		include_once("src/phpjasperxml_0.9d/class/PHPJasperXML.inc.php");
 
-									// SE HACE LA CONECION PARA CADA HOJA DE ESTAS
-									$server = "localhost";
-									$user = "root";
-									$pass = "";
-									$db = "cesvi_webapp";
+		// SE HACE LA CONECION PARA CADA HOJA DE ESTAS
+		$server = "localhost";
+		$user = "root";
+		$pass = "";
+		$db = "cesvi_webapp";
 
-									$PHPJasperXML = new PHPJasperXML();
-									 // $PHPJasperXML->debugsql=true;
-									// 	$PHPJasperXML-> debugsql = false; // Si desea ver la setencia del sql del reporte lo pones en true
+		$PHPJasperXML = new PHPJasperXML();
+	 // $PHPJasperXML->debugsql=true;
+	// 	$PHPJasperXML-> debugsql = false; // Si desea ver la setencia del sql del reporte lo pones en true
 
-// $PHPJasperXML->arrayParameter=array("class_id"=>"'" .$p1. "'","student_name"=>"'" .$p2."'"); // EXAMPLE: MULTIPLES PARAMETRPS
-									$PHPJasperXML->arrayParameter=array("num_control"=>$numero_control,"idcarrera"=>$id_carrera);
-									// $PHPJasperXML->arrayParameter=array("parameter1"=>1);
+		$PHPJasperXML->arrayParameter=array("num_control"=>$numero_control,"Ddetalle"=>$detalle);
 
-									$PHPJasperXML->load_xml_file("src/ReportesPDF_Cesvi_jrxml/historia_academica_plantilla.jrxml");
+		$PHPJasperXML->load_xml_file("src/ReportesPDF_Cesvi_jrxml/historia_academica_plantilla.jrxml");
 
-									$PHPJasperXML->transferDBtoArray($server,$user,$pass,$db);
-									// $PHPJasperXML->outpage('I','HistorialAcademico_.pdf');
-									$PHPJasperXML->outpage('I','HistorialAcademico_'.$numero_control.'.pdf');
+		$PHPJasperXML->transferDBtoArray($server,$user,$pass,$db);
+		$PHPJasperXML->outpage('I','HistorialAcademico_'.$numero_control.'.pdf');
 
-								}
+		}
 
 
-								/* -------------------------------------------------------------------------- */
-								/*                      4.- Generar Horario Alumno                       */
-								/* --------------------------------------- ---------------------------------- */
+/* -------------------------------------------------------------------------- */
+/*                      4.- Generar Horario Alumno                       */
+/* --------------------------------------- ---------------------------------- */
 
-						public function generaHorarioAlumno($numero_control,$semestre){
-													/*
-													 * Se crea la function para hacer el llamado en el js
-													 * se hace todo la parte del reporte
-													 */
-													error_reporting(0);
+		public function generaHorarioAlumno($numero_control,$semestre,$detalle){
+			/*
+			* Se crea la function para hacer el llamado en el js
+	 	  * se hace todo la parte del reporte
+			*/
+			error_reporting(0);
 
-													include_once('src/phpjasperxml_0.9d/class/tcpdf/tcpdf.php');
-													include_once("src/phpjasperxml_0.9d/class/PHPJasperXML.inc.php");
+			include_once('src/phpjasperxml_0.9d/class/tcpdf/tcpdf.php');
+		  include_once("src/phpjasperxml_0.9d/class/PHPJasperXML.inc.php");
 
-													// SE HACE LA CONECION PARA CADA HOJA DE ESTAS
-													$server = "localhost";
-													$user = "root";
-													$pass = "";
-													$db = "cesvi_webapp";
+			// SE HACE LA CONECION PARA CADA HOJA DE ESTAS
+			$server = "localhost";
+			$user = "root";
+			$pass = "";
+			$db = "cesvi_webapp";
 
-													$PHPJasperXML = new PHPJasperXML();
-													 // $PHPJasperXML->debugsql=true;
-													// 	$PHPJasperXML-> debugsql = false; // Si desea ver la setencia del sql del reporte lo pones en true
+			$PHPJasperXML = new PHPJasperXML();
+		// $PHPJasperXML->debugsql=true;
+	 // 	$PHPJasperXML-> debugsql = false; // Si desea ver la setencia del sql del reporte lo pones en true
 
-						// $PHPJasperXML->arrayParameter=array("class_id"=>"'" .$p1. "'","student_name"=>"'" .$p2."'"); // EXAMPLE: MULTIPLES PARAMETRPS
-													$PHPJasperXML->arrayParameter=array("num_control"=>$numero_control,"Dsemestre"=>$semestre);
-													// $PHPJasperXML->arrayParameter=array("parameter1"=>1);
+		$PHPJasperXML->arrayParameter=array("num_control"=>$numero_control,"Dsemestre"=>$semestre,"Ddetalle"=>$detalle);
 
-$PHPJasperXML->load_xml_file("src/ReportesPDF_Cesvi_jrxml/Horarios.jrxml");
+		$PHPJasperXML->load_xml_file("src/ReportesPDF_Cesvi_jrxml/Horarios.jrxml");
 
-													$PHPJasperXML->transferDBtoArray($server,$user,$pass,$db);
-													// $PHPJasperXML->outpage('I','HistorialAcademico_.pdf');
-													$PHPJasperXML->outpage('I','HistorialAcademico_'.$numero_control.'.pdf');
+		$PHPJasperXML->transferDBtoArray($server,$user,$pass,$db);
+		$PHPJasperXML->outpage('I','HistorialAcademico_'.$numero_control.'.pdf');
 
-												}
+		}
 
 
 

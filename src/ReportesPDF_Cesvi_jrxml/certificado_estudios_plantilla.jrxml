@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="1d9c6b3e-68bf-4294-bbaa-a36068a3a218">
 	<property name="ireport.zoom" value="1.5"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.y" value="7"/>
 	<style name="Title" fontName="Times New Roman" fontSize="50" isBold="true" pdfFontName="Times-Bold"/>
 	<style name="SubTitle" forecolor="#736343" fontName="Arial" fontSize="18"/>
 	<style name="Column header" forecolor="#666666" fontName="Arial" fontSize="12" isBold="true"/>
@@ -14,7 +14,7 @@
 		</conditionalStyle>
 	</style>
 	<parameter name="num_control" class="java.lang.String"/>
-	<parameter name="Dsemestre" class="java.lang.Integer"/>
+	<parameter name="Ddetalle" class="java.lang.Integer"/>
 	<queryString>
 		<![CDATA[SELECT CONCAT(a.nombres, ' ', a.apellido_paterno, ' ', a.apellido_materno) As nombre_completo, carrera.carrera_descripcion, materias.semestre, materias.nombre_materia, calificaciones.calificacion, periodo_escolar.nombre_ciclo, materias.clave as clave_materia
 from detalles d
@@ -23,7 +23,7 @@ inner join carrera on carrera.id_carrera = d.carrera
 inner join periodo_escolar on periodo_escolar.id_periodo_escolar = d.ciclo_escolar
 inner join materias on materias.especialidad = carrera.id_carrera
 inner join calificaciones on calificaciones.materia = materias.id_materia
-where a.numero_control = "$P{num_control}" and materias.semestre = $P{Dsemestre}]]>
+where a.numero_control = "$P{num_control}" and calificaciones.detalle = $P{Ddetalle}]]>
 	</queryString>
 	<field name="nombre_completo" class="java.lang.String"/>
 	<field name="carrera_descripcion" class="java.lang.String">
@@ -105,7 +105,7 @@ where a.numero_control = "$P{num_control}" and materias.semestre = $P{Dsemestre}
 				<imageExpression><![CDATA["src/LogCesvi.jpg"]]></imageExpression>
 			</image>
 			<staticText>
-				<reportElement style="Title" x="170" y="0" width="342" height="29" uuid="5220d197-816c-4a63-a62d-98789f7a2ab0"/>
+				<reportElement style="Title" x="164" y="0" width="342" height="29" uuid="5220d197-816c-4a63-a62d-98789f7a2ab0"/>
 				<textElement verticalAlignment="Top">
 					<font size="22" pdfFontName="Times-Roman"/>
 				</textElement>

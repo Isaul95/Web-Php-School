@@ -12,9 +12,10 @@ public function obtenerDatosGnralDelAlumnos(){
     $this->db->distinct();
     $this->db->select("alumnos.numero_control as numero_control,
     concat(alumnos.nombres,' ',alumnos.apellido_paterno,' ',alumnos.apellido_materno) as alumno,
-    detalles.cuatrimestre as semestre, carrera.carrera_descripcion as carrera_descripcion, carrera.id_carrera");
+    detalles.cuatrimestre as semestre, carrera.carrera_descripcion as carrera_descripcion, carrera.id_carrera, calf.detalle ");
     $this->db->from("alumnos");
     $this->db->join("detalles","alumnos.numero_control = detalles.alumno");
+    $this->db->join(" calificaciones calf "," detalles.id_detalle = calf.detalle ");
     $this->db->join("carrera","detalles.carrera = carrera.id_carrera");
     $this->db->where("alumnos.estatus", "1");
     $resultados = $this->db->get();

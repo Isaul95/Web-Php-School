@@ -16,24 +16,21 @@
 	<parameter name="num_control" class="java.lang.String">
 		<defaultValueExpression><![CDATA[$P{num_control}]]></defaultValueExpression>
 	</parameter>
-	<parameter name="idcarrera" class="java.lang.Integer">
-		<defaultValueExpression><![CDATA[$P{idcarrera}]]></defaultValueExpression>
-	</parameter>
+	<parameter name="Ddetalle" class="java.lang.Integer"/>
 	<queryString>
 		<![CDATA[SELECT CONCAT(a.nombres, ' ', a.apellido_paterno, ' ', a.apellido_materno) As nombres, carrera.carrera_descripcion, materias.semestre, materias.id_materia, materias.clave as clave_materia, materias.nombre_materia, calificaciones.calificacion, materias.creditos, calificaciones.tiempo_extension, carrera.clave, calificaciones.ciclo,
      (select AVG(calificaciones.calificacion)
      from detalles d
      INNER join alumnos a on d.alumno = a.numero_control
      inner join calificaciones on calificaciones.detalle = d.id_detalle
-     inner join carrera on carrera.id_carrera = d.carrera
-     where a.numero_control = "$P{num_control}" and carrera.id_carrera= $P{idcarrera} ) as promedio
+     where a.numero_control = "$P{num_control}" and calificaciones.detalle = $P{Ddetalle}) as promedio
 from detalles d
 INNER join alumnos a on d.alumno = a.numero_control
 inner join carrera on carrera.id_carrera = d.carrera
 inner join periodo_escolar on periodo_escolar.id_periodo_escolar = d.ciclo_escolar
 inner join materias on materias.especialidad = carrera.id_carrera
 inner join calificaciones on calificaciones.materia = materias.id_materia
-where a.numero_control = "$P{num_control}" and carrera.id_carrera= $P{idcarrera}]]>
+where a.numero_control = "$P{num_control}" and calificaciones.detalle = $P{Ddetalle}]]>
 	</queryString>
 	<field name="nombres" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
@@ -77,7 +74,7 @@ where a.numero_control = "$P{num_control}" and carrera.id_carrera= $P{idcarrera}
 				<imageExpression><![CDATA["src/LogCesvi.jpg"]]></imageExpression>
 			</image>
 			<staticText>
-				<reportElement style="Title" x="170" y="0" width="308" height="36" uuid="902ccc96-5b07-4502-9d90-e82251de3bfe"/>
+				<reportElement style="Title" x="165" y="0" width="308" height="36" uuid="902ccc96-5b07-4502-9d90-e82251de3bfe"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="24" pdfFontName="Times-Roman"/>
 				</textElement>

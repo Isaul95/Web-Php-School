@@ -15,7 +15,7 @@
 	</style>
 	<parameter name="num_control" class="java.lang.String"/>
 	<parameter name="Dsemestre" class="java.lang.Integer"/>
-	<parameter name="idcarrera" class="java.lang.Integer"/>
+	<parameter name="Ddetalle" class="java.lang.Integer"/>
 	<queryString>
 		<![CDATA[SELECT CONCAT(a.nombres, ' ', a.apellido_paterno, ' ', a.apellido_materno) As nombres, carrera.carrera_descripcion, materias.semestre, materias.nombre_materia, calificaciones.calificacion, periodo_escolar.nombre_ciclo, calificaciones.tiempo_extension,
     (select AVG(calificaciones.calificacion)
@@ -23,14 +23,15 @@
      INNER join alumnos a on d.alumno = a.numero_control
      inner join calificaciones on calificaciones.detalle = d.id_detalle
      inner join carrera on carrera.id_carrera = d.carrera
-     where a.numero_control = "$P{num_control}" and carrera.id_carrera= $P{idcarrera} ) as promedio
+     where a.numero_control = "$P{num_control}" and calificaciones.detalle = $P{Ddetalle} ) as promedio
 from detalles d
 INNER join alumnos a on d.alumno = a.numero_control
 inner join carrera on carrera.id_carrera = d.carrera
 inner join periodo_escolar on periodo_escolar.id_periodo_escolar = d.ciclo_escolar
 inner join materias on materias.especialidad = carrera.id_carrera
 inner join calificaciones on calificaciones.materia = materias.id_materia
-where a.numero_control = "$P{num_control}" and materias.semestre = $P{Dsemestre}]]>
+where a.numero_control = "$P{num_control}" and calificaciones.detalle = $P{Ddetalle}
+and materias.semestre = $P{Dsemestre}]]>
 	</queryString>
 	<field name="nombres" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
@@ -64,7 +65,7 @@ where a.numero_control = "$P{num_control}" and materias.semestre = $P{Dsemestre}
 				<imageExpression><![CDATA["src/LogCesvi.jpg"]]></imageExpression>
 			</image>
 			<staticText>
-				<reportElement style="Title" x="170" y="0" width="263" height="62" uuid="740252dc-2a63-454a-8bd4-809890f2d23e"/>
+				<reportElement style="Title" x="170" y="0" width="273" height="62" uuid="740252dc-2a63-454a-8bd4-809890f2d23e"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="22" pdfFontName="Times-Roman"/>
 				</textElement>

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="5a43bfc1-b4a8-49ce-8320-586add9e24fc">
-	<property name="ireport.zoom" value="3.0"/>
-	<property name="ireport.x" value="570"/>
-	<property name="ireport.y" value="148"/>
+	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
 	<style name="Title" fontName="Times New Roman" fontSize="50" isBold="true" pdfFontName="Times-Bold"/>
 	<style name="SubTitle" forecolor="#736343" fontName="Arial" fontSize="18"/>
 	<style name="Column header" forecolor="#666666" fontName="Arial" fontSize="12" isBold="true"/>
@@ -15,6 +15,7 @@
 	</style>
 	<parameter name="num_control" class="java.lang.String"/>
 	<parameter name="Dsemestre" class="java.lang.Integer"/>
+	<parameter name="Ddetalle" class="java.lang.Integer"/>
 	<queryString>
 		<![CDATA[SELECT materias.semestre, opciones.opcion, CONCAT(a.nombres, ' ', a.apellido_paterno, ' ', a.apellido_materno) As nombres, materias.nombre_materia, materias.horario,materias.inicio, materias.fin,materias.ex_final, carrera.carrera_descripcion, opciones.descripcion
 from detalles d
@@ -22,8 +23,9 @@ INNER join alumnos a on d.alumno = a.numero_control
 inner join carrera on carrera.id_carrera = d.carrera
 inner join periodo_escolar on periodo_escolar.id_periodo_escolar = d.ciclo_escolar
 inner join materias on materias.especialidad = carrera.id_carrera
+inner join calificaciones on calificaciones.materia = materias.id_materia
 inner join opciones on d.opcion = opciones.id_opcion
-where a.numero_control = "$P{num_control}" and materias.semestre = $P{Dsemestre}]]>
+where a.numero_control = "$P{num_control}" and materias.semestre = $P{Dsemestre} and calificaciones.detalle = $P{Ddetalle}]]>
 	</queryString>
 	<field name="semestre" class="java.lang.Integer">
 		<fieldDescription><![CDATA[]]></fieldDescription>
@@ -65,7 +67,7 @@ where a.numero_control = "$P{num_control}" and materias.semestre = $P{Dsemestre}
 				<imageExpression><![CDATA["src/LogCesvi.jpg"]]></imageExpression>
 			</image>
 			<staticText>
-				<reportElement style="Title" x="170" y="1" width="176" height="36" isPrintWhenDetailOverflows="true" uuid="af4db0c6-baad-44ac-b759-132c9acf87d1"/>
+				<reportElement style="Title" x="173" y="1" width="176" height="36" isPrintWhenDetailOverflows="true" uuid="af4db0c6-baad-44ac-b759-132c9acf87d1"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="24" pdfFontName="Times-Roman"/>
 				</textElement>

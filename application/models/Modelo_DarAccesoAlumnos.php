@@ -3,6 +3,23 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Modelo_DarAccesoAlumnos extends CI_Model { // INICIO DEL MODELO
 
+
+  //  CONSULTA GENERAL PARA LLENAR LOS CAMPOS DE LA RETICULA CAMPOS DATOS PERSONALES DEL ALUMNO INDEPENDIENTES
+    public function consultaDatosPersonalesDelAlumnos($numero_control){
+        $this->db->distinct();
+        $this->db->select(" alumnos.numero_control as numero_control,
+        concat(alumnos.nombres,' ',alumnos.apellido_paterno,' ',alumnos.apellido_materno) as nombre_completo,
+        detalles.cuatrimestre as semestre, carrera.carrera_descripcion as carrera_descripcion, carrera.id_carrera, detalles.id_detalle, pec.nombre_ciclo ");
+        $this->db->from("alumnos");
+        $this->db->join("detalles","alumnos.numero_control = detalles.alumno");
+        $this->db->join(" calificaciones calf "," detalles.id_detalle = calf.detalle ");
+        $this->db->join("carrera","detalles.carrera = carrera.id_carrera");
+        $this->db->join(" periodo_escolar pec "," pec.id_periodo_escolar = detalles.ciclo_escolar ");
+        $this->db->where("alumnos.numero_control",$numero_control);
+        $resultados = $this->db->get();
+        return $resultados->result();
+        }
+
   /* -------------------------------------------------------------------------- */
 	/*                            INSERTAR BAUCHE TABLA                           */
 	/* -------------------------------------------------------------------------- */
@@ -223,11 +240,11 @@ public function obtenermateriasaelegir($numero_control,$licenciatura,$semestre,$
   $this->db->select("m.id_materia as materia,
   d.id_detalle as alumno,
   m.nombre_materia as nombre_materia,
-  p.nombres as profe, 
-  c.carrera_descripcion as carrera, 
+  p.nombres as profe,
+  c.carrera_descripcion as carrera,
   o.descripcion as opcion,
   hp.semestre as semestre,
-  hp.ciclo as ciclo, 
+  hp.ciclo as ciclo,
   concat(hp.horario_inicio,' - ',hp.horario_fin) as horario
   ");
   $this->db->from("horarios_profesor hp");
@@ -250,11 +267,11 @@ public function obtenermateriasaelegir($numero_control,$licenciatura,$semestre,$
   $this->db->select("m.id_materia as materia,
   d.id_detalle as alumno,
   m.nombre_materia as nombre_materia,
-  p.nombres as profe, 
-  c.carrera_descripcion as carrera, 
+  p.nombres as profe,
+  c.carrera_descripcion as carrera,
   o.descripcion as opcion,
   hp.semestre as semestre,
-  hp.ciclo as ciclo, 
+  hp.ciclo as ciclo,
   concat(hp.horario_inicio,' - ',hp.horario_fin) as horario
   ");
   $this->db->from("calificaciones cal");
@@ -265,7 +282,7 @@ public function obtenermateriasaelegir($numero_control,$licenciatura,$semestre,$
   $this->db->join("profesores p","hp.profesor  = p.id_profesores");
   $this->db->join("carrera c","d.carrera = c.id_carrera");
   $this->db->join("opciones o","d.opcion = o.id_opcion");
-  
+
 
   $this->db->where("hp.ciclo",$ciclo);
   $this->db->where("d.alumno",$numero_control);

@@ -27,12 +27,13 @@ class DocumentosAlumnos extends CI_Controller {
 
 
 	/* -------------------------------------------------------------------------- */
-	/*                       Datos generales del alumno                           */
+	/*       Datos generales del alumno para GENERAR DOCUMENTACION AlumnoS        */
 	/* --------------------------------------- ---------------------------------- */
-
 		public function datosGralDelAlumno(){
-
-			$posts = $this->Modelo_DocumentosDeAlumnos->obtenerDatosGnralDelAlumnos();
+					$semestre = $this->input->post('semestre');
+					$licenciatura = $this->input->post('licenciatura');
+					$opciones = $this->input->post('opciones');
+			$posts = $this->Modelo_DocumentosDeAlumnos->obtenerDatosGnralDelAlumnos($semestre,$licenciatura,$opciones);
 			echo json_encode($posts);
 		}
 

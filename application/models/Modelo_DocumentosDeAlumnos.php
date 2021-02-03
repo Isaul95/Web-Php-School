@@ -8,7 +8,7 @@ class Modelo_DocumentosDeAlumnos extends CI_Model { // INICIO DEL MODELO
 /*                        Lista datos Gral. del Alumno                        */
 /* -------------------------------------------------------------------------- */
 
-public function obtenerDatosGnralDelAlumnos(){
+public function obtenerDatosGnralDelAlumnos($semestre,$licenciatura,$opciones){
     $this->db->distinct();
     $this->db->select("alumnos.numero_control as numero_control,
     concat(alumnos.nombres,' ',alumnos.apellido_paterno,' ',alumnos.apellido_materno) as alumno,
@@ -18,6 +18,9 @@ public function obtenerDatosGnralDelAlumnos(){
     $this->db->join(" calificaciones calf "," detalles.id_detalle = calf.detalle ");
     $this->db->join("carrera","detalles.carrera = carrera.id_carrera");
     $this->db->where("alumnos.estatus", "1");
+    $this->db->where("detalles.cuatrimestre =", $semestre);
+    $this->db->where("detalles.carrera =", $licenciatura);
+    $this->db->where("detalles.opcion =", $opciones);
     $resultados = $this->db->get();
     return $resultados->result();
     }

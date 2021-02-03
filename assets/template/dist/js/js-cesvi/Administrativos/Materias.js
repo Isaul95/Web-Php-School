@@ -1,7 +1,6 @@
 $(document).ready(function () {
     llenarTablaMaterias(); // SEINICIALIZA LA FUNCTIO DE LA CARGA DEL LISTADO DE LA TABLA
-    date_picker_materias();
- 
+    
   
 }); // FIN DE LA FUNCION PRINCIPAL
 
@@ -43,17 +42,12 @@ $(document).on("click", "#btnaddmateria", function (e) {
     var clave_materia = $("#clave_materia").val();
     var nombre_materia = $("#nombre_materia").val();
     var creditos_materia = $("#creditos_materia").val();
-    var datepicker_inicio_materia = $("#datepicker_inicio_materia").val();
-    var datepicker_fin_materia = $("#datepicker_fin_materia").val();
-    var datepicker_examen_final_materia = $("#datepicker_examen_final_materia").val();
+   
     var licenciaturas_para_materia = $("#licenciaturas_para_materia").val();
-    var profesor_para_materia = $("#profesor_para_materia").val();
     var semestre_materia = $("#semestre_materia").val();
-    var horario_materia = $("#horario_materia").val();
     
-    if (clave_materia == "" || nombre_materia == "" || creditos_materia == "" || datepicker_inicio_materia == "" ||
-    datepicker_fin_materia == "" || datepicker_examen_final_materia == "" || licenciaturas_para_materia == "" || profesor_para_materia == "" ||
-    semestre_materia == "" || horario_materia == "" ) {
+    if (clave_materia == "" || nombre_materia == "" || creditos_materia == "" || licenciaturas_para_materia == "" || 
+    semestre_materia == "") {
         alert("Debe llenar todos los campos vacios...!");
     } else {
 
@@ -62,13 +56,8 @@ $(document).on("click", "#btnaddmateria", function (e) {
         fd.append("clave", clave_materia);
         fd.append("nombre_materia", nombre_materia);
         fd.append("creditos", creditos_materia);
-        fd.append("inicio", datepicker_inicio_materia);
-        fd.append("fin", datepicker_fin_materia);
-        fd.append("ex_final", datepicker_examen_final_materia);
         fd.append("especialidad", licenciaturas_para_materia);
-        fd.append("profesor", profesor_para_materia);
         fd.append("semestre", semestre_materia);
-        fd.append("horario", horario_materia);
 
         agregar_materia(fd); //Se registra el usuario a la tabla alumnos y a la tabla detalles
 
@@ -84,17 +73,10 @@ $(document).on("click", "#update_materia", function (e) {
     var clave_materia_update = $("#clave_materia_update").val();
     var nombre_materia_update = $("#nombre_materia_update").val();
     var creditos_materia_update = $("#creditos_materia_update").val();
-    var datepicker_inicio_materia_update = $("#datepicker_inicio_materia_update").val();
-    var datepicker_fin_materia_update = $("#datepicker_fin_materia_update").val();
-    var datepicker_examen_final_materia_update = $("#datepicker_examen_final_materia_update").val();
     var licenciaturas_para_materia_update = $("#licenciaturas_para_materia_update").val();
-    var profesor_para_materia_update = $("#profesor_para_materia_update").val();
     var semestre_materia_update = $("#semestre_materia_update").val();
-    var horario_materia_update = $("#horario_materia_update").val();
     
-    if (clave_materia_update == "" || nombre_materia_update == "" || creditos_materia_update == "" || datepicker_inicio_materia_update == "" ||
-    datepicker_fin_materia_update == "" || datepicker_examen_final_materia_update == "" || licenciaturas_para_materia_update == "" || profesor_para_materia_update == "" ||
-    semestre_materia_update == "" || horario_materia_update == "" ) {
+    if (clave_materia_update == "" || nombre_materia_update == "" || creditos_materia_update == "" ||  licenciaturas_para_materia_update == "" ||  semestre_materia_update == "" ) {
         alert("Debe llenar todos los campos vacios...!");
     } else {
 
@@ -102,14 +84,9 @@ $(document).on("click", "#update_materia", function (e) {
         fd.append("id_materia", id_materia_update);
         fd.append("clave", clave_materia_update);
         fd.append("nombre_materia", nombre_materia_update);
-        fd.append("creditos", creditos_materia_update);
-        fd.append("inicio", datepicker_inicio_materia_update);
-        fd.append("fin", datepicker_fin_materia_update);
-        fd.append("ex_final", datepicker_examen_final_materia_update);
+        fd.append("creditos", creditos_materia_update);        
         fd.append("especialidad", licenciaturas_para_materia_update);
-        fd.append("profesor", profesor_para_materia_update);
         fd.append("semestre", semestre_materia_update);
-        fd.append("horario", horario_materia_update);
        
 
         $.ajax({
@@ -169,21 +146,6 @@ function llenarTablaMaterias() {
                     data: "creditos",
                 },
                 {
-                    data: "inicio",
-                },
-                {
-                    data: "fin",
-                },
-                {
-                    data: "ex_final",
-                },
-                {
-                    data: "horario",
-                },
-                {
-                    data: "profesor",
-                },
-                {
                     data: "semestre",
                 },
                 {
@@ -228,13 +190,8 @@ $(document).on("click", "#edit_materia", function (e) {
             $("#clave_materia_update").val(data.post.clave);
             $("#nombre_materia_update").val(data.post.nombre_materia);
             $("#creditos_materia_update").val(data.post.creditos);
-            $("#datepicker_inicio_materia_update").val(data.post.inicio);
-            $("#datepicker_fin_materia_update").val(data.post.fin);
-            $("#datepicker_examen_final_materia_update").val(data.post.ex_final);
             $("#licenciaturas_para_materia_update").val(data.post.especialidad);
-            $("#profesor_para_materia_update").val(data.post.profesor);
             $("#semestre_materia_update").val(data.post.semestre);
-            $("#horario_materia_update").val(data.post.horario);
         },
     });
 });
@@ -306,27 +263,6 @@ var language_espaniol = {
         "next": "Siguiente",
         "previous": "Anterior"
     }, /* TODO ESTO ES PARA CAMBIAR DE IDIOMA */
-}
-
-function date_picker_materias() {
-    $("#datepicker_inicio_materia,#datepicker_fin_materia,#datepicker_examen_final_materia,#datepicker_inicio_materia_update,#datepicker_fin_materia_update,#datepicker_examen_final_materia_update").datepicker({
-        closeText: 'Cerrar',
-        currentText: 'Hoy',
-        monthNames: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio',
-            'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
-        monthNamesShort: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun',
-            'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'],
-        dayNames: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'],
-        dayNamesShort: ['Dom', 'Lun', 'Mar', 'Mié;', 'Juv', 'Vie', 'Sáb'],
-        dayNamesMin: ['Do', 'Lu', 'Ma', 'Mi', 'Ju', 'Vi', 'Sá'],
-        weekHeader: 'Sm',
-        dateFormat: 'yy/mm/dd',
-        firstDay: 1,
-        isRTL: false,
-        showMonthAfterYear: false,
-        yearSuffix: ''
-    });
-    $.datepicker.setDefaults($.datepicker.regional['es']);
 }
 
 

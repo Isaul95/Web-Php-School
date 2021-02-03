@@ -10,11 +10,12 @@ class Modelo_calificaciones extends CI_Model { // INICIO DEL MODELO
  
         public function obtenermaterias($profesor,$semestre){
             $this->db->distinct();
-            $this->db->select("m.id_materia,m.nombre_materia");
-            $this->db->from("materias m");
-            $this->db->join("profesores p","m.profesor = p.id_profesores");
-            $this->db->where("p.id_profesores", $profesor);
-            $this->db->where("m.semestre", $semestre);
+            $this->db->select("hp.materia,m.nombre_materia");
+            $this->db->from("horarios_profesor hp");
+            $this->db->join("profesores p","hp.profesor = p.id_profesores");
+            $this->db->join("materias m","hp.materia = m.id_materia");
+            $this->db->where("hp.profesor", $profesor);
+            $this->db->where("hp.semestre", $semestre);
             $resultados = $this->db->get();
             return $resultados->result();
             }

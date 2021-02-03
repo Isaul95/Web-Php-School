@@ -49,7 +49,7 @@ function llenar_combo_materias_administrativos_profesores(semestre,profesor){
         enctype: 'multipart/form-data',
         success: function (data) {
             $.each(data,function(key, registro) {
-                $("#combo_materias_administrativos_profesores").append('<option value='+registro.id_materia+'>'+registro.nombre_materia+'</option>');
+                $("#combo_materias_administrativos_profesores").append('<option value='+registro.materia+'>'+registro.nombre_materia+'</option>');
               });   
         
       },

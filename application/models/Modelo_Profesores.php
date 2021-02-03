@@ -21,14 +21,36 @@ class Modelo_Profesores extends CI_Model { // INICIO DEL MODELO
       p.tipo_de_trabajo,p.universidad_procedente, p.experiencia_docente, p.trabajos_anteriores, p.nombre_archivo,
       c.estado_profesor, c.id_calificacion");
       $this->db->from("profesores p");
+      $this->db->join("calificaciones c","c.profesor = p.id_profesores");
+      $this->db->group_by('p.id_profesores');
+      $resultados = $this->db->get();
+      return $resultados->result();
+    }
+
+/***
+ * 
+ * 
+ *  CONSULTA DE ARRIBA
+ *  public function obtenerprofesores(){
+      $this->db->select("p.id_profesores, p.nombres, p.edad, p.sexo , p.direccion, p.ciudad_radicando,p.nacionalidad,
+      p.telefono_celular, p.correo, p.estado_civil, p.nivel_de_estudios, p.titulado, p.cedula, p.ocupacion,
+      p.tipo_de_trabajo,p.universidad_procedente, p.experiencia_docente, p.trabajos_anteriores, p.nombre_archivo,
+      c.estado_profesor, c.id_calificacion");
+      $this->db->from("profesores p");
       $this->db->join("materias m","m.profesor = p.id_profesores", "LEFT");
       $this->db->join("calificaciones c","c.materia = m.id_materia","LEFT");
       $this->db->group_by('p.id_profesores');
       $resultados = $this->db->get();
       return $resultados->result();
     }
-
-
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ */
 //  CONSULYTA DE LA PERRITA
         // public function obtenerprofesores(){
         //         $this->db->select("id_profesores, nombres, edad, sexo , direccion,ciudad_radicando,nacionalidad,telefono_celular,

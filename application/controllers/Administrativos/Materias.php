@@ -37,13 +37,9 @@ class Materias extends CI_Controller {
 			$this->form_validation->set_rules('clave', 'clave', 'required');
 			$this->form_validation->set_rules('nombre_materia', 'nombre_materia', 'required');
 			$this->form_validation->set_rules('creditos', 'creditos', 'required');
-			$this->form_validation->set_rules('inicio', 'inicio', 'required');
-			$this->form_validation->set_rules('fin', 'fin', 'required');
-			$this->form_validation->set_rules('ex_final', 'ex_final', 'required');
+			
 			$this->form_validation->set_rules('especialidad', 'especialidad', 'required');
-			$this->form_validation->set_rules('profesor', 'profesor', 'required');
 			$this->form_validation->set_rules('semestre', 'semestre', 'required');
-			$this->form_validation->set_rules('horario', 'horario', 'required');
 			if ($this->form_validation->run() == FALSE) {
 				$data = array('response' => "error", 'message' => validation_errors());
 			} else {
@@ -72,13 +68,8 @@ class Materias extends CI_Controller {
 				$this->form_validation->set_rules('clave', 'clave', 'required');
 				$this->form_validation->set_rules('nombre_materia', 'nombre_materia', 'required');
 				$this->form_validation->set_rules('creditos', 'creditos', 'required');
-				$this->form_validation->set_rules('inicio', 'inicio', 'required');
-				$this->form_validation->set_rules('fin', 'fin', 'required');
-				$this->form_validation->set_rules('ex_final', 'ex_final', 'required');
 				$this->form_validation->set_rules('especialidad', 'especialidad', 'required');
-				$this->form_validation->set_rules('profesor', 'profesor', 'required');
 				$this->form_validation->set_rules('semestre', 'semestre', 'required');
-				$this->form_validation->set_rules('horario', 'horario', 'required');
 		   
 			if ($this->form_validation->run() == FALSE) {
 				$data = array('response' => "error", 'message' => validation_errors());
@@ -88,13 +79,8 @@ class Materias extends CI_Controller {
             $ajax_data['clave'] = $this ->input->post('clave');
 			$ajax_data['nombre_materia'] = $this ->input->post('nombre_materia');
 			$ajax_data['creditos'] = $this ->input->post('creditos');
-			$ajax_data['inicio'] = $this ->input->post('inicio');
-			$ajax_data['fin'] = $this ->input->post('fin');
-			$ajax_data['ex_final'] = $this ->input->post('ex_final');
 			$ajax_data['especialidad'] = $this ->input->post('especialidad');
-			$ajax_data['profesor'] = $this ->input->post('profesor');
 			$ajax_data['semestre'] = $this ->input->post('semestre');
-			$ajax_data['horario'] = $this ->input->post('horario');
 	
             
 			if ($this->Modelo_Materias->update($materia,$ajax_data)) {

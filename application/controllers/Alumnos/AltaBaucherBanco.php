@@ -96,7 +96,7 @@ class AltaBaucherBanco extends CI_Controller {
 					// $data['estatus'] = $this->input->post('estatus');
 	 				$numero_control = $this->input->post('numero_control');
 							if ($this->Modelo_DarAccesoAlumnos->consultaCountAlumnosXxx($numero_control)) {
-								$data = array('responce' => 'success', 'message' => 'Ya Registro su Comprobante de pago...!!!');
+								$data = array('responce' => 'success', 'message' => '¡Comprobante de pago registrado!');
 							} else {
 								// $data = array('responce' => 'error', 'message' => 'No ha realizado el Registro de su Comprobante de pago...!!!');
 								$data = array('responce' => 'error');
@@ -181,6 +181,21 @@ $PHPJasperXML->load_xml_file("src/ReportesPDF_Cesvi_jrxml/Horarios.jrxml");
 			}
 
 //////////////////////////////////////// SELECCIÓN DE MATERIAS ////////////////////////////////////////////////////////
+public function horarioyaseleccionado(){
+	// $data['estatus'] = $this->input->post('estatus');
+	if ($this->input->is_ajax_request()) {
+	 $numero_control = $this->input->post('numero_control');
+			if ($this->Modelo_DarAccesoAlumnos->horarioyaseleccionado($numero_control)) {
+				$data = array('responce' => 'success', 'message' => "¡Horario asignado!");
+			} else {
+				// $data = array('responce' => 'error', 'message' => 'No ha realizado el Registro de su Comprobante de pago...!!!');
+				$data = array('responce' => 'error');
+			}
+	echo json_encode($data);
+} else {
+	echo "No se permite este acceso directo...!!!";
+}
+}
 public function materiasparaelegir(){
 	if ($this->input->is_ajax_request()) {
 		
@@ -251,11 +266,12 @@ public function agregar_materia(){
 						$detalle = $this->input->post('detalle');
 						$materia = $this->input->post('materia');
 						$ciclo = $this->input->post('ciclo');
+						$profesor = $this->input->post('profesor');
 						if($post = $this->Modelo_DarAccesoAlumnos->materiayaagregada($detalle,$materia,$ciclo)){
 							$data = array('res' => "error", 'message' => "");
 						}
 						else{
-
+							
 							if ($this->Modelo_DarAccesoAlumnos->insertar_materia($ajax_data)) {
 								$data = array('responce' => "success");
 							} else {
@@ -274,7 +290,9 @@ public function removermateria(){
 		$detalle = $this->input->post('detalle');
 		$materia = $this->input->post('materia');		
 		$ciclo = $this->input->post('ciclo');
-	if ($this->Modelo_DarAccesoAlumnos->delete_entry($detalle,$materia,$ciclo)) {
+		$profesor = $this->input->post('profesor');		
+		$horario = $this->input->post('horario');
+	if ($this->Modelo_DarAccesoAlumnos->delete_entry($detalle,$materia,$ciclo,$profesor,$horario)) {
 			$data = array('responce' => "success");
 	} else {
 			$data = array('responce' => "error", "No se pudo eliminar...!");
@@ -284,5 +302,34 @@ public function removermateria(){
 		echo "No se permite este acceso directo...!!!";
 	}
 }
-
+public function alumnoencurso(){
+	if ($this->input->is_ajax_request()) {	
+			
+		$alumno = $this->input->post('alumno');
+		$carrera = $this->input->post('carrera');
+		$opcion = $this->input->post('opcion');
+		$cuatrimestre = $this->input->post('cuatrimestre');
+		$ciclo = $this->input->post('ciclo_escolar');
+		$ajax_data['estado'] = $this ->input->post('estado');
+				if ($this->Modelo_DarAccesoAlumnos->update_alumno_en_curso($alumno,$carrera,$opcion,$cuatrimestre,$ciclo,$ajax_data)) {
+			$data = array('response' => "success", 'message' => "Datos actualizados correctamente");
+		} else {
+			$data = array('response' => "error", 'message' => "Error al agregar datos...!");
+		}
+				
+		
+			
+			
+		echo json_encode($data);
+	
+		}
+	  else{
+		echo "No se permite este acceso directo...!!!";
+	}
+}
+public function verperiodo_activo_agregar_horario()
+	{
+		$posts = $this->Modelo_DarAccesoAlumnos->periodo_activo();
+		echo json_encode($posts);
+	}
 }  // Fin del controller

@@ -12,8 +12,7 @@ class Modelo_Materias extends CI_Model { // INICIO DEL MODELO
         public function obtenermaterias(){
             $this->db->distinct();
             $this->db->select("m.id_materia, m.clave, 
-            m.nombre_materia,m.creditos,m.inicio,m.fin, 
-            m.ex_final, m.horario, m.profesor,m.semestre, c.carrera_descripcion");
+            m.nombre_materia,m.creditos,m.semestre, c.carrera_descripcion");
             $this->db->from("materias m");
             $this->db->join("carrera c","m.especialidad = c.id_carrera");
             $resultados = $this->db->get();

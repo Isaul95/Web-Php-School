@@ -1,14 +1,14 @@
 
-    <div class="content-wrapper colorfondo"> <!-- STAR ALL CONTENT -->
+    <div class="content-wrapper colorfondo" > <!-- STAR ALL CONTENT -->
             <!-- Main content -->
-            <section class="content">
+            <section class="content" >
                 <!-- Default box -->
                 <div class="box box-solid colorfondo">
                     <div class="box-body">
 
 <!-- AKI EMPIEZA LOMMIOO LO NUEVO -->
 
-<div class="container">
+<div class="container" >
 
 <section class="contenido">
   <div class="row">
@@ -16,9 +16,7 @@
     <ul class="nav nav-tabs">
           <li class="active"><a href="#tab_Colegiaturas" data-toggle="tab">Colegiaturas</a></li>
           <li><a id="tab-consultar" href="#tab_Cursos" data-toggle="tab">Historial de pagos</a></li>
-
           <li><a href="#tab_Extraordinario" data-toggle="tab">Avance Reticular</a></li>
-          <li><a href="#tab_Tesis" data-toggle="tab">Tesis</a></li>
           <li><a href="#Elegir_materias" data-toggle="tab">Selección de materias</a></li>
 
       </ul>
@@ -222,68 +220,40 @@
 
 
 
-<!--   ===============================         1- TAB CUATRO         ==========================================     -->
-          <div class="tab-pane" id="tab_Tesis">
-            <div class="col-lg-4"></div>
-              <div class="col-lg-4 text-center">
-                <h2>PRUENA DATATABLE()</h2>
-                <hr>
-              </div>
-
-
-              <table id="example22" class="display" style="width:100%">
-                      <thead>
-                          <tr>
-                              <th>Materias</th>
-                              <!-- <th>Position</th>
-                              <th>Office</th>
-                              <th>Age</th>
-                              <th>Start date</th>
-                              <th>Salary</th> -->
-                          </tr>
-                      </thead>
-                      <tbody>
-                          <?php foreach($datosTxt as $datosTxt):?>
-                                <tr>
-                                     <!-- <td><?php echo $semestre1->id_materia;?></td> -->
-                                     <td><?php echo $datosTxt->nombre_completo;?></td>
-                                </tr>
-                            <?php endforeach;?>
-                      </tbody>
-
-                  </table>
-
-
-
-          </div>
-
-
 <!--   ===============================         1- TAB CINCO         ==========================================     -->
 
         <div class="tab-pane" id="Elegir_materias">
-        <input type="hidden" id="licenciatura">
-          <input type="hidden" id="opcion">
-          <input type="hidden" id="semestre">
+                    <input type="hidden" id="licenciatura">
+                    <input type="hidden" id="opcion">
+                    <input type="hidden" id="semestre">
+                    <input type="hidden" id="periodo_escolar_activo">
 
-          
-            <div class="col-lg-4"></div>
-              <div class="col-lg-4 text-center">
-                <h2>Seleccion de materias</h2>
-                <hr>
-              </div>
-              <div class="row"> 
+                  <div class="col-md-12 mt-5">
+                    <h1 class="text-center">
+                    <strong><font color="#D34787">Elegir materias</font></strong>
+                    </h1>
+                    <hr style="background-color: black; color: black; height: 1px;">
+                  </div>
+        
+            <br>
+            <br>
+            <br>
+            <div  id="SeleccionHorario"> <!--SELECCIÓN DE MATERIAS-->
+
+                  <div class="row"> <!--BOTON-->
                     <div class="col-8 col-sm-6">
                     <button type="button" class="btn btn-primary btn-sm btn-block" id="elegirmaterias">Seleccionar materias</button>
                     </div>
-                   </div>
-        <br>
-              <div class="row my-4">
+                   </div><!--BOTON-->
+                   <br>
+              <div class="row my-4"><!--TABLA-->
                 <div class="col-md-12 mx-auto">
                   <table id="tbl_elegir_materias" class="table table-striped table-bordered dt-responsive nowrap table-hover table-condensed" cellspacing="0" style="background:white!important">
                     <thead class="text-center bg-primary">
                       <tr>
                         <th></th>
                         <th></th>
+                        <th></th>
                         <th>Materia</th>
                         <th>Profesor</th>
                         <th>Carrera</th>
@@ -296,20 +266,21 @@
                     </thead>
                   </table>
                 </div>
-              </div>
+              </div><!--TABLA-->
               <br>
               <br>
               <br>
               <br>
               <br>
               <br>
-              <div class="row my-4">
+              <div class="row my-4"><!--TABLA-->
                 <div class="col-md-12 mx-auto">
                   <table id="tbl_materias_elegidas" class="table table-striped table-bordered dt-responsive nowrap table-hover table-condensed" cellspacing="0" style="background:white!important">
                     <thead class="text-center bg-primary">
                       <tr>
                         <th></th>
                         <th></th>
+                        <th></th>
                         <th>Materia</th>
                         <th>Profesor</th>
                         <th>Carrera</th>
@@ -322,17 +293,28 @@
                     </thead>
                   </table>
                 </div>
-              </div>
-              <div class="row"> 
+              </div><!--TABLA-->
+              <div class="row"> <!--BOTÓN-->
                     <div class="col-8 col-sm-6">
-                    <button type="button" class="btn btn-primary btn-sm btn-block" id="elegirmaterias">Confirmar horario</button>
+                    <button type="button" class="btn btn-primary btn-sm btn-block" id="confirmar_horario_elegir_materias">Confirmar horario</button>
                     </div>
-                   </div>
-        </div>
-      
-
-
-
+                   </div><!--BOTÓN-->  
+                                  
+            </div> <!--SELECCIÓN DE MATERIAS-->
+            <div class="modal-dialog" id="HorarioSeleccionado">
+                <div class="modal-content"> <!---MODAL CONTENT -->
+                    <div class="modal-body"><!---MODAL BODY-->
+                    <center>
+                      <h3><font color="#3498DB">Horario ya seleccionado</font></h3> <br> <br>
+                     <a href="AltaBaucherBanco/verBaucher/<?php echo $username;?>" target="_blank">
+                       <i class="far fa-file-pdf fa-2x"></i></a>
+                     </center> <br> <br>
+                     <strong><font color="#E74C3C">Nota: para cualquier aclaración favor de verlo con administrativos</font></strong> <br>
+                     </div><!--MODAL BODY SELECCIÓN DE MATERIAS-->
+                  </div> <!--MODAL CONTENT SELECCIÓN DE MATERIAS-->
+            </div> <!--SELECCIÓN DE MATERIAS-->
+              
+               
       </div>  <!-- FIN DEL CONTENEDOR DEL BODY  -->
 
 

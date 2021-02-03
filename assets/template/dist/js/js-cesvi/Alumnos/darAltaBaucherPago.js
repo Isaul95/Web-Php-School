@@ -1,16 +1,23 @@
     $(document).ready(function(){
+        //SELECCION DE MATERIAS
+        horarioyaelegido();
+        periodo_activo_horario();
       licenciatura_alumno();
       opcion_alumno();
      semestre_alumno();
+     llenartabla_materias_elegidas();
       $("#elegirmaterias").click(function () {
        
         $("#tbl_elegir_materias").DataTable().destroy();
         llenartablaseleccionmaterias();
     });
-      
+    
+            //SELECCION DE MATERIAS
       litaHistorialPagosAlumnos();
       ccontadordealumnos();
+      
       llenar_comboSemestres();
+
 
     $("#combo_semestres").change(function () {
       $("#tbl_avanceRetucular").DataTable().destroy();
@@ -92,7 +99,7 @@
                                        if (aprobado == 'null'){
                                           var a = '<div class="p-3 mb-2 bg-info text-white">'+materia+'</div>';
                                        }
-                                          else if (aprobado > 50) {
+                                          else if (aprobado >= 6) {
                                            var a = '<div class="p-3 mb-2 bg-success text-white">'+materia+'</div>';
                                          }
                                            else {
@@ -363,6 +370,12 @@ function llenartablaseleccionmaterias() {
 
                   },
                   {
+                    data: "id_profe",
+                    "visible": false,
+                    "searchable": false
+
+                  },
+                  {
                       data: "nombre_materia",
                   },
                   {
@@ -388,9 +401,9 @@ function llenartablaseleccionmaterias() {
                       searchable: false,
                       data: function (row, type, set) {
                         var concat="";
-                        var detalle_materia = concat.concat(`${row.alumno}`,'_',`${row.materia}`,'_',`${row.ciclo}`);
+                        var detalle_materia_ciclo_profe_horario = concat.concat(`${row.alumno}`,'_',`${row.materia}`,'_',`${row.ciclo}`,'_',`${row.id_profe}`,'_',`${row.horario}`);
                           return `  
-                      <a href="#" id="agregar_materia" class="btn btn-success btn-remove" value="${detalle_materia}"><i class="far fa-edit"></i></a>
+                      <a href="#" id="agregar_materia" class="btn btn-success btn-remove" value="${detalle_materia_ciclo_profe_horario}"><i class="far fa-edit"></i></a>
                               `;
                       },
                   },
@@ -458,6 +471,8 @@ $(document).on("click", "#agregar_materia", function (e) {
   var detalle = array[0];
   var materia = array[1];
   var ciclo = array[2];
+  var profe = array[3];
+  var horario = array[4];
 
   var fd = new FormData();
   fd.append("detalle", detalle);
@@ -465,6 +480,9 @@ $(document).on("click", "#agregar_materia", function (e) {
   fd.append("estado_profesor", 0);
   fd.append("estado_administrativo", 0);
   fd.append("ciclo", ciclo);
+  fd.append("profesor", profe);
+  fd.append("horario", horario);
+
 
   Swal.fire({
       title: "¿Estás seguro?",
@@ -570,6 +588,12 @@ function llenartabla_materias_elegidas() {
 
                   },
                   {
+                    data: "id_profe",
+                    "visible": false,
+                    "searchable": false
+
+                  },
+                  {
                       data: "nombre_materia",
                   },
                   {
@@ -595,9 +619,9 @@ function llenartabla_materias_elegidas() {
                       searchable: false,
                       data: function (row, type, set) {
                         var concat="";
-                        var detalle_materia = concat.concat(`${row.alumno}`,'_',`${row.materia}`,'_',`${row.ciclo}`);
-                          return `  
-                      <a href="#" id="remover_materia" class="btn btn-danger btn-remove" value="${detalle_materia}"><i class="far fa-edit"></i></a>
+                        var detalle_materia_ciclo_profe_horario = concat.concat(`${row.alumno}`,'_',`${row.materia}`,'_',`${row.ciclo}`,'_',`${row.id_profe}`,'_',`${row.horario}`);
+                           return `  
+                      <a href="#" id="remover_materia" class="btn btn-danger btn-remove" value="${detalle_materia_ciclo_profe_horario}"><i class="far fa-edit"></i></a>
                               `;
                       },
                   },
@@ -614,11 +638,15 @@ $(document).on("click", "#remover_materia", function (e) {
   var detalle = array[0];
   var materia = array[1];
   var ciclo = array[2];
+  var profe = array[3];
+  var horario = array[4];
 
   var fd = new FormData();
   fd.append("detalle", detalle);
   fd.append("materia", materia);
   fd.append("ciclo", ciclo);
+  fd.append("profesor", profe);
+  fd.append("horario", horario);
 
   Swal.fire({
       title: "¿Estás seguro?",
@@ -664,3 +692,98 @@ $(document).on("click", "#remover_materia", function (e) {
       }
   });
 });
+$(document).on("click", "#confirmar_horario_elegir_materias", function (e) {
+    e.preventDefault();
+    debugger;
+    var numero_control = $("#numero_control").val();
+    var licenciatura = $("#licenciatura").val();
+    var semestre = $("#semestre").val();
+    var opcion = $("#opcion").val();
+    var periodo_escolar = $("#periodo_escolar_activo").val();
+    var En_curso = "En curso";
+  
+    var fd = new FormData();
+    fd.append("alumno", numero_control);
+    fd.append("estado", En_curso);
+    fd.append("carrera", licenciatura);
+    fd.append("cuatrimestre", semestre);
+    fd.append("opcion", opcion);
+    fd.append("ciclo_escolar", periodo_escolar);
+  
+    Swal.fire({
+        title: "¿Estás seguro?",
+        text: "¡Se asignará el horario seleccionado!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "¡Si, asignar!",
+        cancelButtonText: "¡No, cancelar!",
+    }).then((result) => {
+        if (result.isConfirmed) {
+            $.ajax({
+                type: "post",
+                url: base_url + 'Alumnos/AltaBaucherBanco/alumnoencurso',
+                data: fd,
+                processData: false,
+                contentType: false,
+                dataType: "json",
+                success: function (data) {
+                    if (data.response == "success") {
+                        Swal.fire(
+                            '¡Exito!',
+                            '¡Horario seleccionado con exito!',
+                            'success'
+                        );
+  
+                        window.location.reload(); 
+                    }
+                    else{
+                      Swal.fire(
+                        '¡Error!',
+                        '¡No se pudo asignar el horario!',
+                        'error'
+                    );
+  
+                    $("#tbl_materias_elegidas").DataTable().destroy();
+                    llenartabla_materias_elegidas();
+                    }
+                },
+            });
+        }
+    });
+  });
+function horarioyaelegido(){
+    debugger;
+              var datos = {
+                      numero_control : $("#numero_control").val(),
+                  }
+              $.ajax({
+            url: base_url+'Alumnos/AltaBaucherBanco/horarioyaseleccionado',
+            type: "post",
+            dataType: "json",
+                  data : (datos),
+                  success : function(data){
+              if (data.responce == "success") {
+                  toastr["success"](data.message);
+                      // debugger;
+                      $('#SeleccionHorario').hide();
+                      $('#HorarioSeleccionado').show();
+                    }else{
+                      // toastr["error"](data.message);
+                      $('#HorarioSeleccionado').hide();
+                    }
+                      }
+              });
+      }
+      function periodo_activo_horario() {
+        debugger;
+        $.ajax({
+            type: "get",
+            url: base_url + 'Alumnos/AltaBaucherBanco/verperiodo_activo_agregar_horario',
+            dataType: "json",
+            success: function (response) {
+                $("#periodo_escolar_activo").val(response['id_periodo_escolar']);
+            },
+        });
+    }

@@ -82,22 +82,7 @@
                     </div>
                   </div>
 <br>
-                  <label for="">Tiempos</label>
-                  <div class="row">
-                    <div class="col-8 col-sm-3">
-                    <label for="">Fecha de inicio</label>
-                    <input type="text" id="datepicker_inicio_materia"/>
-                     </div>
-                     <div class="col-8 col-sm-3">
-                    <label for="">Fecha de termino</label>
-                    <input type="text" id="datepicker_fin_materia"/>
-                     </div>
-                     <div class="col-8 col-sm-3">
-                    <label for="">Fecha de examen final</label>
-                    <input type="text" id="datepicker_examen_final_materia"/>
-                     </div>
-                  </div>
-                  <br>
+                  
                   <label for="">Asignada a:</label>
                   <div class="row">
                     <div class="col-6 col-sm-6">
@@ -110,25 +95,14 @@
                         <option value="21">Contaduría</option>
                         </select>
                      </div>
-                     <div class="col-6 col-sm-3">
-                        <label for="">Profesor</label>
-                        <select background-color="red" id="profesor_para_materia" class="form-select form-select-lg mb-3">
-                        <option value="1">Profesor de prueba</option>
-                        </select>
-                     </div>
+                     
                      <div class="col-8 col-sm-1">
                     <label for="">Semestre</label>
                     <input type="text" id="semestre_materia" placeholder="Semestre"/>
                      </div>
                   </div>
                   <br>
-                  <label for="">Con el siguiente horario: </label>
-                  <div class="row">
-                  <div class="col-8 col-sm-4">
-                    <label for="">Horario</label>
-                    <input type="text" class="form-control" id="horario_materia" placeholder="Horario de la materia">
-                     </div>
-                  </div>
+                  
                 </div>
               </div>
   
@@ -185,22 +159,6 @@
                     </div>
                   </div>
 <br>
-                  <label for="">Tiempos</label>
-                  <div class="row">
-                    <div class="col-8 col-sm-3">
-                    <label for="">Fecha de inicio</label>
-                    <input type="text" id="datepicker_inicio_materia_update"/>
-                     </div>
-                     <div class="col-8 col-sm-3">
-                    <label for="">Fecha de termino</label>
-                    <input type="text" id="datepicker_fin_materia_update"/>
-                     </div>
-                     <div class="col-8 col-sm-3">
-                    <label for="">Fecha de examen final</label>
-                    <input type="text" id="datepicker_examen_final_materia_update"/>
-                     </div>
-                  </div>
-                  <br>
                   <label for="">Asignada a:</label>
                   <div class="row">
                     <div class="col-6 col-sm-6">
@@ -213,25 +171,14 @@
                         <option value="21">Contaduría</option>
                         </select>
                      </div>
-                     <div class="col-6 col-sm-3">
-                        <label for="">Profesor</label>
-                        <select background-color="red" id="profesor_para_materia_update" class="form-select form-select-lg mb-3">
-                        <option value="1">Profesor de prueba</option>
-                        </select>
-                     </div>
+                     
                      <div class="col-8 col-sm-1">
                     <label for="">Semestre</label>
                     <input type="text" id="semestre_materia_update" placeholder="Semestre"/>
                      </div>
                   </div>
                   <br>
-                  <label for="">Con el siguiente horario: </label>
-                  <div class="row">
-                  <div class="col-8 col-sm-4">
-                    <label for="">Horario</label>
-                    <input type="text" class="form-control" id="horario_materia_update" placeholder="Horario de la materia">
-                     </div>
-                  </div>
+                  
                 </div>
               </div>
   
@@ -263,11 +210,6 @@
            <th>Clave</th>
             <th>Materia</th>
             <th>Creditos</th>
-            <th>Inicio</th>
-            <th>Fin</th>
-            <th>Examen final</th>
-            <th>Horario</th>
-            <th>Profesor</th>
             <th>Semestre</th>
             <th>Carrera</th>
             <th class="text-center" width="7%">Acciones</th>

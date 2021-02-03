@@ -20,6 +20,46 @@
   <div class="row">
     <div class="col-md-12">
 
+
+      <br>
+<div class="row">
+  <div class="col-10 col-sm-12">
+                  <div class="row">
+                      <div class="col-4 col-sm-6">
+                        <label for="">Seleccione alguna carrera: </label>
+                      <select background-color="red" id="combo_CarreraDocumAlumnos_Admin" class="form-control">
+                      <option value="" selected>Seleccione una carrera...</option>
+                      </select>
+                      </div>
+
+                      <div class="col-4 col-sm-4">
+                          <label for="">Semestre: </label>
+                          <select background-color="red" id="combo_SemestresDocumAlumnos_Admin" class="form-control">
+                            <option value="" selected>Seleccione un semestre...</option>
+                          </select>
+                      </div>
+                  </div> <!--END OF SECOND ROW-->
+    </div><!--class="col-10 col-sm-12"-->
+  </div> <!--END OF FIRST ROW-->
+                  <br>
+
+                  <div class="row">
+                    <div class="col-10 col-sm-12">
+                                   <div class="row">
+                                    <div class="col-8 col-sm-4">
+                                        <label for="">Seleccione alguna opción de estudio: </label>
+                                      <select background-color="red" id="combo_opcionesDocumAlumnos_Admin" class="form-control">
+                                        <option value="" selected>Seleccione una opción...</option>
+                                      </select>
+                                      </div>
+                                    </div>
+                                    <br>
+                      </div><!--class="col-10 col-sm-12"-->
+                    </div> <!--END OF FIRST ROW-->
+
+
+
+
 <hr> <!-- Le da una linea sombreada para ver la divicion -->
 
 <div class="row my-4">

@@ -23,7 +23,7 @@ class AltaBaucherBanco extends CI_Controller {
 			'nombres' => $this->session->userdata('nombres'),
 			'username' => $this->session->userdata('username'),
 		//  consulta de datos para rellenar los txt en la cista reticula avamce
-			'datosTxt' => $this->Modelo_DarAccesoAlumnos->obtenerHistorialDePagosXAlumnos($numero_control),
+			'datosTxt' => $this->Modelo_DarAccesoAlumnos->consultaDatosPersonalesDelAlumnos($numero_control),
 		);
 
 		$this->load->view('layouts/header');
@@ -198,7 +198,7 @@ public function horarioyaseleccionado(){
 }
 public function materiasparaelegir(){
 	if ($this->input->is_ajax_request()) {
-		
+
 	$numero_control = $this->input->post('numero_control');
 	$licenciatura = $this->input->post('licenciatura');
 	$semestre = $this->input->post('semestre');
@@ -206,7 +206,7 @@ public function materiasparaelegir(){
 	$ciclo = $this->input->post('ciclo');
 
 	$posts = $this->Modelo_DarAccesoAlumnos->obtenermateriasaelegir($numero_control,$licenciatura,$semestre,$opcion,$ciclo);
-	
+
 	echo json_encode($posts);
 } else {
 	echo "No se permite este acceso directo...!!!";
@@ -214,11 +214,11 @@ public function materiasparaelegir(){
 }
 public function materiaselegidas(){
 	if ($this->input->is_ajax_request()) {
-		
+
 	$numero_control = $this->input->post('numero_control');
 	$ciclo = $this->input->post('ciclo');
 	$posts = $this->Modelo_DarAccesoAlumnos->obtenermateriasaelegidas($numero_control,$ciclo);
-	
+
 	echo json_encode($posts);
 } else {
 	echo "No se permite este acceso directo...!!!";
@@ -226,7 +226,7 @@ public function materiaselegidas(){
 }
 
 public function licenciaturadelalumno(){
-	
+
 	if ($this->input->is_ajax_request()) {
 	$numero_control = $this->input->post('numero_control');
 	$post = $this->Modelo_DarAccesoAlumnos->obtenerlicenciaturadelalumno($numero_control);
@@ -278,7 +278,7 @@ public function agregar_materia(){
 								$data = array('res' => "error", 'message' => "");
 							}
 						}
-						
+
 					echo json_encode($data);
 	} else {
 		echo "No se permite este acceso directo...!!!";
@@ -288,7 +288,7 @@ public function agregar_materia(){
 public function removermateria(){
 	if ($this->input->is_ajax_request()) {
 		$detalle = $this->input->post('detalle');
-		$materia = $this->input->post('materia');		
+		$materia = $this->input->post('materia');
 		$ciclo = $this->input->post('ciclo');
 		$profesor = $this->input->post('profesor');		
 		$horario = $this->input->post('horario');

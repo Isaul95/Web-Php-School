@@ -209,9 +209,23 @@ class Modelo_DarAccesoAlumnos extends CI_Model { // INICIO DEL MODELO
     //   return $resultados->result();
     // }
 
+    public function obtenerAvanceReticulaXAlumnos($numero_control,$semestre, $id_detalle){
+      $this->db->select(" m.semestre, CONCAT(a.nombres, ' ', a.apellido_paterno, ' ', a.apellido_materno) As nombres,
+       m.nombre_materia");
+      $this->db->from(" detalles deta");
+      $this->db->join("alumnos a","deta.alumno = a.numero_control");
+      $this->db->join(" carrera c ","  deta.carrera = c.id_carrera ");
+      $this->db->join(" materias m "," c.id_carrera = m.especialidad  ");
+            $this->db->where(" a.numero_control = ",$numero_control);
+            $this->db->where(" deta.id_detalle =", $id_detalle );
+            $this->db->where(" m.semestre =",$semestre);
 
-
-        public function obtenerAvanceReticulaXAlumnos($numero_control,$semestre, $id_detalle){
+      $resultados = $this->db->get();
+       return $resultados->result();
+     }
+/***}
+ * 
+ *   public function obtenerAvanceReticulaXAlumnos($numero_control,$semestre, $id_detalle){
          $this->db->select(" d.cuatrimestre, CONCAT(a.nombres, ' ', a.apellido_paterno, ' ', a.apellido_materno) As nombres, m.nombre_materia, calificaciones.calificacion ");
          $this->db->from(" detalles d ");
          $this->db->join("alumnos a","d.alumno = a.numero_control");
@@ -224,6 +238,18 @@ class Modelo_DarAccesoAlumnos extends CI_Model { // INICIO DEL MODELO
          $resultados = $this->db->get();
           return $resultados->result();
         }
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ */
+
 
 
 

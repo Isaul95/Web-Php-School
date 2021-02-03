@@ -58,6 +58,7 @@
                         <div class="form-group">
                             <label for="">Tipo de pago:</label>
                             <select name="pago" id="pago" class="form-control">
+                            <option value="" selected>Seleccione un pago...</option>
                                 <?php foreach($tipoDePagos as $pago):?>
                                     <option value="<?php echo $pago->id_tipo_pago;?>"><?php echo $pago->pago;?></option>
                                 <?php endforeach;?>
@@ -196,7 +197,9 @@
               <div class="row">
                 <div class="col-8 col-sm-2">
                   <label for="">Seleccione semestre: </label>
-                  <select background-color="red" id="combo_semestres" class="form-control"></select>
+                  <select background-color="red" id="combo_semestres" class="form-control">
+                  <option value="" selected>Seleccione un semestre...</option>
+                  </select>
                 </div>
               </div>
               <br>

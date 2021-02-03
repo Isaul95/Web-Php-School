@@ -94,7 +94,9 @@
                           data: "nombre_materia",
                           "className": "text-center",
                                 render: function(data, type, row, meta) {
-                                   var aprobado = `${row.calificacion}`;
+                                   //var aprobado = `${row.calificacion}`;
+                                   //validacion(materia,detalle,ciclo,aprobado);
+                                   var aprobado = 6;
                                    var materia = `${row.nombre_materia}`;
                                        if (aprobado == 'null'){
                                           var a = '<div class="p-3 mb-2 bg-info text-white">'+materia+'</div>';

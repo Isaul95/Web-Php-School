@@ -1,4 +1,7 @@
     $(document).ready(function(){
+      var semestre = $("#semestreAlum").val();
+      llenarTablaAvanceReticulaMateriasCursadasPasadas(semestre);
+
         //SELECCION DE MATERIAS
         horarioyaelegido();
         periodo_activo_horario();
@@ -7,22 +10,28 @@
      semestre_alumno();
      llenartabla_materias_elegidas();
       $("#elegirmaterias").click(function () {
-       
+
         $("#tbl_elegir_materias").DataTable().destroy();
         llenartablaseleccionmaterias();
     });
-    
+
             //SELECCION DE MATERIAS
       litaHistorialPagosAlumnos();
       ccontadordealumnos();
-      
-      llenar_comboSemestres();
 
+      llenar_comboSemestres();
+      llenar_comboSemestres_AnteriosresCursadas();
 
     $("#combo_semestres").change(function () {
       $("#tbl_avanceRetucular").DataTable().destroy();
       llenarTablaAvanceReticula($("#combo_semestres").val());
    });
+
+
+   $("#combo_semestres_cursados").change(function () {
+     $("#tbl_avanceRetucularMateriasCursadas").DataTable().destroy();
+     llenarTablaAvanceReticulaMateriasCursadasPasadas($("#combo_semestres_cursados").val());
+  });
 
 // Se inicializa tabla
      var tbl = $('#tbl_avanceRetucular').DataTable( {
@@ -63,8 +72,24 @@
     }
 
 
+    function llenar_comboSemestres_AnteriosresCursadas(){
+      $.ajax({
+          type: "get",
+          url: base_url + 'Alumnos/AltaBaucherBanco/obtenerSemestre',
+          dataType: "json",
+          success: function (data) {
+              $.each(data,function(key, registro) {
+                  $("#combo_semestres_cursados").append('<option value='+registro.semestre+'>'+registro.nombre+'</option>');
+                });
+
+        },
+      });
+    }
+
+
+
     /* -------------------------------------------------------------------------- */
-    /*                      llenarTablaPagos Records                              */
+    /*           llenarTabla materias por cursar sin calificaciones             */
     /* -------------------------------------------------------------------------- */
     function llenarTablaAvanceReticula(semestre) {
       debugger;
@@ -98,14 +123,14 @@
                                    //validacion(materia,detalle,ciclo,aprobado);
                                    var aprobado = 6;
                                    var materia = `${row.nombre_materia}`;
-                                       if (aprobado == 'null'){
+                                       if (materia != 'null'){
                                           var a = '<div class="p-3 mb-2 bg-info text-white">'+materia+'</div>';
                                        }
-                                          else if (aprobado >= 6) {
-                                           var a = '<div class="p-3 mb-2 bg-success text-white">'+materia+'</div>';
-                                         }
+                                         //  else if (aprobado >= 6) {
+                                         //   var a = '<div class="p-3 mb-2 bg-success text-white">'+materia+'</div>';
+                                         // }
                                            else {
-                                               var a = '<div class="p-3 mb-2 bg-red text-white">'+materia+'</div>';
+                                               // var a = '<div class="p-3 mb-2 bg-red text-white">'+materia+'</div>';
                                              }
                                         return a;
                                    },
@@ -128,6 +153,85 @@
             },
         });
     }
+
+
+    /* -------------------------------------------------------------------------- */
+    /*           llenarTabla materias cursadas con calificaciones                 */
+    /* -------------------------------------------------------------------------- */
+    function llenarTablaAvanceReticulaMateriasCursadasPasadas(semestre) {
+      debugger;
+      var datos = {
+          numero_control : $("#numero_control").val(),
+          id_detalle : $("#detalleId").val(),
+          semestre : semestre,
+          // semestre : $("#semestreAlum").val(),
+          }
+  var url = base_url+'Alumnos/AltaBaucherBanco/consultaAvanceReticulaXMateriasCursadas';
+
+        $.ajax({
+            type: "post",
+            // url: base_url+'Alumnos/AltaBaucherBanco/consultaHistDePagosXAlumnos/'+datos.numero_control,
+        url: url,
+            dataType: "json",
+            data : (datos),
+            success: function(response) {
+                $("#tbl_avanceRetucularMateriasCursadas").DataTable({
+                    data: response,
+                    responsive: true,
+                    columns: [
+                      // {
+                      //       data: "id_alta_baucher_banco",
+                      //       "visible": false, // ocultar la columna
+                      //   },
+                        {
+                          data: "nombre_materia",
+                          "className": "text-center",
+                                render: function(data, type, row, meta) {
+                                   var aprobado = `${row.calificacion}`;
+                                   // var aprobado = 6;
+                                   var materia = `${row.nombre_materia}`;
+                                       // if (aprobado == 'null'){
+                                       //    var a = '<div class="p-3 mb-2 bg-info text-white">'+materia+'</div>';
+                                       // }
+                                       if (aprobado == 0){
+                                          var a = '<div class="p-3 mb-2 bg-yellow text-white">'+materia+'</div>';
+                                       }
+                                          else if (aprobado >= 6) {
+                                           var a = '<div class="p-3 mb-2 bg-success text-white">'+materia+'</div>';
+                                         }
+                                           else {
+                                               var a = '<div class="p-3 mb-2 bg-red text-white">'+materia+'</div>';
+                                             }
+                                        return a;
+                                   },
+                        },
+
+                        {
+                            data: "calificacion",
+                            "className": "text-center",
+                                  render: function(data, type, row, meta) {
+                                     var aprobado = `${row.calificacion}`;
+                                     // var materia = `${row.nombre_materia}`;
+                                         if (aprobado == 0){
+                                            var a = '<div class="p-3 mb-2 bg-yellow text-white">'+aprobado+'</div>';
+                                         }
+                                            else if (aprobado >= 6) {
+                                             var a = '<div class="p-3 mb-2 bg-success text-white">'+aprobado+'</div>';
+                                           }
+                                             else {
+                                                 var a = '<div class="p-3 mb-2 bg-red text-white">'+aprobado+'</div>';
+                                               }
+                                          return a;
+                                     },
+                        },
+
+                    ],
+                      "language" : language_espaniol_materias_cursadas,
+                });
+            },
+        });
+    }
+
 
 
 
@@ -194,7 +298,18 @@
                         {
                             data: "estado",
                             render: function(data, type, row, meta) {
+                              debugger;
                               var xx = `${row.estado}`;
+                              // var numeroEstatuFile = `${row.estado_archivo}`;
+                              // if(numeroEstatuFile != 6){
+                              //   ocultarDatesParcialidades();
+                              // }
+// var parc = `${row.parcialidad_pago}`;
+              // if (parc != 'null') {
+                  llenarDatosAlumTxt(`${row.parcialidad_pago}`,`${row.fecha_limite_pago}`,`${row.estado_archivo}`);
+              // }else {
+              //   ocultarDatesParcialidades();
+              // }
                               if(xx == "INSCRITO"){
                                 // var a 'background-color', '#A497E5';
                               var a = '<div class="p-3 mb-2 bg-green text-white">'+xx+'</div>';
@@ -216,6 +331,30 @@
                         return a;
                             },
                         },
+                        {
+                            data: "parcialidad_pago",
+                            render: function(data, type, row, meta) {
+                              var parcialidadPagorow = `${row.parcialidad_pago}`;
+                            if(parcialidadPagorow != "null"){
+                                  var a = '<div class="p-3 mb-2 text-white">'+parcialidadPagorow+'</div>';
+                            }else {
+                              var a = '<div class="p-3 mb-2 bg-primary  text-white">'+'PAGO COMPLETO'+'</div>';;
+                            }
+                        return a;
+                            },
+                        },
+                        {
+                            data: "fecha_limite_pago",
+                            render: function(data, type, row, meta) {
+                              var fechaLimitePagorow = `${row.fecha_limite_pago}`;
+                            if(fechaLimitePagorow != "null"){
+                                  var a = '<div class="p-3 mb-2 bg-red text-white">'+fechaLimitePagorow+'</div>';
+                            }else {
+                              var a = '----';
+                            }
+                        return a;
+                            },
+                        },
                     ],
                       "language" : language_espaniol,
                 });
@@ -223,14 +362,36 @@
         });
     }
 
+
+function llenarDatosAlumTxt(estadoParcialidad, fecha_limite, estado_archivo){
+    if (estadoParcialidad != 'null') {
+        $("#parcialidadPago").val(estadoParcialidad);
+        $("#fechaLimitePago").val(fecha_limite);
+        document.getElementById("divSinDatosParcialidad").style.display = "none";
+          document.getElementById("xtre").style.display = "none";
+    }
+
+    else if (estado_archivo == 6) {
+      document.getElementById("divSinDatosParcialidad").style.display = "none";
+      document.getElementById("divDatosParcialidad").style.display = "none";
+      document.getElementById("xtre").style.display = "block";
+    }
+
+    else {
+        document.getElementById("divDatosParcialidad").style.display = "none";
+          document.getElementById("xtre").style.display = "none";
+        document.getElementById("divSinDatosParcialidad").style.display = "block";
+    }
+
+}
 //
-// function llenarDatosAlumTxt(nombre, num_control, carrera, semestre){
-//     $("#nameCompletoAlum").val(nombre);
-//     $("#num_controlAlum").val(num_control);
-//     $("#semestreAlum").val(semestre);
-//     $("#carreraAlum").val(carrera);
-//     // $("#num_controlAlum").val(xnnx);
+// function ocultarDatesParcialidades(){
+//   document.getElementById("divSinDatosParcialidad").style.display = "none";
+//   // document.getElementById("fechaLimitePago").style.display = "none";
+//   // document.getElementById("divSinDatosParcialidad").style.display = "block";
 // }
+
+
 /*         1.-  FUNCTIO CONSULTA QUE NO EXISTA Comprobante PARA EL ALUMNO K SE ESTA LOGUEANDO;
            1.- SI EXISTE BAUCHER LE MUESTRA EL ICONO PARA PODER MOSTRAR EL DOCUMENRO QUE SUIO
            2.- DE LO CONTRARIO SI NO EXISTE EL BAUCHER LE MUESTRA EL FORMULARIO PARA DARLO DE ALTA               ************/
@@ -271,6 +432,7 @@ $(document).on("click", "#darAltaBaucher", function(e) {
     var img = $("#archivo")[0].files[0]; // this is file
     var tipo_de_pago = $("#pago").val();
     var archivo = $("#archivo")[0].files[0];
+    var semestre = $("#semestreAlum").val();
 
     if (archivo == undefined) {
         alert("No seleccionó el documento a guardar...!");
@@ -281,7 +443,8 @@ $(document).on("click", "#darAltaBaucher", function(e) {
         fd.append("archivo", img); //Obt principalmente el name file
         fd.append("archivo", archivo); // Obt el file como tal
         fd.append("tipo_de_pago", tipo_de_pago);
-        fd.append("estado_archivo", 0);
+        fd.append("estado_archivo", 6);
+        fd.append("semestre", semestre);
 
         $.ajax({
             type: "post",
@@ -307,9 +470,9 @@ $(document).on("click", "#darAltaBaucher", function(e) {
 
 
 //////////////////////////////////////// SELECCIÓN DE MATERIAS ////////////////////////////////////////////////////////
-function llenartablaseleccionmaterias() { 
+function llenartablaseleccionmaterias() {
   var numero_control = $("#numero_control").val();
-  
+
   var licenciatura = $("#licenciatura").val();
   var semestre = $("#semestre").val();
   var opcion = $("#opcion").val();
@@ -404,7 +567,7 @@ function llenartablaseleccionmaterias() {
                       data: function (row, type, set) {
                         var concat="";
                         var detalle_materia_ciclo_profe_horario = concat.concat(`${row.alumno}`,'_',`${row.materia}`,'_',`${row.ciclo}`,'_',`${row.id_profe}`,'_',`${row.horario}`);
-                          return `  
+                          return `
                       <a href="#" id="agregar_materia" class="btn btn-success btn-remove" value="${detalle_materia_ciclo_profe_horario}"><i class="far fa-edit"></i></a>
                               `;
                       },
@@ -428,7 +591,7 @@ function licenciatura_alumno() {
       dataType: "json",
       success: function (data) {
           $("#licenciatura").val(data.post[0].carrera);
-        
+
       },
   });
 }
@@ -530,7 +693,7 @@ $(document).on("click", "#agregar_materia", function (e) {
       }
   });
 });
-function llenartabla_materias_elegidas() { 
+function llenartabla_materias_elegidas() {
   var numero_control = $("#numero_control").val();
   var fd = new FormData();
   var concat = "";
@@ -622,7 +785,7 @@ function llenartabla_materias_elegidas() {
                       data: function (row, type, set) {
                         var concat="";
                         var detalle_materia_ciclo_profe_horario = concat.concat(`${row.alumno}`,'_',`${row.materia}`,'_',`${row.ciclo}`,'_',`${row.id_profe}`,'_',`${row.horario}`);
-                           return `  
+                           return `
                       <a href="#" id="remover_materia" class="btn btn-danger btn-remove" value="${detalle_materia_ciclo_profe_horario}"><i class="far fa-edit"></i></a>
                               `;
                       },
@@ -703,7 +866,7 @@ $(document).on("click", "#confirmar_horario_elegir_materias", function (e) {
     var opcion = $("#opcion").val();
     var periodo_escolar = $("#periodo_escolar_activo").val();
     var En_curso = "En curso";
-  
+
     var fd = new FormData();
     fd.append("alumno", numero_control);
     fd.append("estado", En_curso);
@@ -711,7 +874,7 @@ $(document).on("click", "#confirmar_horario_elegir_materias", function (e) {
     fd.append("cuatrimestre", semestre);
     fd.append("opcion", opcion);
     fd.append("ciclo_escolar", periodo_escolar);
-  
+
     Swal.fire({
         title: "¿Estás seguro?",
         text: "¡Se asignará el horario seleccionado!",
@@ -737,8 +900,8 @@ $(document).on("click", "#confirmar_horario_elegir_materias", function (e) {
                             '¡Horario seleccionado con exito!',
                             'success'
                         );
-  
-                        window.location.reload(); 
+
+                        window.location.reload();
                     }
                     else{
                       Swal.fire(
@@ -746,7 +909,7 @@ $(document).on("click", "#confirmar_horario_elegir_materias", function (e) {
                         '¡No se pudo asignar el horario!',
                         'error'
                     );
-  
+
                     $("#tbl_materias_elegidas").DataTable().destroy();
                     llenartabla_materias_elegidas();
                     }
@@ -788,4 +951,22 @@ function horarioyaelegido(){
                 $("#periodo_escolar_activo").val(response['id_periodo_escolar']);
             },
         });
+    }
+
+
+
+    var language_espaniol_materias_cursadas = {
+      "lengthMenu": "Mostrar _MENU_ registros por pagina",
+      "zeroRecords": "LAS MATERIAS AUN NO HAN SIDO CURSADAS",
+      "searchPlaceholder": "Buscar Registros",
+      "info": "Total: _TOTAL_ registros",
+      "infoEmpty": "No Existen Registros",
+      "infoFiltered": "(filtrado de un total de _MAX_ registros)",
+      "search": "Buscar:",
+      "paginate": {
+        "first": "Primero",
+        "last": "Último",
+        "next": "Siguiente",
+        "previous": "Anterior"
+      }, /* TODO ESTO ES PARA CAMBIAR DE IDIOMA */
     }

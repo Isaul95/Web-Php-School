@@ -40,9 +40,6 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-timepicker/1.13.16/jquery.timepicker.min.js"></script>
 
 
-
-
-
 <script>
 
     $(document).ready(function(){

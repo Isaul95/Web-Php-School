@@ -64,13 +64,14 @@ class HabilitarAlumnos extends CI_Controller {
 // ================    ESYE ES MI NEW METODO PARA EL UPDATE DEL CHECKEN    =======================
 public function marcarParaRegistro($numero_control){
 			$data['estatus'] = $this->input->post('estatus');
-			// $data['id_alta_baucher_banco'] = $this->input->post('id_alta_baucher_banco');
+			$data3['estado'] = $this->input->post('estado');
 			$id_alta_baucher_banco = $this->input->post('id_alta_baucher_banco');
 
  				$estatus = $this->input->post('estatus');
 			$data2['estado_archivo'] =	1; // ==>> 1= ¡El alumno se ha inscrito!
 		if($estatus != 0){  // Depende del estatus k se mande se hace a accion
-			$this->Modelo_DarAccesoAlumnos->updateStatusComprobPago($numero_control, $data2);  //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>><xxxxxxxxxxxxxxxxxxxx
+			$this->Modelo_DarAccesoAlumnos->updateStatusComprobPago($numero_control, $data2);  //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>><xxxxxxx
+			$this->Modelo_DarAccesoAlumnos->updateStatusDetalles($numero_control, $data3);
 						if ($this->Modelo_DarAccesoAlumnos->update($numero_control, $data)) {
 // 1.- Cuando se habilita solo es estatus en la tabla de alumnos => estatus =1
 							$data = array('responce' => 'success', 'message' => 'Alumno habilitado correctamente...!');
@@ -80,6 +81,7 @@ public function marcarParaRegistro($numero_control){
 		} else {
 // 2.- Cuando se DES-habilita cambia el estatus en la tabla de alumnos => estatus =0 y delete los datos del revibo para k cuando se vuelva habilitar metan nuevos datoos
 						if ($this->Modelo_DarAccesoAlumnos->update($numero_control, $data)) {
+							$this->Modelo_DarAccesoAlumnos->updateStatusDetalles($numero_control, $data3);
 							$this->Modelo_DarAccesoAlumnos->deleteDatosDelRecibo($id_alta_baucher_banco);
 							$data = array('responce' => 'success', 'message' => 'Alumno fue Deshabilitado...!');
 						} else {
@@ -114,14 +116,12 @@ public function actualizaEstadoDelComprobantePago($numero_control, $estatus){
 
 
 	public function registroDatosParaGenerarReciboPago(){
-		// if ($this->input->is_ajax_request()) {
-			// $this->form_validation->set_rules('name', 'Name', 'required');
-			// $this->form_validation->set_rules('email', 'Email', 'required|valid_email');
-			// if ($this->form_validation->run() == FALSE) {
-			// 	$data = array('responce' => 'error', 'message' => validation_errors());
-			// } else {
+		$bauche = $this->input->post('bauche');
+
 				$ajax_data = $this->input->post();
-				if ($this->Modelo_DarAccesoAlumnos->insert_entry($ajax_data)) {
+/*1.*/		$this->Modelo_DarAccesoAlumnos->deleteDatosDelRecibo($bauche);
+/*2.*/		if ($this->Modelo_DarAccesoAlumnos->insert_entry($ajax_data)) {
+/*3.*/				$this->Modelo_DarAccesoAlumnos->insert_respaldoHistoricoReciboPagos($bauche);
 					$data = array('responce' => 'success', 'message' => 'Datos del recibo agregados correctamente...!');
 				} else {
 					$data = array('responce' => 'error', 'message' => 'Fallo al agregar datos del recibo...!');

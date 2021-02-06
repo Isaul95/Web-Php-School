@@ -132,6 +132,15 @@ class AltaBaucherBanco extends CI_Controller {
 		}
 
 
+		public function consultaAvanceReticulaXMateriasCursadas(){
+			$numero_control = $this->input->post('numero_control');
+			$id_detalle = $this->input->post('id_detalle');
+			$semestre = $this->input->post('semestre');
+			$posts = $this->Modelo_DarAccesoAlumnos->obtenerAvanceReticulaXMateriasCursadas($numero_control, $semestre, $id_detalle);
+			echo json_encode($posts);
+		}
+
+
 
 		public function verReciboFirmadoValidado($id_recibo_valido){
 			$consulta = $this->Modelo_DarAccesoAlumnos->getReciboValidado($id_recibo_valido);
@@ -271,7 +280,7 @@ public function agregar_materia(){
 							$data = array('res' => "error", 'message' => "");
 						}
 						else{
-							
+
 							if ($this->Modelo_DarAccesoAlumnos->insertar_materia($ajax_data)) {
 								$data = array('responce' => "success");
 							} else {
@@ -290,7 +299,7 @@ public function removermateria(){
 		$detalle = $this->input->post('detalle');
 		$materia = $this->input->post('materia');
 		$ciclo = $this->input->post('ciclo');
-		$profesor = $this->input->post('profesor');		
+		$profesor = $this->input->post('profesor');
 		$horario = $this->input->post('horario');
 	if ($this->Modelo_DarAccesoAlumnos->delete_entry($detalle,$materia,$ciclo,$profesor,$horario)) {
 			$data = array('responce' => "success");
@@ -303,8 +312,8 @@ public function removermateria(){
 	}
 }
 public function alumnoencurso(){
-	if ($this->input->is_ajax_request()) {	
-			
+	if ($this->input->is_ajax_request()) {
+
 		$alumno = $this->input->post('alumno');
 		$carrera = $this->input->post('carrera');
 		$opcion = $this->input->post('opcion');
@@ -316,12 +325,12 @@ public function alumnoencurso(){
 		} else {
 			$data = array('response' => "error", 'message' => "Error al agregar datos...!");
 		}
-				
-		
-			
-			
+
+
+
+
 		echo json_encode($data);
-	
+
 		}
 	  else{
 		echo "No se permite este acceso directo...!!!";

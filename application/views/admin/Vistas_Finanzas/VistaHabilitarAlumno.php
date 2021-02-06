@@ -28,7 +28,7 @@
   </div>
 
 
-  <!-- Modal Agregar nueuvo registro -->
+  <!-- Modal Agregar registro para recibo de pago -->
   <div class="modal fade" id="addDatosRecibo" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
@@ -89,6 +89,37 @@
               <label for="">Capturar cantidad en letra: *</label>
               <input type="text" class="form-control" id="numletra" placeholder="Cantidad en letra">
             </div>
+
+
+              <!-- <div class="container"> -->
+                  <!-- <form > -->
+                      <div class="form-group" id="formParcialidad2">
+                        <label for="">Parcialidad:</label>
+                        <!-- <input type="text" class="form-control"  placeholder="Parcialidad.."> -->
+                        <select name="parcial" id="parcial" class="form-control">
+                        <option value="" selected>Seleccione una parcialidad...</option>
+                        <option value="Primer_parcialidad">Primer parcialidad</option>
+                        <option value="Segunda_parcialidad">Segunda parcialidad</option>
+                        <option value="Tercera_parcialidad">Tercera parcialidad</option>
+                        <option value="Cuarta_parcialidad">Cuarta parcialidad</option>
+                        <option value="Quinto_parcialidad">Quinto parcialidad</option>
+                        </select>
+                <br>
+                <!-- <div class="form-group"> -->
+                    <!-- <label for="">Fecha</label> -->
+                    <!-- <input type="text" id="datepicker_fecha_licenciatura" /> -->
+                    <label for="">Fecha limite de realizar el pago: *</label>
+                    <input type="text" class="form-control" id="datepicker_fecha_parcialidad" placeholder="Capturar fecha limite para realizar el pago completo">
+                  <!-- </div> -->
+
+                      </div>
+                  <!-- </form> -->
+                  <!-- <button type="submit" class="btn btn-success"  onclick="Mostrar_Parcialidad()">Agregar</button> -->
+                  <button type="button" class="btn btn-primary" onclick="Mostrar_Parcialidad()">Agregar Parcialidad</button>
+                <!-- </div> -->
+
+
+
 
       </form>
         </div>
@@ -175,6 +206,8 @@
             <th class="text-center">Recibo</th>
             <th class="text-center">No aplica</th>
             <th class="text-center">Subir</th>
+            <th class="text-center">Parcialidad</th>
+            <th class="text-center">Fecha limite</th>
           </tr>
         </thead>
       </table>

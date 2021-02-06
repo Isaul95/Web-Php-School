@@ -100,7 +100,7 @@ class Modelo_DarAccesoAlumnos extends CI_Model { // INICIO DEL MODELO
 // 2.- Se obt. id de la tabla de los baucher y la fecha en k se subio el baucher
 
   public function obtenerListaDeAlumnosConBaucherRegistrado($tipoPago){
-     $this->db->select("CONCAT(alu.nombres, ' ', alu.apellido_paterno, ' ', alu.apellido_materno) As nombre_completo, ban.id_alta_baucher_banco, ban.fecha_registro, alu.numero_control, alu.estatus, car.carrera_descripcion, rec.cantidad , rec.desc_concepto, rec.id_recibo, tip.pago");
+     $this->db->select("CONCAT(alu.nombres, ' ', alu.apellido_paterno, ' ', alu.apellido_materno) As nombre_completo, ban.id_alta_baucher_banco, ban.fecha_registro, alu.numero_control, alu.estatus, car.carrera_descripcion, rec.cantidad , rec.desc_concepto, rec.id_recibo, tip.pago, rec.parcialidad_pago, rec.fecha_limite_pago");
      $this->db->from("alumnos alu");
      $this->db->join("alta_baucher_banco ban","alu.numero_control = ban.numero_control");
      $this->db->join("detalles det ","alu.numero_control = det.alumno");
@@ -132,6 +132,12 @@ class Modelo_DarAccesoAlumnos extends CI_Model { // INICIO DEL MODELO
        return $this->db->update("alumnos", $data);
       }
 
+// ========== ACTUALIZA SIEMPRE EL ESTATUS DE LA TABLA DE ALUMNOS PARA HABILITAR Y DESHABILITAR  ===========
+        public function updateStatusDetalles($numero_control, $data3){
+          $this->db->where("alumno",$numero_control);
+           return $this->db->update("detalles", $data3);
+          }
+
 //  ===============  <<<<<<<<<<<   actualiza el estado del comprobante de pago si fue validado o no el k subio  >>>>>>>>>> ============
         public function updateStatusComprobPago($numero_control, $data2){
           $this->db->where("numero_control",$numero_control);
@@ -162,6 +168,13 @@ class Modelo_DarAccesoAlumnos extends CI_Model { // INICIO DEL MODELO
           return $this->db->insert('datos_recibo', $data);
         }
 
+// SE HACE EL RESPALDO DE LA TABLA RECIBOS DE PAGOS A HISTORICO
+        public function insert_respaldoHistoricoReciboPagos($bauche){
+            return $this->db->query(' insert into historico_recibos_pagos (id_recibo, bauche, importe_letra, desc_concepto, cantidad, parcialidad_pago, fecha_limite_pago, usuario_creacion, fecha_creacion)
+            SELECT * FROM datos_recibo where bauche =?',$bauche);
+            // $this->db->where("bauche =",$bauche);
+          }
+
       public function getTipoDePagos(){
       	$resultados = $this->db->get("tipos_de_pagos");
     		return $resultados->result();
@@ -175,7 +188,7 @@ class Modelo_DarAccesoAlumnos extends CI_Model { // INICIO DEL MODELO
 
 
     public function obtenerHistorialDePagosXAlumnos($numero_control){
-     $this->db->select("CONCAT(alu.nombres, ' ', alu.apellido_paterno, ' ', alu.apellido_materno) As nombre_completo, ban.id_alta_baucher_banco, ban.fecha_registro, ban.nombre_archivo, alu.numero_control, car.carrera_descripcion, sta.estado, tip.pago, rec.id_recibo, val.id_recibo_valido, det.cuatrimestre as semestre, det.id_detalle, pec.nombre_ciclo");
+     $this->db->select("CONCAT(alu.nombres, ' ', alu.apellido_paterno, ' ', alu.apellido_materno) As nombre_completo, ban.id_alta_baucher_banco, ban.fecha_registro, ban.nombre_archivo, alu.numero_control, car.carrera_descripcion, sta.estado, tip.pago, rec.id_recibo, val.id_recibo_valido, det.cuatrimestre as semestre, det.id_detalle, pec.nombre_ciclo, rec.parcialidad_pago, rec.fecha_limite_pago, ban.estado_archivo");
      $this->db->from("alumnos alu");
      $this->db->join("alta_baucher_banco ban","alu.numero_control = ban.numero_control");
      $this->db->join("detalles det ","alu.numero_control = det.alumno");
@@ -183,7 +196,8 @@ class Modelo_DarAccesoAlumnos extends CI_Model { // INICIO DEL MODELO
      $this->db->join("estatus sta","sta.estatus = ban.estado_archivo ");
      $this->db->join(" periodo_escolar pec "," pec.id_periodo_escolar = det.ciclo_escolar ");
      $this->db->join("tipos_de_pagos tip","tip.id_tipo_pago = ban.tipo_de_pago");
-       $this->db->join("datos_recibo rec","rec.bauche = ban.id_alta_baucher_banco",'LEFT');
+       $this->db->join("historico_recibos_pagos rec","rec.bauche = ban.id_alta_baucher_banco",'LEFT');
+//  $this->db->join("datos_recibo rec","rec.bauche = ban.id_alta_baucher_banco",'LEFT');
        $this->db->join("recibo_validado val","val.id_recibo = rec.id_recibo",'LEFT');
      $this->db->where("ban.numero_control",$numero_control);
 
@@ -223,8 +237,23 @@ class Modelo_DarAccesoAlumnos extends CI_Model { // INICIO DEL MODELO
       $resultados = $this->db->get();
        return $resultados->result();
      }
+
+     public function obtenerAvanceReticulaXMateriasCursadas($numero_control,$semestre, $id_detalle){
+       $this->db->select(" deta.cuatrimestre, CONCAT(a.nombres, ' ', a.apellido_paterno, ' ', a.apellido_materno) As nombres, m.nombre_materia,  cal.calificacion ");
+       $this->db->from(" detalles deta");
+       $this->db->join("alumnos a","deta.alumno = a.numero_control");
+       $this->db->join(" calificaciones cal "," deta.id_detalle = cal.detalle ");
+       $this->db->join(" materias m "," cal.materia = m.id_materia ");
+             $this->db->where(" a.numero_control = ",$numero_control);
+             $this->db->where(" deta.id_detalle =", $id_detalle );
+             $this->db->where(" deta.cuatrimestre =",$semestre);
+
+       $resultados = $this->db->get();
+        return $resultados->result();
+      }
+
 /***}
- * 
+ *
  *   public function obtenerAvanceReticulaXAlumnos($numero_control,$semestre, $id_detalle){
          $this->db->select(" d.cuatrimestre, CONCAT(a.nombres, ' ', a.apellido_paterno, ' ', a.apellido_materno) As nombres, m.nombre_materia, calificaciones.calificacion ");
          $this->db->from(" detalles d ");
@@ -238,16 +267,16 @@ class Modelo_DarAccesoAlumnos extends CI_Model { // INICIO DEL MODELO
          $resultados = $this->db->get();
           return $resultados->result();
         }
- * 
- * 
- * 
- * 
- * 
- * 
- * 
- * 
- * 
- * 
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
  */
 
 
@@ -277,7 +306,7 @@ public function horarioyaseleccionado($numero_control){
     $this->db->select("alumno");
     $this->db->from("detalles");
     $this->db->where("alumno",$numero_control);
-    $this->db->where("estado","En curso"); 
+    $this->db->where("estado","En curso");
 $resultados = $this->db->get();
 return $resultados->result();
 }
@@ -288,9 +317,9 @@ public function obtenermateriasaelegir($numero_control,$licenciatura,$semestre,$
   $this->db->select("m.id_materia as materia,
   d.id_detalle as alumno,
   m.nombre_materia as nombre_materia,
-  p.nombres as profe, 
+  p.nombres as profe,
   p.id_profesores as id_profe,
-  c.carrera_descripcion as carrera, 
+  c.carrera_descripcion as carrera,
   o.descripcion as opcion,
   hp.semestre as semestre,
   hp.ciclo as ciclo,
@@ -322,7 +351,7 @@ public function obtenermateriasaelegir($numero_control,$licenciatura,$semestre,$
   c.carrera_descripcion as carrera,
   o.descripcion as opcion,
   d.cuatrimestre as semestre,
-  cal.ciclo as ciclo, 
+  cal.ciclo as ciclo,
   cal.horario
   ");
   $this->db->from("calificaciones cal");
@@ -332,7 +361,7 @@ public function obtenermateriasaelegir($numero_control,$licenciatura,$semestre,$
   $this->db->join("opciones o","d.opcion = o.id_opcion");
   $this->db->join("materias m","cal.materia = m.id_materia");
   $this->db->join("profesores p","cal.profesor  = p.id_profesores");
-  
+
   $this->db->where("cal.ciclo",$ciclo);
   $this->db->where("d.alumno",$numero_control);
   $this->db->where("d.estado","En espera de materias");

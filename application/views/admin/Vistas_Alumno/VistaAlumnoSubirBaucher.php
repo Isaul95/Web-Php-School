@@ -28,7 +28,7 @@
                 <div class="row">
                   <div class="col-md-12 mt-5">
                     <h1 class="text-center">
-                    <strong><font color="#D34787">Subir Baucher del Banco</font></strong>
+                    <strong><font color="#D34787">Subir Comprobante de pago</font></strong>
                     </h1>
                     <hr style="background-color: black; color: black; height: 1px;">
                   </div>
@@ -86,9 +86,31 @@
               <!-- *****************  EL DIV DE LA OPCION DEL ICONO PARA LA DESCARGA DEL BAUCHER *******************  -->
                   <div class="modal-dialog" id="baucherPdf">
                     <center>
-                      <h3><font color="#3498DB">Usted ya registro su Comprobante de pago</font></h3> <br> <br>
-                     <a href="AltaBaucherBanco/verBaucher/<?php echo $username;?>" target="_blank">
-                       <i class="far fa-file-pdf fa-2x"></i></a>
+                      <h4><font color="#3498DB">Usted ya registro su Comprobante de pago</font></h4> <br>
+                     <!-- <a href="AltaBaucherBanco/verBaucher/<?php echo $username;?>" target="_blank"> -->
+                       <!-- <i class="far fa-file-pdf fa-2x"></i></a> -->
+                       <!-- <div class="form-group">
+                         <label for="">Fue un pago realizado</label>
+                         <input type="text" class="form-control" id="parcialidadPago" readonly >
+                       </div> -->
+                       <div class="row" id="divDatosParcialidad">
+                         <div class="col-8 col-sm-6">
+                         <label for="">Fue un pago realizado en:</label>
+                         <input type="text" class="form-control text-center" id="parcialidadPago" readonly >
+                         </div>
+                         <div class="col-4 col-sm-6">
+                         <label for="">Fecha limite de pago:</label>
+                         <input type="text" class="form-control text-center" id="fechaLimitePago" readonly >
+                         </div>
+                       </div>
+                           <div class="row" id="divSinDatosParcialidad">
+                             <label for="">El pago fue realizado en una sola exhibición</label>
+                           </div>
+
+                           <div class="row" id="xtre">
+                             <label for="">Comprobante de pago en proceso de validación</label>
+                           </div>
+
                      </center> <br> <br>
                      <strong><font color="#E74C3C">NOTA: Para hacer el cambio del comprobante, es necesario notificar al departamento de finanzas</font></strong> <br>
                   </div>
@@ -122,6 +144,8 @@
                         <th class="text-center">Horario</th>
                         <th class="text-center">Estado</th>
                         <th>Recibo de Pago</th>
+                        <th>Parcialidad pago</th>
+                        <th>Fecha limite Pago</th>
                       </tr>
                     </thead>
                   </table>
@@ -170,7 +194,7 @@
 
   </div>
   <?php endforeach;?>
-<br><br>
+<br>
 
   <div class="row">
 
@@ -189,14 +213,51 @@
      <input type="text" class="bg-info" readonly>
      </div>
 
+     <div class="col-2 col-sm-3">
+       <label for="">Calificación pendiente</label>
+     <input type="text" class="bg-yellow" readonly>
+     </div>
+
    </div>
 
+   <br><br><br>
 
-  <br><br>
+
+
+  <div class="container">
+
+    <div class="row">
+      <div class="col-8 col-sm-4">
+        <label for="">Seleccione semestres cursadas: </label>
+        <select background-color="red" id="combo_semestres_cursados" class="form-control">
+        <!-- <option value="" selected>Seleccione un semestre...</option> -->
+        </select>
+      </div>
+    </div>
+
+   <br>
+
+<center>
+  <div class="row my-4">
+    <div class="col-md-12 mx-auto">
+      <table id="tbl_avanceRetucularMateriasCursadas" class="table table-striped table-bordered dt-responsive nowrap table-hover table-condensed" cellspacing="0" style="background:white!important" width="100%" >
+        <thead class="text-center bg-primary">
+          <tr>
+            <th> MATERIAS CURSADAS </th>
+            <th>CALIFICACIÓN</th>
+          </tr>
+        </thead>
+      </table>
+    </div>
+  </div>
+</center>
+  </div>
+
+<br><br>
 
               <div class="row">
-                <div class="col-8 col-sm-2">
-                  <label for="">Seleccione semestre: </label>
+                <div class="col-8 col-sm-4">
+                  <label for="">Seleccione semestre por cursar: </label>
                   <select background-color="red" id="combo_semestres" class="form-control">
                   <option value="" selected>Seleccione un semestre...</option>
                   </select>
@@ -204,14 +265,13 @@
               </div>
               <br>
 
-
               <div class="row my-4">
                 <div class="col-md-12 mx-auto">
                   <table id="tbl_avanceRetucular" class="table table-striped table-bordered dt-responsive nowrap table-hover table-condensed" cellspacing="0" style="background:white!important" >
                     <thead class="text-center bg-primary">
                       <tr>
                         <!-- <th>ID MATERIA</th> width="100%" -->
-                        <th class="text-center"> MATERIAS </th>
+                        <th class="text-center"> MATERIAS POR CURSAR </th>
                       </tr>
                     </thead>
                   </table>
@@ -237,7 +297,7 @@
                     </h1>
                     <hr style="background-color: black; color: black; height: 1px;">
                   </div>
-        
+
             <br>
             <br>
             <br>
@@ -301,8 +361,8 @@
                     <div class="col-8 col-sm-6">
                     <button type="button" class="btn btn-primary btn-sm btn-block" id="confirmar_horario_elegir_materias">Confirmar horario</button>
                     </div>
-                   </div><!--BOTÓN-->  
-                                  
+                   </div><!--BOTÓN-->
+
             </div> <!--SELECCIÓN DE MATERIAS-->
             <div class="modal-dialog" id="HorarioSeleccionado">
                 <div class="modal-content"> <!---MODAL CONTENT -->
@@ -316,8 +376,8 @@
                      </div><!--MODAL BODY SELECCIÓN DE MATERIAS-->
                   </div> <!--MODAL CONTENT SELECCIÓN DE MATERIAS-->
             </div> <!--SELECCIÓN DE MATERIAS-->
-              
-               
+
+
       </div>  <!-- FIN DEL CONTENEDOR DEL BODY  -->
 
 
@@ -345,25 +405,3 @@
 
 
     </div> <!-- /END ALL CONTENT -->
-    <style>
-       .inner {
-         position: absolute;
-         width: 8%;
-         height: 7%;
-         background-color: #00FF00;
-       }
-
-       .inner2 {
-         position: absolute;
-         width: 8%;
-         height: 7%;
-         background-color: #00FF00;
-       }
-
-       .inner3 {
-         position: absolute;
-         width: 8%;
-         height: 7%;
-         background-color: #00FF00;
-       }
-     </style>

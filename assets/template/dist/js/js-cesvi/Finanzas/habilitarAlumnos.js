@@ -1,8 +1,20 @@
 
   $(document).ready(function(){
         litarAlumnosConBaucherRegistrados();
+        date_picker_parcialidad();
 
     }); // FIN DE LA FUNCION PRINCIPAL
+
+
+function ocultartxt(){
+  // document.getElementById("formParcialidad").style.display = "none";
+  document.getElementById("formParcialidad2").style.display = "none";
+}
+
+
+function Mostrar_Parcialidad(){
+  document.getElementById("formParcialidad2").style.display = "block";
+}
 
 
 
@@ -63,11 +75,12 @@
                               searchable: false,
                               "render" : function(data, type, row) {
                                 var habilitarAlumno = `${row.estatus}`;
+                        var espera = 'En_espera_de_materias';
                                 var string = '<input type="checkbox" ';
                                 if(habilitarAlumno == 1){
-                                  string = string + `checked onclick=habilitaRegistroFinanzas(0,'${row.numero_control}','${row.id_alta_baucher_banco}')>`;
+                                  string = string + `checked onclick=habilitaRegistroFinanzas(0,'${row.numero_control}','${row.id_alta_baucher_banco}','Inicio_inscripcion')>`;
                                 }else {
-                                  string = string +`onclick=habilitaRegistroFinanzas(1,'${row.numero_control}','${row.id_alta_baucher_banco}')>`;
+                                  string = string +`onclick=habilitaRegistroFinanzas(1,'${row.numero_control}','${row.id_alta_baucher_banco}','En_espera_de_materias')>`;
                                 }
                                 return string;
 			                         },
@@ -115,6 +128,31 @@ return a;
 
                                 },
                             },
+                            {
+                                data: "parcialidad_pago",
+                                render: function(data, type, row, meta) {
+                                  var parcialidadPagorow = `${row.parcialidad_pago}`;
+                                if(parcialidadPagorow != "null"){
+                                      var a = '<div class="p-3 mb-2 text-white">'+parcialidadPagorow+'</div>';
+                                }else {
+                                  var a = '<div class="p-3 mb-2 bg-primary  text-white">'+'PAGO COMPLETO'+'</div>';;
+                                }
+                            return a;
+                                },
+                            },
+                            {
+                                data: "fecha_limite_pago",
+                                render: function(data, type, row, meta) {
+                                  var fechaLimitePagorow = `${row.fecha_limite_pago}`;
+                                if(fechaLimitePagorow != "null"){
+                                      var a = '<div class="p-3 mb-2 bg-red text-white">'+fechaLimitePagorow+'</div>';
+                                }else {
+                                  var a = '----';
+                                }
+                            return a;
+                                },
+                            },
+
                       ],
                         "language" : language_espaniol,
                   });
@@ -270,7 +308,7 @@ return a;
     /* -------------------------------------------------------------------------- */
     $(document).on("click", "#altaReciboValidado", function(e) {
         e.preventDefault();
-        debugger;
+        // debugger;
 
         var id_recibo = $("#id_reciboVarHide").val();
         var img = $("#archivo")[0].files[0]; // this is file
@@ -312,7 +350,7 @@ return a;
 
 
       function noAplicaRegistro(numero_control){
-          debugger;
+          // debugger;
                 var datos = {
                     numero_control : numero_control,
                 }
@@ -381,12 +419,13 @@ return a;
 
 
 // SOLO SE VA HABILITAR CUANDO ESTE DESHABILITADO, UNA VEZ K SE ABILITE SE DESBLOKEA
-function habilitaRegistroFinanzas(estatus, numero_control, id_alta_baucher_banco){
+function habilitaRegistroFinanzas(estatus, numero_control, id_alta_baucher_banco, estado){
     debugger;
       		var datos = {
       				numero_control : numero_control,
               estatus: estatus,
               id_alta_baucher_banco: id_alta_baucher_banco,
+              estado : estado,
       		}
 
       		$.ajax({
@@ -415,22 +454,30 @@ function habilitaRegistroFinanzas(estatus, numero_control, id_alta_baucher_banco
       // SE RECOGEN LOS DATOS PARA PODER GENERAR EL RECIBO DE PAGO SIN FIRMA NI SELLO  onClick="eliminarRegistroGasto()"
       function addDatoParaReciboPagoAlumno(id_alta_baucher_banco, numero_control, estatus){
           debugger;
+
               if(estatus == 1){  // si habilitan debe mostrar modal si es DESHABILITADO no debe mostrarse
               	$('#addDatosRecibo').modal({show: true}); // abrir modal al execute la function
+ocultartxt();
+                // document.getElementById("addDatosAGenerarReciboPago").disabled = true;
+                // document.getElementById("buttonParcial").disabled = true;
+                // document.getElementById("formParcialidad").style.display = "none";
               }
+
               // Aki solo se imprime al num de control no pude inprimir los demas datos x problemas de los espacios
               $("#numero_con").val(numero_control); // DATO K SE MUESTRA EN EL TXT DEL MODAL
 
               $(document).on("click", "#addDatosAGenerarReciboPago", function(e){ // ADD DATES FOR REVIBO DE PAGO
                 e.preventDefault();
                 // Se recojern los valores en la variable datos
+
               var datos = {
                   bauche: id_alta_baucher_banco,
                   desc_concepto : $("#concepto").val(),
                   cantidad : $("#cantidad").val(),
-                  importe_letra : $("#numletra").val()+"PESOS 00/100 M.N",
+                  importe_letra : $("#numletra").val()+" PESOS 00/100 M.N",
                   usuario_creacion : $("#username").val(),
-                  // var name = $("#concepto").val();
+                  parcialidad_pago : $("#parcial").val(),
+                  fecha_limite_pago : $("#datepicker_fecha_parcialidad").val(),
               }
 
               if (datos.desc_concepto == "" || datos.cantidad == "" || datos.importe_letra == "") {
@@ -479,4 +526,26 @@ function habilitaRegistroFinanzas(estatus, numero_control, id_alta_baucher_banco
         "next": "Siguiente",
         "previous": "Anterior"
       }, /* TODO ESTO ES PARA CAMBIAR DE IDIOMA */
+    }
+
+
+    function date_picker_parcialidad() {
+        $("#datepicker_fecha_parcialidad").datepicker({
+            closeText: 'Cerrar',
+            currentText: 'Hoy',
+            monthNames: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio',
+                'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+            monthNamesShort: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun',
+                'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'],
+            dayNames: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'],
+            dayNamesShort: ['Dom', 'Lun', 'Mar', 'Mié;', 'Juv', 'Vie', 'Sáb'],
+            dayNamesMin: ['Do', 'Lu', 'Ma', 'Mi', 'Ju', 'Vi', 'Sá'],
+            weekHeader: 'Sm',
+            dateFormat: 'yy/mm/dd',
+            firstDay: 1,
+            isRTL: false,
+            showMonthAfterYear: false,
+            yearSuffix: ''
+        });
+        $.datepicker.setDefaults($.datepicker.regional['es']);
     }

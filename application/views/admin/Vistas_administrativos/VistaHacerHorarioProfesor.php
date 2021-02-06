@@ -36,14 +36,13 @@
                     <div class="col-4 col-sm-8">
                     <?php if($rol==1):?>
                       <label for="">Seleccione alguna carrera: </label>
-                    <select background-color="red" id="combo_carreras_horario_profesores" class="form-select form-select-lg mb-3"></select>
+                    <select background-color="red" id="combo_carreras_horario_profesores" class="form-control"><option value="" selected>Seleccione una carrera</option></select>
                     <?php endif;?>
                     </div>
                     <?php if($rol==1):?>
                     <div class="col-4 col-sm-4">
                         <label for="">Semestre: </label>
-                        <select background-color="red" id="combo_semestres_horario_profesores" class="form-select form-select-lg mb-3">
-                        </select>
+                        <select background-color="red" id="combo_semestres_horario_profesores" class="form-control"><option value="" selected>Seleccione un semestre</option></select>
                     </div>
                     <?php endif;?>
                   </div> <!--END OF SECOND ROW--> 
@@ -56,14 +55,14 @@
                     <div class="col-8 col-sm-6">
                     <?php if($rol==1):?>
                       <label for="">Seleccione alguno de los profesores: </label>
-                    <select background-color="red" id="combo_profesores_horario_profesores" class="form-select form-select-lg mb-3"></select>
+                    <select background-color="red" id="combo_profesores_horario_profesores" class="form-control"><option value="" selected>Seleccione una profesor</option></select>
                     <?php endif;?>
                     </div>
 
                     <div class="col-8 col-sm-6">
                     <?php if($rol==1):?>
                       <label for="">Seleccione alguna opción de estudio: </label>
-                    <select background-color="red" id="combo_opciones_horario_profesores" class="form-select form-select-lg mb-3"></select>
+                    <select background-color="red" id="combo_opciones_horario_profesores" class="form-control"><option value="" selected>Seleccione una opción de estudio</option></select>
                     <?php endif;?>
                     </div>
                   </div>
@@ -78,7 +77,7 @@
                     <?php if($rol==1):?>
                       <label for="">Seleccione alguna de las materias: </label>
                       <br>
-                    <select background-color="red" id="combo_materias_horario_profesores" class="form-select form-select-lg mb-3" multiple="multiple"></select>
+                    <select background-color="red" id="combo_materias_horario_profesores" class="form-control" multiple="multiple"><option value="" selected>Seleccione una materia</option></select>
                     <?php endif;?>
                     </div>
                  

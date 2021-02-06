@@ -120,6 +120,11 @@ class HacerHorarioProfesor extends CI_Controller {
 						$data = array('response' => "error", 'message' => "Horario ya asignado a la materia: ".$nombre_materia." a otro profesor");			
 								 
 					}else{ // NO HAY MÁS MATERIAS REGISTRADAS EN EL MISMO, SEMESTRE, CICLO, Y CON DIFERENTE PROFESOR
+					
+						if($this->Modelo_HacerHorarioProfesor->horarios_iguales($ciclo,$semestre,$tabla,$horario_inicio,$horario_fin)>0){
+							$data = array('response' => "error", 'message' => "Horario ya asignado a otra materia");			
+									 
+						}else{// NO HAY MÁS MATERIAS REGISTRADAS EN EL MISMO HORARIO
 					$ajax_data['inicio'] = $this ->input->post('inicio');
 					$ajax_data['fin'] = $this ->input->post('fin');
 					$ajax_data['ex_final'] = $this ->input->post('ex_final');
@@ -132,7 +137,10 @@ class HacerHorarioProfesor extends CI_Controller {
 					   $data = array('response' => "error", 'message' => "Error al agregar datos...!");
 					 }		
 				
-					}
+				  
+					}// NO HAY MÁS MATERIAS REGISTRADAS EN EL MISMO HORARIO
+
+					}// NO HAY MÁS MATERIAS REGISTRADAS EN EL MISMO, SEMESTRE, CICLO, Y CON DIFERENTE PROFESOR
 							
 			
 			echo json_encode($data);

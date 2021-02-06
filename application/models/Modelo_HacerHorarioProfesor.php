@@ -176,6 +176,18 @@ class Modelo_HacerHorarioProfesor extends CI_Model { // INICIO DEL MODELO
                       $resultados = $this->db->get($tabla);
                       return $resultados->num_rows();
               }
+              public function horarios_iguales($ciclo,$semestre,$tabla,$horario_inicio,$horario_fin){
+                if ($tabla == "horarios_profesor") {
+                    //$this->db->select("SUM(total)");
+                      //$this->db->from("venta");
+                       $this->db->where("ciclo", $ciclo);
+                       $this->db->where("semestre", $semestre);
+                       $this->db->where("horario_inicio", $horario_inicio);
+                       $this->db->where("horario_fin", $horario_fin);
+                       }
+                    $resultados = $this->db->get($tabla);
+                    return $resultados->num_rows();
+            }
 
 // ***************************  INICIO FUNCTION PARA INSRTAR  ************************************
 

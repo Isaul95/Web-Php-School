@@ -36,14 +36,13 @@
                     <div class="col-4 col-sm-8">
                     <?php if($rol==3):?>
                       <label for="">Seleccione alguna carrera: </label>
-                    <select background-color="red" id="combo_carreras_planeacion_profesores" class="form-select form-select-lg mb-3"></select>
+                    <select background-color="red" id="combo_carreras_planeacion_profesores" class="form-control"><option value="" selected>Seleccione una carrera</option></select>
                     <?php endif;?>
                     </div>
                     <?php if($rol==3):?>
                     <div class="col-4 col-sm-4">
                         <label for="">Semestre: </label>
-                        <select background-color="red" id="combo_semestres_planeacion_profesores" class="form-select form-select-lg mb-3">
-                        </select>
+                        <select background-color="red" id="combo_semestres_planeacion_profesores" class="form-control"><option value="" selected>Seleccione un semestre</option></select>
                     </div>
                     <?php endif;?>
                   </div> <!--END OF SECOND ROW--> 
@@ -56,7 +55,7 @@
                   <div class="col-8 col-sm-6">
                     <?php if($rol==3):?>
                       <label for="">Seleccione alguna opción de estudio: </label>
-                    <select background-color="red" id="combo_opciones_planeacion_profesores" class="form-select form-select-lg mb-3"></select>
+                    <select background-color="red" id="combo_opciones_planeacion_profesores" class="form-control"><option value="" selected>Seleccione una opción de estudio</option></select>
                     <?php endif;?>
                     </div>
                   </div>

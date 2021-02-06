@@ -40,7 +40,7 @@
                     <div class="col-8 col-sm-6">
                     <?php if($rol==1):?>
                       <label for="">Seleccione alguna carrera: </label>
-                    <select background-color="red" id="combo_carreras_administrativos_profesores" class="form-select form-select-lg mb-3"></select>
+                    <select background-color="red" id="combo_carreras_administrativos_profesores" class="form-control"><option value="" selected>Seleccione una carrera</option></select>
                     <?php endif;?>
                     </div>
                   </div>
@@ -50,7 +50,7 @@
                     <div class="col-8 col-sm-6">
                     <?php if($rol==1):?>
                       <label for="">Seleccione alguna opción de estudio: </label>
-                    <select background-color="red" id="combo_opciones_administrativos_profesores" class="form-select form-select-lg mb-3"></select>
+                    <select background-color="red" id="combo_opciones_administrativos_profesores" class="form-control"><option value="" selected>Seleccione una opcion de estudio</option></select>
                     <?php endif;?>
                     </div>
                   </div>
@@ -60,7 +60,7 @@
                     <div class="col-8 col-sm-6">
                     <?php if($rol==3):?>
                       <label for="">Seleccione alguna de las materias que tiene asignada: </label>
-                    <select background-color="red" id="combo_materias_administrativos_profesores" class="form-select form-select-lg mb-3"></select>
+                    <select background-color="red" id="combo_materias_administrativos_profesores" class="form-control"><option value="" selected>Seleccione alguna materia</option></select>
                     <?php endif;?>
                     </div>
                   </div>

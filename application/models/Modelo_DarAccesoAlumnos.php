@@ -80,6 +80,14 @@ class Modelo_DarAccesoAlumnos extends CI_Model { // INICIO DEL MODELO
     }
 
 
+    public function consultarTiposDePagos(){
+                  $this->db->distinct();
+                  $this->db->select("id_tipo_pago,pago");
+                  $this->db->from("tipos_de_pagos");
+                  $resultados = $this->db->get();
+                  return $resultados->result();
+                  }
+
 
 
     public function consultaCountAlumnosXxx($numero_control){

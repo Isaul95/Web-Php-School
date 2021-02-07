@@ -154,6 +154,10 @@ public function actualizaEstadoDelComprobantePago($numero_control, $estatus){
 		}
 
 
+		public function obtenerTiposDePagos(){
+				$posts = $this->Modelo_DarAccesoAlumnos->consultarTiposDePagos();
+				echo json_encode($posts);
+			}
 
 
 		public function verRecibosFirmados()

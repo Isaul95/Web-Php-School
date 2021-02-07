@@ -2,8 +2,110 @@
   $(document).ready(function(){
         litarAlumnosConBaucherRegistrados();
         date_picker_parcialidad();
+        // =============== LLENADO DE COMBOS =================
+      llenar_combo_carreras_AltaAlumn_Finanzas();
+      llenar_combo_semestres_AltaAlumn_Finanzas();
+      llenar_combo_opciones_AltaAlumn_Finanzas();
+      llenar_combo_tipoDePgos_AltaAlumn_Finanzas();
+
+
+      $("#combo_CarreraAltaAlumn_Finanzas").change(function () {
+        //     var licenciatura = $("#combo_CarreraDocumAlumnos_Admin").val();
+        //     var semestre = $("#combo_SemestresDocumAlumnos_Admin").val();
+        //     var opciones = $("#combo_opcionesDocumAlumnos_Admin").val();
+        // $("#tbl_alumnosDocumentacion").DataTable().destroy();
+        //     llenarTablaAlumnosParaDocumentacion(licenciatura,semestre,opciones);
+        });
+
+        $("#combo_SemestresAltaAlumn_Finanzas").change(function () {
+         //      var licenciatura = $("#combo_CarreraDocumAlumnos_Admin").val();
+         //      var semestre = $("#combo_SemestresDocumAlumnos_Admin").val();
+         //      var opciones = $("#combo_opcionesDocumAlumnos_Admin").val();
+         //  $("#tbl_alumnosDocumentacion").DataTable().destroy();
+         });
+
+         $("#combo_opcionesAltaAlumn_Finanzas").change(function () {
+          //     var licenciatura = $("#combo_CarreraDocumAlumnos_Admin").val();
+          //     var semestre = $("#combo_SemestresDocumAlumnos_Admin").val();
+          //     var opciones = $("#combo_opcionesDocumAlumnos_Admin").val();
+          // $("#tbl_alumnosDocumentacion").DataTable().destroy();
+          //     llenarTablaAlumnosParaDocumentacion(licenciatura,semestre,opciones);
+          });
+
+          $("#combo_TipoDePagosAltaAlumn_Finanzas").change(function () {
+           //     var licenciatura = $("#combo_CarreraDocumAlumnos_Admin").val();
+           //     var semestre = $("#combo_SemestresDocumAlumnos_Admin").val();
+           //     var opciones = $("#combo_opcionesDocumAlumnos_Admin").val();
+           // $("#tbl_alumnosDocumentacion").DataTable().destroy();
+           //     llenarTablaAlumnosParaDocumentacion(licenciatura,semestre,opciones);
+           });
+
 
     }); // FIN DE LA FUNCION PRINCIPAL
+
+
+
+    function llenar_combo_opciones_AltaAlumn_Finanzas() {
+        $.ajax({
+            type: "get",
+            url: base_url + 'Profesores/PlaneacionProfesores/obteneropciones',
+            dataType: "json",
+            success: function (data) {
+                $.each(data, function (key, registro) {
+                    $("#combo_opcionesAltaAlumn_Finanzas").append('<option value=' + registro.id_opcion + '>' + registro.descripcion + '</option>');
+                });
+            },
+        });
+    }
+
+
+    function llenar_combo_semestres_AltaAlumn_Finanzas() {
+        $.ajax({
+            type: "get",
+            url: base_url + 'Profesores/PlaneacionProfesores/obtenersemestres',
+            dataType: "json",
+            success: function (data) {
+                $.each(data, function (key, registro) {
+                    $("#combo_SemestresAltaAlumn_Finanzas").append('<option value=' + registro.semestre + '>' + registro.nombre + '</option>');
+                });
+
+            },
+        });
+    }
+
+
+
+    function llenar_combo_carreras_AltaAlumn_Finanzas() {
+        $.ajax({
+            type: "get",
+            url: base_url + 'Profesores/PlaneacionProfesores/obtenercarreras',
+            dataType: "json",
+            success: function (data) {
+                console.log(data);
+                $.each(data, function (key, registro) {
+                    $("#combo_CarreraAltaAlumn_Finanzas").append('<option value=' + registro.id_carrera + '>' + registro.carrera_descripcion + '</option>');
+                });
+            },
+        });
+    }
+
+
+        function llenar_combo_tipoDePgos_AltaAlumn_Finanzas() {
+            $.ajax({
+                type: "get",
+                url: base_url + 'Finanzas/HabilitarAlumnos/obtenerTiposDePagos',
+                dataType: "json",
+                success: function (data) {
+                    console.log(data);
+                    $.each(data, function (key, registro) {
+                        $("#combo_TipoDePagosAltaAlumn_Finanzas").append('<option value=' + registro.id_tipo_pago + '>' + registro.pago + '</option>');
+                    });
+                },
+            });
+        }
+
+
+
 
 
 function ocultartxt(){
@@ -133,9 +235,9 @@ return a;
                                 render: function(data, type, row, meta) {
                                   var parcialidadPagorow = `${row.parcialidad_pago}`;
                                 if(parcialidadPagorow != "null"){
-                                      var a = '<div class="p-3 mb-2 text-white">'+parcialidadPagorow+'</div>';
+                                      var a = '<div class="p-3 mb-2 bg-primary  text-white">'+'PAGO COMPLETO'+'</div>';
                                 }else {
-                                  var a = '<div class="p-3 mb-2 bg-primary  text-white">'+'PAGO COMPLETO'+'</div>';;
+                                  var a = '----';
                                 }
                             return a;
                                 },

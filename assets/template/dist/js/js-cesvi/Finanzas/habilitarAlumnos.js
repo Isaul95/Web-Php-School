@@ -234,30 +234,30 @@ return a;
 
                                 },
                             },
-                            {
-                                data: "parcialidad_pago",
-                                render: function(data, type, row, meta) {
-                                  var parcialidadPagorow = `${row.parcialidad_pago}`;
-                                if(parcialidadPagorow != "null"){
-                                      var a = '<div class="p-3 mb-2 bg-primary  text-white">'+'PAGO COMPLETO'+'</div>';
-                                }else {
-                                  var a = '----';
-                                }
-                            return a;
-                                },
-                            },
-                            {
-                                data: "fecha_limite_pago",
-                                render: function(data, type, row, meta) {
-                                  var fechaLimitePagorow = `${row.fecha_limite_pago}`;
-                                if(fechaLimitePagorow != "null"){
-                                      var a = '<div class="p-3 mb-2 bg-red text-white">'+fechaLimitePagorow+'</div>';
-                                }else {
-                                  var a = '----';
-                                }
-                            return a;
-                                },
-                            },
+                            // {
+                            //     data: "parcialidad_pago",
+                            //     render: function(data, type, row, meta) {
+                            //       var parcialidadPagorow = `${row.parcialidad_pago}`;
+                            //     if(parcialidadPagorow != "null"){
+                            //           var a = '<div class="p-3 mb-2 bg-primary  text-white">'+'PAGO COMPLETO'+'</div>';
+                            //     }else {
+                            //       var a = '----';
+                            //     }
+                            // return a;
+                            //     },
+                            // },
+                            // {
+                            //     data: "fecha_limite_pago",
+                            //     render: function(data, type, row, meta) {
+                            //       var fechaLimitePagorow = `${row.fecha_limite_pago}`;
+                            //     if(fechaLimitePagorow != "null"){
+                            //           var a = '<div class="p-3 mb-2 bg-red text-white">'+fechaLimitePagorow+'</div>';
+                            //     }else {
+                            //       var a = '----';
+                            //     }
+                            // return a;
+                            //     },
+                            // },
                             {
                                 orderable: false,
                                 searchable: false,

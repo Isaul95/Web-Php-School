@@ -438,8 +438,8 @@
             <th class="text-center">Recibo</th>
             <th class="text-center">No aplica</th>
             <th class="text-center">Subir</th>
-            <th class="text-center">Parcialidad</th>
-            <th class="text-center">Fecha limite</th>
+            <!-- <th class="text-center">Parcialidad</th>
+            <th class="text-center">Fecha limite</th> -->
             <th class="text-center">Historial...</th>
           </tr>
         </thead>

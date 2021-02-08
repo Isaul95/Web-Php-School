@@ -22,11 +22,56 @@
   <div class="row">
     <div class="col-md-12">
 
+      <br>
+<div class="row">
+<div class="col-10 col-sm-12">
+              <div class="row">
+                  <div class="col-4 col-sm-6">
+                    <label for="">Seleccione alguna carrera: </label>
+                  <select background-color="red" id="combo_CarreraAltaAlumn_Finanzas" class="form-control">
+                  <option value="" selected>Seleccione una carrera...</option>
+                  </select>
+                  </div>
+
+                  <div class="col-4 col-sm-4">
+                      <label for="">Semestre: </label>
+                      <select background-color="red" id="combo_SemestresAltaAlumn_Finanzas" class="form-control">
+                        <option value="" selected>Seleccione un semestre...</option>
+                      </select>
+                  </div>
+              </div> <!--END OF SECOND ROW-->
+</div><!--class="col-10 col-sm-12"-->
+</div> <!--END OF FIRST ROW-->
+              <br>
+
+              <div class="row">
+                <div class="col-10 col-sm-12">
+                               <div class="row">
+                                <div class="col-8 col-sm-4">
+                                    <label for="">Seleccione alguna opción de estudio: </label>
+                                  <select background-color="red" id="combo_opcionesAltaAlumn_Finanzas" class="form-control">
+                                    <option value="" selected>Seleccione una opción...</option>
+                                  </select>
+                                  </div>
+
+                                  <div class="col-4 col-sm-4">
+                                      <label for="">Tipo de pagos: </label>
+                                      <select background-color="red" id="combo_TipoDePagosAltaAlumn_Finanzas" class="form-control">
+                                        <option value="" selected>Seleccione un tipo de pago...</option>
+                                      </select>
+                                  </div>
+
+                                </div>
+                                <br>
+                  </div><!--class="col-10 col-sm-12"-->
+                </div> <!--END OF FIRST ROW-->
+
+
+
 <hr> <!-- Le da una linea sombreada para ver la divicion -->
 
     </div>
   </div>
-
 
   <!-- Modal Agregar registro para recibo de pago -->
   <div class="modal fade" id="addDatosRecibo" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -103,6 +148,18 @@
                         <option value="Tercera_parcialidad">Tercera parcialidad</option>
                         <option value="Cuarta_parcialidad">Cuarta parcialidad</option>
                         <option value="Quinto_parcialidad">Quinto parcialidad</option>
+
+                        <option value="Sexta_parcialidad">Sexta parcialidad</option>
+                        <option value="Septima_parcialidad">Septima parcialidad</option>
+                        <option value="Octava_parcialidad">Octava parcialidad</option>
+                        <option value="Novena_parcialidad">Novena parcialidad</option>
+                        <option value="Decima_parcialidad">Decima parcialidad</option>
+
+                        <!-- <option value="Primer_parcialidad">Primer parcialidad</option>
+                        <option value="Segunda_parcialidad">Segunda parcialidad</option>
+                        <option value="Tercera_parcialidad">Tercera parcialidad</option>
+                        <option value="Cuarta_parcialidad">Cuarta parcialidad</option>
+                        <option value="Quinto_parcialidad">Quinto parcialidad</option> -->
                         </select>
                 <br>
                 <!-- <div class="form-group"> -->

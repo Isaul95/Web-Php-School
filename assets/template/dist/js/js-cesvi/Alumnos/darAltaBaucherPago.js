@@ -337,8 +337,10 @@
                               var parcialidadPagorow = `${row.parcialidad_pago}`;
                             if(parcialidadPagorow != "null"){
                                   var a = '<div class="p-3 mb-2 text-white">'+parcialidadPagorow+'</div>';
+                                  // var a = '<div class="p-3 mb-2 bg-primary  text-white">'+'PAGO COMPLETO'+'</div>';
                             }else {
-                              var a = '<div class="p-3 mb-2 bg-primary  text-white">'+'PAGO COMPLETO'+'</div>';;
+                              // var a = '----';
+                              var a = '<div class="p-3 mb-2 bg-primary  text-white">'+'PAGO COMPLETO'+'</div>';
                             }
                         return a;
                             },
@@ -410,7 +412,7 @@ function llenarDatosAlumTxt(estadoParcialidad, fecha_limite, estado_archivo){
                 if (data.responce == "success") {
                     toastr["success"](data.message);
                         // debugger;
-                        $('#formularioRegistroBaucher').hide();
+                        // $('#formularioRegistroBaucher').hide();
                         $('#baucherPdf').show();
                       }else{
                         // toastr["error"](data.message);

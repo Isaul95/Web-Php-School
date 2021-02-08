@@ -14,7 +14,7 @@
   <div class="row">
 
     <ul class="nav nav-tabs">
-          <li class="active"><a href="#tab_Colegiaturas" data-toggle="tab">Colegiaturas</a></li>
+          <li class="active"><a href="#tab_Colegiaturas" data-toggle="tab">Comprobante de pagos</a></li>
           <li><a id="tab-consultar" href="#tab_Cursos" data-toggle="tab">Historial de pagos</a></li>
           <li><a href="#tab_Extraordinario" data-toggle="tab">Avance Reticular</a></li>
           <li><a href="#Elegir_materias" data-toggle="tab">Selección de materias</a></li>
@@ -27,9 +27,9 @@
           <div class="tab-pane  active" id="tab_Colegiaturas">
                 <div class="row">
                   <div class="col-md-12 mt-5">
-                    <h1 class="text-center">
+                    <h3 class="text-center">
                     <strong><font color="#D34787">Subir Comprobante de pago</font></strong>
-                    </h1>
+                  </h3>
                     <hr style="background-color: black; color: black; height: 1px;">
                   </div>
                 </div>
@@ -44,10 +44,11 @@
                           <label for="">Número de control: *</label>
                           <input type="text" class="form-control" id="numero_control" readonly value="<?php echo $username;?>" >
                         </div>
-
+                        <?php foreach($datosTxt as $datosTxtAlumn):?>
                         <div class="form-group">
                             <label for="">Nombre Alumno: *</label>
-                          <input type="text" class="form-control" id="nombre" readonly value="<?php echo $nombres;?>" >
+                            <input type="text" class="form-control" id="nameCompletoAlumno" readonly value="<?php echo $datosTxtAlumn->nombre_completo;?>" >
+                        <?php endforeach;?>
                         </div>
 
                         <!-- <div class="form-group">
@@ -86,7 +87,7 @@
               <!-- *****************  EL DIV DE LA OPCION DEL ICONO PARA LA DESCARGA DEL BAUCHER *******************  -->
                   <div class="modal-dialog" id="baucherPdf">
                     <center>
-                      <h4><font color="#3498DB">Usted ya registro su Comprobante de pago</font></h4> <br>
+                      <h4><font color="#3498DB">Comprobante de pago registrado con éxito</font></h4> <br>
                      <!-- <a href="AltaBaucherBanco/verBaucher/<?php echo $username;?>" target="_blank"> -->
                        <!-- <i class="far fa-file-pdf fa-2x"></i></a> -->
                        <!-- <div class="form-group">
@@ -135,17 +136,17 @@
                     <thead class="text-center bg-primary">
                       <tr>
                         <th width="3%">#</th>
-                        <th class="text-center">Nombre</th>
+                        <th class="text-center">Nombre<br>Completo</th>
                         <th>No. Control</th>
                         <th class="text-center">Carrera</th>
                         <th class="text-center">Fecha registro</th>
                         <th>Tipo de Pago</th>
-                        <th class="text-center" width="7%">Pdf</th>
+                        <th class="text-center">Ver Baucher</th>
                         <th class="text-center">Horario</th>
                         <th class="text-center">Estado</th>
                         <th>Recibo de Pago</th>
                         <th>Parcialidad pago</th>
-                        <th>Fecha limite Pago</th>
+                        <th class="text-center">Fecha limite</th>
                       </tr>
                     </thead>
                   </table>

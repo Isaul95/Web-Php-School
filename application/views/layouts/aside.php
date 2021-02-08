@@ -128,8 +128,6 @@
                              <i class="far fa-dot-circle"></i> Habilitar alumnos</a>
                          </li>
 
-                          <li><a href="<?php echo base_url();?>Finanzas/FormatoRegistroPago">
-                            <i class="far fa-dot-circle"></i> Formato de registro de pago</a></li>
 
                         </ul>
                     </li>

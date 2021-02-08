@@ -180,7 +180,7 @@
                      
           <div class="row">
               <div class="col-sm-12">
-              <table id="tbl_list_calificaciones_administrador" class="table table-striped table-bordered table-hover table-condensed" cellspacing="0" style="background:white!important">
+              <table id="tbl_list_calificaciones_administrador" class="table table-striped table-bordered table-hover table-condensed" cellspacing="0" style="background:white!important" width="100%">
         <thead class="bg-primary">
           <tr>
           <th></th>

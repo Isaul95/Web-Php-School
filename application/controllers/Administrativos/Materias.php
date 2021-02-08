@@ -106,7 +106,10 @@ class Materias extends CI_Controller {
 
 	public function vermaterias()
 	{
-		$posts = $this->Modelo_Materias->obtenermaterias();
+		$semestre = $this->input->post('semestre');
+		$especialidad = $this->input->post('especialidad');
+		
+		$posts = $this->Modelo_Materias->obtenermaterias($semestre,$especialidad);
 		echo json_encode($posts);
 	}
 

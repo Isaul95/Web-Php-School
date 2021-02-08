@@ -446,9 +446,12 @@ class Alumnos extends CI_Controller {
 	/*                                Fetch Records                               */
 	/* -------------------------------------------------------------------------- */
 
-	public function veralumno()
+	public function veralumno ()
 	{
-		$posts = $this->Modelo_Alumnos->obteneralumnos();
+		$carrera = $this->input->post('carrera');
+		$cuatrimestre = $this->input->post('cuatrimestre');
+		$opcion = $this->input->post('opcion');
+		$posts = $this->Modelo_Alumnos->obteneralumnos($carrera,$cuatrimestre,$opcion);
 		echo json_encode($posts);
 	}
 

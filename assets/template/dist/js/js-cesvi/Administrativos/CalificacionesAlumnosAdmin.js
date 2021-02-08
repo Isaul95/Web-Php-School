@@ -4,21 +4,65 @@ $(document).ready(function () {
     //llenarTablaAlumnosParaDocumentacion();
     var semestre = $("#numero").val();
     var profesor = $("#usuario").val();
-    llenar_combo_materias_administrativos_profesores(semestre,profesor);
+    var profe_admin =  $("#rol").val();
+
+    $('#combo_materias_administrativos_profesores').hide();
+
     $("#combo_materias_administrativos_profesores").change(function () {
         $("#tbl_list_calificaciones_profesor_por_materia").DataTable().destroy();
-        llenartablaalumnosasignadosalamateriadelprofesorp($("#combo_materias_administrativos_profesores").val())
+        llenartablaalumnosasignadosalamateriadelprofesorp($("#combo_materias_administrativos_profesores").val(),profesor)
     });
+   
     llenar_combo_carreras_administrativos_profesores();
     $("#combo_carreras_administrativos_profesores").change(function () {
-        $("#tbl_list_calificaciones_administrativos_por_carrera_horario").DataTable().destroy();
-        llenartablaalumnosasignados_por_carrerayopcion($("#combo_carreras_administrativos_profesores").val(),$("#combo_opciones_administrativos_profesores").val());
-   });
+        if(profe_admin==1){//SI ES EL ADMIN
+            $("#tbl_list_calificaciones_administrativos_por_carrera_horario").DataTable().destroy();
+            llenartablaalumnosasignados_por_carrerayopcion($("#combo_carreras_administrativos_profesores").val(),
+            $("#combo_opciones_administrativos_profesores").val(),
+            $("#combo_semestres_administrativos_profesores").val());
+        }
+        else{
+            $("#combo_materias_administrativos_profesores").empty();
+            $('#combo_materias_administrativos_profesores').show();
+            llenar_combo_materias_administrativos_profesores($("#combo_carreras_administrativos_profesores").val(),
+            $("#combo_opciones_administrativos_profesores").val(),
+            $("#combo_semestres_administrativos_profesores").val(),profesor);
+        }
+       
+     });
     llenar_combo_opciones_administrativos_profesores();
     $("#combo_opciones_administrativos_profesores").change(function () {
-        $("#tbl_list_calificaciones_administrativos_por_carrera_horario").DataTable().destroy();
-        llenartablaalumnosasignados_por_carrerayopcion($("#combo_carreras_administrativos_profesores").val(),$("#combo_opciones_administrativos_profesores").val());
+        if(profe_admin==1){//SI ES EL ADMIN
+            $("#tbl_list_calificaciones_administrativos_por_carrera_horario").DataTable().destroy();
+            llenartablaalumnosasignados_por_carrerayopcion($("#combo_carreras_administrativos_profesores").val(),
+            $("#combo_opciones_administrativos_profesores").val(),
+            $("#combo_semestres_administrativos_profesores").val());
+        }
+        else{
+            $("#combo_materias_administrativos_profesores").empty();
+            $('#combo_materias_administrativos_profesores').show();
+            llenar_combo_materias_administrativos_profesores($("#combo_carreras_administrativos_profesores").val(),
+            $("#combo_opciones_administrativos_profesores").val(),
+            $("#combo_semestres_administrativos_profesores").val(),profesor);
+        }
     });
+    llenar_combo_semestres_administrativos_profesores();
+    $("#combo_semestres_administrativos_profesores").change(function () {
+        if(profe_admin==1){//SI ES EL ADMIN
+            $("#tbl_list_calificaciones_administrativos_por_carrera_horario").DataTable().destroy();
+            llenartablaalumnosasignados_por_carrerayopcion($("#combo_carreras_administrativos_profesores").val(),
+            $("#combo_opciones_administrativos_profesores").val(),
+            $("#combo_semestres_administrativos_profesores").val());
+        }
+        else{            
+            $("#combo_materias_administrativos_profesores").empty();
+            $('#combo_materias_administrativos_profesores').show();
+            llenar_combo_materias_administrativos_profesores($("#combo_carreras_administrativos_profesores").val(),
+            $("#combo_opciones_administrativos_profesores").val(),
+            $("#combo_semestres_administrativos_profesores").val(),profesor);
+        }
+    });
+
 }); // FIN DE LA FUNCION PRINCIPAL
 
 //SELECT - ON CHANGE
@@ -33,12 +77,50 @@ $("#modaleditcalificacion").on("hide.bs.modal", function (e) {
     $("#formeditcalificacion")[0].reset();
 });
 
+$("#modalcalificacionadmin").on("hide.bs.modal", function (e) {
+    // do something...
+    $("#formcalificacionadmin")[0].reset();
+});
 
 
-function llenar_combo_materias_administrativos_profesores(semestre,profesor){
+
+
+function llenar_combo_materias_administrativos_profesores(carrera, opcion, semestre,profesor){
+    var concat = "";
+    var fecha = new Date();
+
+    switch (fecha.getMonth() + 1) {
+        case 1:
+            var ciclo = concat.concat(fecha.getFullYear().toString().substring(2,4), "/", 1);
+            break;
+        case 2:
+            var ciclo = concat.concat(fecha.getFullYear().toString().substring(2,4), "/", 1);
+            break;
+        case 3:
+            var ciclo = concat.concat(fecha.getFullYear().toString().substring(2,4), "/", 1);
+            break;
+        case 4:
+            var ciclo = concat.concat(fecha.getFullYear().toString().substring(2,4), "/", 1);
+            break;
+        case 5:
+            var ciclo = concat.concat(fecha.getFullYear().toString().substring(2,4), "/", 1);
+            break;
+        case 6:
+            var ciclo = concat.concat(fecha.getFullYear().toString().substring(2,4), "/", 1);
+            break;
+        default:
+            var ciclo = concat.concat(fecha.getFullYear().toString().substring(2,4), "/", 2);
+            break;
+    }
+
     var fd = new FormData();
-        fd.append("profesor", profesor);
+        
+        fd.append("carrera", carrera);
+        fd.append("opcion", opcion);
         fd.append("semestre", semestre);
+        fd.append("profesor", profesor);
+        fd.append("ciclo", ciclo);
+        
     $.ajax({
         type: "post",
         url: base_url + 'Administrativos/Calificaciones/vermateriasdelprofesor',
@@ -81,17 +163,63 @@ function llenar_combo_materias_administrativos_profesores(semestre,profesor){
       },
     });
   }
+  function llenar_combo_semestres_administrativos_profesores() {
+    $.ajax({
+        type: "get",
+        url: base_url + 'Administrativos/HacerHorarioProfesor/obtenersemestres',
+        dataType: "json",
+        success: function (data) {
+            $.each(data, function (key, registro) {
+                $("#combo_semestres_administrativos_profesores").append('<option value=' + registro.semestre + '>' + registro.nombre + '</option>');
+            });
+
+        },
+    });
+}
   //LLENAR LA TABLA DE ALUMNOS QUE CORRESPONDEN A LAS MATERIAS A LAS QUE EL PROFESOR TIENE ACCESO
-function llenartablaalumnosasignadosalamateriadelprofesorp($materia) {
+function llenartablaalumnosasignadosalamateriadelprofesorp(materia,profesor) {
     // debugger;
-    var idmateria = $materia;
+    var idmateria = materia;
+    var idprofesor = profesor;
+    var concat = "";
+    var fecha = new Date();
+
+    switch (fecha.getMonth() + 1) {
+        case 1:
+            var ciclo = concat.concat(fecha.getFullYear().toString().substring(2,4), "/", 1);
+            break;
+        case 2:
+            var ciclo = concat.concat(fecha.getFullYear().toString().substring(2,4), "/", 1);
+            break;
+        case 3:
+            var ciclo = concat.concat(fecha.getFullYear().toString().substring(2,4), "/", 1);
+            break;
+        case 4:
+            var ciclo = concat.concat(fecha.getFullYear().toString().substring(2,4), "/", 1);
+            break;
+        case 5:
+            var ciclo = concat.concat(fecha.getFullYear().toString().substring(2,4), "/", 1);
+            break;
+        case 6:
+            var ciclo = concat.concat(fecha.getFullYear().toString().substring(2,4), "/", 1);
+            break;
+        default:
+            var ciclo = concat.concat(fecha.getFullYear().toString().substring(2,4), "/", 2);
+            break;
+    }
+    var fd = new FormData();
+    fd.append("materia",idmateria);
+    fd.append("ciclo",ciclo);
+    fd.append("profesor",profesor);
+
     $.ajax({
         type: "post",
         url: base_url + 'Administrativos/Calificaciones/veralumnos_asignados_ala_materia_del_profesor',
-        data: {
-            materia_a_consultar: idmateria,
-        },
+        data: fd,
+        processData: false,
+        contentType: false,        
         dataType: "json",
+        enctype: 'multipart/form-data',
         success: function (data) {
             console.log(data);
             var i = "1";
@@ -108,12 +236,6 @@ function llenartablaalumnosasignadosalamateriadelprofesorp($materia) {
                 },
                 {
                     data: "alumno",
-                },
-                {
-                    data: "cuatrimestre",
-                },
-                {
-                    data: "carrera_descripcion",
                 },
                 {
                     data: "calificacion",
@@ -139,13 +261,15 @@ function llenartablaalumnosasignadosalamateriadelprofesorp($materia) {
 }
 
   //LLENAR LA TABLA DE ALUMNOS QUE CORRESPONDEN A LAS MATERIAS A LAS QUE EL PROFESOR TIENE ACCESO
-  function llenartablaalumnosasignados_por_carrerayopcion($carrera,$opcion) {
+  function llenartablaalumnosasignados_por_carrerayopcion($carrera,$opcion,$semestre) {
     // debugger;
     var carrera = $carrera;
     var opcion = $opcion
+    var cuatrimestre = $semestre
     var fd = new FormData();
     fd.append("carrera",carrera);
     fd.append("opcion",opcion);
+    fd.append("cuatrimestre",cuatrimestre);
 
     $.ajax({
         type: "post",
@@ -174,17 +298,11 @@ function llenartablaalumnosasignadosalamateriadelprofesorp($materia) {
                     data: "alumno",
                 },
                 {
-                    data: "cuatrimestre",
-                },
-                {
-                    data: "carrera_descripcion",
-                },
-                {
                     orderable: false,
                     searchable: false,
                      data: function (row, type, set) {
                          return `
-                                 <a href="#" id="edit_materia" class="btn btn-success btn-remove" value="${row.id_detalle}"><i class="far fa-edit"></i></a>
+                                 <a href="#" id="ver_materias_del_alumno" class="btn btn-success btn-remove" value="${row.id_detalle}"><i class="far fa-edit"></i></a>
                               `;
                 },
                 },
@@ -195,6 +313,110 @@ function llenartablaalumnosasignadosalamateriadelprofesorp($materia) {
         },
     });
 }
+
+$(document).on("click", "#ver_materias_del_alumno", function (e) {
+    e.preventDefault();
+    var edit_id = $(this).attr("value");
+    var concat = "";
+    var fecha = new Date();
+
+    switch (fecha.getMonth() + 1) {
+        case 1:
+            var ciclo = concat.concat(fecha.getFullYear().toString().substring(2,4), "/", 1);
+            break;
+        case 2:
+            var ciclo = concat.concat(fecha.getFullYear().toString().substring(2,4), "/", 1);
+            break;
+        case 3:
+            var ciclo = concat.concat(fecha.getFullYear().toString().substring(2,4), "/", 1);
+            break;
+        case 4:
+            var ciclo = concat.concat(fecha.getFullYear().toString().substring(2,4), "/", 1);
+            break;
+        case 5:
+            var ciclo = concat.concat(fecha.getFullYear().toString().substring(2,4), "/", 1);
+            break;
+        case 6:
+            var ciclo = concat.concat(fecha.getFullYear().toString().substring(2,4), "/", 1);
+            break;
+        default:
+            var ciclo = concat.concat(fecha.getFullYear().toString().substring(2,4), "/", 2);
+            break;
+    }
+    var fd = new FormData();
+            fd.append("detalle",edit_id);
+            fd.append("ciclo",ciclo);
+
+    $.ajax({
+        type: "post",
+        url: base_url + 'Administrativos/Calificaciones/calificacionesymateriasdelalumno',
+        data: fd,
+        processData: false,
+        contentType: false,
+        dataType: "json",
+        success: function (data) {
+            console.log(data); //ver la respuesta del json, los valores que contiene
+            $('#modalcalificacionadmin').modal('show');
+            
+            $("#tbl_list_calificaciones_administrador").DataTable().destroy();
+            var i = "1";
+            $("#tbl_list_calificaciones_administrador").DataTable({
+                data: data,
+                responsive: true,
+                columns: [
+                {
+                    data: "detalle",
+                    "visible": false,
+                    "searchable": false
+                },
+                {
+                    data: "materia",
+                    "visible": false,
+                    "searchable": false
+                },
+                {
+                    data: "materianombre",
+                },
+                {
+                    data: "horario",
+                },
+                {
+                    data: "calificacion",
+                },
+                {
+                    data: "modo",
+                },
+                {
+                    orderable: false,
+                    searchable: false,
+                     data: function (row, type, set) {
+                         return `
+                                 <a href="#" id="materias_mo_sirve" class="btn btn-success btn-remove" value="${row.detalle}"><i class="far fa-edit"></i></a>
+                              `;
+                },
+                },
+                ],
+                "language": language_espaniol,
+
+            });
+/***
+ * 
+ * 
+            $('#calificacion_materia_profesor').val(data.post.calificacion);
+            $('#detalle_update').val(data.post.detalle);
+            $('#materia_update').val(data.post.materia);
+            
+ * 
+ * 
+ * 
+ */
+        },
+        error: function (response) {
+            toastr["error"](response.message);
+            $('#modaleditcalificacion').modal('hide');
+        }
+    });
+});
 
 $(document).on("click", "#edit_calificacion", function (e) {
     e.preventDefault();

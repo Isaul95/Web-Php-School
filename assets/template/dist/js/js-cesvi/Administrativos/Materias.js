@@ -1,7 +1,15 @@
 $(document).ready(function () {
-    llenarTablaMaterias(); // SEINICIALIZA LA FUNCTIO DE LA CARGA DEL LISTADO DE LA TABLA
-    
-  
+   // llenarTablaMaterias(); // SEINICIALIZA LA FUNCTIO DE LA CARGA DEL LISTADO DE LA TABLA
+    llenar_combo_carreras_materias_administrativos();
+    $("#combo_carreras_materias_admin").change(function () {
+        $("#tbl_vista_materias").DataTable().destroy();
+        llenarTablaMaterias($("#combo_carreras_materias_admin").val(), $("#combo_semestres_materias_admin").val());
+    });
+    llenar_combo_semestres_materias_administrativos();
+    $("#combo_semestres_materias_admin").change(function () {
+        $("#tbl_vista_materias").DataTable().destroy();
+        llenarTablaMaterias($("#combo_carreras_materias_admin").val(), $("#combo_semestres_materias_admin").val());
+     });
 }); // FIN DE LA FUNCION PRINCIPAL
 
 
@@ -120,12 +128,24 @@ $(document).on("click", "#update_materia", function (e) {
 /* -------------------------------------------------------------------------- */
 
 
-function llenarTablaMaterias() {
+function llenarTablaMaterias(carrera,semestre) {
     // debugger;
+        // debugger;
+        var semestres = semestre;
+        var carreras = carrera;
+        var fd = new FormData();
+        fd.append("semestre", semestres);
+        fd.append("especialidad", carreras);
+
+    
     $.ajax({
-        type: "get",
+        type: "post",
         url: base_url + 'Administrativos/Materias/vermaterias',
+        data: fd,
+        processData: false,
+        contentType: false,
         dataType: "json",
+        enctype: 'multipart/form-data',
         success: function (response) {
             var i = "1";
             $("#tbl_vista_materias").DataTable({
@@ -144,12 +164,6 @@ function llenarTablaMaterias() {
                 },
                 {
                     data: "creditos",
-                },
-                {
-                    data: "semestre",
-                },
-                {
-                    data: "carrera_descripcion",
                 },
                 {
                     orderable: false,
@@ -285,6 +299,32 @@ function agregar_materia(fd) {
             } else {
                 toastr["error"](response.message);
             }
+        },
+    });
+}
+function llenar_combo_carreras_materias_administrativos() {
+    $.ajax({
+        type: "get",
+        url: base_url + 'Administrativos/HacerHorarioProfesor/obtenercarreras',
+        dataType: "json",
+        success: function (data) {
+            console.log(data);
+            $.each(data, function (key, registro) {
+                $("#combo_carreras_materias_admin").append('<option value=' + registro.id_carrera + '>' + registro.carrera_descripcion + '</option>');
+            });
+        },
+    });
+}
+function llenar_combo_semestres_materias_administrativos() {
+    $.ajax({
+        type: "get",
+        url: base_url + 'Administrativos/HacerHorarioProfesor/obtenersemestres',
+        dataType: "json",
+        success: function (data) {
+            $.each(data, function (key, registro) {
+                $("#combo_semestres_materias_admin").append('<option value=' + registro.semestre + '>' + registro.nombre + '</option>');
+            });
+
         },
     });
 }

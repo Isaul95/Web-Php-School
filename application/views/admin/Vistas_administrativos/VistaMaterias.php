@@ -37,6 +37,26 @@
     </div>
   </div>
   <div class="row">
+  <div class="col-10 col-sm-12">        
+                  <div class="row">
+                    <div class="col-4 col-sm-8">
+                   
+                      <label for="">Seleccione alguna carrera: </label>
+                    <select background-color="red" id="combo_carreras_materias_admin" class="form-control"><option value="" selected>Seleccione una carrera</option></select>
+                   
+                    </div>
+                    <div class="col-4 col-sm-4">
+                        <label for="">Semestre: </label>
+                        <select background-color="red" id="combo_semestres_materias_admin" class="form-control"><option value="" selected>Seleccione un semestre</option></select>
+                    </div>
+                   
+                  </div> <!--END OF SECOND ROW--> 
+    </div><!--class="col-10 col-sm-12"-->
+  </div> <!--END OF FIRST ROW-->
+                  <br>
+
+  <br>
+  <div class="row">
     <div class="col-md-12">
       <div class="row">
           <div class="col-md-12">       
@@ -210,8 +230,6 @@
            <th>Clave</th>
             <th>Materia</th>
             <th>Creditos</th>
-            <th>Semestre</th>
-            <th>Carrera</th>
             <th class="text-center" width="7%">Acciones</th>
           </tr> 
         </thead>

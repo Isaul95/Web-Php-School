@@ -4,7 +4,9 @@
 //https://www.jqueryscript.net/table/Inline-Table-Editing-jQuery-Tabledit.html
 // DATA TABLE PROPERTY  https://markcell.github.io/jquery-tabledit/assets/js/tabledit.min.js
 $(document).ready(function () {
-   
+    date_picker_horario();
+    deshabilitar_profesor_materia();
+
     llenar_combo_carreras_horarios_profesores();
     $("#combo_carreras_horario_profesores").change(function () {
         $("#combo_materias_horario_profesores").empty();
@@ -25,9 +27,6 @@ $(document).ready(function () {
     $("#crear_horario").click(function () {
         asignar_horario_administrativo();
     });
-    date_picker_horario();
-    deshabilitar_profesor_materia();
-    	// initialize input widgets first
 
     $('#horario_profesores_inicio').timepicker({ 'forceRoundTime': true });
     $('#horario_profesores_fin').timepicker({ 'forceRoundTime': true });
@@ -278,6 +277,7 @@ $(document).on("click", "#edit_horario", function (e) {
         success: function (data) {
             console.log(data); //ver la respuesta del json, los valores que contiene
             $('#modalagregarhorario').modal('show');
+            deshabilitar_profesor_materia();
             $('#profesor_horario_update').val($('#combo_profesores_horario_profesores').val());
             $('#materia_horario_update').val(materia);
             $('#ciclo_horario_update').val(data.post.ciclo);
@@ -362,6 +362,58 @@ $(document).on("click", "#update_horario_profesor", function (e) {
         });
     }
 });
+
+function asignacion_masiva_de_alumnos(fd) {
+    $.ajax({
+        type: "post",
+        url: base_url + 'Administrativos/HacerHorarioProfesor/agregarhorario',
+        data: fd,
+        processData: false,
+        contentType: false,
+        dataType: "json",
+        enctype: 'multipart/form-data',
+        success: function (response) {
+            if (response.response == "success") {
+                toastr["success"](response.message);
+                $("#tbl_list_horarios_administrativos").DataTable().destroy();
+                llenartablahorariosprofesores($("#combo_profesores_horario_profesores").val());
+            } else {
+                toastr["error"](response.message);
+            }
+        },
+    });
+}
+/**
+ * function semestre_alumno() {
+  var numero_control = $("#numero_control").val();
+  var fd = new FormData();
+  fd.append("numero_control", numero_control);
+  $.ajax({
+      type: "post",
+      url: base_url + 'Alumnos/AltaBaucherBanco/semestredelalumno',
+      data: fd,
+      processData: false,
+      contentType: false,
+      dataType: "json",
+      success: function (data) {
+          $("#semestre").val(data.post[0].cuatrimestre);
+
+      },
+  });
+}
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ */
 //LLENAR LA TABLA DE ALUMNOS QUE CORRESPONDEN A CARRERA Y OPCIÓN DE ESTUDIO
 
 // ********************   variable PARA CAMBIAR DE IDIOMA AL ESPAÑOL EL DataTable  *************************

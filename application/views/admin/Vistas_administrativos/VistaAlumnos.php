@@ -36,6 +36,37 @@
       <hr style="background-color: black; color: black; height: 1px;">
     </div>
   </div>
+
+  <div class="row">
+  <div class="col-10 col-sm-12">        
+                  <div class="row">
+                    <div class="col-4 col-sm-8">
+                   
+                      <label for="">Seleccione alguna carrera: </label>
+                    <select background-color="red" id="combo_carreras_alumnos_admin" class="form-control"><option value="" selected>Seleccione una carrera</option></select>
+                  
+                    </div>
+
+                    <div class="col-4 col-sm-4">
+                        <label for="">Semestre: </label>
+                        <select background-color="red" id="combo_semestres_alumnos_admin" class="form-control"><option value="" selected>Seleccione un semestre</option></select>
+                    </div>
+                  </div> <!--END OF SECOND ROW--> 
+    </div><!--class="col-10 col-sm-12"-->
+  </div> <!--END OF FIRST ROW-->
+                  <br>
+ <div class="row">
+  <div class="col-10 col-sm-12"> 
+  <div class="row">
+                    <div class="col-8 col-sm-6">
+                    <label for="">Seleccione alguna opción de estudio: </label>
+                    <select background-color="red" id="combo_opciones_alumnos_admin" class="form-control"><option value="" selected>Seleccione una opción de estudio</option></select>
+                    </div>
+                  </div>
+                  <br>
+    </div><!--class="col-10 col-sm-12"-->
+  </div> <!--END OF FIRST ROW-->
+  <br>
   <div class="row">
     <div class="col-md-12">
       <div class="row">
@@ -740,8 +771,6 @@
           <tr>
             <th>Numero de control</th>
             <th>Alumno</th>
-            <th>Cuatrimetre</th>
-            <th>Carrera</th>
             <th class="text-center" width="7%">Acta</th>
             <th class="text-center" width="7%">Certificado</th>
             <th class="text-center" width="7%">Curp</th>

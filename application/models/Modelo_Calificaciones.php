@@ -8,14 +8,18 @@ class Modelo_calificaciones extends CI_Model { // INICIO DEL MODELO
       	/*                                Fetch Records                               */
       	/* -------------------------------------------------------------------------- */
  
-        public function obtenermaterias($profesor,$semestre){
+        public function obtenermaterias($carrera,$opcion,$semestre,$profesor,$ciclo){
             $this->db->distinct();
             $this->db->select("hp.materia,m.nombre_materia");
             $this->db->from("horarios_profesor hp");
             $this->db->join("profesores p","hp.profesor = p.id_profesores");
             $this->db->join("materias m","hp.materia = m.id_materia");
+            $this->db->where("hp.licenciatura", $carrera);
+            $this->db->where("hp.opcion_estudio", $opcion);
             $this->db->where("hp.profesor", $profesor);
             $this->db->where("hp.semestre", $semestre);
+            $this->db->where("hp.ciclo", $ciclo);
+            
             $resultados = $this->db->get();
             return $resultados->result();
             }
@@ -33,7 +37,7 @@ class Modelo_calificaciones extends CI_Model { // INICIO DEL MODELO
                 $resultados = $this->db->get();
                 return $resultados->result();
                 }
-        public function alumnos_asignados_a_la_materia_del_profesor($materia){
+        public function alumnos_asignados_a_la_materia_del_profesor($materia,$ciclo,$profesor){
                 $this->db->distinct();
                 $this->db->select("detalles.id_detalle as id_detalle,alumnos.numero_control as numero_control, 
                 concat(alumnos.nombres,' ',alumnos.apellido_paterno,' ',alumnos.apellido_materno) as alumno, 
@@ -45,11 +49,13 @@ class Modelo_calificaciones extends CI_Model { // INICIO DEL MODELO
                 $this->db->join("calificaciones","detalles.id_detalle = calificaciones.detalle");
                 $this->db->where("alumnos.estatus", "1");
                 $this->db->where("calificaciones.materia", $materia);
+                $this->db->where("calificaciones.ciclo", $ciclo);
+                $this->db->where("calificaciones.profesor", $profesor);
                 $resultados = $this->db->get();
                 return $resultados->result();
                 }
 
-                public function alumnos_asignados_a_la_carrera_y_opcion_administrativo($carrera,$opcion){
+                public function alumnos_asignados_a_la_carrera_y_opcion_administrativo($carrera,$opcion,$cuatrimestre){
                   $this->db->distinct();
                   $this->db->select("detalles.id_detalle as id_detalle,alumnos.numero_control as numero_control, 
                   concat(alumnos.nombres,' ',alumnos.apellido_paterno,' ',alumnos.apellido_materno) as alumno, 
@@ -60,11 +66,12 @@ class Modelo_calificaciones extends CI_Model { // INICIO DEL MODELO
                   $this->db->where("alumnos.estatus", "1");
                   $this->db->where("detalles.carrera", $carrera);
                   $this->db->where("detalles.opcion", $opcion);
+                  $this->db->where("detalles.cuatrimestre", $cuatrimestre);
                   $resultados = $this->db->get();
                   return $resultados->result();
                   }
-                  public function updatecalificacion($materia,$id_detalle,$data){
-                    return $this->db->update('calificaciones', $data, array('materia' => $materia,'detalle'=> $id_detalle));
+                  public function updatecalificacion($materia,$id_detalle,$ciclo,$data){
+                    return $this->db->update('calificaciones', $data, array('materia' => $materia,'detalle'=> $id_detalle,'ciclo'=> $ciclo));
                 }
                 public function single_entry($id,$materia)
                 {
@@ -76,6 +83,22 @@ class Modelo_calificaciones extends CI_Model { // INICIO DEL MODELO
                     if (count($query->result()) > 0) {
                         return $query->row();
                     }
+                }
+                public function single_entry_calificaciones_por_detalle($id,$ciclo)
+                {
+                  $this->db->select('d.id_detalle as detalle,
+                   m.id_materia as materia,
+                    m.nombre_materia as materianombre, 
+                    cal.horario as horario,
+                     cal.calificacion as calificacion,
+                      cal.tiempo_extension as modo');
+                    $this->db->from('calificaciones cal');
+                    $this->db->join("detalles d","cal.detalle = d.id_detalle");
+                    $this->db->join("materias m","cal.materia = m.id_materia");
+                    $this->db->where('cal.detalle', $id);
+                    $this->db->where('cal.ciclo', $ciclo);
+                    $resultados = $this->db->get();
+                return $resultados->result();
                 }
                 public function sepuede_agregar_calificacion($detalle,$materia)
                 {

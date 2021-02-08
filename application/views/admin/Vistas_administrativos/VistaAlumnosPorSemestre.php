@@ -9,12 +9,10 @@
   <div class="row">
     <div class="col-md-12 mt-5">
       <h3>
-        <input type="hidden" id="semestre" name="semestre" value="<?php echo $_GET["Semestre"]; ?>">
-        <input type="hidden" id="numero" name="numero" value="<?php echo $_GET["Num"]; ?>" >
         <input type="hidden" id="usuario" name="usuario" value="<?php echo $username;?>" >
         <input type="hidden" id="rol" name="rol" value="<?php echo $rol;?>" >
 
-            <center><strong><font color="#D34787">Lista de Alumnos Semestre: <?php echo $_GET["Semestre"]; ?></font></strong></center>
+            <center><strong><font color="#D34787">Lista de Alumnos, asignación de calificaciones.</font></strong></center>
     <center><small><font color="#2F4D97" face="Comic Sans MS,arial,verdana">Ciudad Iguala de la Independencia, Guerrero</font></small></center>
   </h3>
       <hr style="background-color: black; color: black; height: 1px;">
@@ -38,30 +36,36 @@
                     
                   <div class="row">
                     <div class="col-8 col-sm-6">
-                    <?php if($rol==1):?>
+                   
                       <label for="">Seleccione alguna carrera: </label>
                     <select background-color="red" id="combo_carreras_administrativos_profesores" class="form-control"><option value="" selected>Seleccione una carrera</option></select>
-                    <?php endif;?>
+                    
                     </div>
+                    
+                    <div class="col-4 col-sm-4">
+                        <label for="">Semestre: </label>
+                        <select background-color="red" id="combo_semestres_administrativos_profesores" class="form-control"><option value="" selected>Seleccione un semestre</option></select>
+                    </div>
+                   
                   </div>
                   <br>
                   
                   <div class="row">
                     <div class="col-8 col-sm-6">
-                    <?php if($rol==1):?>
+                    
                       <label for="">Seleccione alguna opción de estudio: </label>
                     <select background-color="red" id="combo_opciones_administrativos_profesores" class="form-control"><option value="" selected>Seleccione una opcion de estudio</option></select>
-                    <?php endif;?>
+                    
                     </div>
                   </div>
                   <br>
                   
                   <div class="row">
                     <div class="col-8 col-sm-6">
-                    <?php if($rol==3):?>
+                    
                       <label for="">Seleccione alguna de las materias que tiene asignada: </label>
                     <select background-color="red" id="combo_materias_administrativos_profesores" class="form-control"><option value="" selected>Seleccione alguna materia</option></select>
-                    <?php endif;?>
+                  
                     </div>
                   </div>
 
@@ -103,7 +107,7 @@
           </div>
         </div>
       </div>
-<!--MODAL EDITAR calificacion-->
+<!--MODAL EDITAR calificacion PROFESOR-->
 <div class="modal fade" id="modaleditcalificacion" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
           <div class="modal-content">
@@ -150,6 +154,61 @@
           </div>
         </div>
       </div>
+      <!--MODAL EDITAR calificacion PROFESOR-->
+
+      
+<!--MODAL EDITAR calificacion ADMIN-->
+<div class="modal fade" id="modalcalificacionadmin" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+          <div class="modal-header bg-primary text-center">
+              <strong class="modal-title" id="exampleModalLabel">Editar materia</strong>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <div class="container-fluid">
+                <div class="row text-center">
+                  <div class="col-md-12 my-3">
+                    <div id="show_img"></div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-12">
+            <form id="formcalificacionadmin">
+                     
+          <div class="row">
+              <div class="col-sm-12">
+              <table id="tbl_list_calificaciones_administrador" class="table table-striped table-bordered table-hover table-condensed" cellspacing="0" style="background:white!important">
+        <thead class="bg-primary">
+          <tr>
+          <th></th>
+          <th></th>
+            <th>Materia</th>
+            <th>Horario</th>
+            <th>Calificacion</th>
+            <th>T.EX.</th>
+            <th class="text-center" width="7%">Acciones</th>
+          </tr>
+        </thead>
+      </table>
+               </div>
+           </div>
+  
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+              <button type="button" class="btn btn-primary" id="update_calificacion_profesor">Actualizar</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!--MODAL EDITAR calificacion ADMIN-->
 
   <div class="row my-4">
     <div class="col-md-12 mx-auto">
@@ -162,8 +221,6 @@
           <th></th>
           <th>Numero de control</th>
             <th>Alumno</th>
-            <th>Semestre</th>
-            <th>Carrera</th>
             <th>Calificacion</th>
             <th>T.EX.</th>
             <th class="text-center" width="7%">Acciones</th>
@@ -179,8 +236,6 @@
           <th></th>
           <th>Numero de control</th>
             <th>Alumno</th>
-            <th>Semestre</th>
-            <th>Carrera</th>
             <th cclass="text-center" width="7%">Asignar calificaciones</th>
           </tr>
         </thead>

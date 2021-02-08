@@ -12,16 +12,6 @@ class Calificaciones extends CI_Controller {
 
 
 	public function index(){
-
-		$this->load->view('layouts/header');
-		$this->load->view('layouts/aside');
-		$this->load->view('admin/Vistas_administrativos/VistaCalificaciones');
-		$this->load->view('layouts/footer');
-	}
-
-
-
-	public function VistaCalificacionesPorSemestre(){
 		$data = array(
 			// 'tipoDePagos' => $this->Modelo_DarAccesoAlumnos->getTipoDePagos(),
 			'username' => $this->session->userdata('username'),
@@ -33,10 +23,46 @@ class Calificaciones extends CI_Controller {
 		$this->load->view('layouts/footer');
 	}
 
+
+/***
+ * 
+ * 
+ * 
+ * public function VistaCalificacionesPorSemestre(){
+		$data = array(
+			// 'tipoDePagos' => $this->Modelo_DarAccesoAlumnos->getTipoDePagos(),
+			'username' => $this->session->userdata('username'),
+			'rol' => $this->session->userdata('rol'),
+		);
+		$this->load->view('layouts/header');
+		$this->load->view('layouts/aside');
+		 $this->load->view('admin/Vistas_administrativos/VistaAlumnosPorSemestre',$data);
+		$this->load->view('layouts/footer');
+	}
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ */
+	
+
 	public function vermateriasdelprofesor(){
-		$profesor = $this->input->post('profesor');
+			
+		$carrera = $this->input->post('carrera');
+		$opcion = $this->input->post('opcion');
 		$semestre = $this->input->post('semestre');
-		$posts = $this->Modelo_Calificaciones->obtenermaterias($profesor,$semestre);
+		$profesor = $this->input->post('profesor');
+		$ciclo = $this->input->post('ciclo');
+		$posts = $this->Modelo_Calificaciones->obtenermaterias($carrera,$opcion,$semestre,$profesor,$ciclo);
 		echo json_encode($posts);
 	}
 
@@ -52,14 +78,17 @@ class Calificaciones extends CI_Controller {
 
 	}
 	public function veralumnos_asignados_ala_materia_del_profesor(){
-		$edit_id = $this->input->post('materia_a_consultar');
-		$posts = $this->Modelo_Calificaciones->alumnos_asignados_a_la_materia_del_profesor($edit_id);
+		$edit_id = $this->input->post('materia');
+		$ciclo = $this->input->post('ciclo');
+		$profesor = $this->input->post('profesor');
+		$posts = $this->Modelo_Calificaciones->alumnos_asignados_a_la_materia_del_profesor($edit_id,$ciclo,$profesor);
 		echo json_encode($posts);
 	}
 	public function veralumnos_asignados_porcarrera_opcion(){
 		$carrera = $this->input->post('carrera');
 		$opcion = $this->input->post('opcion');
-		$posts = $this->Modelo_Calificaciones->alumnos_asignados_a_la_carrera_y_opcion_administrativo($carrera,$opcion);
+		$cuatrimestre = $this->input->post('cuatrimestre');
+		$posts = $this->Modelo_Calificaciones->alumnos_asignados_a_la_carrera_y_opcion_administrativo($carrera,$opcion,$cuatrimestre);
 		echo json_encode($posts);
 	}
 	public function viewalumno(){
@@ -80,6 +109,7 @@ class Calificaciones extends CI_Controller {
 			
 				$id_detalle = $this->input->post('detalle');
 				$materia = $this->input->post('materia');
+				$ciclo = $this->input->post('ciclo');
 				if ($post = $this->Modelo_Calificaciones->sepuede_agregar_calificacion($id_detalle,$materia)) {
 					if($post = $this->Modelo_Calificaciones->sepuede_insertar_o_actualizar_sobre_profesor($id_detalle,$materia)){
 						//INSERTA POR PRIMERA VEZ LOS DATOS DE CAPTURA DEL PROFESOR
@@ -89,7 +119,7 @@ class Calificaciones extends CI_Controller {
 						$ajax_data['tiempo_extension'] = $this ->input->post('tiempo_extension');
 						$ajax_data['profesor_captura'] = $this ->input->post('profesor_captura');
 						$ajax_data['fecha_captura_profesor'] = $this ->input->post('fecha_captura_profesor');
-						 if ($this->Modelo_Calificaciones->updatecalificacion($materia,$id_detalle,$ajax_data)) {
+						 if ($this->Modelo_Calificaciones->updatecalificacion($materia,$id_detalle,$ciclo,$ajax_data)) {
 							 $data = array('response' => "success", 'message' => "Datos actualizados correctamente");
 						 } else {
 						   $data = array('response' => "error", 'message' => "Error al agregar datos...!");
@@ -116,6 +146,18 @@ class Calificaciones extends CI_Controller {
 				echo json_encode($data);			
 			}
 		  else{
+			echo "No se permite este acceso directo...!!!";
+		}
+	}
+	
+	public function calificacionesymateriasdelalumno(){
+		if ($this->input->is_ajax_request()) {
+			$id_detalle = $this->input->post('detalle');
+			$ciclo = $this->input->post('ciclo');
+			$posts = $this->Modelo_Calificaciones->single_entry_calificaciones_por_detalle($id_detalle,$ciclo);
+			
+			echo json_encode($posts);
+		}else {
 			echo "No se permite este acceso directo...!!!";
 		}
 	}

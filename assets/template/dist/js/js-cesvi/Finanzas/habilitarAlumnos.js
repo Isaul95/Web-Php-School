@@ -21,7 +21,8 @@
          //      var licenciatura = $("#combo_CarreraDocumAlumnos_Admin").val();
          //      var semestre = $("#combo_SemestresDocumAlumnos_Admin").val();
          //      var opciones = $("#combo_opcionesDocumAlumnos_Admin").val();
-         //  $("#tbl_alumnosDocumentacion").DataTable().destroy();
+          $("#tbl_listAlumConBaucher").DataTable().destroy();
+          litarAlumnosConBaucherRegistrados($("#combo_SemestresAltaAlumn_Finanzas").val());
          });
 
          $("#combo_opcionesAltaAlumn_Finanzas").change(function () {
@@ -124,19 +125,22 @@ function Mostrar_Parcialidad(){
       /* -------------------------------------------------------------------------- */
       /*                      llenarTablaPagos Records                              */
       /* -------------------------------------------------------------------------- */
-      function litarAlumnosConBaucherRegistrados() {
+      function litarAlumnosConBaucherRegistrados(semestre) {
          console.log("Lista de alumnos con baucher...!");
-          debugger;
+          // debugger;
           var datos = {
-              tipoPago : $("#tipoPago").val(),
+              // tipoPago : $("#tipoPago").val(),
+               semestre : semestre,
               }
-              var url = base_url+'Finanzas/HabilitarAlumnos/listaDeAlumnosConBaucherRegistrado/'+datos.tipoPago;
+              // var url = base_url+'Finanzas/HabilitarAlumnos/listaDeAlumnosConBaucherRegistrado/'+datos.tipoPago;
+              var url = base_url+'Finanzas/HabilitarAlumnos/listaDeAlumnosConBaucherRegistrado';
 
           $.ajax({
               type: "post",
               // url: base_url+'Finanzas/HabilitarAlumnos/listaDeAlumnosConBaucherRegistrado',
               url: url,
               dataType: "json",
+              data : (datos),
               success: function(response) {
                   var i = "1";
                   $("#tbl_listAlumConBaucher").DataTable({
@@ -177,12 +181,12 @@ function Mostrar_Parcialidad(){
                               searchable: false,
                               "render" : function(data, type, row) {
                                 var habilitarAlumno = `${row.estatus}`;
-                        var espera = 'En_espera_de_materias';
+                        // var espera = 'En_espera_de_materias';
                                 var string = '<input type="checkbox" ';
                                 if(habilitarAlumno == 1){
-                                  string = string + `checked onclick=habilitaRegistroFinanzas(0,'${row.numero_control}','${row.id_alta_baucher_banco}','Inicio_inscripcion')>`;
+                                  string = string + `checked onclick=habilitaRegistroFinanzas(0,'${row.numero_control}','${row.id_alta_baucher_banco}','Inicio_inscripcion','${row.semestre}')>`;
                                 }else {
-                                  string = string +`onclick=habilitaRegistroFinanzas(1,'${row.numero_control}','${row.id_alta_baucher_banco}','En_espera_de_materias')>`;
+                                  string = string +`onclick=habilitaRegistroFinanzas(1,'${row.numero_control}','${row.id_alta_baucher_banco}','En_espera_de_materias','${row.semestre}')>`;
                                 }
                                 return string;
 			                         },
@@ -196,7 +200,7 @@ function Mostrar_Parcialidad(){
                               "render" : function(data, type, row) {
                                 var hayCantidad = `${row.cantidad}`;
                                 var hayDescConcepto = `${row.desc_concepto}`;
-                                debugger;
+                                // debugger;
                                     if(hayCantidad != "null" && hayDescConcepto!= "null"){
                                       var a = `
                                           <a title="Descarga Recibo" href="generaPdfRcibo/${row.numero_control}" target="_blank"><i class="far fa-file-pdf fa-2x"></i></a>
@@ -254,6 +258,16 @@ return a;
                             return a;
                                 },
                             },
+                            {
+                                orderable: false,
+                                searchable: false,
+                                "render" : function(data, type, row) {
+// var a = `<a title="Agregar Recibo Valido" onclick=recuperarDocumentos('${row.numero_control}','${row.id_alta_baucher_banco}','${row.id_recibo}')><i class="fa fa-upload iconbig azul fa-2x"></i></a>`;
+var a = `<a title="Agregar Recibo Valido" onclick=modalHistorialParcialidades('${row.numero_control}','${row.id_alta_baucher_banco}','${row.id_recibo}')><i class="fa fa-upload iconbig azul fa-2x"></i></a>`
+return a;
+
+                                },
+                            },
 
                       ],
                         "language" : language_espaniol,
@@ -263,6 +277,94 @@ return a;
       }
 
 
+
+      /* -------------------------------------------------------------------------- */
+      /*         llenarTabla Historial de pagos x parcialidades                     */
+      /* -------------------------------------------------------------------------- */
+      function litaHistorialParcialidadXAlumnos() {
+        debugger;
+        var datos = {
+            numero_control : $("#numero_controlHistorialParc").val(),
+            id_alta_baucher_banco : $("#id_alta_baucher_bancoHistorialParc").val(),
+            }
+    var url = base_url+'Alumnos/AltaBaucherBanco/consultaHistDePagosXAlumnos/'+datos.numero_control;
+
+          $.ajax({
+              type: "post",
+          url: url,
+              dataType: "json",
+              data : (datos),
+              success: function(response) {
+                  $("#tbl_listaHistPagosParcialidad").DataTable({
+                      data: response,
+                      responsive: true,
+                      columns: [
+                        // {
+                        //       data: "id_alta_baucher_banco",
+                        //       "visible": false, // ocultar la columna
+                        //   },
+                          // {
+                          //     data: "fecha_registro",
+                          // },
+                          {
+                              orderable: false,
+                              searchable: false,
+                              "render" : function(data, type, row) {
+var a = `<a title="Capturar datos Recibo de pago" onclick=modalCapturaDatosRecibo('${row.id_alta_baucher_banco}')><i class="fa fa-upload iconbig azul fa-2x"></i></a>`
+return a;
+
+                              },
+                          },
+                          {
+                              data: "pago",
+                          },
+                          // {
+                          //     data: "archivo",
+                          //     render: function(data, type, row, meta) {
+                          //       //  Se consulta el file.pdf x el no. de control
+                          //         var a = `
+                          //             <a title="Descarga Baucher" href="AltaBaucherBanco/verBaucher/${row.numero_control}" target="_blank"><i class="far fa-file-pdf fa-2x"></i></a>
+                          //         `;
+                          //         return a;
+                          //     },
+                          // },
+                          {
+                              data: "parcialidades",
+                              render: function(data, type, row, meta) {
+                                var parcialidadPagorow = `${row.parcialidades}`;
+                              if(parcialidadPagorow != " "){
+                                    var a = '<div class="p-3 mb-2 text-white">'+parcialidadPagorow+'</div>';
+                                    // var a = '<div class="p-3 mb-2 bg-primary  text-white">'+'PAGO COMPLETO'+'</div>';
+                              }else {
+                                // var a = '----';
+                                var a = '<div class="p-3 mb-2 bg-primary  text-white">'+'PAGO COMPLETO'+'</div>';
+                              }
+                          return a;
+                              },
+                          },
+                          {
+                              data: "fecha_limite_de_pago",
+                              render: function(data, type, row, meta) {
+                                var fechaLimitePagorow = `${row.fecha_limite_de_pago}`;
+                              if(fechaLimitePagorow != "null"){
+                                    var a = '<div class="p-3 mb-2 bg-red text-white">'+fechaLimitePagorow+'</div>';
+                              }else {
+                                var a = '----';
+                              }
+                          return a;
+                              },
+                          },
+                      ],
+                        "language" : language_espaniol,
+                  });
+              },
+          });
+      }
+
+
+
+
+
       function mostrarDocumento(numero_control) {
         debugger;
           	// var idProyectoAnexo = $('#idProyectoAnexo').val();
@@ -270,6 +372,21 @@ return a;
    var url = base_url+"Finanzas/HabilitarAlumnos/generaPdfRcibo/" + numero_control + ".html";
           	window.open(url, "_blank", numero_control);
       }
+
+
+
+function modalCapturaDatosRecibo(id_alta_baucher_banco){
+    debugger;
+    // $('#mensajeErrorDoc').hide();
+    // $('#mensaje').hide();
+    // $('#modalDocumento').find('input[type="file"]').val('');
+
+    $("#addDatosRecibo").modal("show");
+    // $("#numero_controlVarHide").val(numero_control);
+    $("#id_alta_baucher_bancoDatesRecibo").val(id_alta_baucher_banco);
+    // $("#id_reciboVarHide").val(id_recibo);
+    // llenarTablaDeDocumentosFirmados();
+}
 
 
 
@@ -285,6 +402,21 @@ return a;
     		$("#id_reciboVarHide").val(id_recibo);
     		llenarTablaDeDocumentosFirmados();
     }
+
+
+
+        function modalHistorialParcialidades(numero_control, id_alta_baucher_banco,id_recibo){
+        		debugger;
+        		// $('#mensajeErrorDoc').hide();
+        		// $('#mensaje').hide();
+        		// $('#modalDocumento').find('input[type="file"]').val('');
+
+        		$("#modalHistorialDeParcialidadesXAlumno").modal("show");
+        		$("#numero_controlHistorialParc").val(numero_control);
+        		$("#id_alta_baucher_bancoHistorialParc").val(id_alta_baucher_banco);
+        		$("#id_reciboHistorialParc").val(id_recibo);
+        		litaHistorialParcialidadXAlumnos();
+        }
 
 
     function llenarTablaDeDocumentosFirmados() {
@@ -521,13 +653,14 @@ return a;
 
 
 // SOLO SE VA HABILITAR CUANDO ESTE DESHABILITADO, UNA VEZ K SE ABILITE SE DESBLOKEA
-function habilitaRegistroFinanzas(estatus, numero_control, id_alta_baucher_banco, estado){
+function habilitaRegistroFinanzas(estatus, numero_control, id_alta_baucher_banco, estado, semestre){
     debugger;
       		var datos = {
       				numero_control : numero_control,
               estatus: estatus,
               id_alta_baucher_banco: id_alta_baucher_banco,
               estado : estado,
+              semestre :semestre,
       		}
 
       		$.ajax({
@@ -537,14 +670,16 @@ function habilitaRegistroFinanzas(estatus, numero_control, id_alta_baucher_banco
       			data : (datos),
       			success : function(data){
               if (data.responce == "success") {
-                    if (estatus == 0) {  // SI SE DESABILITA SE CARGA LA PAGINA PARA K NO SE INSERTE DOBLE LA INORMACION
-                      // alert("estra en el reload");
-                        location.reload();
-                    }
+                    // if (estatus == 0) {  // SI SE DESABILITA SE CARGA LA PAGINA PARA K NO SE INSERTE DOBLE LA INORMACION
+                    //   // alert("estra en el reload");
+                    //     location.reload();
+                    // }
           toastr["success"](data.message);
           $("#tbl_listAlumConBaucher").DataTable().destroy();
-            litarAlumnosConBaucherRegistrados();
-          addDatoParaReciboPagoAlumno(id_alta_baucher_banco, numero_control, estatus);
+          debugger;
+            litarAlumnosConBaucherRegistrados(semestre);
+          // addDatoParaReciboPagoAlumno(id_alta_baucher_banco, numero_control, estatus);
+            validarBaucherPagoAlumno(id_alta_baucher_banco, numero_control, estatus, semestre);
               }else{
                 toastr["error"](data.message);
               }
@@ -553,33 +688,89 @@ function habilitaRegistroFinanzas(estatus, numero_control, id_alta_baucher_banco
       }
 
 
-      // SE RECOGEN LOS DATOS PARA PODER GENERAR EL RECIBO DE PAGO SIN FIRMA NI SELLO  onClick="eliminarRegistroGasto()"
-      function addDatoParaReciboPagoAlumno(id_alta_baucher_banco, numero_control, estatus){
-          debugger;
 
-              if(estatus == 1){  // si habilitan debe mostrar modal si es DESHABILITADO no debe mostrarse
-              	$('#addDatosRecibo').modal({show: true}); // abrir modal al execute la function
-ocultartxt();
-                // document.getElementById("addDatosAGenerarReciboPago").disabled = true;
-                // document.getElementById("buttonParcial").disabled = true;
-                // document.getElementById("formParcialidad").style.display = "none";
+            // SE RECOGEN LOS DATOS PARA PODER GENERAR EL RECIBO DE PAGO SIN FIRMA NI SELLO  onClick="eliminarRegistroGasto()"
+        function validarBaucherPagoAlumno(id_alta_baucher_banco, numero_control, estatus, semestre){
+            debugger;
+
+            if(estatus == 1){  // si habilitan debe mostrar modal si es DESHABILITADO no debe mostrarse
+            	$('#validacionBaucherParcialOpagoCompleto').modal({show: true}); // abrir modal al execute la function
+              ocultartxt();
               }
 
-              // Aki solo se imprime al num de control no pude inprimir los demas datos x problemas de los espacios
-              $("#numero_con").val(numero_control); // DATO K SE MUESTRA EN EL TXT DEL MODAL
+          // Aki solo se imprime al num de control no pude inprimir los demas datos x problemas de los espacios
+        $("#numero_con").val(numero_control); // DATO K SE MUESTRA EN EL TXT DEL MODAL
+
+        $(document).on("click", "#validarComprobanteDePago", function(e){ // ADD DATES FOR REVIBO DE PAGO
+        e.preventDefault();
+        // Se recojern los valores en la variable datos
+
+        var datos = {
+        id_alta_baucher_banco: id_alta_baucher_banco,
+        tipo_de_pago : $("#pago").val(),
+        // desc_concepto : $("#concepto").val(),
+        // cantidad : $("#cantidad").val(),
+        // importe_letra : $("#numletra").val()+" PESOS 00/100 M.N",
+        // usuario_creacion : $("#username").val(),
+        parcialidades: $("#parcial").val(),
+        fecha_limite_de_pago : $("#datepicker_fecha_parcialidad").val(),
+                    }
+
+      // if (datos.tipo_de_pago == "" || datos.parcialidades == "" || datos.fecha_limite_de_pago == "") {
+      if (datos.tipo_de_pago == "" ) {
+        alert("Los dato son obligatorios...!!!");
+        }else{
+
+        $.ajax({           // eAlumnosConBaucherRegistrado/'+datos.tipoPago;
+        url: base_url+'Finanzas/HabilitarAlumnos/validacionComprobanteDePago',
+        type: "post",
+        dataType: "json",
+        data : (datos),
+        success: function(data){
+        if (data.responce == "success") {
+        $('#tbl_listAlumConBaucher').DataTable().destroy();
+        litarAlumnosConBaucherRegistrados(semestre);
+      toastr["success"](data.message);
+        $('#validacionBaucherParcialOpagoCompleto').modal('hide');
+        }else{
+        toastr["error"](data.message);
+                }
+              }
+            });
+      // $("#form")[0].reset();  // VACIA MODAL DESPUES DE INSERT
+            }
+        });
+
+        }
+
+
+
+      // SE RECOGEN LOS DATOS PARA PODER GENERAR EL RECIBO DE PAGO SIN FIRMA NI SELLO  DATOS DEL RECIBO DE PAGO A GENERAR
+//       function addDatoParaReciboPagoAlumno(id_alta_baucher_banco, numero_control, estatus){
+//           debugger;
+//
+//               if(estatus == 1){  // si habilitan debe mostrar modal si es DESHABILITADO no debe mostrarse
+//               	$('#addDatosRecibo').modal({show: true}); // abrir modal al execute la function
+// // ocultartxt();
+//
+//               }
+//
+//               // Aki solo se imprime al num de control no pude inprimir los demas datos x problemas de los espacios
+//               $("#numero_con").val(numero_control); // DATO K SE MUESTRA EN EL TXT DEL MODAL
 
               $(document).on("click", "#addDatosAGenerarReciboPago", function(e){ // ADD DATES FOR REVIBO DE PAGO
                 e.preventDefault();
                 // Se recojern los valores en la variable datos
 
               var datos = {
-                  bauche: id_alta_baucher_banco,
+                  // bauche: id_alta_baucher_banco,
+                  bauche : $("#id_alta_baucher_bancoDatesRecibo").val(),
                   desc_concepto : $("#concepto").val(),
                   cantidad : $("#cantidad").val(),
                   importe_letra : $("#numletra").val()+" PESOS 00/100 M.N",
                   usuario_creacion : $("#username").val(),
-                  parcialidad_pago : $("#parcial").val(),
-                  fecha_limite_pago : $("#datepicker_fecha_parcialidad").val(),
+                  // parcialidad_pago : $("#parcial").val(),
+                  // fecha_limite_pago : $("#datepicker_fecha_parcialidad").val(),
               }
 
               if (datos.desc_concepto == "" || datos.cantidad == "" || datos.importe_letra == "") {
@@ -594,7 +785,7 @@ ocultartxt();
                   success: function(data){
                     if (data.responce == "success") {
                       $('#tbl_listAlumConBaucher').DataTable().destroy();
-                      litarAlumnosConBaucherRegistrados();
+                      // litarAlumnosConBaucherRegistrados();
                       toastr["success"](data.message);
                       $('#addDatosRecibo').modal('hide');
                     }else{
@@ -606,7 +797,7 @@ ocultartxt();
               }
                 });
 
-            }
+            // }
 
 
 

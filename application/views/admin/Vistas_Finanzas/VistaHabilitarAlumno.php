@@ -11,8 +11,10 @@
   <div class="row">
     <div class="col-md-12 mt-5">
       <h3>
-        <input type="hidden" id="tipoPago" name="tipoPago" value="<?php echo $_GET["Pago"]; ?>" >
-            <center><strong><font color="#D34787">Dar de Alta Alumnos Para: <?php echo $_GET["Pago"]; ?></font></strong></center>
+        <!-- <input type="hidden" id="tipoPago" name="tipoPago" value="<?php echo $_GET["Pago"]; ?>" > -->
+
+            <!-- <center><strong><font color="#D34787">Dar de Alta Alumnos Para: <?php echo $_GET["Pago"]; ?></font></strong></center> -->
+            <center><strong><font color="#D34787">Alta de Alumnos </font></strong></center>
 <!-- var "saludo": <?php echo $_GET["Pago"]; ?>    <<<== DE ESTA FORMA RECIBO EL PARAMETO QUE SE ENVIA DEPENDEIDNDO DE LA OPCION ELEGIDA -->
     <center><small><font color="#2F4D97" face="Comic Sans MS,arial,verdana">Ciudad Iguala de la Independencia, Guerrero</font></small></center>
   </h3>
@@ -73,7 +75,117 @@
     </div>
   </div>
 
+
   <!-- Modal Agregar registro para recibo de pago -->
+  <div class="modal fade" id="validacionBaucherParcialOpagoCompleto" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header bg-primary text-center">
+          <strong class="modal-title" id="exampleModalLabel">Validar comprobante de pago</strong>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <input type="hidden" id="username" name="username" value="<?php echo $username;?>" >
+
+          <!-- Add Record Form -->
+      <form id="addRecordFormParcialidad">
+
+            <div class="form-group">
+              <label for="">Número de control: *</label>
+              <input type="text" class="form-control" id="numero_con" readonly>
+            </div>
+
+            <div class="form-group">
+                <label for="">Tipo de pago:</label>
+                <select name="pago" id="pago" class="form-control">
+                    <option value="" selected>Seleccione un tipo de pago...</option>
+                    <?php foreach($tipoDePagos as $pago):?>
+                        <option value="<?php echo $pago->id_tipo_pago;?>"><?php echo $pago->pago;?></option>
+                    <?php endforeach;?>
+                </select>
+            </div>
+
+            <!-- <div class="col-4 col-sm-4">
+                <label for="">Tipo de pagos: </label>
+                <select background-color="red" id="combo_TipoDePagosAltaAlumn_Finanzas" class="form-control">
+                  <option value="" selected>Seleccione un tipo de pago...</option>
+                </select>
+            </div> -->
+
+
+
+            <!-- <div class="form-group">
+              <label for="">Cantidad de pago: *</label>
+              <input type="text" class="form-control" id="cantidad" placeholder="Cantidad $">
+            </div> -->
+
+            <!-- <div class="form-group">
+              <label for="">Descripción del concepto: *</label>
+              <input type="text" class="form-control" id="concepto" placeholder="Descripción del concepto">
+            </div> -->
+
+            <!-- <div class="form-group">
+              <label for="">Capturar cantidad en letra: *</label>
+              <input type="text" class="form-control" id="numletra" placeholder="Cantidad en letra">
+            </div> -->
+
+
+              <!-- <div class="container"> -->
+                  <!-- <form > -->
+                      <div class="form-group" id="formParcialidad2">
+                        <label for="">Parcialidad:</label>
+                        <!-- <input type="text" class="form-control"  placeholder="Parcialidad.."> -->
+                        <select name="parcial" id="parcial" class="form-control">
+                        <option value="" selected>Seleccione una parcialidad...</option>
+                        <option value="Primer_parcialidad">Primer parcialidad</option>
+                        <option value="Segunda_parcialidad">Segunda parcialidad</option>
+                        <option value="Tercera_parcialidad">Tercera parcialidad</option>
+                        <option value="Cuarta_parcialidad">Cuarta parcialidad</option>
+                        <option value="Quinto_parcialidad">Quinto parcialidad</option>
+
+                        <option value="Sexta_parcialidad">Sexta parcialidad</option>
+                        <option value="Septima_parcialidad">Septima parcialidad</option>
+                        <option value="Octava_parcialidad">Octava parcialidad</option>
+                        <option value="Novena_parcialidad">Novena parcialidad</option>
+                        <option value="Decima_parcialidad">Decima parcialidad</option>
+
+                        <!-- <option value="Primer_parcialidad">Primer parcialidad</option>
+                        <option value="Segunda_parcialidad">Segunda parcialidad</option>
+                        <option value="Tercera_parcialidad">Tercera parcialidad</option>
+                        <option value="Cuarta_parcialidad">Cuarta parcialidad</option>
+                        <option value="Quinto_parcialidad">Quinto parcialidad</option> -->
+                        </select>
+                <br>
+                <!-- <div class="form-group"> -->
+                    <!-- <label for="">Fecha</label> -->
+                    <!-- <input type="text" id="datepicker_fecha_licenciatura" /> -->
+                    <label for="">Fecha limite de realizar el pago: *</label>
+                    <input type="text" class="form-control" id="datepicker_fecha_parcialidad" placeholder="Capturar fecha limite para realizar el pago completo">
+                  <!-- </div> -->
+
+                      </div>
+                  <!-- </form> -->
+                  <!-- <button type="submit" class="btn btn-success"  onclick="Mostrar_Parcialidad()">Agregar</button> -->
+                  <button type="button" class="btn btn-primary" onclick="Mostrar_Parcialidad()">Agregar Parcialidad</button>
+                <!-- </div> -->
+
+
+      </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+          <!-- Insert Button -->
+          <button type="button" class="btn btn-primary" id="validarComprobanteDePago">Validar comprobante de pago</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+  <!-- Modal Agregar registro DATOS DEL RECICOBO K SE HGENERA PARA EL ALUMNO SIN FIRMA  para recibo de pago -->
   <div class="modal fade" id="addDatosRecibo" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
@@ -85,6 +197,7 @@
         </div>
         <div class="modal-body">
           <input type="hidden" id="username" name="username" value="<?php echo $username;?>" >
+          <input type="hidden" id="id_alta_baucher_bancoDatesRecibo" name="id_alta_baucher_bancoDatesRecibo">
 
           <!-- Add Record Form -->
       <form id="addRecordForm">
@@ -172,10 +285,8 @@
                       </div>
                   <!-- </form> -->
                   <!-- <button type="submit" class="btn btn-success"  onclick="Mostrar_Parcialidad()">Agregar</button> -->
-                  <button type="button" class="btn btn-primary" onclick="Mostrar_Parcialidad()">Agregar Parcialidad</button>
+                  <!-- <button type="button" class="btn btn-primary" onclick="Mostrar_Parcialidad()">Agregar Parcialidad</button> -->
                 <!-- </div> -->
-
-
 
 
       </form>
@@ -243,6 +354,70 @@
   </div>
 
 
+  <!-- Modal Consultar Historico de pagos x parcialidades X Alumnos -->
+  <div class="modal fade" id="modalHistorialDeParcialidadesXAlumno" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header bg-primary text-center">
+          <strong class="modal-title" id="exampleModalLabel">Historial pagos por parcialidad</strong>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+              <input type="hidden" id="numero_controlHistorialParc" name="numero_controlHistorialParc">
+              <input type="hidden" id="id_alta_baucher_bancoHistorialParc" name="id_alta_baucher_bancoHistorialParc">
+              <input type="hidden" id="id_reciboHistorialParc" name="id_reciboHistorialParc">
+              <input type="hidden" id="userAlta" name="userAlta" value="<?php echo $username;?>" >
+
+            <div class="panel panel-default">
+              <div class="panel-body">
+              <!-- <div class="row">
+              <div class="col-xs-12 col-sm-8 col-md-8">
+                  <div class="form-group" id="archivoPDF">
+                      <input id="archivo" name="archivo"  type="file" size="60" accept=".pdf"/>
+                  </div>
+              </div>
+              </div> -->
+
+              <div class="row my-4">
+                <div class="col-md-12 mx-auto">
+                  <table id="tbl_listaHistPagosParcialidad" class="table table-striped table-bordered dt-responsive nowrap table-hover table-condensed" cellspacing="0" style="background:white!important" width="100%">
+                    <thead class="text-center bg-primary">
+                      <tr>
+                        <!-- <th width="3%">#</th> -->
+                        <!-- <th class="text-center">Nombre<br>Completo</th>
+                        <th>No. Control</th>
+                        <th class="text-center">Carrera</th> -->
+                        <th class="text-center">Datos recibo</th>
+                        <th>Tipo de Pago</th>
+                        <!-- <th class="text-center">Ver Baucher</th>
+                        <th class="text-center">Horario</th>
+                        <th class="text-center">Estado</th>
+                        <th>Recibo de Pago</th> -->
+                        <th>Parcialidad pago</th>
+                        <th class="text-center">Fecha limite</th>
+                      </tr>
+                    </thead>
+                  </table>
+                </div>
+              </div>
+
+
+              </div>
+            </div>
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+          <!-- <button type="button" class="btn btn-primary" id="">Agregar Pago</button> -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
 
 
   <div class="row my-4">
@@ -265,6 +440,7 @@
             <th class="text-center">Subir</th>
             <th class="text-center">Parcialidad</th>
             <th class="text-center">Fecha limite</th>
+            <th class="text-center">Historial...</th>
           </tr>
         </thead>
       </table>

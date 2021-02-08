@@ -14,28 +14,27 @@ class HabilitarAlumnos extends CI_Controller {
 	 }
 
 	 // VISTA DONDE SE PRESENTA LOS CONTADORES  (CUADRITOS) SE MANDAN VARIABLES ALA VISTA ESAS VARIABLES CONTIENEN EL NUMERO DE REGISTROS Y SE PRESENTA EN EL CUADRO
-	public function index(){
-
-		$data = array(
-		'countAlumnosColegiatura' 	 => $this->Modelo_DarAccesoAlumnos->rowcountColegiatura("alta_baucher_banco"),
-		'countAlumnosCursos'         => $this->Modelo_DarAccesoAlumnos->rowcountCursos("alta_baucher_banco"),
-		'countAlumnosExtraordinario' => $this->Modelo_DarAccesoAlumnos->rowcountExtraordinario("alta_baucher_banco"),
-		'countAlumnosTitulo'				 => $this->Modelo_DarAccesoAlumnos->rowcountTitulo("alta_baucher_banco"),
- );
-
-		$this->load->view('layouts/header');
-		$this->load->view('layouts/aside');
-		$this->load->view('admin/Vistas_Finanzas/VistaContadorAlumnosConBaucher', $data);
-		$this->load->view('layouts/footer');
-	}
+	// public function index(){
+ //
+	// 	$data = array(
+	// 	'countAlumnosColegiatura' 	 => $this->Modelo_DarAccesoAlumnos->rowcountColegiatura("alta_baucher_banco"),
+	// 	'countAlumnosCursos'         => $this->Modelo_DarAccesoAlumnos->rowcountCursos("alta_baucher_banco"),
+	// 	'countAlumnosExtraordinario' => $this->Modelo_DarAccesoAlumnos->rowcountExtraordinario("alta_baucher_banco"),
+	// 	'countAlumnosTitulo'				 => $this->Modelo_DarAccesoAlumnos->rowcountTitulo("alta_baucher_banco"),
+ // );
+ //
+	// 	$this->load->view('layouts/header');
+	// 	$this->load->view('layouts/aside');
+	// 	$this->load->view('admin/Vistas_Finanzas/VistaContadorAlumnosConBaucher', $data);
+	// 	$this->load->view('layouts/footer');
+	// }
 
 
 
 // ESTA VISTA PRESENTA LA LISTA DE ALUMNOS K YA SUBIERON SU BAUCHER Y SE PASA A CHECKEN PARA DARLES ACCESO A ELEGIR SUS MATERIAS
-		public function Vista_HabilitarAlumnoDespuesDeSubirBaucher(){
+		public function index(){
 			$data = array(
 				'tipoDePagos' => $this->Modelo_DarAccesoAlumnos->getTipoDePagos(),
-				// 'nameAlumno' => $this->Modelo_DarAccesoAlumnos->obtenerListaDeAlumnosConBaucherRegistrado(),
 				'username' => $this->session->userdata('username'),
 			);
 			$this->load->view('layouts/header');
@@ -45,9 +44,9 @@ class HabilitarAlumnos extends CI_Controller {
 		}
 
 
-		public function listaDeAlumnosConBaucherRegistrado($tipoPago){
-
-			$posts = $this->Modelo_DarAccesoAlumnos->obtenerListaDeAlumnosConBaucherRegistrado($tipoPago);
+		public function listaDeAlumnosConBaucherRegistrado(){  //  $tipoPago
+			$semestre = $this->input->post('semestre');
+			$posts = $this->Modelo_DarAccesoAlumnos->obtenerListaDeAlumnosConBaucherRegistrado($semestre); //  $tipoPago
 			echo json_encode($posts);
 		}
 
@@ -67,12 +66,13 @@ public function marcarParaRegistro($numero_control){
 			$data3['estado'] = $this->input->post('estado');
 			$id_alta_baucher_banco = $this->input->post('id_alta_baucher_banco');
 
- 				$estatus = $this->input->post('estatus');
-			$data2['estado_archivo'] =	1; // ==>> 1= ¡El alumno se ha inscrito!
+ 				$estatus = $this->input->post('estatus');  // var para filtrado si es habilitar o des-habilitar
+			$data2['estado_archivo'] =	1; // ==>> tabla de baucher => estado_archivo mover a  1= ¡El alumno se ha inscrito!
+			$data4['estado_archivo'] =	6; // ==>> tabla de baucher => estado_archivo mover a  6= ¡Registro baucher!
 		if($estatus != 0){  // Depende del estatus k se mande se hace a accion
-			$this->Modelo_DarAccesoAlumnos->updateStatusComprobPago($numero_control, $data2);  //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>><xxxxxxx
-			$this->Modelo_DarAccesoAlumnos->updateStatusDetalles($numero_control, $data3);
-						if ($this->Modelo_DarAccesoAlumnos->update($numero_control, $data)) {
+			$this->Modelo_DarAccesoAlumnos->updateStatusComprobPago($numero_control, $data2);//=> Se mueve estatus tabla de baucher => estado_archivo =>1
+			$this->Modelo_DarAccesoAlumnos->updateStatusDetalles($numero_control, $data3);//=> Se muesve estado detalles => En_espera_de_materias
+						if ($this->Modelo_DarAccesoAlumnos->update($numero_control, $data)) { //=> Mueve estatus de tabla alumno
 // 1.- Cuando se habilita solo es estatus en la tabla de alumnos => estatus =1
 							$data = array('responce' => 'success', 'message' => 'Alumno habilitado correctamente...!');
 						} else {
@@ -81,6 +81,7 @@ public function marcarParaRegistro($numero_control){
 		} else {
 // 2.- Cuando se DES-habilita cambia el estatus en la tabla de alumnos => estatus =0 y delete los datos del revibo para k cuando se vuelva habilitar metan nuevos datoos
 						if ($this->Modelo_DarAccesoAlumnos->update($numero_control, $data)) {
+							$this->Modelo_DarAccesoAlumnos->updateStatusComprobPago($numero_control, $data4);//=>mueve estatus table baucher=>6¡Registro baucher!
 							$this->Modelo_DarAccesoAlumnos->updateStatusDetalles($numero_control, $data3);
 							$this->Modelo_DarAccesoAlumnos->deleteDatosDelRecibo($id_alta_baucher_banco);
 							$data = array('responce' => 'success', 'message' => 'Alumno fue Deshabilitado...!');
@@ -91,6 +92,63 @@ public function marcarParaRegistro($numero_control){
 		echo json_encode($data);
 }
 
+
+
+	public function validacionComprobanteDePago(){
+		$bauche = $this->input->post('bauche');
+
+				$ajax_data = $this->input->post();
+/*2.*/		if ($this->Modelo_DarAccesoAlumnos->insertDatosDeValiacionBaucher($ajax_data)) {
+
+					$data = array('responce' => 'success', 'message' => 'Comprobante de pago validado correctamente...!');
+				} else {
+					$data = array('responce' => 'error', 'message' => 'Fallo al validar datos Comprobante...!');
+				}
+			// }
+			echo json_encode($data);
+
+	}
+
+//
+// public function validacionComprobanteDePago(){
+// 	$data['tipo_de_pago'] = $this->input->post('tipo_de_pago');
+// 			$id_alta_baucher_banco = $this->input->post('id_alta_baucher_banco');
+// 			// $tipo_de_pago = $this->input->post('tipo_de_pago');
+//  			// $parcialidades = $this->input->post('parcialidades');
+// 			// $fecha_limite_de_pago = $this->input->post('fecha_limite_de_pago');
+// 			//   $ajax_data = $this->input->post();
+//
+// 				$this->Modelo_DarAccesoAlumnos->insertDatosDeValiacionBaucher($id_alta_baucher_banco, $data);
+// 		echo json_encode($data);
+// }
+
+
+
+// public function validacionComprobanteDePago(){
+// 	if ($this->input->is_ajax_request()) {
+// 		$this->form_validation->set_rules('pago', 'tipo de pago');
+// 		$this->form_validation->set_rules('parcial', 'parcialidades');
+// 		$this->form_validation->set_rules('datepicker_fecha_parcialidad', 'fecha');
+// 		// if ($this->form_validation->run() == FALSE) {
+// 		// 	$data = array('res' => "error", 'message' => validation_errors());
+// 		// } else {
+// 			$data['id_alta_baucher_banco'] = $this ->input->post('id_alta_baucher_banco');
+// 			$data['tipo_de_pago'] = $this ->input->post('pago');
+// 			$data['parcialidades'] = $this ->input->post('parcial');
+// 			$data['fecha_limite_de_pago'] = $this ->input->post('datepicker_fecha_parcialidad');
+//
+// 						if ($this->Modelo_DarAccesoAlumnos->insertDatosDeValiacionBaucher($data)) {
+// 					$data = array('responce' => "success", 'message' => "¡Comprobante de pago validado!");
+// 				} else {
+// 					$data = array('responce' => "error", 'message' => "Fallo ");
+// 				}
+//
+// 		// }
+// 		echo json_encode($data);
+// 	}else {
+// 		echo "No se permite este acceso directo...!!!";
+// 	}
+// }
 
 
 

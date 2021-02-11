@@ -9,7 +9,8 @@ class Calificaciones extends CI_Controller {
 	 	 $this->load->library(array('session', 'form_validation'));
 	 	 $this->load->model("Modelo_Calificaciones");
 	 }
-
+	
+	 
 
 	 
 	public function index(){

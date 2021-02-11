@@ -432,7 +432,7 @@ $(document).on("click", "#darAltaBaucher", function(e) {
 
     var numero_control = $("#numero_control").val();
     var img = $("#archivo")[0].files[0]; // this is file
-    // var tipo_de_pago = $("#pago").val();
+    var tipo_de_pago = $("#pago").val();
     var archivo = $("#archivo")[0].files[0];
     var semestre = $("#semestreAlum").val();
 
@@ -444,7 +444,7 @@ $(document).on("click", "#darAltaBaucher", function(e) {
         fd.append("numero_control", numero_control);
         fd.append("archivo", img); //Obt principalmente el name file
         fd.append("archivo", archivo); // Obt el file como tal
-        // fd.append("tipo_de_pago", tipo_de_pago);
+        fd.append("tipo_de_pago", tipo_de_pago);
         fd.append("estado_archivo", 6);  // 6 => estatyus de "Registro baucher"
         fd.append("semestre", semestre);
 

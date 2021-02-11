@@ -107,8 +107,8 @@ class Modelo_DarAccesoAlumnos extends CI_Model { // INICIO DEL MODELO
 // 1.- Se obtiene el nombre completo de la tabla de alumnos y el no control
 // 2.- Se obt. id de la tabla de los baucher y la fecha en k se subio el baucher
 
-  public function obtenerListaDeAlumnosConBaucherRegistrado($semestre){   // => $tipoPago
-     $this->db->select("CONCAT(alu.nombres, ' ', alu.apellido_paterno, ' ', alu.apellido_materno) As nombre_completo, ban.id_alta_baucher_banco, ban.fecha_registro, alu.numero_control, alu.estatus, car.carrera_descripcion, rec.cantidad , rec.desc_concepto, rec.id_recibo, ban.semestre");
+  public function obtenerListaDeAlumnosConBaucherRegistrado($semestre, $opciones, $licenciatura,$tipoPago){   // => $tipoPago
+     $this->db->select("CONCAT(alu.nombres, ' ', alu.apellido_paterno, ' ', alu.apellido_materno) As nombre_completo, ban.id_alta_baucher_banco, ban.fecha_registro, alu.numero_control, alu.estatus, car.carrera_descripcion, rec.cantidad , rec.desc_concepto, rec.id_recibo, ban.semestre,  ban.tipo_de_pago");
      //  rec.parcialidad_pago, rec.fecha_limite_pago, tip.pago,
      $this->db->from("alumnos alu");
      $this->db->join("alta_baucher_banco ban","alu.numero_control = ban.numero_control");
@@ -117,7 +117,11 @@ class Modelo_DarAccesoAlumnos extends CI_Model { // INICIO DEL MODELO
      // $this->db->join("tipos_de_pagos tip","tip.id_tipo_pago = ban.tipo_de_pago");
      $this->db->join("datos_recibo rec","rec.bauche = ban.id_alta_baucher_banco",'LEFT');
       // $this->db->where("tip.pago",$tipoPago);
-      $this->db->where("ban.semestre=",$semestre);
+      $this->db->where(" det.cuatrimestre =",$semestre);
+      $this->db->where(" det.opcion =",$opciones);
+      $this->db->where(" det.carrera =",$licenciatura);
+      $this->db->where(" ban.tipo_de_pago =",	$tipoPago);
+      $this->db->group_by('nombre_completo');
       $resultados = $this->db->get();
       return $resultados->result();
   }
@@ -152,15 +156,16 @@ class Modelo_DarAccesoAlumnos extends CI_Model { // INICIO DEL MODELO
        return $this->db->update("alumnos", $data);
       }
 
-// ========== ACTUALIZA SIEMPRE EL ESTATUS DE LA TABLA DETALLES PARA HABILITAR Y DESHABILITAR  ===========
+// ========== ACTUALIZA SIEMPRE EL ESTATUS DE LA TABLA DETALLES PARA HABILITAR Y DESHABILITAR  ===========    estado_archivo
         public function updateStatusDetalles($numero_control, $data3){
           $this->db->where("alumno",$numero_control);
            return $this->db->update("detalles", $data3);
           }
 
 //  ===============  <<<<<<<<<<<   actualiza el estado del comprobante de pago si fue validado o no el k subio  >>>>>>>>>> ============
-        public function updateStatusComprobPago($numero_control, $data2){
+        public function updateStatusComprobPago($numero_control, $id_alta_baucher_banco, $data2){
           $this->db->where("numero_control",$numero_control);
+          $this->db->where("id_alta_baucher_banco",$id_alta_baucher_banco);
            return $this->db->update("alta_baucher_banco", $data2);
           }
 

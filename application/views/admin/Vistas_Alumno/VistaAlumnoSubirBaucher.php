@@ -56,7 +56,7 @@
                           <input type="text" class="form-control" id="semestre" readonly>
                         </div> -->
 
-                        <!-- <div class="form-group">
+                        <div class="form-group">
                             <label for="">Tipo de pago:</label>
                             <select name="pago" id="pago" class="form-control">
                             <option value="" selected>Seleccione un pago...</option>
@@ -64,7 +64,7 @@
                                     <option value="<?php echo $pago->id_tipo_pago;?>"><?php echo $pago->pago;?></option>
                                 <?php endforeach;?>
                             </select>
-                        </div> -->
+                        </div>
 
                         <!-- file -->
                         <div class="form-group">
@@ -86,7 +86,7 @@
 
               <!-- *****************  EL DIV DE LA OPCION DEL ICONO PARA LA DESCARGA DEL BAUCHER *******************  -->
                   <div class="modal-dialog" id="baucherPdf">
-                    <!-- <center>
+                    <center>
                       <h4><font color="#3498DB">Comprobante de pago registrado con éxito</font></h4> <br>
 
                        <div class="row" id="divDatosParcialidad">
@@ -101,7 +101,7 @@
                        </div>
                            <div class="row" id="divSinDatosParcialidad">
                              <label for="">El pago fue realizado en una sola exhibición</label>
-                           </div> -->
+                           </div>
 
                            <div class="row" id="xtre">
                              <label for="">Comprobante de pago en proceso de validación</label>

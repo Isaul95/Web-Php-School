@@ -145,17 +145,6 @@
                         <option value="Cuarta_parcialidad">Cuarta parcialidad</option>
                         <option value="Quinto_parcialidad">Quinto parcialidad</option>
 
-                        <option value="Sexta_parcialidad">Sexta parcialidad</option>
-                        <option value="Septima_parcialidad">Septima parcialidad</option>
-                        <option value="Octava_parcialidad">Octava parcialidad</option>
-                        <option value="Novena_parcialidad">Novena parcialidad</option>
-                        <option value="Decima_parcialidad">Decima parcialidad</option>
-
-                        <!-- <option value="Primer_parcialidad">Primer parcialidad</option>
-                        <option value="Segunda_parcialidad">Segunda parcialidad</option>
-                        <option value="Tercera_parcialidad">Tercera parcialidad</option>
-                        <option value="Cuarta_parcialidad">Cuarta parcialidad</option>
-                        <option value="Quinto_parcialidad">Quinto parcialidad</option> -->
                         </select>
                 <br>
                 <!-- <div class="form-group"> -->
@@ -166,16 +155,27 @@
                   <!-- </div> -->
 
                       </div>
-                  <!-- </form> -->
-                  <!-- <button type="submit" class="btn btn-success"  onclick="Mostrar_Parcialidad()">Agregar</button> -->
-                  <button type="button" class="btn btn-primary" onclick="Mostrar_Parcialidad()">Agregar Parcialidad</button>
+
+
+                      <div class="form-group" id="formPagoCompleto">
+                        <label for="">Parcialidad:</label>
+                        <select name="parcial" id="parcial_pagoCompleto" class="form-control" readonly>
+                        <option value="Pago_Completo">Pago Completo</option>
+                        </select>
+                <br>
+                    <label for="">Fecha limite de realizar el pago: *</label>
+                    <input type="text" class="form-control" id="datepicker_fecha_pagoCompleto" value="No Aplica" readonly>
+                      </div>
+
+                  <button type="button" class="btn btn-primary" onclick="Mostrar_Parcialidad()">Agregar pago en Parcialidades</button>
+                    <button type="button" class="btn btn-primary" onclick="Mostrar_PagoCompleto()">Agregar pago completo</button>
                 <!-- </div> -->
 
 
       </form>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+          <button type="button" class="btn btn-danger" data-dismiss="modal" id="regresarModAnteriorValidacion">Regresar</button>
           <!-- Insert Button -->
           <button type="button" class="btn btn-primary" id="validarComprobanteDePago">Validar comprobante de pago</button>
         </div>
@@ -200,7 +200,7 @@
           <input type="hidden" id="id_alta_baucher_bancoDatesRecibo" name="id_alta_baucher_bancoDatesRecibo">
 
           <!-- Add Record Form -->
-      <form id="addRecordForm">
+      <form id="formAddDatesRecibodePago">
             <!-- Name -->
             <!-- <div class="form-group">
               <?php foreach($nameAlumno as $name):?>
@@ -210,10 +210,10 @@
             </div> -->
 
             <!-- Email -->
-            <div class="form-group">
+            <!-- <div class="form-group">
               <label for="">Número de control: *</label>
               <input type="text" class="form-control" id="numero_con" readonly>
-            </div>
+            </div> -->
 
             <!-- Mobile No. -->
           <!-- <div class="form-group">
@@ -251,9 +251,9 @@
 
               <!-- <div class="container"> -->
                   <!-- <form > -->
-                      <div class="form-group" id="formParcialidad2">
+                      <!-- <div class="form-group" id="formParcialidad2">
                         <label for="">Parcialidad:</label>
-                        <!-- <input type="text" class="form-control"  placeholder="Parcialidad.."> -->
+
                         <select name="parcial" id="parcial" class="form-control">
                         <option value="" selected>Seleccione una parcialidad...</option>
                         <option value="Primer_parcialidad">Primer parcialidad</option>
@@ -268,21 +268,20 @@
                         <option value="Novena_parcialidad">Novena parcialidad</option>
                         <option value="Decima_parcialidad">Decima parcialidad</option>
 
-                        <!-- <option value="Primer_parcialidad">Primer parcialidad</option>
+
                         <option value="Segunda_parcialidad">Segunda parcialidad</option>
                         <option value="Tercera_parcialidad">Tercera parcialidad</option>
                         <option value="Cuarta_parcialidad">Cuarta parcialidad</option>
-                        <option value="Quinto_parcialidad">Quinto parcialidad</option> -->
+
                         </select>
                 <br>
-                <!-- <div class="form-group"> -->
-                    <!-- <label for="">Fecha</label> -->
-                    <!-- <input type="text" id="datepicker_fecha_licenciatura" /> -->
+
+
                     <label for="">Fecha limite de realizar el pago: *</label>
                     <input type="text" class="form-control" id="datepicker_fecha_parcialidad" placeholder="Capturar fecha limite para realizar el pago completo">
-                  <!-- </div> -->
 
-                      </div>
+
+                      </div> -->
                   <!-- </form> -->
                   <!-- <button type="submit" class="btn btn-success"  onclick="Mostrar_Parcialidad()">Agregar</button> -->
                   <!-- <button type="button" class="btn btn-primary" onclick="Mostrar_Parcialidad()">Agregar Parcialidad</button> -->
@@ -292,7 +291,7 @@
       </form>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+          <button type="button" class="btn btn-danger" data-dismiss="modal" id="regresarModAnterior">Regresar</button>
           <!-- Insert Button -->
           <button type="button" class="btn btn-primary" id="addDatosAGenerarReciboPago">Agregar Pago</button>
         </div>
@@ -367,7 +366,7 @@
         <div class="modal-body">
               <input type="hidden" id="numero_controlHistorialParc" name="numero_controlHistorialParc">
               <input type="hidden" id="id_alta_baucher_bancoHistorialParc" name="id_alta_baucher_bancoHistorialParc">
-              <input type="hidden" id="id_reciboHistorialParc" name="id_reciboHistorialParc">
+              <input type="hidden" id="semestreHistorialParc" name="semestreHistorialParc">
               <input type="hidden" id="userAlta" name="userAlta" value="<?php echo $username;?>" >
 
             <div class="panel panel-default">
@@ -387,9 +386,9 @@
                       <tr>
                         <!-- <th width="3%">#</th> -->
                         <!-- <th class="text-center">Nombre<br>Completo</th>
-                        <th>No. Control</th>
-                        <th class="text-center">Carrera</th> -->
-                        <th class="text-center">Datos recibo</th>
+                        <th>No. Control</th>-->
+                        <th class="text-center">Validar</th>
+                        <th class="text-center">Agregar datos recibo</th>
                         <th>Tipo de Pago</th>
                         <!-- <th class="text-center">Ver Baucher</th>
                         <th class="text-center">Horario</th>
@@ -440,7 +439,7 @@
             <th class="text-center">Subir</th>
             <!-- <th class="text-center">Parcialidad</th>
             <th class="text-center">Fecha limite</th> -->
-            <th class="text-center">Historial...</th>
+            <th class="text-center">Historial pagos</th>
           </tr>
         </thead>
       </table>

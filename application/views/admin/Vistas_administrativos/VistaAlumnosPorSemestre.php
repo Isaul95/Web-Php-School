@@ -162,7 +162,7 @@
         <div class="modal-dialog modal-lg">
           <div class="modal-content">
           <div class="modal-header bg-primary text-center">
-              <strong class="modal-title" id="exampleModalLabel">Editar materia</strong>
+              <strong class="modal-title" id="exampleModalLabel">Ver calificaciones</strong>
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
               </button>
@@ -183,6 +183,7 @@
               <table id="tbl_list_calificaciones_administrador" class="table table-striped table-bordered table-hover table-condensed" cellspacing="0" style="background:white!important" width="100%">
         <thead class="bg-primary">
           <tr>
+          <th></th>
           <th></th>
           <th></th>
             <th>Materia</th>
@@ -209,7 +210,55 @@
         </div>
       </div>
       <!--MODAL EDITAR calificacion ADMIN-->
-
+<!--MODAL EDITAR calificacion ADMIN-->
+<div class="modal fade" id="modaleditcalificacion_admin" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+          <div class="modal-header bg-primary text-center">
+              <strong class="modal-title" id="exampleModalLabel">Asignar calificación</strong>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <div class="container-fluid">
+                <div class="row text-center">
+                  <div class="col-md-12 my-3">
+                    <div id="show_img"></div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-12">
+            <form id="formeditcalificacion_admin">
+                     
+          <div class="row">
+              <div class="col-sm-12">
+              <input type="hidden" id="detalle_update_admin">
+              <input type="hidden" id="materia_update_admin">
+              <input type="hidden" id="profesor_update_admin">
+                <label for="">Asignar calificación</label>
+                  <div class="row">
+                    <div class="col-8 col-sm-6">
+                    <label for="">Calificacion</label>
+                    <input type="text" class="form-control" id="calificacion_materia_profesor_admin" placeholder="Calificacion">
+                    </div>
+                  </div>                 
+               </div>
+           </div>
+  
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+              <button type="button" class="btn btn-primary" id="update_calificacion_admin">Actualizar</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!--MODAL EDITAR calificacion ADMIN-->
   <div class="row my-4">
     <div class="col-md-12 mx-auto">
 

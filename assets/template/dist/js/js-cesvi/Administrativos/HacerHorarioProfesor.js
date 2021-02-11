@@ -192,9 +192,35 @@ function llenar_combo_semestres_horario_profesores() {
 function llenartablahorariosprofesores($profesor) {
     // debugger;
     var profesor = $profesor;
+    var concat = "";
+    var fecha = new Date();
+
+    switch (fecha.getMonth() + 1) {
+        case 1:
+            var ciclo = concat.concat(fecha.getFullYear().toString().substring(2,4), "/", 1);
+            break;
+        case 2:
+            var ciclo = concat.concat(fecha.getFullYear().toString().substring(2,4), "/", 1);
+            break;
+        case 3:
+            var ciclo = concat.concat(fecha.getFullYear().toString().substring(2,4), "/", 1);
+            break;
+        case 4:
+            var ciclo = concat.concat(fecha.getFullYear().toString().substring(2,4), "/", 1);
+            break;
+        case 5:
+            var ciclo = concat.concat(fecha.getFullYear().toString().substring(2,4), "/", 1);
+            break;
+        case 6:
+            var ciclo = concat.concat(fecha.getFullYear().toString().substring(2,4), "/", 1);
+            break;
+        default:
+            var ciclo = concat.concat(fecha.getFullYear().toString().substring(2,4), "/", 2);
+            break;
+    }
     var fd = new FormData();
     fd.append("profesor", profesor);
-
+    fd.append("ciclo", ciclo);
     $.ajax({
         type: "post",
         url: base_url + 'Administrativos/HacerHorarioProfesor/materias_asignadas',
@@ -210,6 +236,11 @@ function llenartablahorariosprofesores($profesor) {
                 data: data,
                 responsive: true,
                 columns: [
+                    {
+                        data: "profesor",
+                        "visible": false,
+                        "searchable": false
+                    },
                     {
                         data: "materia",
                         "visible": false,
@@ -247,9 +278,13 @@ function llenartablahorariosprofesores($profesor) {
                         orderable: false,
                         searchable: false,
                         data: function (row, type, set) {
+                            var concat="";
+                            var profesor_materia = concat.concat(`${row.profesor}`,'_',`${row.materia}`);
+                          
                             return `
                                  <a href="#" id="edit_horario" class="btn btn-success btn-remove" value="${row.materia}"><i class="far fa-edit"></i></a>
-                              `;
+                                 <a href="#" id="del_horario" class="btn btn-danger btn-remove" value="${profesor_materia}"><i class="fas fa-trash-alt"></i></a>
+                                 `;
                         },
                     },
                 ],
@@ -264,9 +299,37 @@ $(document).on("click", "#edit_horario", function (e) {
     e.preventDefault();
     var materia = $(this).attr("value");
     var profesor = $('#combo_profesores_horario_profesores').val();
+    var concat = "";
+    var fecha = new Date();
+
+    switch (fecha.getMonth() + 1) {
+        case 1:
+            var ciclo = concat.concat(fecha.getFullYear().toString().substring(2,4), "/", 1);
+            break;
+        case 2:
+            var ciclo = concat.concat(fecha.getFullYear().toString().substring(2,4), "/", 1);
+            break;
+        case 3:
+            var ciclo = concat.concat(fecha.getFullYear().toString().substring(2,4), "/", 1);
+            break;
+        case 4:
+            var ciclo = concat.concat(fecha.getFullYear().toString().substring(2,4), "/", 1);
+            break;
+        case 5:
+            var ciclo = concat.concat(fecha.getFullYear().toString().substring(2,4), "/", 1);
+            break;
+        case 6:
+            var ciclo = concat.concat(fecha.getFullYear().toString().substring(2,4), "/", 1);
+            break;
+        default:
+            var ciclo = concat.concat(fecha.getFullYear().toString().substring(2,4), "/", 2);
+            break;
+    }
     var fd = new FormData();
     fd.append("materia", materia);
     fd.append("profesor", profesor);
+    fd.append("ciclo", ciclo);
+
     $.ajax({
         type: "post",
         url: base_url + 'Administrativos/HacerHorarioProfesor/editarcalificacion',
@@ -298,7 +361,80 @@ $(document).on("click", "#edit_horario", function (e) {
         }
     });
 });
+$(document).on("click", "#del_horario", function (e) {
+    e.preventDefault();
 
+    var del_id = $(this).attr("value");
+    var array = del_id.split('_');
+    var profesor = array[0];
+    var materia = array[1];
+    var concat = "";
+    var fecha = new Date();
+
+    switch (fecha.getMonth() + 1) {
+        case 1:
+            var ciclo = concat.concat(fecha.getFullYear().toString().substring(2,4), "/", 1);
+            break;
+        case 2:
+            var ciclo = concat.concat(fecha.getFullYear().toString().substring(2,4), "/", 1);
+            break;
+        case 3:
+            var ciclo = concat.concat(fecha.getFullYear().toString().substring(2,4), "/", 1);
+            break;
+        case 4:
+            var ciclo = concat.concat(fecha.getFullYear().toString().substring(2,4), "/", 1);
+            break;
+        case 5:
+            var ciclo = concat.concat(fecha.getFullYear().toString().substring(2,4), "/", 1);
+            break;
+        case 6:
+            var ciclo = concat.concat(fecha.getFullYear().toString().substring(2,4), "/", 1);
+            break;
+        default:
+            var ciclo = concat.concat(fecha.getFullYear().toString().substring(2,4), "/", 2);
+            break;
+    }
+    Swal.fire({
+        title: "¿Estás seguro de dar de remover esta materia?",
+        text: "¡Esta acción es irreversile!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "¡Si, eliminar materia asignada!",
+        cancelButtonText: "¡No, cancelar!",
+    }).then((result) => {
+        if (result.isConfirmed) {
+            var fd = new FormData();
+            fd.append("profesor",profesor);
+            fd.append("materia",materia);
+            fd.append("ciclo",ciclo);
+            
+            $.ajax({
+            type: "post",
+            url: base_url + 'Administrativos/HacerHorarioProfesor/eliminarhorario',
+            data: fd,
+            processData: false,
+            contentType: false,
+            dataType: "json",
+            enctype: 'multipart/form-data',
+                success: function (data) {
+                    if (data.responce == "success") {
+                        Swal.fire(
+                            '¡Materia removida!',
+                            'La materia se eliminó del horario',
+                            'success'
+                        );
+                        $("#tbl_list_horarios_administrativos").DataTable().destroy();
+                        llenartablahorariosprofesores($("#combo_profesores_horario_profesores").val());
+                    } else {
+                        console.log(data);
+                    }
+                },
+            });
+        }
+    });
+});
 $(document).on("click", "#update_horario_profesor", function (e) {
     e.preventDefault();
     

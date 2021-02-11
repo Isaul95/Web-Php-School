@@ -197,6 +197,7 @@
         <thead class="bg-primary">
           <tr> 
           <th></th>
+          <th></th>
           <th>Materia</th>
           <th>Salon</th>
           <th>Semestre</th>

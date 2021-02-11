@@ -26,10 +26,30 @@ class HacerHorarioProfesor extends CI_Controller {
 		$this->load->view('admin/Vistas_administrativos/VistaHacerHorarioProfesor',$data);
 		$this->load->view('layouts/footer');
 	}
+	public function eliminarhorario()
+{
+	if ($this->input->is_ajax_request()) {
+
+		$profesor = $this->input->post('profesor');
+		$materia = $this->input->post('materia');
+		$ciclo = $this->input->post('ciclo');
+
+		if ($this->Modelo_HacerHorarioProfesor->delete_entry($profesor,$materia,$ciclo)) {
+			$data = array('responce' => "success");
+	    } else {
+			$data = array('responce' => "error", "No se pudo eliminar...!");
+	    }
+	
+		echo json_encode($data);
+	} else {
+		echo "No se permite este acceso directo...!!!";
+	}
+}
 	public function materias_asignadas(){
 		
 		$profesor = $this->input->post('profesor');
-		$posts = $this->Modelo_HacerHorarioProfesor->horario_asignado_al_profesor($profesor);
+		$ciclo = $this->input->post('ciclo');
+		$posts = $this->Modelo_HacerHorarioProfesor->horario_asignado_al_profesor($profesor,$ciclo);
 		echo json_encode($posts);
 	}
 	public function agregarhorario(){
@@ -153,7 +173,8 @@ class HacerHorarioProfesor extends CI_Controller {
 		if ($this->input->is_ajax_request()) {
 			$profesor = $this->input->post('profesor');
 			$materia = $this->input->post('materia');
-			if ($post = $this->Modelo_HacerHorarioProfesor->single_entry($profesor,$materia)) {
+			$ciclo = $this->input->post('ciclo');
+			if ($post = $this->Modelo_HacerHorarioProfesor->single_entry($profesor,$materia,$ciclo)) {
 				$data = array('responce' => "success", "post" => $post);
 			}else{
 				$data = array('responce' => "error", "failed to fetch");

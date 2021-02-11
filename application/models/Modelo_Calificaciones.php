@@ -70,15 +70,30 @@ class Modelo_calificaciones extends CI_Model { // INICIO DEL MODELO
                   $resultados = $this->db->get();
                   return $resultados->result();
                   }
-                  public function updatecalificacion($materia,$id_detalle,$ciclo,$data){
-                    return $this->db->update('calificaciones', $data, array('materia' => $materia,'detalle'=> $id_detalle,'ciclo'=> $ciclo));
+                  public function updatecalificacion($materia,$id_detalle,$ciclo,$profesor,$data){
+                    return $this->db->update('calificaciones', $data, array('materia' => $materia,'detalle'=> $id_detalle,'ciclo'=> $ciclo,'profesor'=> $profesor));
                 }
-                public function single_entry($id,$materia)
+                public function single_entry($id_detalle,$materia,$ciclo,$profesor)
+                {
+                  $this->db->select('*');
+                    $this->db->from('calificaciones');
+                    $this->db->where('detalle', $id_detalle);
+                    $this->db->where('materia', $materia);
+                    $this->db->where('profesor', $profesor);
+                    $this->db->where('ciclo', $ciclo);
+                    $query = $this->db->get();
+                    if (count($query->result()) > 0) {
+                        return $query->row();
+                    }
+                }
+                public function single_entry_consulta_calificacion_admin($id,$materia,$profesor,$ciclo)
                 {
                   $this->db->select('*');
                     $this->db->from('calificaciones');
                     $this->db->where('detalle', $id);
                     $this->db->where('materia', $materia);
+                    $this->db->where('profesor', $profesor);
+                    $this->db->where('ciclo', $ciclo);
                     $query = $this->db->get();
                     if (count($query->result()) > 0) {
                         return $query->row();
@@ -88,6 +103,7 @@ class Modelo_calificaciones extends CI_Model { // INICIO DEL MODELO
                 {
                   $this->db->select('d.id_detalle as detalle,
                    m.id_materia as materia,
+                   cal.profesor as profesor,
                     m.nombre_materia as materianombre, 
                     cal.horario as horario,
                      cal.calificacion as calificacion,
@@ -100,25 +116,43 @@ class Modelo_calificaciones extends CI_Model { // INICIO DEL MODELO
                     $resultados = $this->db->get();
                 return $resultados->result();
                 }
-                public function sepuede_agregar_calificacion($detalle,$materia)
+                public function sepuede_agregar_calificacion($detalle,$materia,$profesor,$ciclo)
                 {
                   $this->db->select('*');
                     $this->db->from('calificaciones');
                     $this->db->where('detalle', $detalle);
                     $this->db->where('materia', $materia);
+                    $this->db->where('profesor', $profesor);
+                    $this->db->where('ciclo', $ciclo);
                     $this->db->where_in('estado_profesor', ['0','1']);
                     $query = $this->db->get();
                     if (count($query->result()) > 0) {
                         return $query->row();
                     }
                 }
-                public function sepuede_insertar_o_actualizar_sobre_profesor($detalle,$materia)
+                public function sepuede_insertar_o_actualizar_sobre_profesor($detalle,$materia,$ciclo,$profesor)
                 {
                   $this->db->select('*');
                     $this->db->from('calificaciones');
                     $this->db->where('detalle', $detalle);
                     $this->db->where('materia', $materia);
+                    $this->db->where('ciclo', $ciclo);
+                    $this->db->where('profesor', $profesor);
                     $this->db->where('profesor_captura is null',null,false);
+                    $query = $this->db->get();
+                    if (count($query->result()) > 0) {
+                        return $query->row();
+                    }
+                }
+                public function sepuede_insertar_o_actualizar_sobre_admin($detalle,$materia,$ciclo,$profesor)
+                {
+                  $this->db->select('*');
+                    $this->db->from('calificaciones');
+                    $this->db->where('detalle', $detalle);
+                    $this->db->where('materia', $materia);
+                    $this->db->where('ciclo', $ciclo);
+                    $this->db->where('profesor', $profesor);
+                    $this->db->where('administrativo_captura is null',null,false);
                     $query = $this->db->get();
                     if (count($query->result()) > 0) {
                         return $query->row();

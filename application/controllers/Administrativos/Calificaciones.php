@@ -111,8 +111,9 @@ class Calificaciones extends CI_Controller {
 				$id_detalle = $this->input->post('detalle');
 				$materia = $this->input->post('materia');
 				$ciclo = $this->input->post('ciclo');
-				if ($post = $this->Modelo_Calificaciones->sepuede_agregar_calificacion($id_detalle,$materia)) {
-					if($post = $this->Modelo_Calificaciones->sepuede_insertar_o_actualizar_sobre_profesor($id_detalle,$materia)){
+				$profesor = $this->input->post('profesor');
+				if ($post = $this->Modelo_Calificaciones->sepuede_agregar_calificacion($id_detalle,$materia,$profesor,$ciclo)) {
+					if($post = $this->Modelo_Calificaciones->sepuede_insertar_o_actualizar_sobre_profesor($id_detalle,$materia,$ciclo,$profesor)){
 						//INSERTA POR PRIMERA VEZ LOS DATOS DE CAPTURA DEL PROFESOR
 						$ajax_data['calificacion'] = $this ->input->post('calificacion');
 						$ajax_data['ciclo'] = $this ->input->post('ciclo');
@@ -120,7 +121,7 @@ class Calificaciones extends CI_Controller {
 						$ajax_data['tiempo_extension'] = $this ->input->post('tiempo_extension');
 						$ajax_data['profesor_captura'] = $this ->input->post('profesor_captura');
 						$ajax_data['fecha_captura_profesor'] = $this ->input->post('fecha_captura_profesor');
-						 if ($this->Modelo_Calificaciones->updatecalificacion($materia,$id_detalle,$ciclo,$ajax_data)) {
+						 if ($this->Modelo_Calificaciones->updatecalificacion($materia,$id_detalle,$ciclo,$profesor,$ajax_data)) {
 							 $data = array('response' => "success", 'message' => "Datos actualizados correctamente");
 						 } else {
 						   $data = array('response' => "error", 'message' => "Error al agregar datos...!");
@@ -134,7 +135,7 @@ class Calificaciones extends CI_Controller {
 						$ajax_data['tiempo_extension'] = $this ->input->post('tiempo_extension');
 						$ajax_data['profesor_actualizacion'] = $this ->input->post('profesor_actualizacion');
 						$ajax_data['fecha_actualizacion_profesor'] = $this ->input->post('fecha_actualizacion_profesor');
-						 if ($this->Modelo_Calificaciones->updatecalificacion($materia,$id_detalle,$ajax_data)) {
+						 if ($this->Modelo_Calificaciones->updatecalificacion($materia,$id_detalle,$ciclo,$profesor,$ajax_data)) {
 							 $data = array('response' => "success", 'message' => "Datos actualizados correctamente");
 						 } else {
 						   $data = array('response' => "error", 'message' => "Error al agregar datos...!");
@@ -150,7 +151,49 @@ class Calificaciones extends CI_Controller {
 			echo "No se permite este acceso directo...!!!";
 		}
 	}
-	
+	public function updatecalificacion_admin(){
+		if ($this->input->is_ajax_request()) {	
+			
+			$id_detalle = $this->input->post('detalle');
+				$materia = $this->input->post('materia');
+				$ciclo = $this->input->post('ciclo');
+				$profesor = $this->input->post('profesor');
+				if($post = $this->Modelo_Calificaciones->sepuede_insertar_o_actualizar_sobre_admin($id_detalle,$materia,$ciclo,$profesor)){
+					//INSERTA POR PRIMERA VEZ LOS DATOS DE CAPTURA DEL PROFESOR
+						$ajax_data['calificacion'] = $this ->input->post('calificacion');
+						$ajax_data['ciclo'] = $this ->input->post('ciclo');
+						$ajax_data['estado_administrativo'] = $this ->input->post('estado_administrativo');
+						$ajax_data['tiempo_extension'] = $this ->input->post('tiempo_extension');
+						$ajax_data['administrativo_captura'] = $this ->input->post('administrativo_captura');
+						$ajax_data['fecha_captura_administrativo'] = $this ->input->post('fecha_captura_administrativo');
+						 if ($this->Modelo_Calificaciones->updatecalificacion($materia,$id_detalle,$ciclo,$profesor,$ajax_data)) {
+							 $data = array('response' => "success", 'message' => "Datos actualizados correctamente");
+						 } else {
+						   $data = array('response' => "error", 'message' => "Error al agregar datos...!");
+						 }
+					}
+					else{
+                         //ACTUALIZA LOS DATOS DE CAPTURA DEL PROFESOR
+						$ajax_data['calificacion'] = $this ->input->post('calificacion');
+						$ajax_data['ciclo'] = $this ->input->post('ciclo');
+						$ajax_data['estado_administrativo'] = $this ->input->post('estado_administrativo');
+						$ajax_data['tiempo_extension'] = $this ->input->post('tiempo_extension');
+						$ajax_data['administrativo_actualizacion'] = $this ->input->post('administrativo_actualizacion');
+						$ajax_data['fecha_actualizacion_administrativo'] = $this ->input->post('fecha_actualizacion_administrativo');
+						 if ($this->Modelo_Calificaciones->updatecalificacion($materia,$id_detalle,$ciclo,$profesor,$ajax_data)) {
+							 $data = array('response' => "success", 'message' => "Datos actualizados correctamente");
+						 } else {
+						   $data = array('response' => "error", 'message' => "Error al agregar datos...!");
+						 }
+					}
+					
+				
+				echo json_encode($data);			
+			}
+		  else{
+			echo "No se permite este acceso directo...!!!";
+		}
+	}
 	public function calificacionesymateriasdelalumno(){
 		if ($this->input->is_ajax_request()) {
 			$id_detalle = $this->input->post('detalle');
@@ -166,7 +209,25 @@ class Calificaciones extends CI_Controller {
 		if ($this->input->is_ajax_request()) {
 			$id_detalle = $this->input->post('detalle');
 			$materia = $this->input->post('materia');
-			if ($post = $this->Modelo_Calificaciones->single_entry($id_detalle,$materia)) {
+			$ciclo = $this->input->post('ciclo');
+			$profesor = $this->input->post('profesor');
+			if ($post = $this->Modelo_Calificaciones->single_entry($id_detalle,$materia,$ciclo,$profesor)) {
+				$data = array('responce' => "success", "post" => $post);
+			}else{
+				$data = array('responce' => "error", "failed to fetch");
+			}
+			echo json_encode($data);
+		}else {
+			echo "No se permite este acceso directo...!!!";
+		}
+	}
+	public function editarcalificacion_admin(){
+		if ($this->input->is_ajax_request()) {
+			$id_detalle = $this->input->post('detalle');
+			$materia = $this->input->post('materia');
+			$profesor = $this->input->post('profesor');
+			$ciclo = $this->input->post('ciclo');
+			if ($post = $this->Modelo_Calificaciones->single_entry_consulta_calificacion_admin($id_detalle,$materia,$profesor,$ciclo)) {
 				$data = array('responce' => "success", "post" => $post);
 			}else{
 				$data = array('responce' => "error", "failed to fetch");

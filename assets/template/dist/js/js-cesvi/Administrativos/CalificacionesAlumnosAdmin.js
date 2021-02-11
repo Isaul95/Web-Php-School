@@ -76,6 +76,10 @@ $("#modaleditcalificacion").on("hide.bs.modal", function (e) {
     // do something...
     $("#formeditcalificacion")[0].reset();
 });
+$("#modaleditcalificacion_admin").on("hide.bs.modal", function (e) {
+    // do something...
+    $("#formeditcalificacion_admin")[0].reset();
+});
 
 $("#modalcalificacionadmin").on("hide.bs.modal", function (e) {
     // do something...
@@ -375,6 +379,11 @@ $(document).on("click", "#ver_materias_del_alumno", function (e) {
                     "searchable": false
                 },
                 {
+                    data: "profesor",
+                    "visible": false,
+                    "searchable": false
+                },
+                {
                     data: "materianombre",
                 },
                 {
@@ -390,8 +399,11 @@ $(document).on("click", "#ver_materias_del_alumno", function (e) {
                     orderable: false,
                     searchable: false,
                      data: function (row, type, set) {
+                        var concat="";
+                        var detalle_materia_profe = concat.concat(`${row.detalle}`,'_',`${row.materia}`,'_',`${row.profesor}`);
+                         
                          return `
-                                 <a href="#" id="materias_mo_sirve" class="btn btn-success btn-remove" value="${row.detalle}"><i class="far fa-edit"></i></a>
+                                 <a href="#" id="edit_calificacion_admin" class="btn btn-success btn-remove" value="${detalle_materia_profe}"><i class="far fa-edit"></i></a>
                               `;
                 },
                 },
@@ -417,14 +429,195 @@ $(document).on("click", "#ver_materias_del_alumno", function (e) {
         }
     });
 });
+$(document).on("click", "#edit_calificacion_admin", function (e) {
+    e.preventDefault();
+    var del_id = $(this).attr("value");
+    var array = del_id.split('_');
+    var detalle = array[0];
+    var materia = array[1];
+    var profe = array[2];
 
+    var concat = "";
+    var fecha = new Date();
+
+    switch (fecha.getMonth() + 1) {
+        case 1:
+            var ciclo = concat.concat(fecha.getFullYear().toString().substring(2,4), "/", 1);
+            break;
+        case 2:
+            var ciclo = concat.concat(fecha.getFullYear().toString().substring(2,4), "/", 1);
+            break;
+        case 3:
+            var ciclo = concat.concat(fecha.getFullYear().toString().substring(2,4), "/", 1);
+            break;
+        case 4:
+            var ciclo = concat.concat(fecha.getFullYear().toString().substring(2,4), "/", 1);
+            break;
+        case 5:
+            var ciclo = concat.concat(fecha.getFullYear().toString().substring(2,4), "/", 1);
+            break;
+        case 6:
+            var ciclo = concat.concat(fecha.getFullYear().toString().substring(2,4), "/", 1);
+            break;
+        default:
+            var ciclo = concat.concat(fecha.getFullYear().toString().substring(2,4), "/", 2);
+            break;
+    }
+    var fd = new FormData();
+            fd.append("detalle",detalle);
+            fd.append("materia",materia);
+            fd.append("profesor",profe);
+            fd.append("ciclo",ciclo);
+
+    $.ajax({
+        type: "post",
+        url: base_url + 'Administrativos/Calificaciones/editarcalificacion_admin',
+        data: fd,
+        processData: false,
+        contentType: false,
+        dataType: "json",
+        success: function (data) {
+            console.log(data); //ver la respuesta del json, los valores que contiene
+            $('#modaleditcalificacion_admin').modal('show');
+            $('#calificacion_materia_profesor_admin').val(data.post.calificacion);
+            $('#detalle_update_admin').val(data.post.detalle);
+            $('#materia_update_admin').val(data.post.materia);
+            $('#profesor_update_admin').val(data.post.profesor);
+            
+        },
+        error: function (response) {
+            toastr["error"](response.message);
+            $('#modaleditcalificacion_admin').modal('hide');
+        }
+    });
+});
+$(document).on("click", "#update_calificacion_admin", function (e) {
+    e.preventDefault();
+    var calificacion_materia_profesor = $("#calificacion_materia_profesor_admin").val();
+    var materia_update = $("#materia_update_admin").val();
+    var detalle_update = $("#detalle_update_admin").val();
+    var profesor = $('#profesor_update_admin').val();
+    var usuario = $('#usuario').val();
+    var concat="";
+    var fecha = new Date();
+    var fecha_a_insertar = concat.concat(fecha.getFullYear(),"/",fecha.getMonth()+1,"/",fecha.getDate(),"--",
+    fecha.getHours(),":",fecha.getMinutes(),":",fecha.getSeconds());
+
+    var concat = "";
+    var fecha = new Date();
+
+    switch (fecha.getMonth() + 1) {
+        case 1:
+            var ciclo = concat.concat(fecha.getFullYear().toString().substring(2,4), "/", 1);
+            break;
+        case 2:
+            var ciclo = concat.concat(fecha.getFullYear().toString().substring(2,4), "/", 1);
+            break;
+        case 3:
+            var ciclo = concat.concat(fecha.getFullYear().toString().substring(2,4), "/", 1);
+            break;
+        case 4:
+            var ciclo = concat.concat(fecha.getFullYear().toString().substring(2,4), "/", 1);
+            break;
+        case 5:
+            var ciclo = concat.concat(fecha.getFullYear().toString().substring(2,4), "/", 1);
+            break;
+        case 6:
+            var ciclo = concat.concat(fecha.getFullYear().toString().substring(2,4), "/", 1);
+            break;
+        default:
+            var ciclo = concat.concat(fecha.getFullYear().toString().substring(2,4), "/", 2);
+            break;
+    }
+
+    if(calificacion_materia_profesor>=6){
+        var tiempo_extension = 'ord.'
+    }else{
+        var tiempo_extension = 'extrd.'
+    }
+
+      if (calificacion_materia_profesor == "" ||calificacion_materia_profesor>10) {
+    alert("Debe agregar una calificación y esta no debe de ser mayor a 10");
+    } else {
+
+        var fd = new FormData();
+
+        fd.append("calificacion",  calificacion_materia_profesor);
+        fd.append("detalle", detalle_update);
+        fd.append("materia", materia_update);
+        fd.append("ciclo", ciclo);
+        fd.append("profesor", profesor);
+        fd.append("estado_administrativo", 2);
+        fd.append("tiempo_extension", tiempo_extension);
+        fd.append("administrativo_captura", usuario);
+        fd.append("fecha_captura_administrativo", fecha_a_insertar);
+        fd.append("fecha_actualizacion_administrativo", fecha_a_insertar);
+        fd.append("administrativo_actualizacion", usuario);
+
+
+        $.ajax({
+            type: "post",
+            url: base_url + 'Administrativos/Calificaciones/updatecalificacion_admin',
+            data: fd,
+            processData: false,
+            contentType: false,
+            dataType: "json",
+            enctype: 'multipart/form-data',
+            success: function (response) {
+                if (response.response == "success") {
+                    toastr["success"](response.message);
+                    $("#modaleditcalificacion_admin").modal("hide");
+                    $("#formeditcalificacion_admin")[0].reset();
+
+                    $("#tbl_list_calificaciones_profesor_por_materia").DataTable().destroy();
+                    llenartablaalumnosasignadosalamateriadelprofesorp($("#combo_materias_administrativos_profesores").val())
+                } else {
+                    toastr["error"](response.message);
+                }
+            },
+            error: function (response) {
+                toastr["error"](response.message);
+            }
+        });
+    }
+});
 $(document).on("click", "#edit_calificacion", function (e) {
     e.preventDefault();
     var edit_id = $(this).attr("value");
     var materia = $('#combo_materias_administrativos_profesores').val();
+    var profesor = $('#usuario').val();
+    var concat = "";
+    var fecha = new Date();
+
+    switch (fecha.getMonth() + 1) {
+        case 1:
+            var ciclo = concat.concat(fecha.getFullYear().toString().substring(2,4), "/", 1);
+            break;
+        case 2:
+            var ciclo = concat.concat(fecha.getFullYear().toString().substring(2,4), "/", 1);
+            break;
+        case 3:
+            var ciclo = concat.concat(fecha.getFullYear().toString().substring(2,4), "/", 1);
+            break;
+        case 4:
+            var ciclo = concat.concat(fecha.getFullYear().toString().substring(2,4), "/", 1);
+            break;
+        case 5:
+            var ciclo = concat.concat(fecha.getFullYear().toString().substring(2,4), "/", 1);
+            break;
+        case 6:
+            var ciclo = concat.concat(fecha.getFullYear().toString().substring(2,4), "/", 1);
+            break;
+        default:
+            var ciclo = concat.concat(fecha.getFullYear().toString().substring(2,4), "/", 2);
+            break;
+    }
     var fd = new FormData();
             fd.append("detalle",edit_id);
             fd.append("materia",materia);
+            fd.append("ciclo",ciclo);
+            fd.append("profesor",profesor);
+
     $.ajax({
         type: "post",
         url: base_url + 'Administrativos/Calificaciones/editarcalificacion',
@@ -507,6 +700,7 @@ $(document).on("click", "#update_calificacion_profesor", function (e) {
         fd.append("fecha_captura_profesor", fecha_a_insertar);
         fd.append("fecha_actualizacion_profesor", fecha_a_insertar);
         fd.append("profesor_actualizacion", profesor);
+        fd.append("profesor", profesor);
 
 
         $.ajax({

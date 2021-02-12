@@ -25,13 +25,13 @@ class Modelo_Alumnos extends CI_Model { // INICIO DEL MODELO
 
         public function obteneralumnos($carrera,$cuatrimestre,$opcion){
             $this->db->distinct();
-            $this->db->select("alumnos.numero_control as numero_control, 
+            $this->db->select("alumnos.numero_control as numero_control,
             concat(alumnos.nombres,' ',alumnos.apellido_paterno,' ',alumnos.apellido_materno) as alumno,
             alumnos.nombre_acta, alumnos.nombre_certificado_bachillerato, alumnos.nombre_curp, alumnos.nombre_certificado_medico");
             $this->db->from("alumnos");
             $this->db->join("detalles","alumnos.numero_control = detalles.alumno");
             $this->db->join("carrera","detalles.carrera = carrera.id_carrera");
-            $this->db->where("alumnos.estatus", "1");
+           $this->db->where_in('alumnos.estatus', ['0','1']);
             $this->db->where("detalles.carrera", $carrera);
             $this->db->where("detalles.cuatrimestre", $cuatrimestre);
             $this->db->where("detalles.opcion", $opcion);
@@ -87,9 +87,9 @@ public function insert_entry($data)
           public function ficha_alumno($id)
           {
             $this->db->select(
-             "alumnos.numero_control as numero_control, 
-             alumnos.nombres as nombres, 
-             alumnos.apellido_paterno as apellido_paterno, 
+             "alumnos.numero_control as numero_control,
+             alumnos.nombres as nombres,
+             alumnos.apellido_paterno as apellido_paterno,
              alumnos.apellido_materno as apellido_materno,
              alumnos.direccion as direccion,
              alumnos.municipio_direccion as municipio_direccion,
@@ -115,7 +115,7 @@ public function insert_entry($data)
               $this->db->join("carrera","detalles.carrera = carrera.id_carrera");
               $this->db->join("opciones","detalles.opcion = opciones.id_opcion");
               $this->db->where('alumnos.numero_control', $id);
-  
+
               $query = $this->db->get();
               if (count($query->result()) > 0) {
                   return $query->row();
@@ -125,9 +125,9 @@ public function insert_entry($data)
           public function single_entry($id)
           {
             $this->db->select(
-             'numero_control, 
-              nombres, 
-              apellido_paterno, 
+             'numero_control,
+              nombres,
+              apellido_paterno,
               apellido_materno,
               direccion,
               municipio_direccion,

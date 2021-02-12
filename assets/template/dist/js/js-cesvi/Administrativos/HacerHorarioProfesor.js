@@ -40,6 +40,7 @@ function asignar_horario_administrativo() {
     var profesor = $("#combo_profesores_horario_profesores").val();
     var semestre = $("#combo_semestres_horario_profesores").val();
     var fd = new FormData();
+    var fd2 = new FormData();
     var concat = "";
     var fecha = new Date();
 
@@ -67,7 +68,7 @@ function asignar_horario_administrativo() {
             break;
     }
     $("#combo_materias_horario_profesores option:selected").each(function () {
-        // val, muestra el valor, texto, muestra el contenido  
+        // val, muestra el valor, texto, muestra el contenido
         fd.append("semestre", semestre);
         fd.append("opcion_estudio", opcion);
         fd.append("licenciatura", especialidad);
@@ -75,15 +76,43 @@ function asignar_horario_administrativo() {
         fd.append("materia", $(this).val());
         fd.append("ciclo", ciclo);
         fd.append("activo", 'Si');
-        agregar_horario(fd);
-    });
 
+
+
+        agregar_horario(fd);
+
+    });
+    fd2.append("semestre", semestre);
+    fd2.append("opcion_estudio", opcion);
+    fd2.append("licenciatura", especialidad);
+    fd2.append("ciclo", ciclo);
+    asigacion_masiva_de_alumnos(fd2);
 }
 function agregar_horario(fd) {
     $.ajax({
         type: "post",
         url: base_url + 'Administrativos/HacerHorarioProfesor/agregarhorario',
         data: fd,
+        processData: false,
+        contentType: false,
+        dataType: "json",
+        enctype: 'multipart/form-data',
+        success: function (response) {
+            if (response.response == "success") {
+                toastr["success"](response.message);
+                $("#tbl_list_horarios_administrativos").DataTable().destroy();
+                llenartablahorariosprofesores($("#combo_profesores_horario_profesores").val());
+            } else {
+                toastr["error"](response.message);
+            }
+        },
+    });
+}
+function asigacion_masiva_de_alumnos(fd2) {
+    $.ajax({
+        type: "post",
+        url: base_url + 'Administrativos/HacerHorarioProfesor/asignacion_masiva_de_alumnos',
+        data: fd2,
         processData: false,
         contentType: false,
         dataType: "json",
@@ -248,19 +277,19 @@ function llenartablahorariosprofesores($profesor) {
                     },
                     {
                         data: "nombre_materia",
-                        
+
                     },
                     {
                         data: "salon",
-                        
+
                     },
                     {
                         data: "semestre",
-                        
+
                     },
                     {
                         data: "ciclo",
-                        
+
                     },
                     {
                         data: "inicio",
@@ -280,7 +309,7 @@ function llenartablahorariosprofesores($profesor) {
                         data: function (row, type, set) {
                             var concat="";
                             var profesor_materia = concat.concat(`${row.profesor}`,'_',`${row.materia}`);
-                          
+
                             return `
                                  <a href="#" id="edit_horario" class="btn btn-success btn-remove" value="${row.materia}"><i class="far fa-edit"></i></a>
                                  <a href="#" id="del_horario" class="btn btn-danger btn-remove" value="${profesor_materia}"><i class="fas fa-trash-alt"></i></a>
@@ -409,7 +438,7 @@ $(document).on("click", "#del_horario", function (e) {
             fd.append("profesor",profesor);
             fd.append("materia",materia);
             fd.append("ciclo",ciclo);
-            
+
             $.ajax({
             type: "post",
             url: base_url + 'Administrativos/HacerHorarioProfesor/eliminarhorario',
@@ -437,14 +466,14 @@ $(document).on("click", "#del_horario", function (e) {
 });
 $(document).on("click", "#update_horario_profesor", function (e) {
     e.preventDefault();
-    
+
     var profesor_horario_update = $("#profesor_horario_update").val();
     var materia_horario_update = $("#materia_horario_update").val();
     var salon_horario_update = $("#salon_horario").val();
-    
+
     var ciclo_horario_update = $("#ciclo_horario_update").val();
     var semestre_horario_update = $("#semestre_horario_update").val();
-    
+
     var datepicker_horario_inicio = $("#datepicker_horario_inicio").val();
     var datepicker_horario_fin = $("#datepicker_horario_fin").val();
     var datepicker_horario_ex_final = $("#datepicker_horario_ex_final").val();
@@ -537,18 +566,18 @@ function asignacion_masiva_de_alumnos(fd) {
       },
   });
 }
- * 
- * 
- * 
- * 
- * 
- * 
- * 
- * 
- * 
- * 
- * 
- * 
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
  */
 //LLENAR LA TABLA DE ALUMNOS QUE CORRESPONDEN A CARRERA Y OPCIÓN DE ESTUDIO
 
@@ -592,6 +621,5 @@ function date_picker_horario() {
 function deshabilitar_profesor_materia(){
     $('#profesor_horario').prop('disabled', true);
     $("#materia_horario").prop('disabled', true);
-   
+
     }
-    

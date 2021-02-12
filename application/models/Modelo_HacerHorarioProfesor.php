@@ -36,8 +36,23 @@ class Modelo_HacerHorarioProfesor extends CI_Model { // INICIO DEL MODELO
         {
             return $this->db->insert('horarios_profesor', $data);
         }
+
+
+          public function insert_masvia_de_alumnos($opcion,$carrera,$semestre,$ciclo){
+
+          return $this->db->query('insert into calificaciones (detalle, materia, profesor, ciclo, horario)
+select de.id_detalle, hp.materia, hp.profesor, hp.ciclo, concat(hp.horario_inicio,'-',hp.horario_fin) from detalles de
+         inner join carrera c on c.id_carrera = de.carrera
+         inner join opciones op on op.id_opcion = de.opcion
+         inner join horarios_profesor hp on hp.licenciatura = c.id_carrera
+         inner join materias ma on ma.id_materia = hp.materia
+         inner join profesores p on hp.profesor = p.id_profesores
+         where hp.opcion_estudio =? and hp.licenciatura=? and hp.semestre=? and hp.ciclo =?',$opcion,$carrera,$semestre,$ciclo);
+          }
+
+
         public function sepuede_agregar_materia($opcion_estudio,$semestre,$licenciatura,$profesor,$ciclo,$materia) {
-        
+
           $this->db->select('*');
             $this->db->from('horarios_profesor');
             $this->db->where('opcion_estudio', $opcion_estudio);
@@ -91,18 +106,18 @@ class Modelo_HacerHorarioProfesor extends CI_Model { // INICIO DEL MODELO
                     }
 
             //select alumnos.numero_control as numero_control, concat(alumnos.nombres,' ',alumnos.apellido_paterno,' ',alumnos.apellido_materno) as alumno,
-          //detalles.cuatrimestre as cuatrimestre, carrera.carrera_descripcion as carrera_descripcion, 
-            //calificaciones.calificacion, calificaciones.tiempo_extension 
-            //from alumnos 
-            //inner join detalles on alumnos.numero_control = detalles.alumno 
+          //detalles.cuatrimestre as cuatrimestre, carrera.carrera_descripcion as carrera_descripcion,
+            //calificaciones.calificacion, calificaciones.tiempo_extension
+            //from alumnos
+            //inner join detalles on alumnos.numero_control = detalles.alumno
             //inner join carrera on detalles.carrera = carrera.id_carrera
-             //inner join calificaciones on detalles.id_detalle = calificaciones.detalle 
+             //inner join calificaciones on detalles.id_detalle = calificaciones.detalle
              //where estatus_alumno_activo = 1 and calificaciones.materia = 189
-  
+
             public function alumnos_asignados_a_la_materia_del_profesor($materia){
                 $this->db->distinct();
-                $this->db->select("detalles.id_detalle as id_detalle,alumnos.numero_control as numero_control, 
-                concat(alumnos.nombres,' ',alumnos.apellido_paterno,' ',alumnos.apellido_materno) as alumno, 
+                $this->db->select("detalles.id_detalle as id_detalle,alumnos.numero_control as numero_control,
+                concat(alumnos.nombres,' ',alumnos.apellido_paterno,' ',alumnos.apellido_materno) as alumno,
                 detalles.cuatrimestre as cuatrimestre, carrera.carrera_descripcion as carrera_descripcion,
                 calificaciones.calificacion as calificacion, calificaciones.tiempo_extension as tiempo_extension");
                 $this->db->from("alumnos");
@@ -117,8 +132,8 @@ class Modelo_HacerHorarioProfesor extends CI_Model { // INICIO DEL MODELO
 
                 public function alumnos_asignados_a_la_carrera_y_opcion_administrativo($carrera,$opcion){
                   $this->db->distinct();
-                  $this->db->select("detalles.id_detalle as id_detalle,alumnos.numero_control as numero_control, 
-                  concat(alumnos.nombres,' ',alumnos.apellido_paterno,' ',alumnos.apellido_materno) as alumno, 
+                  $this->db->select("detalles.id_detalle as id_detalle,alumnos.numero_control as numero_control,
+                  concat(alumnos.nombres,' ',alumnos.apellido_paterno,' ',alumnos.apellido_materno) as alumno,
                   detalles.cuatrimestre as cuatrimestre, carrera.carrera_descripcion as carrera_descripcion");
                   $this->db->from("alumnos");
                   $this->db->join("detalles","alumnos.numero_control = detalles.alumno");
@@ -150,7 +165,7 @@ class Modelo_HacerHorarioProfesor extends CI_Model { // INICIO DEL MODELO
                     $this->db->where('horarios_profesor.profesor', $profesor);
                     $this->db->where('horarios_profesor.materia', $materia);
                     $this->db->where('horarios_profesor.ciclo', $ciclo);
-                    
+
                     $query = $this->db->get();
                     if (count($query->result()) > 0) {
                         return $query->row();
@@ -205,5 +220,5 @@ class Modelo_HacerHorarioProfesor extends CI_Model { // INICIO DEL MODELO
     }
 
 
-      
+
   } // FIN / CIERRE DEL MODELO

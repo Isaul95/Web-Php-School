@@ -10,7 +10,7 @@ $(document).ready(function () {
 
     $("#combo_materias_administrativos_profesores").change(function () {
         $("#tbl_list_calificaciones_profesor_por_materia").DataTable().destroy();
-        llenartablaalumnosasignadosalamateriadelprofesorp($("#combo_materias_administrativos_profesores").val(),profesor)
+        llenartablaalumnosasignadosalamateriadelprofesorp($("#combo_materias_administrativos_profesores").val(),profesor);
     });
    
     llenar_combo_carreras_administrativos_profesores();
@@ -440,6 +440,7 @@ $(document).on("click", "#edit_calificacion_admin", function (e) {
     var concat = "";
     var fecha = new Date();
 
+
     switch (fecha.getMonth() + 1) {
         case 1:
             var ciclo = concat.concat(fecha.getFullYear().toString().substring(2,4), "/", 1);
@@ -586,9 +587,20 @@ $(document).on("click", "#edit_calificacion", function (e) {
     var edit_id = $(this).attr("value");
     var materia = $('#combo_materias_administrativos_profesores').val();
     var profesor = $('#usuario').val();
+    var carrera = $("#combo_carreras_administrativos_profesores").val();
+    var opcion =  $("#combo_opciones_administrativos_profesores").val();
+    var semestre = $("#combo_semestres_administrativos_profesores").val();
+
     var concat = "";
     var fecha = new Date();
+    if(fecha.getMonth()+1>=1||fecha.getMonth()+1<=9){
+        var fecha_actual = concat.concat(fecha.getFullYear(),"/","0",fecha.getMonth()+1,"/",fecha.getDate());
 
+    }else{
+        var fecha_actual = concat.concat(fecha.getFullYear(),"/",fecha.getMonth()+1,"/",fecha.getDate());
+
+    }
+    
     switch (fecha.getMonth() + 1) {
         case 1:
             var ciclo = concat.concat(fecha.getFullYear().toString().substring(2,4), "/", 1);
@@ -618,6 +630,40 @@ $(document).on("click", "#edit_calificacion", function (e) {
             fd.append("ciclo",ciclo);
             fd.append("profesor",profesor);
 
+            fd.append("licenciatura",carrera);
+            fd.append("semestre",semestre);
+            fd.append("opcion_estudio",opcion);
+            fd.append("fin",fecha_actual);
+          
+
+    $.ajax({
+        type: "post",
+        url: base_url + 'Administrativos/Calificaciones/validar_asignacion_calificacion',
+        data: fd,
+        processData: false,
+        contentType: false,
+        dataType: "json",
+        success: function (response) {
+            console.log(response); //ver la respuesta del json, los valores que contiene
+            if (response.response == "success") {//success
+                toastr["success"](response.message);
+                consulta_calificacion_con_fecha_de_asignacion_valida(fd);
+            } else {
+                toastr["error"](response.message);
+                
+            }           
+        },
+        error: function (response) {
+            toastr["error"](response.message);
+            alert("erorr");
+            $('#modaleditcalificacion').modal('hide');
+        }
+    });
+
+    
+});
+
+function consulta_calificacion_con_fecha_de_asignacion_valida(fd){
     $.ajax({
         type: "post",
         url: base_url + 'Administrativos/Calificaciones/editarcalificacion',
@@ -638,7 +684,8 @@ $(document).on("click", "#edit_calificacion", function (e) {
             $('#modaleditcalificacion').modal('hide');
         }
     });
-});
+}
+
 
 $(document).on("click", "#update_calificacion_profesor", function (e) {
     e.preventDefault();

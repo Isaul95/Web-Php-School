@@ -206,17 +206,49 @@ class Calificaciones extends CI_Controller {
 			echo "No se permite este acceso directo...!!!";
 		}
 	}
+
+	public function validar_asignacion_calificacion(){
+		if ($this->input->is_ajax_request()) {
+			$id_detalle = $this->input->post('detalle');
+			$materia = $this->input->post('materia');
+			$ciclo = $this->input->post('ciclo');
+			$profesor = $this->input->post('profesor');
+			$licenciatura = $this->input->post('licenciatura');
+			$semestre = $this->input->post('semestre');
+			$opcion_estudio = $this->input->post('opcion_estudio');
+			$fecha_actual = $this->input->post('fin');
+			//$fecha_en_base = $this->Modelo_Calificaciones->yasepuedeasignarcalificacion($opcion_estudio,$licenciatura,$semestre,$ciclo,$materia,
+			//$profesor,$fecha_actual);
+			//$stringDate = $fecha_en_base->format('Y-m-d');
+
+			if($post=$this->Modelo_Calificaciones->yasepuedeasignarcalificacion($opcion_estudio,$licenciatura,$semestre,$ciclo,$materia,
+			$profesor,$fecha_actual)){
+				$data = array('response' => "success", "message" =>"¡Ya se puede asignar calificación, se encuentra en fechas validas para hcaerlo! ");
+			}
+			else{
+				$data = array('response' => "error", "message" =>"¡Aún no se puede asignar calificación!");
+			}
+			echo json_encode($data);
+		}else {
+			echo "No se permite este acceso directo...!!!";
+		}
+	}
+
 	public function editarcalificacion(){
 		if ($this->input->is_ajax_request()) {
 			$id_detalle = $this->input->post('detalle');
 			$materia = $this->input->post('materia');
 			$ciclo = $this->input->post('ciclo');
 			$profesor = $this->input->post('profesor');
-			if ($post = $this->Modelo_Calificaciones->single_entry($id_detalle,$materia,$ciclo,$profesor)) {
-				$data = array('responce' => "success", "post" => $post);
-			}else{
-				$data = array('responce' => "error", "failed to fetch");
-			}
+			$licenciatura = $this->input->post('licenciatura');
+			$semestre = $this->input->post('semestre');
+			$opcion_estudio = $this->input->post('opcion_estudio');
+			$fecha_actual = $this->input->post('fin');
+				if ($post = $this->Modelo_Calificaciones->single_entry($id_detalle,$materia,$ciclo,$profesor)) {
+					$data = array('response' => "success", "post" => $post);
+				}else{
+					$data = array('response' => "error", "failed to fetch");
+				}
 			echo json_encode($data);
 		}else {
 			echo "No se permite este acceso directo...!!!";

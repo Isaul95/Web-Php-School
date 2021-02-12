@@ -158,7 +158,24 @@ class Modelo_calificaciones extends CI_Model { // INICIO DEL MODELO
                         return $query->row();
                     }
                 }
-
+                
+                public function yasepuedeasignarcalificacion($opcion_estudio,$licenciatura,$semestre,$ciclo,$materia,
+                $profesor,$fecha_actual)
+                {
+                  $this->db->select('fin');
+                    $this->db->from('horarios_profesor');
+                    $this->db->where('opcion_estudio', $opcion_estudio);
+                    $this->db->where('licenciatura', $licenciatura);
+                    $this->db->where('semestre', $semestre);
+                    $this->db->where('ciclo', $ciclo);
+                    $this->db->where('materia', $materia);
+                    $this->db->where('profesor', $profesor);
+                    $this->db->where('fin',$fecha_actual);
+                    $query = $this->db->get();
+                    if (count($query->result()) > 0) {
+                        return $query->row();
+                    }
+                }
 
 // ***************************  INICIO FUNCTION PARA INSRTAR  ************************************
 public function insert_entry($data)

@@ -336,7 +336,7 @@ $resultados = $this->db->get();
 return $resultados->result();
 }
 public function update_alumno_en_curso($alumno,$carrera,$opcion,$cuatrimestre,$ciclo,$data){
-  return $this->db->update('detalles', $data, array('alumno' => $alumno,'carrera' => $carrera, 'opcion' => $opcion, 'cuatrimestre' => $cuatrimestre, 'ciclo_escolar' => $ciclo, 'estado' => 'En espera de materias'));
+  return $this->db->update('detalles', $data, array('alumno' => $alumno,'carrera' => $carrera, 'opcion' => $opcion, 'cuatrimestre' => $cuatrimestre, 'ciclo_escolar' => $ciclo, 'estado' => 'En_espera_de_materias'));
 }
 public function obtenermateriasaelegir($numero_control,$licenciatura,$semestre,$opcion,$ciclo){
   $this->db->select("m.id_materia as materia,
@@ -362,7 +362,7 @@ public function obtenermateriasaelegir($numero_control,$licenciatura,$semestre,$
   $this->db->where("hp.opcion_estudio",$opcion);
   $this->db->where("hp.semestre",$semestre);
   $this->db->where("d.alumno",$numero_control);
-  $this->db->where("d.estado","En espera de materias");
+  $this->db->where("d.estado","En_espera_de_materias");
 
   $resultados = $this->db->get();
    return $resultados->result();
@@ -389,7 +389,7 @@ public function obtenermateriasaelegir($numero_control,$licenciatura,$semestre,$
 
   $this->db->where("cal.ciclo",$ciclo);
   $this->db->where("d.alumno",$numero_control);
-  $this->db->where("d.estado","En espera de materias");
+  $this->db->where("d.estado","En_espera_de_materias");
 
   $resultados = $this->db->get();
    return $resultados->result();
@@ -409,7 +409,7 @@ public function obtenermateriasaelegir($numero_control,$licenciatura,$semestre,$
   $this->db->select("carrera");
   $this->db->from("detalles");
   $this->db->where("alumno",$numero_control);
-  $this->db->where("estado","En espera de materias");
+  $this->db->where("estado","En_espera_de_materias");
   $resultados = $this->db->get();
   return $resultados->result();
   }
@@ -418,7 +418,7 @@ public function obtenermateriasaelegir($numero_control,$licenciatura,$semestre,$
     $this->db->select("opcion");
     $this->db->from("detalles");
     $this->db->where("alumno",$numero_control);
-    $this->db->where("estado","En espera de materias");
+    $this->db->where("estado","En_espera_de_materias");
     $resultados = $this->db->get();
     return $resultados->result();
     }
@@ -427,7 +427,7 @@ public function obtenermateriasaelegir($numero_control,$licenciatura,$semestre,$
       $this->db->select("cuatrimestre");
       $this->db->from("detalles");
       $this->db->where("alumno",$numero_control);
-      $this->db->where("estado","En espera de materias");
+      $this->db->where("estado","En_espera_de_materias");
       $resultados = $this->db->get();
       return $resultados->result();
       }

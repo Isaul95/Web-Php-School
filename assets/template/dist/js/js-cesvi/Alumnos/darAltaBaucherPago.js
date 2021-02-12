@@ -290,7 +290,7 @@
                             searchable: false,
                             render: function (data, type, row, meta) {
                                 return  a = `
-        <a title="Generar Horario Alumno" href="AltaBaucherBanco/generaHorarioAlumno/${row.numero_control}/${row.semestre}" target="_blank"><i class="far fa-file-pdf fa-2x"></i></a>
+        <a title="Generar Horario Alumno" href="AltaBaucherBanco/generaHorarioAlumno/${row.numero_control}/${row.semestre}/${row.id_detalle}" target="_blank"><i class="far fa-file-pdf fa-2x"></i></a>
                                  `;
 
                             },

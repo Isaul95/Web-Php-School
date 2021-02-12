@@ -213,7 +213,7 @@ class Modelo_DarAccesoAlumnos extends CI_Model { // INICIO DEL MODELO
 
 
     public function obtenerHistorialDePagosXAlumnos($numero_control){
-     $this->db->select("CONCAT(alu.nombres, ' ', alu.apellido_paterno, ' ', alu.apellido_materno) As nombre_completo, ban.id_alta_baucher_banco, ban.fecha_registro, ban.nombre_archivo, alu.numero_control, car.carrera_descripcion, sta.estado, tip.pago, rec.id_recibo, val.id_recibo_valido, det.cuatrimestre as semestre, det.id_detalle, pec.nombre_ciclo, ban.parcialidades, ban.fecha_limite_de_pago, ban.estado_archivo");
+     $this->db->select("CONCAT(alu.nombres, ' ', alu.apellido_paterno, ' ', alu.apellido_materno) As nombre_completo, ban.id_alta_baucher_banco, ban.fecha_registro, ban.nombre_archivo, alu.numero_control, car.carrera_descripcion, sta.estado, tip.pago, rec.id_recibo, val.id_recibo_valido, det.cuatrimestre as semestre, det.id_detalle, pec.nombre_ciclo, ban.parcialidades, ban.fecha_limite_de_pago, ban.estado_archivo, sta.estatus");
      $this->db->from("alumnos alu");
      $this->db->join("alta_baucher_banco ban","alu.numero_control = ban.numero_control");
      $this->db->join("detalles det ","alu.numero_control = det.alumno");

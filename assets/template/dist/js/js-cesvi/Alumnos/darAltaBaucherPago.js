@@ -299,22 +299,23 @@
                             data: "estado",
                             render: function(data, type, row, meta) {
                               debugger;
-                              var xx = `${row.estado}`;
+                              var xx = `${row.estatus}`;
+                              var estado = `${row.estado}`;
                               // var numeroEstatuFile = `${row.estado_archivo}`;
                               // if(numeroEstatuFile != 6){
                               //   ocultarDatesParcialidades();
                               // }
-// var parc = `${row.parcialidad_pago}`;
+// var parc = `${row.parcialidades}`;
               // if (parc != 'null') {
-                  llenarDatosAlumTxt(`${row.parcialidad_pago}`,`${row.fecha_limite_pago}`,`${row.estado_archivo}`);
+                  llenarDatosAlumTxt(`${row.parcialidades}`,`${row.fecha_limite_de_pago}`,`${row.estado_archivo}`);
               // }else {
               //   ocultarDatesParcialidades();
               // }
-                              if(xx == "INSCRITO"){
+                              if(xx == 7){
                                 // var a 'background-color', '#A497E5';
-                              var a = '<div class="p-3 mb-2 bg-green text-white">'+xx+'</div>';
+                              var a = '<div class="p-3 mb-2 bg-green text-white">'+estado+'</div>';
                               }else {
-                                var a = '<div class="p-3 mb-2 bg-red text-white">'+xx+'</div>';
+                                var a = '<div class="p-3 mb-2 bg-red text-white">'+estado+'</div>';
                               }
                           return a;
                               },
@@ -332,9 +333,9 @@
                             },
                         },
                         {
-                            data: "parcialidad_pago",
+                            data: "parcialidades",
                             render: function(data, type, row, meta) {
-                              var parcialidadPagorow = `${row.parcialidad_pago}`;
+                              var parcialidadPagorow = `${row.parcialidades}`;
                             if(parcialidadPagorow != "null"){
                                   var a = '<div class="p-3 mb-2 text-white">'+parcialidadPagorow+'</div>';
                                   // var a = '<div class="p-3 mb-2 bg-primary  text-white">'+'PAGO COMPLETO'+'</div>';
@@ -346,9 +347,9 @@
                             },
                         },
                         {
-                            data: "fecha_limite_pago",
+                            data: "fecha_limite_de_pago",
                             render: function(data, type, row, meta) {
-                              var fechaLimitePagorow = `${row.fecha_limite_pago}`;
+                              var fechaLimitePagorow = `${row.fecha_limite_de_pago}`;
                             if(fechaLimitePagorow != "null"){
                                   var a = '<div class="p-3 mb-2 bg-red text-white">'+fechaLimitePagorow+'</div>';
                             }else {

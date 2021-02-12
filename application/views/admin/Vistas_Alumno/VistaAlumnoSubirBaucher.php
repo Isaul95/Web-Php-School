@@ -127,7 +127,7 @@
 
               <div class="row my-4">
                 <div class="col-md-12 mx-auto">
-                  <table id="tbl_histPagosRealizadosXAlumno" class="table table-striped table-bordered dt-responsive nowrap table-hover table-condensed" cellspacing="0" style="background:white!important">
+                  <table id="tbl_histPagosRealizadosXAlumno" class="table table-striped table-bordered table-hover table-condensed" cellspacing="0" style="background:white!important">
                     <thead class="text-center bg-primary">
                       <tr>
                         <th width="3%">#</th>

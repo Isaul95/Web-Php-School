@@ -259,6 +259,7 @@ $(document).on("click", "#btnaddalumno", function (e) {
         fd.append("opcion", horarios_alumno);
         fd.append("cuatrimestre", 1);
         fd.append("ciclo_escolar", perido_activo_escolar);
+        fd.append("estado", 'Inicio_inscripcion');
 
         //EL REGISTRO DEL ALUMNO COMO USUARIO
         var apellidos = "";
@@ -272,7 +273,7 @@ $(document).on("click", "#btnaddalumno", function (e) {
         fd.append("username", numero_control);
         fd.append("password", 123456);
         fd.append("rol_id", 2);
-        fd.append("estado", 1);
+        fd.append("estado_usuario", 1);
 
         agregar_alumno(fd); //Se registra el usuario a la tabla alumnos y a la tabla detalles
 

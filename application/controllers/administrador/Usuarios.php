@@ -48,7 +48,7 @@ class Usuarios extends CI_Controller {
 			'username' => $username,
 			'password' => $password,
 			'rol_id' => $rol,
-			'estado' => "1"
+			'estado_usuario' => "1"
 		);
 
 		if ($this->Usuarios_model->save($data)) {
@@ -114,10 +114,10 @@ class Usuarios extends CI_Controller {
 
 	public function delete($id){
 		$data  = array(
-			'estado' => "0",
+			'estado_usuario' => "0",
 		);
 		$this->Usuarios_model->update($id,$data);
-		echo "administrador/usuarios";
+		redirect(base_url()."administrador/usuarios");//echo "administrador/usuarios";
 	}
 
 }

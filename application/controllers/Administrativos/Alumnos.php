@@ -225,6 +225,7 @@ class Alumnos extends CI_Controller {
 			$ajax_data2['opcion'] = $this->input->post('opcion');
 			$ajax_data2['cuatrimestre'] = $this->input->post('cuatrimestre');
 			$ajax_data2['ciclo_escolar'] = $this->input->post('ciclo_escolar');
+			$ajax_data2['estado'] = $this->input->post('estado');
 			//PARA AGREGAR EL ALUMNO COMO USUARIO
 			$ajax_data4['nombres'] = $this->input->post('nombres');
 			$ajax_data4['apellidos'] = $this->input->post('apellidos');
@@ -233,7 +234,7 @@ class Alumnos extends CI_Controller {
 			$ajax_data4['username'] = $this->input->post('username');
 			$ajax_data4['password'] = $this->input->post('password');
 			$ajax_data4['rol_id'] = $this->input->post('rol_id');
-			$ajax_data4['estado'] = $this->input->post('estado');
+			$ajax_data4['estado_usuario'] = $this->input->post('estado_usuario');
 			//PARA AVANZAR LA SECUENCIA DE CADA CARRERA
             $secuencia = $this->input->post('id_secuencia');
 			$ajax_data3['valor_secuencia'] = $this->input->post('valor_secuencia');

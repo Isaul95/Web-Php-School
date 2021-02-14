@@ -62,18 +62,25 @@ class HacerHorarioProfesor extends CI_Controller {
 		$profesor = $this->input->post('profesor');
 		$materia = $this->input->post('materia');
 		$ciclo = $this->input->post('ciclo');
-		if ($post = $this->Modelo_HacerHorarioProfesor->sepuede_agregar_materia($opcion_estudio,$semestre,$licenciatura,$profesor,$ciclo,$materia)) {
-			$data = array('response' => "error", 'message' => "No se puede repetir la materia");
 
+		if ($post = $this->Modelo_HacerHorarioProfesor->hoario_profesor_ya_asignado($profesor)) {
+			$data = array('response' => "error", 'message' => "¡Horario del profesor ya asignado, habilite para continuar!");
 		}
 		else{
-			if ($this->Modelo_HacerHorarioProfesor->insert_entry($ajax_data)) {
-				//	$data = array('response' => "success", 'message' => "Se agrega materia ".$materia." correctamente");
-				$data = array('response' => "success", 'message' => "Se agrega materia correctamente");
-				} else {
-					$data = array('response' => "error", 'message' => "No se agrega correctamente");
-				}
+			if ($post = $this->Modelo_HacerHorarioProfesor->sepuede_agregar_materia($opcion_estudio,$semestre,$licenciatura,$profesor,$ciclo,$materia)) {
+				$data = array('response' => "error", 'message' => "No se puede repetir la materia");
+	
+			}
+			else{
+				if ($this->Modelo_HacerHorarioProfesor->insert_entry($ajax_data)) {
+					//	$data = array('response' => "success", 'message' => "Se agrega materia ".$materia." correctamente");
+					$data = array('response' => "success", 'message' => "Se agrega materia correctamente");
+					} else {
+						$data = array('response' => "error", 'message' => "No se agrega correctamente");
+					}
+			}
 		}
+		
 	echo json_encode($data);
 
 		}
@@ -90,7 +97,8 @@ public function asignacion_masiva_de_alumnos(){
 	$semestre = $this->input->post('semestre');
 	$carrera = $this->input->post('licenciatura');
 		$ciclo = $this->input->post('ciclo');
-		
+		$data = $this->Modelo_HacerHorarioProfesor->insert_masvia_de_alumnos($opcion,$carrera,$semestre,$ciclo);
+
 		if ($this->Modelo_HacerHorarioProfesor->insert_masvia_de_alumnos($opcion,$carrera,$semestre,$ciclo)) {
 			//	$data = array('response' => "success", 'message' => "Se agrega materia ".$materia." correctamente");
 			$data = array('response' => "success", 'message' => "Se agrega materia correctamente");
@@ -107,6 +115,23 @@ echo "No se permite este acceso directo...!!!";
 
 }
 
+public function confirmar_horario_profesor(){
+	if ($this->input->is_ajax_request()) {
+
+		$profesor = $this->input->post('id_profesores');
+		$ajax_data['horario_asignado'] = $this ->input->post('horario_asignado');
+				if ($this->Modelo_HacerHorarioProfesor->update_horario_profesore_asginado($profesor,$ajax_data)) {
+			$data = array('response' => "success", 'message' => "Datos actualizados correctamente");
+		} else {
+			$data = array('response' => "error", 'message' => "Error al agregar datos...!");
+		}
+		echo json_encode($data);
+
+		}
+	  else{
+		echo "No se permite este acceso directo...!!!";
+	}
+}
 	public function vermateriasparaasignaralprofesor(){
 		$especialidad = $this->input->post('especialidad');
 		$semestre = $this->input->post('semestre');

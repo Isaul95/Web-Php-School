@@ -90,12 +90,13 @@
    <br>
 <br>
 <br>
-
+<?php if($rol==1):?>
         <div class="row"> 
                     <div class="col-8 col-sm-5">
                     <button type="button" class="btn btn-primary btn-sm btn-block" id="crear_horario">Generar horario</button>
                     </div>
         </div>
+        <?php endif;?>
     </div><!--class="col-10 col-sm-12"-->
 </div> <!--END OF FIRST ROW-->
 
@@ -134,11 +135,11 @@
                   <div class="row">
                     <div class="col-8 col-sm-6">
                     <label for="">Porfesor</label>
-                    <input type="text" class="form-control" id="profesor_horario" placeholder="Calificacion">
+                    <input type="text" class="form-control" id="profesor_horario" readonly>
                     </div>
                     <div class="col-8 col-sm-6">
                     <label for="">Materia</label>
-                    <input type="text" class="form-control" id="materia_horario" placeholder="Calificacion">
+                    <input type="text" class="form-control" id="materia_horario"  readonly>
                     </div>
                   </div>  
                   <br>
@@ -211,6 +212,15 @@
         </thead>
       </table>
       <?php endif;?>
+      <br>
+      <div class="row"> <!--BOTÓN-->
+                    <div class="col-8 col-sm-6">
+                    <button type="button" class="btn btn-primary btn-sm btn-block" id="confirmar_horario_profesor">Confirmar horario</button>
+                    </div>
+                    <div class="col-8 col-sm-6">
+                    <button type="button" class="btn btn-danger btn-sm btn-block" id="desconfirmar_horario_profesor">Habilitar profesor</button>
+                    </div>
+                   </div><!--BOTÓN-->
     </div>
   </div>
       <hr>

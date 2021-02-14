@@ -36,7 +36,21 @@ class Modelo_HacerHorarioProfesor extends CI_Model { // INICIO DEL MODELO
         {
             return $this->db->insert('horarios_profesor', $data);
         }
-
+        public function alumnos_para_insersion_masiva($opcion,$carrera,$semestre,$ciclo){
+          $this->db->distinct();
+          $this->db->select("detalles.id_detalle as id_detalle,alumnos.numero_control as numero_control,
+          concat(alumnos.nombres,' ',alumnos.apellido_paterno,' ',alumnos.apellido_materno) as alumno,
+          detalles.cuatrimestre as cuatrimestre, carrera.carrera_descripcion as carrera_descripcion,
+          calificaciones.calificacion as calificacion, calificaciones.tiempo_extension as tiempo_extension");
+          $this->db->from("alumnos");
+          $this->db->join("detalles","alumnos.numero_control = detalles.alumno");
+          $this->db->join("carrera","detalles.carrera = carrera.id_carrera");
+          $this->db->join("calificaciones","detalles.id_detalle = calificaciones.detalle");
+          $this->db->where("estatus_alumno_activo", "1");
+          $this->db->where("materia", $materia);
+          $resultados = $this->db->get();
+          return $resultados->result();
+          }
 
           public function insert_masvia_de_alumnos($opcion,$carrera,$semestre,$ciclo){
 
@@ -48,6 +62,23 @@ select de.id_detalle, hp.materia, hp.profesor, hp.ciclo, concat(hp.horario_inici
          inner join materias ma on ma.id_materia = hp.materia
          inner join profesores p on hp.profesor = p.id_profesores
          where hp.opcion_estudio =? and hp.licenciatura=? and hp.semestre=? and hp.ciclo =?',$opcion,$carrera,$semestre,$ciclo);
+
+         /*********
+          * 
+
+$select = $this->db->select('de.id_detalle, hp.materia, hp.profesor, hp.ciclo, concat(hp.horario_inicio,'-',hp.horario_fin)')->where('state','CA')>get('detalles')
+         ->join;
+         if($select->num_rows())
+         {
+             $insert = $this->db->insert_batch('california_authors', $select->result_array());
+         }
+         else
+         { /* there is nothing to insert }*/
+         
+          }
+
+          public function update_horario_profesore_asginado($profesor,$data){
+            return $this->db->update('profesores', $data, array('id_profesores' => $profesor));
           }
 
 
@@ -66,7 +97,17 @@ select de.id_detalle, hp.materia, hp.profesor, hp.ciclo, concat(hp.horario_inici
                 return $query->row();
             }
         }
+        public function hoario_profesor_ya_asignado($profesor) {
 
+          $this->db->select('*');
+            $this->db->from('profesores');
+            $this->db->where('id_profesores', $profesor);
+            $this->db->where('horario_asignado', 1);
+            $query = $this->db->get();
+            if (count($query->result()) > 0) {
+                return $query->row();
+            }
+        }
         public function obtenermaterias($semestre,$especialidad){
             $this->db->distinct();
             $this->db->select("id_materia,nombre_materia");

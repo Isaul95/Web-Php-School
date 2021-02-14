@@ -5,8 +5,7 @@
 // DATA TABLE PROPERTY  https://markcell.github.io/jquery-tabledit/assets/js/tabledit.min.js
 $(document).ready(function () {
     date_picker_horario();
-    deshabilitar_profesor_materia();
-
+   
     llenar_combo_carreras_horarios_profesores();
     $("#combo_carreras_horario_profesores").change(function () {
         $("#combo_materias_horario_profesores").empty();
@@ -27,7 +26,7 @@ $(document).ready(function () {
     $("#crear_horario").click(function () {
         asignar_horario_administrativo();
     });
-
+    $('#desconfirmar_horario_profesor').prop('disabled', true);
     $('#horario_profesores_inicio').timepicker({ 'forceRoundTime': true });
     $('#horario_profesores_fin').timepicker({ 'forceRoundTime': true });
 
@@ -82,11 +81,14 @@ function asignar_horario_administrativo() {
         agregar_horario(fd);
 
     });
-    fd2.append("semestre", semestre);
+   /*
+       fd2.append("semestre", semestre);
     fd2.append("opcion_estudio", opcion);
     fd2.append("licenciatura", especialidad);
     fd2.append("ciclo", ciclo);
     asigacion_masiva_de_alumnos(fd2);
+   */
+
 }
 function agregar_horario(fd) {
     $.ajax({
@@ -108,6 +110,116 @@ function agregar_horario(fd) {
         },
     });
 }
+$(document).on("click", "#confirmar_horario_profesor", function (e) {
+    e.preventDefault();
+    debugger;
+    var profesor = $("#combo_profesores_horario_profesores").val();
+    var estado = 1;
+
+    var fd = new FormData();
+    fd.append("id_profesores", profesor);
+    fd.append("horario_asignado", estado);
+  
+    Swal.fire({
+        title: "¿Estás seguro?",
+        text: "¡Se asignará el horario seleccionado al maestro!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "¡Si, asignar!",
+        cancelButtonText: "¡No, cancelar!",
+    }).then((result) => {
+        if (result.isConfirmed) {
+            $.ajax({
+                type: "post",
+                url: base_url + 'Administrativos/HacerHorarioProfesor/confirmar_horario_profesor',
+                data: fd,
+                processData: false,
+                contentType: false,
+                dataType: "json",
+                success: function (data) {
+                    if (data.response == "success") {
+                        Swal.fire(
+                            '¡Exito!',
+                            '¡Horario asignado con exito!',
+                            'success'
+                        );
+                        $("#tbl_list_horarios_administrativos").DataTable().destroy();
+                        llenartablahorariosprofesores($("#combo_profesores_horario_profesores").val());
+                        $('#confirmar_horario_profesor').prop('disabled', true);
+                        $('#desconfirmar_horario_profesor').prop('disabled', false);
+                    }
+                    else{
+                      Swal.fire(
+                        '¡Error!',
+                        '¡No se pudo asignar el horario!',
+                        'error'
+                    );
+                    $("#tbl_list_horarios_administrativos").DataTable().destroy();
+                    llenartablahorariosprofesores($("#combo_profesores_horario_profesores").val());
+                    }
+                },
+            });
+        }
+    });
+  });
+
+  $(document).on("click", "#desconfirmar_horario_profesor", function (e) {
+    e.preventDefault();
+    debugger;
+    var profesor = $("#combo_profesores_horario_profesores").val();
+    var estado = 0;
+
+    var fd = new FormData();
+    fd.append("id_profesores", profesor);
+    fd.append("horario_asignado", estado);
+  
+    Swal.fire({
+        title: "¿Estás seguro?",
+        text: "¡Se habilitará al maestro para elegirle materias!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "¡Si, habilitar!",
+        cancelButtonText: "¡No, cancelar!",
+    }).then((result) => {
+        if (result.isConfirmed) {
+            $.ajax({
+                type: "post",
+                url: base_url + 'Administrativos/HacerHorarioProfesor/confirmar_horario_profesor',
+                data: fd,
+                processData: false,
+                contentType: false,
+                dataType: "json",
+                success: function (data) {
+                    if (data.response == "success") {
+                        Swal.fire(
+                            '¡Exito!',
+                            '¡Maestro habilitado!',
+                            'success'
+                        );
+                        $("#tbl_list_horarios_administrativos").DataTable().destroy();
+                        llenartablahorariosprofesores($("#combo_profesores_horario_profesores").val());
+                        $('#confirmar_horario_profesor').prop('disabled', false);
+                        $('#desconfirmar_horario_profesor').prop('disabled', true);
+                    }
+                    else{
+                      Swal.fire(
+                        '¡Error!',
+                        '¡No se pudo asignar el horario!',
+                        'error'
+                    );
+                    $("#tbl_list_horarios_administrativos").DataTable().destroy();
+                    llenartablahorariosprofesores($("#combo_profesores_horario_profesores").val());
+                    }
+                },
+            });
+        }
+    });
+  });
+/*
 function asigacion_masiva_de_alumnos(fd2) {
     $.ajax({
         type: "post",
@@ -128,6 +240,8 @@ function asigacion_masiva_de_alumnos(fd2) {
         },
     });
 }
+*/
+
 
 //SELECT - ON CHANGE
 //https://stackoverflow.com/questions/11179406/jquery-get-value-of-select-onchange
@@ -369,7 +483,6 @@ $(document).on("click", "#edit_horario", function (e) {
         success: function (data) {
             console.log(data); //ver la respuesta del json, los valores que contiene
             $('#modalagregarhorario').modal('show');
-            deshabilitar_profesor_materia();
             $('#profesor_horario_update').val($('#combo_profesores_horario_profesores').val());
             $('#materia_horario_update').val(materia);
             $('#ciclo_horario_update').val(data.post.ciclo);
@@ -618,8 +731,4 @@ function date_picker_horario() {
     $.datepicker.setDefaults($.datepicker.regional['es']);
 }
 
-function deshabilitar_profesor_materia(){
-    $('#profesor_horario').prop('disabled', true);
-    $("#materia_horario").prop('disabled', true);
 
-    }

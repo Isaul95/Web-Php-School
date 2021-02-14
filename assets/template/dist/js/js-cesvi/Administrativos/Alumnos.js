@@ -155,12 +155,6 @@ $(document).on("click", "#btnaddalumno", function (e) {
     var id_secuencia_diseno = $('#id_secuencia_diseno').val();
     var id_secuencia_contaduria = $('#id_secuencia_contaduria').val();
 
-
-
-
-
-
-
     if (nombre_alumno == "" || apellidop_alumno == "" || apellidom_alumno == "" || direccion_alumno == "" ||
         municipmunicipio_alumno == "" || estestado_alumnodo == "" || datepicker_fecha_nacimiento_alumno == "" || datepicker_fecha_inscripcion_alumno == "" ||
         lugar_nacimiento_alumno == "" || municipio_nacimiento_alumno == "" || estado_nacimiento_alumno == "" || estado_civil_alumno == "" || sexo_alumno == "" ||

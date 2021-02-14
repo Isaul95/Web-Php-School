@@ -15,6 +15,7 @@ class Modelo_DarAccesoAlumnos extends CI_Model { // INICIO DEL MODELO
         $this->db->join(" calificaciones calf "," detalles.id_detalle = calf.detalle ");
         $this->db->join("carrera","detalles.carrera = carrera.id_carrera");
         $this->db->join(" periodo_escolar pec "," pec.id_periodo_escolar = detalles.ciclo_escolar ");
+        $this->db->where_in('detalles.estado', ['En_curso','Inicio_inscripcion']);
         $this->db->where("alumnos.numero_control",$numero_control);
         $resultados = $this->db->get();
         return $resultados->result();
@@ -117,7 +118,7 @@ class Modelo_DarAccesoAlumnos extends CI_Model { // INICIO DEL MODELO
      // $this->db->join("tipos_de_pagos tip","tip.id_tipo_pago = ban.tipo_de_pago");
      $this->db->join("datos_recibo rec","rec.bauche = ban.id_alta_baucher_banco",'LEFT');
       // $this->db->where("tip.pago",$tipoPago);
-      $this->db->where(" det.cuatrimestre =",$semestre);
+      $this->db->where(" ban.semestre =",$semestre);
       $this->db->where(" det.opcion =",$opciones);
       $this->db->where(" det.carrera =",$licenciatura);
       $this->db->where(" ban.tipo_de_pago =",	$tipoPago);

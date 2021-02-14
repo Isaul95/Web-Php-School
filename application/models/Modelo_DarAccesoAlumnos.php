@@ -271,7 +271,7 @@ class Modelo_DarAccesoAlumnos extends CI_Model { // INICIO DEL MODELO
        $this->db->join(" calificaciones cal "," deta.id_detalle = cal.detalle ");
        $this->db->join(" materias m "," cal.materia = m.id_materia ");
              $this->db->where(" a.numero_control = ",$numero_control);
-             $this->db->where(" deta.id_detalle =", $id_detalle );
+             //$this->db->where(" deta.id_detalle =", $id_detalle );
              $this->db->where(" deta.cuatrimestre =",$semestre);
 
        $resultados = $this->db->get();

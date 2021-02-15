@@ -177,16 +177,18 @@ function Mostrar_PagoCompleto(){
                           {
                               data: "fecha_registro",
                           },
-                          {
-                              data: "archivo",
-                              render: function(data, type, row, meta) {
-                                //  Se consulta el file.pdf x el no. de control
-                                  var a = `
-                                      <a title="Descarga Baucher" href="verBaucher/${row.numero_control}" target="_blank"><i class="far fa-file-pdf fa-2x"></i></a>
-                                  `;
-                                  return a;
-                              },
-                          },
+
+    // 1.- el baucher k el alumnos registra
+                          // {
+                          //     data: "archivo",
+                          //     render: function(data, type, row, meta) {
+                          //       //  Se consulta el file.pdf x el no. de control
+                          //         var a = `
+                          //             <a title="Descarga Baucher" href="verBaucher/${row.numero_control}" target="_blank"><i class="far fa-file-pdf fa-2x"></i></a>
+                          //         `;
+                          //         return a;
+                          //     },
+                          // },
 
                           {
                         //   Es el estatus de la tabla de alumnos
@@ -207,47 +209,52 @@ function Mostrar_PagoCompleto(){
                           },
 
 // DEBE ESTAR disabled , ASTA K SE ACTIVE EL CHECK DE DAR ACCESO AL ALUMNO  SE DEBE DE ACTIVE ESTE CHECK PARA GENERAR EL RECIVO PDF
-                          {
-                              data: "cantidad",
-                              orderable: false,
-                              searchable: false,
-                              "render" : function(data, type, row) {
-                                var hayCantidad = `${row.cantidad}`;
-                                var hayDescConcepto = `${row.desc_concepto}`;
-                                // debugger;
-                                    if(hayCantidad != "null" && hayDescConcepto!= "null"){
-                                      var a = `
-                                          <a title="Descarga Recibo" href="generaPdfRcibo/${row.numero_control}" target="_blank"><i class="far fa-file-pdf fa-2x"></i></a>
-                                      `;
-                                      // var a = `
-                                      //     <a title="Descarga Recibo" onclick=mostrarDocumento('${row.numero_control}')><i class="far fa-file-pdf fa-2x"></i></a>
-                                      // `;
-                                    }else {
-                                      var a = 'No hay recibo';
-                                    }
-                                  return a;
-                               },
-                          },
-                            {
-                                orderable: false,
-                                searchable: false,
-                                "render" : function(data, type, row) {
-                                    return `
-                                    <button type='button' class="btn btn-danger" onclick=noAplicaRegistro('${row.numero_control}','${row.id_alta_baucher_banco}')>No Aplica</button>
-                                    `;
-                                },
-                            },
-                            {
-                                orderable: false,
-                                searchable: false,
-                                "render" : function(data, type, row) {
-var a = `
-    <a title="Agregar Recibo Valido" onclick=recuperarDocumentos('${row.numero_control}','${row.id_alta_baucher_banco}','${row.id_recibo}')><i class="fa fa-upload iconbig azul fa-2x"></i></a>
-`;
-return a;
+      //  2.- el recibo k se genera to alumno
+                          // {
+                          //     data: "cantidad",
+                          //     orderable: false,
+                          //     searchable: false,
+                          //     "render" : function(data, type, row) {
+                          //       var hayCantidad = `${row.cantidad}`;
+                          //       var hayDescConcepto = `${row.desc_concepto}`;
+                          //       // debugger;
+                          //           if(hayCantidad != "null" && hayDescConcepto!= "null"){
+                          //             var a = `
+                          //                 <a title="Descarga Recibo" href="generaPdfRcibo/${row.numero_control}" target="_blank"><i class="far fa-file-pdf fa-2x"></i></a>
+                          //             `;
+                          //             // var a = `
+                          //             //     <a title="Descarga Recibo" onclick=mostrarDocumento('${row.numero_control}')><i class="far fa-file-pdf fa-2x"></i></a>
+                          //             // `;
+                          //           }else {
+                          //             var a = 'No hay recibo';
+                          //           }
+                          //         return a;
+                          //      },
+                          // },
 
-                                },
-                            },
+        //  3.- si esta mal el baucher k ingresa el alumno
+                            // {
+                            //     orderable: false,
+                            //     searchable: false,
+                            //     "render" : function(data, type, row) {
+                            //         return `
+                            //         <button type='button' class="btn btn-danger" onclick=noAplicaRegistro('${row.numero_control}','${row.id_alta_baucher_banco}')>No Aplica</button>
+                            //         `;
+                            //     },
+                            // },
+
+          // 4.-  recibo firmado y sellado x la institucion
+//                             {
+//                                 orderable: false,
+//                                 searchable: false,
+//                                 "render" : function(data, type, row) {
+// var a = `
+//     <a title="Agregar Recibo Valido" onclick=recuperarDocumentos('${row.numero_control}','${row.id_alta_baucher_banco}','${row.id_recibo}')><i class="fa fa-upload iconbig azul fa-2x"></i></a>
+// `;
+// return a;
+//
+//                                 },
+//                             },
                             // {
                             //     data: "parcialidad_pago",
                             //     render: function(data, type, row, meta) {
@@ -278,7 +285,7 @@ return a;
                                   "className": "text-center",
                                 "render" : function(data, type, row) {
 // var a = `<a title="Agregar Recibo Valido" onclick=recuperarDocumentos('${row.numero_control}','${row.id_alta_baucher_banco}','${row.id_recibo}')><i class="fa fa-upload iconbig azul fa-2x"></i></a>`;   <i class="fas fa-history"></i>
-var a = `<a title="Agregar Recibo Valido" onclick=modalHistorialParcialidades('${row.numero_control}','${row.id_alta_baucher_banco}','${row.semestre}')><i class="fas fa-history iconbig azul fa-2x"></i></a>`
+var a = `<a title="Agregar Recibo Valido" onclick=modalHistorialParcialidades('${row.numero_control}','${row.id_alta_baucher_banco}','${row.semestre}','${row.tipo_de_pago}')><i class="fas fa-history iconbig azul fa-2x"></i></a>`
 return a;
 
                                 },
@@ -302,6 +309,7 @@ return a;
             numero_control : $("#numero_controlHistorialParc").val(),
             id_alta_baucher_banco : $("#id_alta_baucher_bancoHistorialParc").val(),
             semestre : $("#semestreHistorialParc").val(),
+            tipoPago : $("#tipo_de_pagoHistorialParc").val(),
             }
     var url = base_url+'Alumnos/AltaBaucherBanco/consultaHistDePagosXAlumnos/'+datos.numero_control;
 
@@ -319,6 +327,18 @@ return a;
                         //       data: "id_alta_baucher_banco",
                         //       "visible": false, // ocultar la columna
                         //   },
+
+                        {
+                              data: "archivo",
+                              "className": "text-center",
+                              render: function(data, type, row, meta) {
+                                //  Se consulta el file.pdf x el no. de control
+                                  var a = `
+                                      <a title="Descarga Baucher" href="HabilitarAlumnos/verBaucher/${row.numero_control}/${row.id_alta_baucher_banco}" target="_blank"><i class="far fa-file-pdf fa-2x"></i></a>
+                                  `;
+                                  return a;
+                              },
+                          },
 
                         {
                             // data: "estado_archivo",
@@ -352,18 +372,31 @@ return a;
                               },
                           },
                           {
-                              data: "pago",
+                              data: "cantidad",
+                              orderable: false,
+                              searchable: false,
+                              "className": "text-center",
+                              "render" : function(data, type, row) {
+                                var hayCantidad = `${row.cantidad}`;
+                                var hayDescConcepto = `${row.desc_concepto}`;
+                                // debugger;
+                                    if(hayCantidad != "null" && hayDescConcepto!= "null"){
+                                      var a = `
+                                          <a title="Descarga Recibo" href="HabilitarAlumnos/generaPdfRcibo/${row.numero_control}" target="_blank"><i class="far fa-file-pdf fa-2x"></i></a>
+                                      `;
+                                      // var a = `
+                                      //     <a title="Descarga Recibo" onclick=mostrarDocumento('${row.numero_control}')><i class="far fa-file-pdf fa-2x"></i></a>
+                                      // `;
+                                    }else {
+                                      var a = 'No hay recibo';
+                                    }
+                                  return a;
+                               },
                           },
                           // {
-                          //     data: "archivo",
-                          //     render: function(data, type, row, meta) {
-                          //       //  Se consulta el file.pdf x el no. de control
-                          //         var a = `
-                          //             <a title="Descarga Baucher" href="AltaBaucherBanco/verBaucher/${row.numero_control}" target="_blank"><i class="far fa-file-pdf fa-2x"></i></a>
-                          //         `;
-                          //         return a;
-                          //     },
+                          //     data: "pago",
                           // },
+
                           {
                               data: "parcialidades",
                                 "className": "text-center",
@@ -395,6 +428,26 @@ return a;
                                 var a = '<div class="p-3 mb-2 bg-red text-white">'+fechaLimitePagorow+'</div>';
                               }
                           return a;
+                              },
+                          },
+                          {
+                                orderable: false,
+                                searchable: false,
+                                "render" : function(data, type, row) {
+                                    return `
+                                    <button type='button' class="btn btn-danger" onclick=noAplicaRegistro('${row.numero_control}','${row.id_alta_baucher_banco}')>No Aplica</button>
+                                    `;
+                                },
+                            },
+                            {
+                              orderable: false,
+                              searchable: false,
+                              "className": "text-center",
+                              "render" : function(data, type, row) {
+                                var a = `
+                                <a title="Agregar Recibo Valido" onclick=recuperarDocumentos('${row.numero_control}','${row.id_alta_baucher_banco}','${row.id_recibo}')><i class="fa fa-upload iconbig azul fa-2x"></i></a>`;
+                                return a;
+
                               },
                           },
                       ],
@@ -474,6 +527,7 @@ function modalCapturaDatosRecibo(id_alta_baucher_banco){
     		// $('#modalDocumento').find('input[type="file"]').val('');
 
     		$("#modalDocumento").modal("show");
+        $('#modalHistorialDeParcialidadesXAlumno').modal('hide');
     		$("#numero_controlVarHide").val(numero_control);
     		$("#id_alta_baucher_bancoVarHide").val(id_alta_baucher_banco);
     		$("#id_reciboVarHide").val(id_recibo);
@@ -484,7 +538,7 @@ function modalCapturaDatosRecibo(id_alta_baucher_banco){
 
 
 
-        function modalHistorialParcialidades(numero_control, id_alta_baucher_banco,semestre){
+        function modalHistorialParcialidades(numero_control, id_alta_baucher_banco,semestre, tipo_de_pago){
         		debugger;
         		// $('#mensajeErrorDoc').hide();
         		// $('#mensaje').hide();
@@ -494,6 +548,7 @@ function modalCapturaDatosRecibo(id_alta_baucher_banco){
         		$("#numero_controlHistorialParc").val(numero_control);
         		$("#id_alta_baucher_bancoHistorialParc").val(id_alta_baucher_banco);
         		$("#semestreHistorialParc").val(semestre);
+            $("#tipo_de_pagoHistorialParc").val(tipo_de_pago);
                 $("#tbl_listaHistPagosParcialidad").DataTable().destroy();
             		litaHistorialParcialidadXAlumnos();
         }
@@ -529,7 +584,7 @@ function modalCapturaDatosRecibo(id_alta_baucher_banco){
                               							$('#altaReciboValidado').attr('disabled','disabled');
                               						}
                                 return a = `
-                      <a title="Descarga Baucher" href="verReciboFirmado/${row.id_recibo_valido}" target="_blank"><i class="far fa-file-pdf fa-2x"></i></a>
+                      <a title="Descarga Baucher" href="HabilitarAlumnos/verReciboFirmado/${row.id_recibo_valido}" target="_blank"><i class="far fa-file-pdf fa-2x"></i></a>
                                 `;
                             },
                         },
@@ -663,10 +718,11 @@ function modalCapturaDatosRecibo(id_alta_baucher_banco){
 
 
 
-      function noAplicaRegistro(numero_control){
+      function noAplicaRegistro(numero_control, id_alta_baucher_banco){
           // debugger;
                 var datos = {
                     numero_control : numero_control,
+                    id_alta_baucher_banco : id_alta_baucher_banco
                 }
 
                 const swalWithBootstrapButtons = Swal.mixin({
@@ -694,7 +750,8 @@ function modalCapturaDatosRecibo(id_alta_baucher_banco){
                         type: "post",
                         dataType: "json",
                         data: {
-                          numero_control: numero_control
+                          numero_control: numero_control,
+                          id_alta_baucher_banco : id_alta_baucher_banco
                         },
                         success: function(data){
                           if (data.responce == "success") {
@@ -703,8 +760,8 @@ function modalCapturaDatosRecibo(id_alta_baucher_banco){
                                 'Su archivo ha sido eliminado.!',
                                 'success'
                               );
-                              $('#tbl_listAlumConBaucher').DataTable().destroy();
-                              litarAlumnosConBaucherRegistrados();
+                              $('#tbl_listaHistPagosParcialidad').DataTable().destroy();
+                              litaHistorialParcialidadXAlumnos();
                           }else{
                               swalWithBootstrapButtons.fire(
                                 '¡Eliminado',
@@ -921,6 +978,14 @@ if (pagoComple == "Pago_Completo") {
 $(document).on("click", "#regresarModAnterior", function (e) {
 
   $('#addDatosRecibo').modal('hide');
+  $('#modalHistorialDeParcialidadesXAlumno').modal('show');
+
+});
+
+
+$(document).on("click", "#regresarModAnterior33", function (e) {
+
+  $('#modalDocumento').modal('hide');
   $('#modalHistorialDeParcialidadesXAlumno').modal('show');
 
 });

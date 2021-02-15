@@ -54,8 +54,8 @@ class HabilitarAlumnos extends CI_Controller {
 		}
 
 
-		public function verBaucher($numero_control){
-				$consulta = $this->Modelo_DarAccesoAlumnos->getBaucherId($numero_control);
+		public function verBaucher($numero_control, $id_alta_baucher_banco){
+				$consulta = $this->Modelo_DarAccesoAlumnos->getBaucherId($numero_control, $id_alta_baucher_banco);
 				$archivo = $consulta['archivo'];
 				$img = $consulta['nombre_archivo'];
 				header("Content-type: application/pdf");
@@ -183,8 +183,9 @@ public function actualizaEstadoDelComprobantePago($numero_control, $estatus){
 
 			if ($this->input->is_ajax_request()) {
 				$numero_control = $this->input->post('numero_control');
+				$id_alta_baucher_banco = $this->input->post('id_alta_baucher_banco');
 
-				if ($this->Modelo_DarAccesoAlumnos->eliminarTodoRegistroAlumno($numero_control)) {
+				if ($this->Modelo_DarAccesoAlumnos->eliminarTodoRegistroAlumno($numero_control, $id_alta_baucher_banco)) {
 					$data = array('responce' => 'success');
 				} else {
 					$data = array('responce' => 'error');

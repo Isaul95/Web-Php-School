@@ -125,6 +125,30 @@
               </div>
             </div>
 
+            <div class="row">
+              <div class="col-10 col-sm-12">
+                             <div class="row">
+                               <div class="col-4 col-sm-4">
+                                   <label for="">Semestre: </label>
+                                   <select background-color="red" id="combo_Semestres_HistPagosAlumnos" class="form-control">
+                                     <option value="" selected>Seleccione un semestre...</option>
+                                   </select>
+                               </div>
+
+                                <div class="col-4 col-sm-4">
+                                    <label for="">Tipo de pagos: </label>
+                                    <select background-color="red" id="combo_TipoDePagos_HistPagosAlumnos" class="form-control">
+                                      <option value="" selected>Seleccione un tipo de pago...</option>
+                                    </select>
+                                </div>
+
+                              </div>
+                              <br>
+                </div>
+              </div>
+
+            <hr style="background-color: black; color: black; height: 1px;">
+
               <div class="row my-4">
                 <div class="col-md-12 mx-auto">
                   <table id="tbl_histPagosRealizadosXAlumno" class="table table-striped table-bordered table-hover table-condensed" cellspacing="0" style="background:white!important">

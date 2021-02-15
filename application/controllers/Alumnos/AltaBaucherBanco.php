@@ -116,8 +116,10 @@ class AltaBaucherBanco extends CI_Controller {
 
 
 		public function consultaHistDePagosXAlumnos($numero_control){
+			$semestre = $this->input->post('semestre');
+			$tipoPago = $this->input->post('tipoPago');
 
-			$posts = $this->Modelo_DarAccesoAlumnos->obtenerHistorialDePagosXAlumnos($numero_control);
+			$posts = $this->Modelo_DarAccesoAlumnos->obtenerHistorialDePagosXAlumnos($numero_control,  $semestre, $tipoPago);
 
 			echo json_encode($posts);
 		}
@@ -151,6 +153,11 @@ class AltaBaucherBanco extends CI_Controller {
 			print_r($archivo);
 		}
 
+
+		public function obtenerTiposDePagosHistPagosAlumnos(){
+				$posts = $this->Modelo_DarAccesoAlumnos->consultarTiposDePagosHistPagosAlumnos();
+				echo json_encode($posts);
+			}
 
 
 		/* -------------------------------------------------------------------------- */

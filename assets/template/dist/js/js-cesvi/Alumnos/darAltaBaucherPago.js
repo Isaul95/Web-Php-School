@@ -22,6 +22,11 @@
       llenar_comboSemestres();
       llenar_comboSemestres_AnteriosresCursadas();
 
+    llenar_combo_semestres_HistDePagosAlumnos();
+    llenar_combo_tipoDePgos_HistDePagosAlumnos();
+
+
+
     $("#combo_semestres").change(function () {
       $("#tbl_avanceRetucular").DataTable().destroy();
       llenarTablaAvanceReticula($("#combo_semestres").val());
@@ -55,6 +60,21 @@
         }
           });
 
+          $("#combo_Semestres_HistPagosAlumnos").change(function () {
+            var tipoPago = $("#combo_TipoDePagos_HistPagosAlumnos").val();
+            var semestre = $("#combo_Semestres_HistPagosAlumnos").val();
+            $("#tbl_histPagosRealizadosXAlumno").DataTable().destroy();
+            litaHistorialPagosAlumnos(semestre,tipoPago);
+           });
+
+
+           $("#combo_TipoDePagos_HistPagosAlumnos").change(function () {
+                var tipoPago = $("#combo_TipoDePagos_HistPagosAlumnos").val();
+                var semestre = $("#combo_Semestres_HistPagosAlumnos").val();
+            $("#tbl_histPagosRealizadosXAlumno").DataTable().destroy();
+            litaHistorialPagosAlumnos(semestre,tipoPago);
+            });
+
     }); // FIN DE LA FUNCION PRINCIPAL
 
     function llenar_comboSemestres(){
@@ -85,6 +105,38 @@
         },
       });
     }
+
+
+
+    function llenar_combo_semestres_HistDePagosAlumnos() {
+        $.ajax({
+            type: "get",
+            url: base_url + 'Profesores/PlaneacionProfesores/obtenersemestres',
+            dataType: "json",
+            success: function (data) {
+                $.each(data, function (key, registro) {
+                    $("#combo_Semestres_HistPagosAlumnos").append('<option value=' + registro.semestre + '>' + registro.nombre + '</option>');
+                });
+
+            },
+        });
+    }
+
+
+    function llenar_combo_tipoDePgos_HistDePagosAlumnos() {
+        $.ajax({
+            type: "get",
+            url: base_url + 'Alumnos/AltaBaucherBanco/obtenerTiposDePagosHistPagosAlumnos',
+            dataType: "json",
+            success: function (data) {
+                console.log(data);
+                $.each(data, function (key, registro) {
+                    $("#combo_TipoDePagos_HistPagosAlumnos").append('<option value=' + registro.id_tipo_pago + '>' + registro.pago + '</option>');
+                });
+            },
+        });
+    }
+
 
 
 
@@ -238,10 +290,12 @@
     /* -------------------------------------------------------------------------- */
     /*                      llenarTablaPagos Records                              */
     /* -------------------------------------------------------------------------- */
-    function litaHistorialPagosAlumnos() {
+    function litaHistorialPagosAlumnos(semestre,tipoPago) {
       debugger;
       var datos = {
           numero_control : $("#numero_control").val(),
+          semestre : semestre,
+          tipoPago : tipoPago,
           }
   var url = base_url+'Alumnos/AltaBaucherBanco/consultaHistDePagosXAlumnos/'+datos.numero_control;
 

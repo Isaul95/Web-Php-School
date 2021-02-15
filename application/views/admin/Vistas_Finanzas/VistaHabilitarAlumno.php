@@ -97,7 +97,7 @@
               <input type="text" class="form-control" id="numero_con" readonly>
             </div>
 
-            <div class="form-group">
+            <!-- <div class="form-group">
                 <label for="">Tipo de pago:</label>
                 <select name="pago" id="pago" class="form-control">
                     <option value="" selected>Seleccione un tipo de pago...</option>
@@ -105,7 +105,7 @@
                         <option value="<?php echo $pago->id_tipo_pago;?>"><?php echo $pago->pago;?></option>
                     <?php endforeach;?>
                 </select>
-            </div>
+            </div> -->
 
             <!-- <div class="col-4 col-sm-4">
                 <label for="">Tipo de pagos: </label>
@@ -344,7 +344,7 @@
 
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+          <button type="button" class="btn btn-danger" data-dismiss="modal" id="regresarModAnterior33">Regresar</button>
           <!-- Insert Button -->
           <button type="button" class="btn btn-primary" id="altaReciboValidado">Agregar Pago</button>
         </div>
@@ -367,6 +367,7 @@
               <input type="hidden" id="numero_controlHistorialParc" name="numero_controlHistorialParc">
               <input type="hidden" id="id_alta_baucher_bancoHistorialParc" name="id_alta_baucher_bancoHistorialParc">
               <input type="hidden" id="semestreHistorialParc" name="semestreHistorialParc">
+              <input type="hidden" id="tipo_de_pagoHistorialParc" name="tipo_de_pagoHistorialParc">
               <input type="hidden" id="userAlta" name="userAlta" value="<?php echo $username;?>" >
 
             <div class="panel panel-default">
@@ -385,17 +386,16 @@
                     <thead class="text-center bg-primary">
                       <tr>
                         <!-- <th width="3%">#</th> -->
-                        <!-- <th class="text-center">Nombre<br>Completo</th>
-                        <th>No. Control</th>-->
+                        <!-- <th class="text-center">Nombre<br>Completo</th>-->
+                        <th>Baucher</th>
                         <th class="text-center">Validar</th>
-                        <th class="text-center">Agregar datos recibo</th>
-                        <th>Tipo de Pago</th>
-                        <!-- <th class="text-center">Ver Baucher</th>
-                        <th class="text-center">Horario</th>
-                        <th class="text-center">Estado</th>
-                        <th>Recibo de Pago</th> -->
+                        <th class="text-center">Datos recibo</th>
+                        <th class="text-center">Recibo</th>
+                        <!-- <th class="text-center">Pago</th> -->
                         <th>Parcialidad pago</th>
                         <th class="text-center">Fecha limite</th>
+                        <th class="text-center">N / A</th>
+                        <th class="text-center">Subir</th>
                       </tr>
                     </thead>
                   </table>
@@ -431,14 +431,13 @@
             <th class="text-center">Carrera</th>
             <th class="text-center">No.Control</th>
             <th class="text-center">Fecha registro</th>
-            <th class="text-center">Ver Baucher</th>
-            <!-- <th class="text-center" width="8%">Recibo</th> -->
+      <!-- <th class="text-center">Ver Baucher</th> -->
             <th class="text-center">Habilitar</th>
-            <th class="text-center">Recibo</th>
-            <th class="text-center">No aplica</th>
-            <th class="text-center">Subir</th>
-            <!-- <th class="text-center">Parcialidad</th>
-            <th class="text-center">Fecha limite</th> -->
+            <!-- <th class="text-center">Recibo</th> -->
+            <!-- <th class="text-center">No aplica</th> -->
+            <!-- <th class="text-center">Subir</th> -->
+                                  <!-- <th class="text-center">Parcialidad</th>
+                                  <th class="text-center">Fecha limite</th> -->
             <th class="text-center">Historial pagos</th>
           </tr>
         </thead>

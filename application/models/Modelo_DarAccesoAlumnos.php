@@ -90,6 +90,14 @@ class Modelo_DarAccesoAlumnos extends CI_Model { // INICIO DEL MODELO
                   }
 
 
+                  public function consultarTiposDePagosHistPagosAlumnos(){
+                                $this->db->distinct();
+                                $this->db->select("id_tipo_pago,pago");
+                                $this->db->from("tipos_de_pagos");
+                                $resultados = $this->db->get();
+                                return $resultados->result();
+                                }
+
 
     public function consultaCountAlumnosXxx($numero_control){
         // if ($tabla == "alta_baucher_banco") {
@@ -140,8 +148,8 @@ class Modelo_DarAccesoAlumnos extends CI_Model { // INICIO DEL MODELO
 
 
 // Se recupera el baucher k se dio de alta para mostrarselo al ADMIN para corroborar k si sea
-    public function getBaucherId($numero_control){
-        $query = $this->db->query("select * FROM alta_baucher_banco where numero_control=?", array($numero_control));
+    public function getBaucherId($numero_control, $id_alta_baucher_banco){
+        $query = $this->db->query("select * FROM alta_baucher_banco where numero_control=? and id_alta_baucher_banco =?", array($numero_control, $id_alta_baucher_banco));
         return $query->row_array();
     }
 
@@ -171,8 +179,8 @@ class Modelo_DarAccesoAlumnos extends CI_Model { // INICIO DEL MODELO
           }
 
 //   ************************  FUINCTION PARA ELIMINAR  el registro del alumno nauchere  ********************
-      public function eliminarTodoRegistroAlumno($numero_control){
-      return $this->db->delete('alta_baucher_banco', array('numero_control' => $numero_control));
+      public function eliminarTodoRegistroAlumno($numero_control, $id_alta_baucher_banco){
+      return $this->db->delete('alta_baucher_banco', array('numero_control' => $numero_control, 'id_alta_baucher_banco' => $id_alta_baucher_banco));
       }
 
 //    ******************     SE CONSULTAN EL RECIBO FIRMADO Y SELLADO DEL ALUMNOS   ***************************
@@ -195,8 +203,8 @@ class Modelo_DarAccesoAlumnos extends CI_Model { // INICIO DEL MODELO
         }
 
 // SE HACE EL RESPALDO DE LA TABLA RECIBOS DE PAGOS A HISTORICO
-        public function insert_respaldoHistoricoReciboPagos($bauche){
-            return $this->db->query(' insert into historico_recibos_pagos (id_recibo, bauche, importe_letra, desc_concepto, cantidad, parcialidad_pago, fecha_limite_pago, usuario_creacion, fecha_creacion)
+        public function insert_respaldoHistoricoReciboPagos($bauche){  // parcialidad_pago, fecha_limite_pago,
+            return $this->db->query(' insert into historico_recibos_pagos (id_recibo, bauche, importe_letra, desc_concepto, cantidad,  usuario_creacion, fecha_creacion)
             SELECT * FROM datos_recibo where bauche =?',$bauche);
             // $this->db->where("bauche =",$bauche);
           }
@@ -213,8 +221,8 @@ class Modelo_DarAccesoAlumnos extends CI_Model { // INICIO DEL MODELO
 
 
 
-    public function obtenerHistorialDePagosXAlumnos($numero_control){
-     $this->db->select("CONCAT(alu.nombres, ' ', alu.apellido_paterno, ' ', alu.apellido_materno) As nombre_completo, ban.id_alta_baucher_banco, ban.fecha_registro, ban.nombre_archivo, alu.numero_control, car.carrera_descripcion, sta.estado, tip.pago, rec.id_recibo, val.id_recibo_valido, det.cuatrimestre as semestre, det.id_detalle, pec.nombre_ciclo, ban.parcialidades, ban.fecha_limite_de_pago, ban.estado_archivo, sta.estatus");
+    public function obtenerHistorialDePagosXAlumnos($numero_control,  $semestre, $tipoPago){
+     $this->db->select("CONCAT(alu.nombres, ' ', alu.apellido_paterno, ' ', alu.apellido_materno) As nombre_completo, ban.id_alta_baucher_banco, ban.fecha_registro, ban.nombre_archivo, alu.numero_control, car.carrera_descripcion, sta.estado, tip.pago, rec.id_recibo, val.id_recibo_valido, ban.semestre, det.id_detalle, pec.nombre_ciclo, ban.parcialidades, ban.fecha_limite_de_pago, ban.estado_archivo, sta.estatus, rec.cantidad , rec.desc_concepto ");
      $this->db->from("alumnos alu");
      $this->db->join("alta_baucher_banco ban","alu.numero_control = ban.numero_control");
      $this->db->join("detalles det ","alu.numero_control = det.alumno");
@@ -226,7 +234,9 @@ class Modelo_DarAccesoAlumnos extends CI_Model { // INICIO DEL MODELO
 //  $this->db->join("datos_recibo rec","rec.bauche = ban.id_alta_baucher_banco",'LEFT');
        $this->db->join("recibo_validado val","val.id_recibo = rec.id_recibo",'LEFT');
      $this->db->where("ban.numero_control",$numero_control);
-
+     $this->db->where("ban.semestre",$semestre);
+     $this->db->where("ban.tipo_de_pago",$tipoPago);
+$this->db->order_by('ban.id_alta_baucher_banco');
      $resultados = $this->db->get();
       return $resultados->result();
     }

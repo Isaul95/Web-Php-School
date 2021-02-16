@@ -179,5 +179,39 @@ class DocumentosAlumnos extends CI_Controller {
 
 
 
+		/* -------------------------------------------------------------------------- */
+		/*                      5.- Generar Constancia Alumno                       */
+		/* --------------------------------------- ---------------------------------- */
+
+				public function generaConstanciaAlumno($numero_control,$detalle){
+					/*
+					* Se crea la function para hacer el llamado en el js
+			 	  * se hace todo la parte del reporte
+					*/
+					error_reporting(0);
+
+					include_once('src/phpjasperxml_0.9d/class/tcpdf/tcpdf.php');
+				  include_once("src/phpjasperxml_0.9d/class/PHPJasperXML.inc.php");
+
+					// SE HACE LA CONECION PARA CADA HOJA DE ESTAS
+					$server = "localhost";
+					$user = "root";
+					$pass = "";
+					$db = "cesvi_webapp";
+
+					$PHPJasperXML = new PHPJasperXML();
+				// $PHPJasperXML->debugsql=true;
+			 // 	$PHPJasperXML-> debugsql = false; // Si desea ver la setencia del sql del reporte lo pones en true
+
+				$PHPJasperXML->arrayParameter=array("nunControl"=>$numero_control,"detall"=>$detalle);
+
+				$PHPJasperXML->load_xml_file("src/ReportesPDF_Cesvi_jrxml/constancia_estudiante.jrxml");
+
+				$PHPJasperXML->transferDBtoArray($server,$user,$pass,$db);
+				$PHPJasperXML->outpage('I','ConstanciaAlumno_'.$numero_control.'.pdf');
+
+				}
+
+
 
 }  // Fin del controller

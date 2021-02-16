@@ -78,7 +78,7 @@
           <th class="text-center" width="7%">Hist. academico</th>
           <!-- <th class="text-center" width="7%">Cert. parcial</th> -->
           <th class="text-center" width="7%">Horario</th>
-          <!-- <th class="text-center" width="7%">Información</th> -->
+          <th class="text-center" width="7%">Constancia</th>
         </tr>
       </thead>
     </table>

@@ -232,10 +232,17 @@
                     <?php endforeach;?>
                 </select>
             </div> -->
-
+            <div class="form-group">
+              <label for="">Cantidad total a pagar: *</label>
+              <input type="text" class="form-control" id="cantidad_total_a_pagar" placeholder="Cantidad $">
+            </div>
             <div class="form-group">
               <label for="">Cantidad de pago: *</label>
               <input type="text" class="form-control" id="cantidad" placeholder="Cantidad $">
+            </div>
+            <div class="form-group">
+              <label for="">Restante: *</label>
+              <input type="text" class="form-control" id="restante"  readonly>
             </div>
 
             <div class="form-group">
@@ -379,19 +386,17 @@
                   </div>
               </div>
               </div> -->
-
-              <div class="row my-4">
+<!--
+  <div class="row my-4">
                 <div class="col-md-12 mx-auto">
                   <table id="tbl_listaHistPagosParcialidad" class="table table-striped table-bordered dt-responsive nowrap table-hover table-condensed" cellspacing="0" style="background:white!important" width="100%">
                     <thead class="text-center bg-primary">
                       <tr>
-                        <!-- <th width="3%">#</th> -->
-                        <!-- <th class="text-center">Nombre<br>Completo</th>-->
+                        
                         <th>Baucher</th>
                         <th class="text-center">Validar</th>
                         <th class="text-center">Datos recibo</th>
                         <th class="text-center">Recibo</th>
-                        <!-- <th class="text-center">Pago</th> -->
                         <th>Parcialidad pago</th>
                         <th class="text-center">Fecha limite</th>
                         <th class="text-center">N / A</th>
@@ -401,6 +406,8 @@
                   </table>
                 </div>
               </div>
+-->
+              
 
 
               </div>
@@ -443,6 +450,30 @@
         </thead>
       </table>
 
+      <div class="row my-4">
+                <div class="col-md-12 mx-auto">
+                  <table id="tbl_listaHistPagosParcialidad" class="table table-striped table-bordered dt-responsive nowrap table-hover table-condensed" cellspacing="0" style="background:white!important" width="100%">
+                    <thead class="text-center bg-primary">
+                      <tr>
+                        <!-- <th width="3%">#</th> -->
+                        <!-- <th class="text-center">Nombre<br>Completo</th>-->
+                        <th>Baucher</th>
+                        <th class="text-center">Validar</th>
+                        <th class="text-center">Datos recibo</th>
+                        <th class="text-center">Recibo</th>
+                        <th class="text-center">Total a pagar</th>
+                        <th class="text-center">Pagó</th>
+                        <th class="text-center">Restante</th>
+                        <!-- <th class="text-center">Pago</th> -->
+                        <th>Parcialidad pago</th>
+                        <th class="text-center">Fecha limite</th>
+                        <th class="text-center">N / A</th>
+                        <th class="text-center">Subir</th>
+                      </tr>
+                    </thead>
+                  </table>
+                </div>
+              </div>
     </div>
   </div>
 

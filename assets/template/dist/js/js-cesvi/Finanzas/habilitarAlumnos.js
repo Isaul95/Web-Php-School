@@ -393,9 +393,17 @@ return a;
                                   return a;
                                },
                           },
-                          // {
-                          //     data: "pago",
-                          // },
+                          {
+                            data: "pago_total_a_pagar",
+                           
+                       },
+                           {
+                               data: "cantidad",
+                          },
+                          
+                       {
+                        data: "restante",
+                   },
 
                           {
                               data: "parcialidades",
@@ -511,9 +519,10 @@ function modalCapturaDatosRecibo(id_alta_baucher_banco){
     // $('#modalDocumento').find('input[type="file"]').val('');
 
     $("#addDatosRecibo").modal("show");
-    $('#modalHistorialDeParcialidadesXAlumno').modal('hide');
+    //$('#modalHistorialDeParcialidadesXAlumno').modal('hide');
     // $("#numero_controlVarHide").val(numero_control);
     $("#id_alta_baucher_bancoDatesRecibo").val(id_alta_baucher_banco);
+
     // $("#id_reciboVarHide").val(id_recibo);
     // llenarTablaDeDocumentosFirmados();
 }
@@ -544,7 +553,7 @@ function modalCapturaDatosRecibo(id_alta_baucher_banco){
         		// $('#mensaje').hide();
         		// $('#modalDocumento').find('input[type="file"]').val('');
 
-        		$("#modalHistorialDeParcialidadesXAlumno").modal("show");
+        	//	$("#modalHistorialDeParcialidadesXAlumno").modal("show");
         		$("#numero_controlHistorialParc").val(numero_control);
         		$("#id_alta_baucher_bancoHistorialParc").val(id_alta_baucher_banco);
         		$("#semestreHistorialParc").val(semestre);
@@ -825,6 +834,8 @@ function habilitaRegistroFinanzas(estatus, numero_control, id_alta_baucher_banco
       }
 
 
+      
+
 
 
 
@@ -894,7 +905,7 @@ if (pagoComple == "Pago_Completo") {
         litaHistorialParcialidadXAlumnos();
       toastr["success"](data.message);
         $('#validacionBaucherParcialOpagoCompleto').modal('hide');
-        $('#modalHistorialDeParcialidadesXAlumno').modal('show');
+       // $('#modalHistorialDeParcialidadesXAlumno').modal('show');
         }else{
         toastr["error"](data.message);
                 }
@@ -911,11 +922,15 @@ if (pagoComple == "Pago_Completo") {
         $(document).on("click", "#regresarModAnteriorValidacion", function (e) {
 
           $('#validacionBaucherParcialOpagoCompleto').modal('hide');
-          $('#modalHistorialDeParcialidadesXAlumno').modal('show');
+          //$('#modalHistorialDeParcialidadesXAlumno').modal('show');
 
         });
 
-
+        $("#cantidad").on("keyup",  function(e){
+          var restante =   $('#cantidad_total_a_pagar').val()-$('#cantidad').val();
+          $('#restante').val(restante);
+          
+        });
 
 
       // SE RECOGEN LOS DATOS PARA PODER GENERAR EL RECIBO DE PAGO SIN FIRMA NI SELLO  DATOS DEL RECIBO DE PAGO A GENERAR
@@ -942,8 +957,8 @@ if (pagoComple == "Pago_Completo") {
                   cantidad : $("#cantidad").val(),
                   importe_letra : $("#numletra").val()+" PESOS 00/100 M.N",
                   usuario_creacion : $("#username").val(),
-                  // parcialidad_pago : $("#parcial").val(),
-                  // fecha_limite_pago : $("#datepicker_fecha_parcialidad").val(),
+                   restante : $("#restante").val(),
+                   pago_total_a_pagar : $("#cantidad_total_a_pagar").val(),
               }
 
               if (datos.desc_concepto == "" || datos.cantidad == "" || datos.importe_letra == "") {
@@ -962,7 +977,7 @@ if (pagoComple == "Pago_Completo") {
                       toastr["success"](data.message);
                       $("#formAddDatesRecibodePago")[0].reset();   // SE RESETEA EL FORMULARIO DE LOS CAMPOS
                       $('#addDatosRecibo').modal('hide');
-                      $('#modalHistorialDeParcialidadesXAlumno').modal('show');
+                      //$('#modalHistorialDeParcialidadesXAlumno').modal('show');
                     }else{
                       toastr["error"](data.message);
                     }
@@ -978,7 +993,7 @@ if (pagoComple == "Pago_Completo") {
 $(document).on("click", "#regresarModAnterior", function (e) {
 
   $('#addDatosRecibo').modal('hide');
-  $('#modalHistorialDeParcialidadesXAlumno').modal('show');
+  //$('#modalHistorialDeParcialidadesXAlumno').modal('show');
 
 });
 
@@ -986,7 +1001,7 @@ $(document).on("click", "#regresarModAnterior", function (e) {
 $(document).on("click", "#regresarModAnterior33", function (e) {
 
   $('#modalDocumento').modal('hide');
-  $('#modalHistorialDeParcialidadesXAlumno').modal('show');
+  //$('#modalHistorialDeParcialidadesXAlumno').modal('show');
 
 });
 

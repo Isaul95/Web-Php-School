@@ -204,7 +204,7 @@ class Modelo_DarAccesoAlumnos extends CI_Model { // INICIO DEL MODELO
 
 // SE HACE EL RESPALDO DE LA TABLA RECIBOS DE PAGOS A HISTORICO
         public function insert_respaldoHistoricoReciboPagos($bauche){  // parcialidad_pago, fecha_limite_pago,
-            return $this->db->query(' insert into historico_recibos_pagos (id_recibo, bauche, importe_letra, desc_concepto, cantidad,  usuario_creacion, fecha_creacion)
+            return $this->db->query(' insert into historico_recibos_pagos (id_recibo, bauche, importe_letra, desc_concepto, cantidad,  pago_total_a_pagar, restante, usuario_creacion, fecha_creacion)
             SELECT * FROM datos_recibo where bauche =?',$bauche);
             // $this->db->where("bauche =",$bauche);
           }
@@ -222,7 +222,12 @@ class Modelo_DarAccesoAlumnos extends CI_Model { // INICIO DEL MODELO
 
 
     public function obtenerHistorialDePagosXAlumnos($numero_control,  $semestre, $tipoPago){
-     $this->db->select("CONCAT(alu.nombres, ' ', alu.apellido_paterno, ' ', alu.apellido_materno) As nombre_completo, ban.id_alta_baucher_banco, ban.fecha_registro, ban.nombre_archivo, alu.numero_control, car.carrera_descripcion, sta.estado, tip.pago, rec.id_recibo, val.id_recibo_valido, ban.semestre, det.id_detalle, pec.nombre_ciclo, ban.parcialidades, ban.fecha_limite_de_pago, ban.estado_archivo, sta.estatus, rec.cantidad , rec.desc_concepto ");
+     $this->db->select("CONCAT(alu.nombres, ' ', alu.apellido_paterno, ' ', alu.apellido_materno) As nombre_completo, 
+     ban.id_alta_baucher_banco, ban.fecha_registro, ban.nombre_archivo, alu.numero_control, car.carrera_descripcion, 
+     sta.estado, tip.pago, rec.id_recibo, val.id_recibo_valido, ban.semestre, 
+     det.id_detalle, pec.nombre_ciclo, ban.parcialidades, ban.fecha_limite_de_pago, 
+     ban.estado_archivo, sta.estatus, rec.cantidad , rec.desc_concepto,
+     rec.pago_total_a_pagar, rec.restante ");
      $this->db->from("alumnos alu");
      $this->db->join("alta_baucher_banco ban","alu.numero_control = ban.numero_control");
      $this->db->join("detalles det ","alu.numero_control = det.alumno");

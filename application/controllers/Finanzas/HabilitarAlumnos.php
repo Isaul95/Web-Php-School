@@ -65,6 +65,9 @@ class HabilitarAlumnos extends CI_Controller {
 
 // ================    ESYE ES MI NEW METODO PARA EL UPDATE DEL CHECKEN    =======================
 public function marcarParaRegistro($numero_control){
+	/// INICIO INSERCCIÓN DE MATERIAS
+	
+	/// FIN INSERCCIÓN DE MATERIAS
 			$data['estatus'] = $this->input->post('estatus');
 			$data3['estado'] = $this->input->post('estado');
 			$id_alta_baucher_banco = $this->input->post('id_alta_baucher_banco');

@@ -117,7 +117,10 @@ class Modelo_DarAccesoAlumnos extends CI_Model { // INICIO DEL MODELO
 // 2.- Se obt. id de la tabla de los baucher y la fecha en k se subio el baucher
 
   public function obtenerListaDeAlumnosConBaucherRegistrado($semestre, $opciones, $licenciatura,$tipoPago){   // => $tipoPago
-     $this->db->select("CONCAT(alu.nombres, ' ', alu.apellido_paterno, ' ', alu.apellido_materno) As nombre_completo, ban.id_alta_baucher_banco, ban.fecha_registro, alu.numero_control, alu.estatus, car.carrera_descripcion, rec.cantidad , rec.desc_concepto, rec.id_recibo, ban.semestre,  ban.tipo_de_pago");
+    
+    $this->db->select("CONCAT(alu.nombres, ' ', alu.apellido_paterno, ' ', alu.apellido_materno) As nombre_completo,
+      ban.id_alta_baucher_banco, ban.fecha_registro, alu.numero_control, alu.estatus, car.carrera_descripcion, rec.cantidad , 
+      rec.desc_concepto, rec.id_recibo, ban.semestre,  ban.tipo_de_pago");
      //  rec.parcialidad_pago, rec.fecha_limite_pago, tip.pago,
      $this->db->from("alumnos alu");
      $this->db->join("alta_baucher_banco ban","alu.numero_control = ban.numero_control");
@@ -130,7 +133,7 @@ class Modelo_DarAccesoAlumnos extends CI_Model { // INICIO DEL MODELO
       $this->db->where(" det.opcion =",$opciones);
       $this->db->where(" det.carrera =",$licenciatura);
       $this->db->where(" ban.tipo_de_pago =",	$tipoPago);
-      $this->db->group_by('nombre_completo');
+     $this->db->group_by('nombre_completo');
       $resultados = $this->db->get();
       return $resultados->result();
   }

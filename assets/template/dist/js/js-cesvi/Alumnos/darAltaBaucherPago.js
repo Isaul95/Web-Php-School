@@ -16,7 +16,7 @@
     });
 
             //SELECCION DE MATERIAS
-      litaHistorialPagosAlumnos();
+      //litaHistorialPagosAlumnos();
       ccontadordealumnos();
 
       llenar_comboSemestres();
@@ -386,6 +386,16 @@
                         return a;
                             },
                         },
+                        {
+                          orderable: false,
+                          searchable: false,
+                          render: function (data, type, row, meta) {
+                              return  a = `
+      <a title="Generar Constancia Alumno" href="AltaBaucherBanco/generaConstanciaAlumno/${row.numero_control}/${row.id_detalle}" target="_blank"><i class="far fa-file-pdf fa-2x"></i></a>
+                               `;
+                          },
+                      },
+
                         {
                             data: "parcialidades",
                             render: function(data, type, row, meta) {

@@ -165,6 +165,7 @@ function Mostrar_PagoCompleto(){
                               data: "id_alta_baucher_banco",
                               "visible": false, // ocultar la columna
                           },
+                          
                           {
                               data: "nombre_completo",
                           },
@@ -202,7 +203,7 @@ function Mostrar_PagoCompleto(){
                                 if(habilitarAlumno == 1){
                                   string = string + `checked onclick=habilitaRegistroFinanzas(0,'${row.numero_control}','${row.id_alta_baucher_banco}','Inicio_inscripcion','${row.semestre}')>`;
                                 }else {
-                                  string = string +`onclick=habilitaRegistroFinanzas(1,'${row.numero_control}','${row.id_alta_baucher_banco}','En_espera_de_materias','${row.semestre}')>`;
+                                  string = string +`onclick=habilitaRegistroFinanzas(1,'${row.numero_control}','${row.id_alta_baucher_banco}','En_curso','${row.semestre}')>`;
                                 }
                                 return string;
 			                         },
@@ -801,12 +802,13 @@ function modalCapturaDatosRecibo(id_alta_baucher_banco){
 // SOLO SE VA HABILITAR CUANDO ESTE DESHABILITADO, UNA VEZ K SE ABILITE SE DESBLOKEA
 function habilitaRegistroFinanzas(estatus, numero_control, id_alta_baucher_banco, estado, semestre){
     debugger;
+ 
       		var datos = {
       				numero_control : numero_control,
               estatus: estatus,
               id_alta_baucher_banco: id_alta_baucher_banco,
               estado : estado,
-              semestre :semestre,
+              semestre :semestre
       		}
 
       		$.ajax({

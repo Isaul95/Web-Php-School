@@ -264,6 +264,7 @@ $this->db->order_by('ban.id_alta_baucher_banco');
     //   return $resultados->result();
     // }
 
+    
     public function obtenerAvanceReticulaXAlumnos($numero_control,$semestre, $id_detalle){
       $this->db->select(" m.semestre, CONCAT(a.nombres, ' ', a.apellido_paterno, ' ', a.apellido_materno) As nombres,
        m.nombre_materia");

@@ -160,6 +160,15 @@ function llenarTablaAlumnosParaDocumentacion(licenciatura,semestre,opciones) {
                          `;
                     },
                 },
+                {
+                    orderable: false,
+                    searchable: false,
+                    render: function (data, type, row, meta) {
+                        return  a = `
+<a title="Generar Constancia Alumno" href="DocumentosAlumnos/generaConstanciaAlumno/${row.numero_control}/${row.detalle}" target="_blank"><i class="far fa-file-pdf fa-2x"></i></a>
+                         `;
+                    },
+                },
                 ],
                 "language": language_espaniol,
 

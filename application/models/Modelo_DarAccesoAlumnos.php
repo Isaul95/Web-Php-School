@@ -117,9 +117,9 @@ class Modelo_DarAccesoAlumnos extends CI_Model { // INICIO DEL MODELO
 // 2.- Se obt. id de la tabla de los baucher y la fecha en k se subio el baucher
 
   public function obtenerListaDeAlumnosConBaucherRegistrado($semestre, $opciones, $licenciatura,$tipoPago){   // => $tipoPago
-    
+
     $this->db->select("CONCAT(alu.nombres, ' ', alu.apellido_paterno, ' ', alu.apellido_materno) As nombre_completo,
-      ban.id_alta_baucher_banco, ban.fecha_registro, alu.numero_control, alu.estatus, car.carrera_descripcion, rec.cantidad , 
+      ban.id_alta_baucher_banco, ban.fecha_registro, alu.numero_control, alu.estatus, car.carrera_descripcion, rec.cantidad ,
       rec.desc_concepto, rec.id_recibo, ban.semestre,  ban.tipo_de_pago");
      //  rec.parcialidad_pago, rec.fecha_limite_pago, tip.pago,
      $this->db->from("alumnos alu");
@@ -225,10 +225,10 @@ class Modelo_DarAccesoAlumnos extends CI_Model { // INICIO DEL MODELO
 
 
     public function obtenerHistorialDePagosXAlumnos($numero_control,  $semestre, $tipoPago){
-     $this->db->select("CONCAT(alu.nombres, ' ', alu.apellido_paterno, ' ', alu.apellido_materno) As nombre_completo, 
-     ban.id_alta_baucher_banco, ban.fecha_registro, ban.nombre_archivo, alu.numero_control, car.carrera_descripcion, 
-     sta.estado, tip.pago, rec.id_recibo, val.id_recibo_valido, ban.semestre, 
-     det.id_detalle, pec.nombre_ciclo, ban.parcialidades, ban.fecha_limite_de_pago, 
+     $this->db->select("CONCAT(alu.nombres, ' ', alu.apellido_paterno, ' ', alu.apellido_materno) As nombre_completo,
+     ban.id_alta_baucher_banco, ban.fecha_registro, ban.nombre_archivo, alu.numero_control, car.carrera_descripcion,
+     sta.estado, tip.pago, rec.id_recibo, val.id_recibo_valido, ban.semestre,
+     det.id_detalle, pec.nombre_ciclo, ban.parcialidades, ban.fecha_limite_de_pago,
      ban.estado_archivo, sta.estatus, rec.cantidad , rec.desc_concepto,
      rec.pago_total_a_pagar, rec.restante ");
      $this->db->from("alumnos alu");
@@ -244,7 +244,7 @@ class Modelo_DarAccesoAlumnos extends CI_Model { // INICIO DEL MODELO
      $this->db->where("ban.numero_control",$numero_control);
      $this->db->where("ban.semestre",$semestre);
      $this->db->where("ban.tipo_de_pago",$tipoPago);
-$this->db->order_by('ban.id_alta_baucher_banco');
+$this->db->group_by('ban.id_alta_baucher_banco');
      $resultados = $this->db->get();
       return $resultados->result();
     }
@@ -267,7 +267,7 @@ $this->db->order_by('ban.id_alta_baucher_banco');
     //   return $resultados->result();
     // }
 
-    
+
     public function obtenerAvanceReticulaXAlumnos($numero_control,$semestre, $id_detalle){
       $this->db->select(" m.semestre, CONCAT(a.nombres, ' ', a.apellido_paterno, ' ', a.apellido_materno) As nombres,
        m.nombre_materia");

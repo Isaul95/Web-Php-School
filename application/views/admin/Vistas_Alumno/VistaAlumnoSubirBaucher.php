@@ -18,6 +18,7 @@
           <li><a id="tab-consultar" href="#tab_Cursos" data-toggle="tab">Historial de pagos</a></li>
           <li><a href="#tab_Extraordinario" data-toggle="tab">Avance Reticular</a></li>
           <li><a href="#Elegir_materias" data-toggle="tab">Selección de materias</a></li>
+          <li><a href="#tab_consultaDocumentos" data-toggle="tab">Consulta Documentos</a></li>
 
       </ul>
 
@@ -400,6 +401,72 @@
 
 
       </div>  <!-- FIN DEL CONTENEDOR DEL BODY  -->
+
+
+<!--   ===============================         5- TAB consulta de documentos de alumnos         =================================     -->
+
+                <div class="tab-pane" id="tab_consultaDocumentos">
+                  <div class="row">
+                    <div class="col-md-12 mt-5">
+                      <h1 class="text-center">
+                      <strong><font color="#D34787">Consultar Documentos</font></strong>
+                      </h1>
+                      <hr style="background-color: black; color: black; height: 1px;">
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-10 col-sm-12">
+                                   <div class="row">
+                                     <div class="col-4 col-sm-4">
+                                         <label for="">Semestre: </label>
+                                         <select background-color="red" id="combo_Semestres_HistPagosAlumnos" class="form-control">
+                                           <option value="" selected>Seleccione un semestre...</option>
+                                         </select>
+                                     </div>
+
+                                      <div class="col-4 col-sm-4">
+                                          <label for="">Tipo de pagos: </label>
+                                          <select background-color="red" id="combo_TipoDePagos_HistPagosAlumnos" class="form-control">
+                                            <option value="" selected>Seleccione un tipo de pago...</option>
+                                          </select>
+                                      </div>
+
+                                    </div>
+                                    <br>
+                      </div>
+                    </div>
+
+                  <hr style="background-color: black; color: black; height: 1px;">
+
+                    <div class="row my-4">
+                      <div class="col-md-12 mx-auto">
+
+
+                        <table id="tbl_histPagosRealizadosXAlumno" class="table table-striped table-bordered table-hover table-condensed" cellspacing="0" style="background:white!important">
+                          <thead class="text-center bg-primary">
+                            <tr>
+                              <th width="3%">#</th>
+                              <th class="text-center">Nombre<br>Completo</th>
+                              <th>No. Control</th>
+                              <th class="text-center">Carrera</th>
+                              <th class="text-center">Fecha registro</th>
+                              <th>Tipo de Pago</th>
+                              <th class="text-center">Ver Baucher</th>
+                              <th class="text-center">Horario</th>
+                              <th class="text-center">Estado</th>
+                              <th>Recibo de Pago</th>
+                              <th>Constancia</th>
+                              <th>Parcialidad pago</th>
+                              <th class="text-center">Fecha limite</th>
+                            </tr>
+                          </thead>
+                        </table>
+
+
+                      </div>
+                    </div>
+                </div>
 
 
 

@@ -129,6 +129,9 @@ function Mostrar_Parcialidad(){
 
 function Mostrar_PagoCompleto(){
   document.getElementById("formPagoCompleto").style.display = "block";
+  document.getElementById("formParcialidad2").style.display = "none";
+  $("#parcial_pagoCompleto").val("Pago_Completo");
+    $("#datepicker_fecha_pagoCompleto").val("No Aplica");
 }
 
 
@@ -165,7 +168,7 @@ function Mostrar_PagoCompleto(){
                               data: "id_alta_baucher_banco",
                               "visible": false, // ocultar la columna
                           },
-                          
+
                           {
                               data: "nombre_completo",
                           },
@@ -396,12 +399,12 @@ return a;
                           },
                           {
                             data: "pago_total_a_pagar",
-                           
+
                        },
                            {
                                data: "cantidad",
                           },
-                          
+
                        {
                         data: "restante",
                    },
@@ -802,7 +805,7 @@ function modalCapturaDatosRecibo(id_alta_baucher_banco){
 // SOLO SE VA HABILITAR CUANDO ESTE DESHABILITADO, UNA VEZ K SE ABILITE SE DESBLOKEA
 function habilitaRegistroFinanzas(estatus, numero_control, id_alta_baucher_banco, estado, semestre){
     debugger;
- 
+
       		var datos = {
       				numero_control : numero_control,
               estatus: estatus,
@@ -836,7 +839,7 @@ function habilitaRegistroFinanzas(estatus, numero_control, id_alta_baucher_banco
       }
 
 
-      
+
 
 
 
@@ -906,6 +909,7 @@ if (pagoComple == "Pago_Completo") {
         $('#tbl_listaHistPagosParcialidad').DataTable().destroy();
         litaHistorialParcialidadXAlumnos();
       toastr["success"](data.message);
+
         $('#validacionBaucherParcialOpagoCompleto').modal('hide');
        // $('#modalHistorialDeParcialidadesXAlumno').modal('show');
         }else{
@@ -913,7 +917,7 @@ if (pagoComple == "Pago_Completo") {
                 }
               }
             });
-      // $("#form")[0].reset();  // VACIA MODAL DESPUES DE INSERT
+      $("#addRecordFormParcialidad")[0].reset();  // VACIA MODAL DESPUES DE INSERT
             }
         });
 
@@ -931,7 +935,7 @@ if (pagoComple == "Pago_Completo") {
         $("#cantidad").on("keyup",  function(e){
           var restante =   $('#cantidad_total_a_pagar').val()-$('#cantidad').val();
           $('#restante').val(restante);
-          
+
         });
 
 

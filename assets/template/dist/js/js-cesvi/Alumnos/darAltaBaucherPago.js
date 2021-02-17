@@ -396,32 +396,39 @@
                           },
                       },
 
-                        {
-                            data: "parcialidades",
-                            render: function(data, type, row, meta) {
-                              var parcialidadPagorow = `${row.parcialidades}`;
-                            if(parcialidadPagorow != "null"){
-                                  var a = '<div class="p-3 mb-2 text-white">'+parcialidadPagorow+'</div>';
-                                  // var a = '<div class="p-3 mb-2 bg-primary  text-white">'+'PAGO COMPLETO'+'</div>';
-                            }else {
-                              // var a = '----';
-                              var a = '<div class="p-3 mb-2 bg-primary  text-white">'+'PAGO COMPLETO'+'</div>';
-                            }
-                        return a;
-                            },
-                        },
-                        {
-                            data: "fecha_limite_de_pago",
-                            render: function(data, type, row, meta) {
-                              var fechaLimitePagorow = `${row.fecha_limite_de_pago}`;
-                            if(fechaLimitePagorow != "null"){
-                                  var a = '<div class="p-3 mb-2 bg-red text-white">'+fechaLimitePagorow+'</div>';
-                            }else {
-                              var a = '----';
-                            }
-                        return a;
-                            },
-                        },
+                      {
+                          data: "parcialidades",
+                            "className": "text-center",
+                          render: function(data, type, row, meta) {
+                            var parcialidadPagorow = `${row.parcialidades}`;
+                          if(parcialidadPagorow == "Pago_Completo"){
+                                var a = '<div class="p-3 mb-2 bg-green text-white">'+parcialidadPagorow+'</div>';
+                                // var a = '<div class="p-3 mb-2 bg-primary  text-white">'+'PAGO COMPLETO'+'</div>';
+                          }else if (parcialidadPagorow == "null" || parcialidadPagorow == " ") {
+                            // var a = '----';
+                            var a = '<div class="p-3 mb-2 text-danger ">'+'----'+'</div>';
+                          } else {
+                            var a = '<div class="p-3 mb-2 text-white">'+parcialidadPagorow+'</div>';
+                          }
+                      return a;
+                          },
+                      },
+                      {
+                          data: "fecha_limite_de_pago",
+                            "className": "text-center",
+                          render: function(data, type, row, meta) {
+                            var fechaLimitePagorow = `${row.fecha_limite_de_pago}`;
+                          if(fechaLimitePagorow == "No Aplica"){
+                                var a = '<div class="p-3 mb-2 bg-green text-white">'+fechaLimitePagorow+'</div>';
+                          }else if (fechaLimitePagorow == "null" || fechaLimitePagorow == " ") {
+                            var a = '<div class="p-3 mb-2 text-danger font-weight-bold">'+'----'+'</div>';
+                          }
+                          else {
+                            var a = '<div class="p-3 mb-2 bg-red text-white">'+fechaLimitePagorow+'</div>';
+                          }
+                      return a;
+                          },
+                      },
                     ],
                       "language" : language_espaniol,
                 });

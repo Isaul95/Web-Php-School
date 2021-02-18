@@ -26,7 +26,7 @@ inner join materias on materias.especialidad = carrera.id_carrera
 inner join horarios_profesor pro on pro.materia = materias.id_materia
 inner join calificaciones on calificaciones.materia = materias.id_materia
 inner join opciones on d.opcion = opciones.id_opcion
-where a.numero_control = "$P{num_control}" and materias.semestre = $P{Dsemestre} and calificaciones.detalle = $P{Ddetalle}]]>
+where a.numero_control = "$P{num_control}" and materias.semestre = $P{Dsemestre} and calificaciones.detalle = $P{Ddetalle}  group by materias.nombre_materia ]]>
 	</queryString>
 	<field name="semestre" class="java.lang.Integer">
 		<fieldDescription><![CDATA[]]></fieldDescription>

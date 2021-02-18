@@ -234,7 +234,7 @@
             </div> -->
             <div class="form-group">
               <label for="">Cantidad total a pagar: *</label>
-              <input type="text" class="form-control" id="cantidad_total_a_pagar" placeholder="Cantidad $">
+              <input type="text" class="form-control" id="cantidad_total_a_pagar" placeholder="Total a pagar $">
             </div>
             <div class="form-group">
               <label for="">Cantidad de pago: *</label>
@@ -252,7 +252,7 @@
 
             <div class="form-group">
               <label for="">Capturar cantidad en letra: *</label>
-              <input type="text" class="form-control" id="numletra" placeholder="Cantidad en letra">
+              <input class="form-control" id="numletra"  readonly >
             </div>
 
 
@@ -392,7 +392,7 @@
                   <table id="tbl_listaHistPagosParcialidad" class="table table-striped table-bordered dt-responsive nowrap table-hover table-condensed" cellspacing="0" style="background:white!important" width="100%">
                     <thead class="text-center bg-primary">
                       <tr>
-                        
+
                         <th>Baucher</th>
                         <th class="text-center">Validar</th>
                         <th class="text-center">Datos recibo</th>
@@ -407,7 +407,7 @@
                 </div>
               </div>
 -->
-              
+
 
 
               </div>

@@ -106,6 +106,39 @@ class Calificaciones extends CI_Controller {
 			echo "No se permite este acceso directo...!!!";
 		}
 	}
+
+	public function moveralumno_desemestre(){
+		if ($this->input->is_ajax_request()) {	
+			$tabla = 'Calificaciones';
+			$id_detalle = $this->input->post('detalle');
+			$ciclo = $this->input->post('ciclo');
+			if ($this->Modelo_Calificaciones->sepuede_mover_desemestre($tabla,$id_detalle,$ciclo)==0) {
+
+				$estado_del_alumno = $this->Modelo_Calificaciones->estado_del_alumno($id_detalle);
+				if($estado_del_alumno['estado']=='En_curso'){
+					if($this->Modelo_Calificaciones->mover_alumno_al_siguiente_senestre($id_detalle)){
+						$data = array('response' => "success", 'message' => "Se mueve el alumno al siguiente semestre");
+						$promedio = $this->Modelo_Calificaciones->promedio($id_detalle,$ciclo);
+						$ajax_data['promedio'] = $promedio['promedio'];
+						$ajax_data['estado'] = "Completo";
+						$this->Modelo_Calificaciones->agregar_promedio_y_estado($id_detalle,$ajax_data);
+						$ajax_data2['estatus'] = 0;
+						$this->Modelo_Calificaciones->actualizar_alumno_a_cero($estado_del_alumno['alumno'],$ajax_data2);
+					}
+				}else{
+					$data = array('response' => "success", 'message' => "El alumno: ".$estado_del_alumno['alumno']." tiene el estado: ".$estado_del_alumno['estado']." ");
+				}
+               
+			} else {
+			  $data = array('response' => "error", 'message' => "No se mueve el alumno al siguiente semestre");
+			}
+
+			echo json_encode($data);			
+			}
+		  else{
+			echo "No se permite este acceso directo...!!!";
+		}
+	}
 	public function updatecalificacion(){
 		if ($this->input->is_ajax_request()) {	
 			
@@ -124,6 +157,7 @@ class Calificaciones extends CI_Controller {
 						$ajax_data['fecha_captura_profesor'] = $this ->input->post('fecha_captura_profesor');
 						 if ($this->Modelo_Calificaciones->updatecalificacion($materia,$id_detalle,$ciclo,$profesor,$ajax_data)) {
 							 $data = array('response' => "success", 'message' => "Datos actualizados correctamente");
+						
 						 } else {
 						   $data = array('response' => "error", 'message' => "Error al agregar datos...!");
 						 }

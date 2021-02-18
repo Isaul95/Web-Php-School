@@ -158,7 +158,57 @@ class Modelo_calificaciones extends CI_Model { // INICIO DEL MODELO
                         return $query->row();
                     }
                 }
-                
+                public function sepuede_mover_desemestre($tabla,$id_detalle,$ciclo){
+                  if ($tabla == "Calificaciones") {
+                      //$this->db->select("SUM(total)");
+                        //$this->db->from("venta");
+                         $this->db->where("detalle", $id_detalle); /* SELECT SUM(`total`) FROM `venta` */
+                         $this->db->where("ciclo", $ciclo); /* SELECT SUM(`total`) FROM `venta` */
+                         $this->db->where("calificacion", 0); /* SELECT SUM(`total`) FROM `venta` */
+                        }
+                      $resultados = $this->db->get($tabla);
+                      return $resultados->num_rows();
+              }
+              public function mover_alumno_al_siguiente_senestre($id_detalle){
+
+                return $this->db->query('insert into detalles 
+                (alumno, carrera, opcion, ciclo_escolar,cuatrimestre, estado)
+                select alumno, 
+                carrera, 
+                opcion,
+                (select id_periodo_escolar from periodo_escolar where activo = 1),
+                (cuatrimestre+1),
+                "Inicio_inscripcion"
+                from detalles
+                where estado="En_curso" and id_detalle =  ?',$id_detalle);
+                }
+                public function estado_del_alumno($id_detalle)
+                {
+                  $this->db->select('estado, alumno');
+                    $this->db->from('detalles');
+                    $this->db->where('id_detalle', $id_detalle);
+                    $resultados = $this->db->get();
+                    return $resultados->row_array();
+
+                  
+                }
+                public function promedio($id_detalle,$ciclo)
+                {
+                  $this->db->select('round(avg(calificacion),1) as promedio');
+                    $this->db->from('calificaciones');
+                    $this->db->where('detalle', $id_detalle);
+                    $this->db->where('ciclo', $ciclo);
+                    $resultados = $this->db->get();
+                    return $resultados->row_array();
+
+                  
+                }
+                public function agregar_promedio_y_estado($id_detalle,$data){
+                  return $this->db->update('detalles', $data, array('id_detalle' => $id_detalle));
+              }
+              public function actualizar_alumno_a_cero($alumno,$data){
+                return $this->db->update('alumnos', $data, array('numero_control' => $alumno));
+            }
                 public function yasepuedeasignarcalificacion($opcion_estudio,$licenciatura,$semestre,$ciclo,$materia,
                 $profesor,$fecha_actual)
                 {

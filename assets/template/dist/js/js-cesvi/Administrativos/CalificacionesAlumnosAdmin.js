@@ -736,6 +736,7 @@ $(document).on("click", "#update_calificacion_profesor", function (e) {
     } else {
 
         var fd = new FormData();
+       
 
         fd.append("calificacion",  calificacion_materia_profesor);
         fd.append("detalle", detalle_update);
@@ -748,7 +749,6 @@ $(document).on("click", "#update_calificacion_profesor", function (e) {
         fd.append("fecha_actualizacion_profesor", fecha_a_insertar);
         fd.append("profesor_actualizacion", profesor);
         fd.append("profesor", profesor);
-
 
         $.ajax({
             type: "post",
@@ -764,7 +764,8 @@ $(document).on("click", "#update_calificacion_profesor", function (e) {
                     $("#modaleditcalificacion").modal("hide");
                     $("#formeditcalificacion")[0].reset();
                     $("#tbl_list_calificaciones_profesor_por_materia").DataTable().destroy();
-                    llenartablaalumnosasignadosalamateriadelprofesorp($("#combo_materias_administrativos_profesores").val())
+                    llenartablaalumnosasignadosalamateriadelprofesorp($("#combo_materias_administrativos_profesores").val());
+                    mover_de_semestre(fd);
                 } else {
                     toastr["error"](response.message);
                 }
@@ -775,6 +776,29 @@ $(document).on("click", "#update_calificacion_profesor", function (e) {
         });
     }
 });
+
+ function mover_de_semestre(fd){
+    $.ajax({
+        type: "post",
+        url: base_url + 'Administrativos/Calificaciones/moveralumno_desemestre',
+        data: fd,
+        processData: false,
+        contentType: false,
+        dataType: "json",
+        enctype: 'multipart/form-data',
+        success: function (response) {
+            if (response.response == "success") {
+                toastr["success"](response.message);
+                
+            } else {
+                toastr["error"](response.message);
+            }
+        },
+        error: function (response) {
+            toastr["error"](response.message);
+        }
+    });
+}
 //LLENAR LA TABLA DE ALUMNOS QUE CORRESPONDEN A CARRERA Y OPCIÓN DE ESTUDIO
 
 // ********************   variable PARA CAMBIAR DE IDIOMA AL ESPAÑOL EL DataTable  *************************

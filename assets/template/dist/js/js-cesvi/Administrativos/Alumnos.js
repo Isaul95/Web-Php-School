@@ -260,6 +260,7 @@ $(document).on("click", "#btnaddalumno", function (e) {
         fd.append("cuatrimestre", 1);
         fd.append("ciclo_escolar", perido_activo_escolar);
         fd.append("estado", 'Inicio_inscripcion');
+        fd.append("promedio", 0);
 
         //EL REGISTRO DEL ALUMNO COMO USUARIO
         var apellidos = "";

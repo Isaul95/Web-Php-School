@@ -226,6 +226,7 @@ class Alumnos extends CI_Controller {
 			$ajax_data2['cuatrimestre'] = $this->input->post('cuatrimestre');
 			$ajax_data2['ciclo_escolar'] = $this->input->post('ciclo_escolar');
 			$ajax_data2['estado'] = $this->input->post('estado');
+			$ajax_data2['promedio'] = $this->input->post('promedio');
 			//PARA AGREGAR EL ALUMNO COMO USUARIO
 			$ajax_data4['nombres'] = $this->input->post('nombres');
 			$ajax_data4['apellidos'] = $this->input->post('apellidos');

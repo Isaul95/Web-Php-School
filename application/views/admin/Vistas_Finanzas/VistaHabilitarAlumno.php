@@ -252,7 +252,7 @@
 
             <div class="form-group">
               <label for="">Capturar cantidad en letra: *</label>
-              <input class="form-control" id="numletra"  readonly >
+              <input type="text" class="form-control" id="numletra"  >
             </div>
 
 

@@ -33,7 +33,8 @@ inner join periodo_escolar on periodo_escolar.id_periodo_escolar = d.ciclo_escol
 inner join materias on materias.especialidad = carrera.id_carrera
 inner join calificaciones on calificaciones.materia = materias.id_materia
 where a.numero_control = "$P{num_control}" and calificaciones.detalle = $P{Ddetalle}
-and materias.semestre = $P{Dsemestre} and d.opcion = $P{opcion} and d.carrera = $P{carrera}  ]]>
+and materias.semestre = $P{Dsemestre} and d.opcion = $P{opcion} and d.carrera = $P{carrera} 
+group by nombre_materia ]]>
 	</queryString>
 	<field name="nombres" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>

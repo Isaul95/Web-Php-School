@@ -993,7 +993,15 @@ if (pagoComple == "Pago_Completo") {
 
         $("#cantidad").on("keyup",  function(e){
           var restante =   $('#cantidad_total_a_pagar').val()-$('#cantidad').val();
-          $('#restante').val(restante);
+          if($('#cantidad').val()> $('#cantidad_total_a_pagar').val()){
+            $('#restante').val("¡La cantidad a pagar es mayor al total!");
+$("#addDatosAGenerarReciboPago").prop('disabled', true);
+          }
+          else{
+
+            $('#restante').val(restante);
+            $("#addDatosAGenerarReciboPago").prop('disabled', false);
+          }
 
         });
 
@@ -1021,7 +1029,7 @@ if (pagoComple == "Pago_Completo") {
                   bauche : $("#id_alta_baucher_bancoDatesRecibo").val(),
                   desc_concepto : $("#concepto").val(),
                   cantidad : $("#cantidad").val(),
-                  importe_letra : $(".letrasnumeros").val()+" PESOS 00/100 M.N",  
+                  importe_letra : $("#numletra").val()+" PESOS 00/100 M.N",  
                   usuario_creacion : $("#username").val(),
                    restante : $("#restante").val(),
                    pago_total_a_pagar : $("#cantidad_total_a_pagar").val(),
@@ -1130,6 +1138,7 @@ $(document).on("click", "#regresarModAnterior33", function (e) {
             elInput.addEventListener('keyup', () => {
                 if (elInput.value !== '') {
                     this.convertToText(elInput.value);
+                    $("#numletra").val(this.getName(elInput.value).toString().toUpperCase());
                 } else {
                     this.elMessage.innerText = '';
                 }
@@ -1143,6 +1152,8 @@ $(document).on("click", "#regresarModAnterior33", function (e) {
                 return;
             }
             this.elMessage.innerText = this.getName(number);
+        
+           
         }
 
         // Elimina los ceros a la izquierda

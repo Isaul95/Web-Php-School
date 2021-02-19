@@ -992,8 +992,10 @@ if (pagoComple == "Pago_Completo") {
         });
 
         $("#cantidad").on("keyup",  function(e){
-          var restante =   $('#cantidad_total_a_pagar').val()-$('#cantidad').val();
-          if($('#cantidad').val()> $('#cantidad_total_a_pagar').val()){
+          var restante =   parseInt($('#cantidad_total_a_pagar').val())-parseInt($('#cantidad').val());
+          var cantidad = parseInt($('#cantidad').val());
+          var total = parseInt($('#cantidad_total_a_pagar').val());
+          if(cantidad>total ){
             $('#restante').val("¡La cantidad a pagar es mayor al total!");
 $("#addDatosAGenerarReciboPago").prop('disabled', true);
           }

@@ -16,8 +16,10 @@
 	<parameter name="num_control" class="java.lang.String"/>
 	<parameter name="Dsemestre" class="java.lang.Integer"/>
 	<parameter name="Ddetalle" class="java.lang.Integer"/>
+	<parameter name="opcion" class="java.lang.Integer"/>
+	<parameter name="carrera" class="java.lang.Integer"/>
 	<queryString>
-		<![CDATA[SELECT materias.semestre, opciones.opcion, CONCAT(a.nombres, ' ', a.apellido_paterno, ' ', a.apellido_materno) As nombres, materias.nombre_materia, CONCAT(pro.horario_inicio,'-',pro.horario_fin) ,pro.inicio, pro.fin,pro.ex_final, carrera.carrera_descripcion, opciones.descripcion
+		<![CDATA[SELECT materias.semestre, opciones.opcion, CONCAT(a.nombres, ' ', a.apellido_paterno, ' ', a.apellido_materno) As nombres, materias.nombre_materia, pro.horario ,pro.inicio, pro.fin,pro.ex_final, carrera.carrera_descripcion, opciones.descripcion
 from detalles d
 INNER join alumnos a on d.alumno = a.numero_control
 inner join carrera on carrera.id_carrera = d.carrera
@@ -26,7 +28,8 @@ inner join materias on materias.especialidad = carrera.id_carrera
 inner join horarios_profesor pro on pro.materia = materias.id_materia
 inner join calificaciones on calificaciones.materia = materias.id_materia
 inner join opciones on d.opcion = opciones.id_opcion
-where a.numero_control = "$P{num_control}" and materias.semestre = $P{Dsemestre} and calificaciones.detalle = $P{Ddetalle}  group by materias.nombre_materia ]]>
+where a.numero_control = "$P{num_control}" and materias.semestre = $P{Dsemestre} and calificaciones.detalle = $P{Ddetalle}
+and d.opcion = $P{opcion} and d.carrera = $P{carrera} 	group by materias.nombre_materia ]]>
 	</queryString>
 	<field name="semestre" class="java.lang.Integer">
 		<fieldDescription><![CDATA[]]></fieldDescription>

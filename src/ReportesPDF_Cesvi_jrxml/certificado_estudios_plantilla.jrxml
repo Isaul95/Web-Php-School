@@ -15,6 +15,9 @@
 	</style>
 	<parameter name="num_control" class="java.lang.String"/>
 	<parameter name="Ddetalle" class="java.lang.Integer"/>
+	<parameter name="semestre" class="java.lang.Integer"/>
+	<parameter name="opcion" class="java.lang.Integer"/>
+	<parameter name="carrera" class="java.lang.Integer"/>
 	<queryString>
 		<![CDATA[SELECT CONCAT(a.nombres, ' ', a.apellido_paterno, ' ', a.apellido_materno) As nombre_completo, carrera.carrera_descripcion, materias.semestre, materias.nombre_materia, calificaciones.calificacion, periodo_escolar.nombre_ciclo, materias.clave as clave_materia
 from detalles d
@@ -23,7 +26,7 @@ inner join carrera on carrera.id_carrera = d.carrera
 inner join periodo_escolar on periodo_escolar.id_periodo_escolar = d.ciclo_escolar
 inner join materias on materias.especialidad = carrera.id_carrera
 inner join calificaciones on calificaciones.materia = materias.id_materia
-where a.numero_control = "$P{num_control}" and calificaciones.detalle = $P{Ddetalle}]]>
+where a.numero_control = "$P{num_control}" and calificaciones.detalle = $P{Ddetalle} and d.cuatrimestre = $P{semestre} and d.opcion = $P{opcion} and d.carrera = $P{carrera} ]]>
 	</queryString>
 	<field name="nombre_completo" class="java.lang.String"/>
 	<field name="carrera_descripcion" class="java.lang.String">

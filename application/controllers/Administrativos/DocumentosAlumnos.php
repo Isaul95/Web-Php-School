@@ -39,11 +39,28 @@ class DocumentosAlumnos extends CI_Controller {
 
 
 
+	public function capturaDatosLetrasConstanciaAlumno(){
+		$id_detalle = $this->input->post('id_detalle');
+
+				$ajax_data = $this->input->post();
+/*2.*/		if ($this->Modelo_DocumentosDeAlumnos->insertDatosLetraConstancia($ajax_data)) {
+
+					$data = array('responce' => 'success', 'message' => 'Ya puede generar la constancia del alumno...!');
+				} else {
+					$data = array('responce' => 'error', 'message' => 'Fallo al generar la constancia del alumno...!');
+				}
+			// }
+			echo json_encode($data);
+
+	}
+
+
+
 		/* -------------------------------------------------------------------------- */
 		/*                  1.- Generar certificado de estudios                       */
 		/* --------------------------------------- ---------------------------------- */
 
-		public function generaCertificadoEstudios($numero_control,$detalle){
+		public function generaCertificadoEstudios($numero_control,$detalle, $semestre, $opcion, $carrera){
 			/*
 			 * Se crea la function para hacer el llamado en el js
 			 * se hace todo la parte del reporte
@@ -63,7 +80,7 @@ class DocumentosAlumnos extends CI_Controller {
 			 // $PHPJasperXML->debugsql=true;
 			// 	$PHPJasperXML-> debugsql = false; // Si desea ver la setencia del sql del reporte lo pones en true
 
-			$PHPJasperXML->arrayParameter=array("num_control"=>$numero_control,"Ddetalle"=>$detalle);
+			$PHPJasperXML->arrayParameter=array("num_control"=>$numero_control,"Ddetalle"=>$detalle  ,"semestre"=>$semestre,"opcion"=>$opcion,"carrera"=>$carrera);
 
 			$PHPJasperXML->load_xml_file("src/ReportesPDF_Cesvi_jrxml/certificado_estudios_plantilla.jrxml");
 
@@ -78,7 +95,7 @@ class DocumentosAlumnos extends CI_Controller {
 /*                  2.- Generar boleta calificaciones                        */
 /* --------------------------------------- ---------------------------------- */
 
-		public function generaBoletaCalificaciones($numero_control,$semestre,$detalle){
+		public function generaBoletaCalificaciones($numero_control,$semestre,$detalle,$opcion ,$carrera){
 		/*
 		 * Se crea la function para hacer el llamado en el js
 		 * se hace todo la parte del reporte
@@ -98,7 +115,7 @@ class DocumentosAlumnos extends CI_Controller {
 		// $PHPJasperXML->debugsql=true;
 		// 	$PHPJasperXML-> debugsql = false; // Si desea ver la setencia del sql del reporte lo pones en true
 
-	  $PHPJasperXML->arrayParameter=array("num_control"=>$numero_control,"Dsemestre"=>$semestre,"Ddetalle"=>$detalle);
+	  $PHPJasperXML->arrayParameter=array("num_control"=>$numero_control,"Dsemestre"=>$semestre,"Ddetalle"=>$detalle ,"opcion"=>$opcion,"carrera"=>$carrera);
 
 		$PHPJasperXML->load_xml_file("src/ReportesPDF_Cesvi_jrxml/boleta_Calificaciones_plantilla.jrxml");
 
@@ -113,7 +130,7 @@ class DocumentosAlumnos extends CI_Controller {
 				/*                      3.- Generar Historial Academico                       */
 				/* --------------------------------------- ---------------------------------- */
 
-	public function generaHistAcademico($numero_control,$detalle){
+	public function generaHistAcademico($numero_control,$detalle, $semestre ,$opcion ,$carrera ){
 			/*
 		 * Se crea la function para hacer el llamado en el js
 		 * se hace todo la parte del reporte
@@ -133,7 +150,7 @@ class DocumentosAlumnos extends CI_Controller {
 	 // $PHPJasperXML->debugsql=true;
 	// 	$PHPJasperXML-> debugsql = false; // Si desea ver la setencia del sql del reporte lo pones en true
 
-		$PHPJasperXML->arrayParameter=array("num_control"=>$numero_control,"Ddetalle"=>$detalle);
+		$PHPJasperXML->arrayParameter=array("num_control"=>$numero_control,"Ddetalle"=>$detalle ,"semestre"=>$semestre,"opcion"=>$opcion,"carrera"=>$carrera);
 
 		$PHPJasperXML->load_xml_file("src/ReportesPDF_Cesvi_jrxml/historia_academica_plantilla.jrxml");
 
@@ -147,7 +164,7 @@ class DocumentosAlumnos extends CI_Controller {
 /*                      4.- Generar Horario Alumno                       */
 /* --------------------------------------- ---------------------------------- */
 
-		public function generaHorarioAlumno($numero_control,$semestre,$detalle){
+		public function generaHorarioAlumno($numero_control,$semestre,$detalle,$opcion,$carrera){
 			/*
 			* Se crea la function para hacer el llamado en el js
 	 	  * se hace todo la parte del reporte
@@ -167,7 +184,8 @@ class DocumentosAlumnos extends CI_Controller {
 		// $PHPJasperXML->debugsql=true;
 	 // 	$PHPJasperXML-> debugsql = false; // Si desea ver la setencia del sql del reporte lo pones en true
 
-		$PHPJasperXML->arrayParameter=array("num_control"=>$numero_control,"Dsemestre"=>$semestre,"Ddetalle"=>$detalle);
+		$PHPJasperXML->arrayParameter=array("num_control"=>$numero_control,"Dsemestre"=>$semestre,"Ddetalle"=>$detalle,
+		"opcion"=>$opcion,"carrera"=>$carrera);
 
 		$PHPJasperXML->load_xml_file("src/ReportesPDF_Cesvi_jrxml/Horarios.jrxml");
 
@@ -183,7 +201,7 @@ class DocumentosAlumnos extends CI_Controller {
 		/*                      5.- Generar Constancia Alumno                       */
 		/* --------------------------------------- ---------------------------------- */
 
-				public function generaConstanciaAlumno($numero_control,$detalle){
+				public function generaConstanciaAlumno($numero_control,$detalle ,$semestre,$opcion,$carrera){
 					/*
 					* Se crea la function para hacer el llamado en el js
 			 	  * se hace todo la parte del reporte
@@ -203,7 +221,8 @@ class DocumentosAlumnos extends CI_Controller {
 				// $PHPJasperXML->debugsql=true;
 			 // 	$PHPJasperXML-> debugsql = false; // Si desea ver la setencia del sql del reporte lo pones en true
 
-				$PHPJasperXML->arrayParameter=array("nunControl"=>$numero_control,"detall"=>$detalle);
+				$PHPJasperXML->arrayParameter=array("nunControl"=>$numero_control,"detall"=>$detalle ,"semestre"=>$semestre,
+				"opcion"=>$opcion,"carrera"=>$carrera);
 
 				$PHPJasperXML->load_xml_file("src/ReportesPDF_Cesvi_jrxml/constancia_estudiante.jrxml");
 

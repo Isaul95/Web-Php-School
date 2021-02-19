@@ -111,19 +111,20 @@ function llenarTablaAlumnosParaDocumentacion(licenciatura,semestre,opciones) {
                 {
                     data: "alumno",
                 },
-                {
-                    data: "semestre",
-                },
-                {
-                    data: "carrera_descripcion",
-                },
+                // {
+                //     data: "semestre",
+                // },
+                // {
+                //     data: "carrera_descripcion",
+                // },
                 {
                     // data: "certificado_estudios",
                     orderable: false,
                     searchable: false,
+                    "className": "text-center",
                     render : function(data, type, row) {
                         var a = `
-                            <a title="Generar Certificado de Estudios" href="DocumentosAlumnos/generaCertificadoEstudios/${row.numero_control}/${row.detalle}" target="_blank"><i class="far fa-file-pdf fa-2x"></i></a>
+                            <a title="Generar Certificado de Estudios" href="DocumentosAlumnos/generaCertificadoEstudios/${row.numero_control}/${row.detalle}/${row.semestre}/${row.opcion}/${row.carrera}" target="_blank"><i class="far fa-file-pdf fa-2x"></i></a>
                         `;
                          return a;
                     },
@@ -132,10 +133,11 @@ function llenarTablaAlumnosParaDocumentacion(licenciatura,semestre,opciones) {
                     // data: "nombre_certificado_bachillerato",
                     orderable: false,
                     searchable: false,
+                    "className": "text-center",
                     render: function (data, type, row, meta) {
                         var a;
                             var a = `
-                            <a title="Generar Boleta Calificaciones" href="DocumentosAlumnos/generaBoletaCalificaciones/${row.numero_control}/${row.semestre}/${row.detalle}" target="_blank"><i class="far fa-file-pdf fa-2x"></i></a>
+                            <a title="Generar Boleta Calificaciones" href="DocumentosAlumnos/generaBoletaCalificaciones/${row.numero_control}/${row.semestre}/${row.detalle}/${row.opcion}/${row.carrera}" target="_blank"><i class="far fa-file-pdf fa-2x"></i></a>
                             `;
                         return a;
                     },
@@ -144,9 +146,10 @@ function llenarTablaAlumnosParaDocumentacion(licenciatura,semestre,opciones) {
                     // data: "curp",
                     orderable: false,
                     searchable: false,
+                    "className": "text-center",
                     render: function (data, type, row, meta) {
                         return  a = `
-<a title="Generar Historial Academico" href="DocumentosAlumnos/generaHistAcademico/${row.numero_control}/${row.detalle}" target="_blank"><i class="far fa-file-pdf fa-2x"></i></a>
+<a title="Generar Historial Academico" href="DocumentosAlumnos/generaHistAcademico/${row.numero_control}/${row.detalle}/${row.semestre}/${row.opcion}/${row.carrera}" target="_blank"><i class="far fa-file-pdf fa-2x"></i></a>
                          `;
                     },
                 },
@@ -154,21 +157,35 @@ function llenarTablaAlumnosParaDocumentacion(licenciatura,semestre,opciones) {
                     // data: "curp",
                     orderable: false,
                     searchable: false,
+                    "className": "text-center",
                     render: function (data, type, row, meta) {
                         return  a = `
-<a title="Generar Horario Alumno" href="DocumentosAlumnos/generaHorarioAlumno/${row.numero_control}/${row.semestre}/${row.detalle}" target="_blank"><i class="far fa-file-pdf fa-2x"></i></a>
+<a title="Generar Horario Alumno" href="DocumentosAlumnos/generaHorarioAlumno/${row.numero_control}/${row.semestre}/${row.detalle}/${row.opcion}/${row.carrera}" target="_blank"><i class="far fa-file-pdf fa-2x"></i></a>
                          `;
                     },
                 },
-                {
-                    orderable: false,
-                    searchable: false,
-                    render: function (data, type, row, meta) {
-                        return  a = `
-<a title="Generar Constancia Alumno" href="DocumentosAlumnos/generaConstanciaAlumno/${row.numero_control}/${row.detalle}" target="_blank"><i class="far fa-file-pdf fa-2x"></i></a>
-                         `;
+
+//                 {
+//                     orderable: false,
+//                     searchable: false,
+//                     render: function (data, type, row, meta) {
+//                         return  a = `
+// <a title="Generar Constancia Alumno" href="DocumentosAlumnos/generaConstanciaAlumno/${row.numero_control}/${row.detalle}/${row.semestre}/${row.opcion}/${row.carrera}" target="_blank"><i class="far fa-file-pdf fa-2x"></i></a>
+//                          `;
+//                     },
+//                 },
+
+                    {
+                        orderable: false,
+                        searchable: false,
+                        "className": "text-center",
+                        render: function (data, type, row, meta) {
+                          var a = `<a title="Agregar Recibo Valido" onclick=modalLetras('${row.numero_control}','${row.detalle}','${row.semestre}','${row.opcion}','${row.carrera}')><i class="fas fa-edit iconbig azul fa-2x"></i></a>`
+                          return a;
+                        },
                     },
-                },
+
+
                 ],
                 "language": language_espaniol,
 
@@ -177,6 +194,68 @@ function llenarTablaAlumnosParaDocumentacion(licenciatura,semestre,opciones) {
     });
 }
 
+
+function modalLetras(numero_control, detalle, semestre, opcion, carrera){
+          debugger;
+
+        	 $("#modalConstancia").modal("show");
+document.getElementById("generarConstanciaPDFAlumno").style.display = "none";
+
+          $("#numero_control_constancia").val(numero_control);
+          $("#detalle_constancia").val(detalle);
+          $("#semestre_constancia").val(semestre);
+          $("#opcion_constancia").val(opcion);
+          $("#carrera_constancia").val(carrera);
+
+      }
+
+
+
+    $(document).on("click", "#capturarDatosEnLetraConstancia", function(e){ // ADD DATES FOR REVIBO DE PAGO
+    e.preventDefault();
+    debugger;
+
+        var datos = {
+            id_detalle: $("#detalle_constancia").val(),
+            promedio_letra: $("#promedio_letra").val(),
+            fecha_letra : $("#fecha_letra").val(),
+              }
+
+            if (datos.promedio_letra == "" || datos.fecha_letra == "" ) {
+              alert("Los dato son obligatorios...!!!");
+              }else{
+
+              $.ajax({
+              url: base_url+'Administrativos/DocumentosAlumnos/capturaDatosLetrasConstanciaAlumno',
+              type: "post",
+              dataType: "json",
+              data : (datos),
+              success: function(data){
+              if (data.responce == "success") {
+            toastr["success"](data.message);
+                document.getElementById("generarConstanciaPDFAlumno").style.display = "block";
+              }else{
+              toastr["error"](data.message);
+                      }
+                    }
+                  });
+            $("#datesLetraConstancia")[0].reset();  // VACIA MODAL DESPUES DE INSERT
+                  }
+              });
+
+
+
+    function generaConstanciaPdfStuden() {
+            // debugger;
+                var numero_control = $('#numero_control_constancia').val();
+                var detalle        = $("#detalle_constancia").val();
+                var semestre       = $("#semestre_constancia").val();
+                var opcion         = $("#opcion_constancia").val();
+                var carrera        = $("#carrera_constancia").val();
+
+            var url = base_url+"Administrativos/DocumentosAlumnos/generaConstanciaAlumno/" + numero_control + "/" + detalle + "/" + semestre + "/" + opcion + "/" + carrera ;
+                window.open(url, "_blank", numero_control);
+    }
 
 
 

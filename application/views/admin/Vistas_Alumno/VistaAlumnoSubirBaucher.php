@@ -212,6 +212,7 @@
           </div>
         </div>
 <input type="hidden" id="detalleId" name="detalleId" value="<?php echo $datosTxt->id_detalle;?>" >
+<input type="hidden" id="opcion_estudio" name="opcion_estudio" value="<?php echo $datosTxt->opcion;?>" >
     </div>
 
   </div>
@@ -446,19 +447,16 @@
                         <table id="tbl_histPagosRealizadosXAlumno" class="table table-striped table-bordered table-hover table-condensed" cellspacing="0" style="background:white!important">
                           <thead class="text-center bg-primary">
                             <tr>
-                              <th width="3%">#</th>
-                              <th class="text-center">Nombre<br>Completo</th>
-                              <th>No. Control</th>
-                              <th class="text-center">Carrera</th>
-                              <th class="text-center">Fecha registro</th>
-                              <th>Tipo de Pago</th>
-                              <th class="text-center">Ver Baucher</th>
-                              <th class="text-center">Horario</th>
-                              <th class="text-center">Estado</th>
-                              <th>Recibo de Pago</th>
-                              <th>Constancia</th>
-                              <th>Parcialidad pago</th>
-                              <th class="text-center">Fecha limite</th>
+                              <th>Numero de control</th>
+                              <th>Alumno</th>
+                              <!-- <th class="text-center" width="7%">Semestre</th>
+                              <th>Carrera</th> -->
+                              <th class="text-center" width="7%">Cert. Estudios</th>
+                              <th class="text-center" width="7%">Boleta</th>
+                              <th class="text-center" width="7%">Hist. academico</th>
+                              <!-- <th class="text-center" width="7%">Cert. parcial</th> -->
+                              <th class="text-center" width="7%">Horario</th>
+                              <th class="text-center" width="7%">Constancia</th>
                             </tr>
                           </thead>
                         </table>

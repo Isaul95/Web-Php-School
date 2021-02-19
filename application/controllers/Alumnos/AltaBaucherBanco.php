@@ -84,6 +84,22 @@ class AltaBaucherBanco extends CI_Controller {
 		}
 	}
 
+
+
+		/* -------------------------------------------------------------------------- */
+		/*       Datos generales del alumno para GENERAR DOCUMENTACION AlumnoS        */
+		/* --------------------------------------- ---------------------------------- */
+			public function consultaAlumnosPaDocumentos(){
+						$semestre = $this->input->post('semestre');
+						$licenciatura = $this->input->post('licenciatura');
+						$opciones = $this->input->post('opciones');
+						$numero_control = $this->input->post('numero_control');
+				$posts = $this->Modelo_DarAccesoAlumnos->obtenerDatosGenerarDocsDelAlumno($semestre,$licenciatura,$opciones, $numero_control);
+				echo json_encode($posts);
+			}
+
+
+
 // LLENAR COMBO DE SEMESTRES
 	public function obtenerSemestre(){
 		$posts = $this->Modelo_DarAccesoAlumnos->obtenerSemestreCombo();
@@ -383,6 +399,6 @@ public function verperiodo_activo_agregar_horario()
 		$PHPJasperXML->outpage('I','ConstanciaAlumno_'.$numero_control.'.pdf');
 
 		}
-	
+
 
 }  // Fin del controller

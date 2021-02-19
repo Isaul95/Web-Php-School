@@ -1029,6 +1029,114 @@ function horarioyaelegido(){
 
 
 
+    function llenarTablaAlumnosParaDocumentacion(semestre) {
+        var datos = {
+                        opciones : $("#opcion_estudio").val(),
+                        licenciatura : $("#carreraAlum").val(),
+                        numero_control : $("#num_controlAlum").val(),
+                        semestre : semestre,
+                    }
+
+    $.ajax({
+        type: "post",
+        url: base_url + 'Alumnos/AltaBaucherBanco/consultaAlumnosPaDocumentos',
+        dataType: "json",
+        data : (datos),
+        success: function (response) {
+            $("#tbl_alumnosDocumentacion").DataTable({
+                data: response,
+                responsive: true,
+                columns: [{
+                    data: "numero_control",
+                },
+                {
+                    data: "alumno",
+                },
+                // {
+                //     data: "semestre",
+                // },
+                // {
+                //     data: "carrera_descripcion",
+                // },
+                {
+                    // data: "certificado_estudios",
+                    orderable: false,
+                    searchable: false,
+                    "className": "text-center",
+                    render : function(data, type, row) {
+                        var a = `
+                            <a title="Generar Certificado de Estudios" href="DocumentosAlumnos/generaCertificadoEstudios/${row.numero_control}/${row.detalle}/${row.semestre}/${row.opcion}/${row.carrera}" target="_blank"><i class="far fa-file-pdf fa-2x"></i></a>
+                        `;
+                         return a;
+                    },
+                },
+                {
+                    // data: "nombre_certificado_bachillerato",
+                    orderable: false,
+                    searchable: false,
+                    "className": "text-center",
+                    render: function (data, type, row, meta) {
+                        var a;
+                            var a = `
+                            <a title="Generar Boleta Calificaciones" href="DocumentosAlumnos/generaBoletaCalificaciones/${row.numero_control}/${row.semestre}/${row.detalle}/${row.opcion}/${row.carrera}" target="_blank"><i class="far fa-file-pdf fa-2x"></i></a>
+                            `;
+                        return a;
+                    },
+                },
+                {
+                    // data: "curp",
+                    orderable: false,
+                    searchable: false,
+                    "className": "text-center",
+                    render: function (data, type, row, meta) {
+                        return  a = `
+<a title="Generar Historial Academico" href="DocumentosAlumnos/generaHistAcademico/${row.numero_control}/${row.detalle}/${row.semestre}/${row.opcion}/${row.carrera}" target="_blank"><i class="far fa-file-pdf fa-2x"></i></a>
+                         `;
+                    },
+                },
+                {
+                    // data: "curp",
+                    orderable: false,
+                    searchable: false,
+                    "className": "text-center",
+                    render: function (data, type, row, meta) {
+                        return  a = `
+<a title="Generar Horario Alumno" href="DocumentosAlumnos/generaHorarioAlumno/${row.numero_control}/${row.semestre}/${row.detalle}/${row.opcion}/${row.carrera}" target="_blank"><i class="far fa-file-pdf fa-2x"></i></a>
+                         `;
+                    },
+                },
+
+//                 {
+//                     orderable: false,
+//                     searchable: false,
+//                     render: function (data, type, row, meta) {
+//                         return  a = `
+// <a title="Generar Constancia Alumno" href="DocumentosAlumnos/generaConstanciaAlumno/${row.numero_control}/${row.detalle}/${row.semestre}/${row.opcion}/${row.carrera}" target="_blank"><i class="far fa-file-pdf fa-2x"></i></a>
+//                          `;
+//                     },
+//                 },
+
+                    {
+                        orderable: false,
+                        searchable: false,
+                        "className": "text-center",
+                        render: function (data, type, row, meta) {
+                          var a = `<a title="Agregar Recibo Valido" onclick=modalLetras('${row.numero_control}','${row.detalle}','${row.semestre}','${row.opcion}','${row.carrera}')><i class="fas fa-edit iconbig azul fa-2x"></i></a>`
+                          return a;
+                        },
+                    },
+
+
+                ],
+                "language": language_espaniol,
+
+            });
+        },
+    });
+}
+
+
+
     var language_espaniol_materias_cursadas = {
       "lengthMenu": "Mostrar _MENU_ registros por pagina",
       "zeroRecords": "LAS MATERIAS AUN NO HAN SIDO CURSADAS",

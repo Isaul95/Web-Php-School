@@ -17,6 +17,9 @@
 		<defaultValueExpression><![CDATA[$P{num_control}]]></defaultValueExpression>
 	</parameter>
 	<parameter name="Ddetalle" class="java.lang.Integer"/>
+	<parameter name="opcion" class="java.lang.Integer"/>
+	<parameter name="carrera" class="java.lang.Integer"/>
+	<parameter name="semestre" class="java.lang.Integer"/>
 	<queryString>
 		<![CDATA[SELECT CONCAT(a.nombres, ' ', a.apellido_paterno, ' ', a.apellido_materno) As nombres, carrera.carrera_descripcion, materias.semestre, materias.id_materia, materias.clave as clave_materia, materias.nombre_materia, calificaciones.calificacion, materias.creditos, calificaciones.tiempo_extension, carrera.clave, calificaciones.ciclo,
      (select AVG(calificaciones.calificacion)
@@ -30,7 +33,7 @@ inner join carrera on carrera.id_carrera = d.carrera
 inner join periodo_escolar on periodo_escolar.id_periodo_escolar = d.ciclo_escolar
 inner join materias on materias.especialidad = carrera.id_carrera
 inner join calificaciones on calificaciones.materia = materias.id_materia
-where a.numero_control = "$P{num_control}" and calificaciones.detalle = $P{Ddetalle}]]>
+where a.numero_control = "$P{num_control}" and calificaciones.detalle = $P{Ddetalle} and d.cuatrimestre = $P{semestre} and d.opcion = $P{opcion} and d.carrera = $P{carrera} ]]>
 	</queryString>
 	<field name="nombres" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>

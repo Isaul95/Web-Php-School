@@ -21,6 +21,30 @@ class Modelo_DarAccesoAlumnos extends CI_Model { // INICIO DEL MODELO
         return $resultados->result();
         }
 
+
+
+        /* -------------------------------------------------------------------------- */
+        /*       Lista datos Gral. del Alumno    para generar documentacion           */
+        /* -------------------------------------------------------------------------- */
+
+        public function obtenerDatosGenerarDocsDelAlumno($semestre,$licenciatura,$opciones, $numero_control){
+          $this->db->distinct();
+          $this->db->select("alumnos.numero_control as numero_control, concat(alumnos.nombres,' ',alumnos.apellido_paterno,' ',alumnos.apellido_materno)
+          as alumno, detalles.cuatrimestre as semestre, carrera.carrera_descripcion as carrera_descripcion, carrera.id_carrera, calf.detalle, detalles.opcion, detalles.carrera ");
+          $this->db->from("alumnos");
+          $this->db->join("detalles","alumnos.numero_control = detalles.alumno");
+          $this->db->join(" calificaciones calf "," detalles.id_detalle = calf.detalle ");
+          $this->db->join("carrera","detalles.carrera = carrera.id_carrera");
+          $this->db->where_in('alumnos.estatus', ['0','1']);
+          $this->db->where("detalles.cuatrimestre =", $semestre);
+          $this->db->where("detalles.carrera =", $licenciatura);
+          $this->db->where("detalles.opcion =", $opciones);
+          $this->db->where("detalles.alumno =", $numero_control);
+          $resultados = $this->db->get();
+          return $resultados->result();
+          }
+
+
   /* -------------------------------------------------------------------------- */
 	/*                            INSERTAR BAUCHE TABLA                           */
 	/* -------------------------------------------------------------------------- */
@@ -120,7 +144,7 @@ class Modelo_DarAccesoAlumnos extends CI_Model { // INICIO DEL MODELO
 
     $this->db->select("CONCAT(alu.nombres, ' ', alu.apellido_paterno, ' ', alu.apellido_materno) As nombre_completo,
       ban.id_alta_baucher_banco, ban.fecha_registro, alu.numero_control, alu.estatus, car.carrera_descripcion, rec.cantidad ,
-      rec.desc_concepto, rec.id_recibo, ban.semestre,  ban.tipo_de_pago");
+      rec.desc_concepto, rec.id_recibo, ban.semestre,  ban.tipo_de_pago, det.id_detalle");
      //  rec.parcialidad_pago, rec.fecha_limite_pago, tip.pago,
      $this->db->from("alumnos alu");
      $this->db->join("alta_baucher_banco ban","alu.numero_control = ban.numero_control");
@@ -336,6 +360,25 @@ $this->db->group_by('ban.id_alta_baucher_banco');
       return $resultados->result();
       }
 
+      /////ASIGNACION MASIVA
+      public function insert_masvia_de_alumnos($data){
+        return $this->db->insert_batch('calificaciones', $data);
+      }
+        public function materias_a_insertar($opcion,$carrera,$semestre,$ciclo)
+                {
+                  $this->db->select('hp.materia as materia, 
+                  hp.profesor as profesor, 
+                  hp.ciclo as ciclo,
+                  hp.horario as horario');
+                    $this->db->from('horarios_profesor hp');
+                    $this->db->where('hp.opcion_estudio', $opcion);
+                    $this->db->where('hp.licenciatura', $carrera);
+                    $this->db->where('hp.semestre', $semestre);
+                    $this->db->where('hp.ciclo', $ciclo);
+                    $resultados = $this->db->get();
+                    return $resultados->result_array();                
+                }
+      /////////FIN ASIGNACION MASIVA
 //////////////////////////////////////// SELECCIÓN DE MATERIAS ////////////////////////////////////////////////////////
 public function periodo_activo()
           {
@@ -369,7 +412,7 @@ public function obtenermateriasaelegir($numero_control,$licenciatura,$semestre,$
   o.descripcion as opcion,
   hp.semestre as semestre,
   hp.ciclo as ciclo,
-  concat(hp.horario_inicio,' - ',hp.horario_fin) as horario
+  hp.horario as horario
   ");
   $this->db->from("horarios_profesor hp");
   $this->db->join("carrera c","hp.licenciatura = c.id_carrera");
@@ -383,7 +426,7 @@ public function obtenermateriasaelegir($numero_control,$licenciatura,$semestre,$
   $this->db->where("hp.opcion_estudio",$opcion);
   $this->db->where("hp.semestre",$semestre);
   $this->db->where("d.alumno",$numero_control);
-  $this->db->where("d.estado","En_espera_de_materias");
+  $this->db->where_in('d.estado', ['En_espera_de_materias','En_curso']);
 
   $resultados = $this->db->get();
    return $resultados->result();
@@ -410,7 +453,7 @@ public function obtenermateriasaelegir($numero_control,$licenciatura,$semestre,$
 
   $this->db->where("cal.ciclo",$ciclo);
   $this->db->where("d.alumno",$numero_control);
-  $this->db->where("d.estado","En_espera_de_materias");
+  $this->db->where_in('d.estado', ['En_espera_de_materias','En_curso']);
 
   $resultados = $this->db->get();
    return $resultados->result();
@@ -430,7 +473,7 @@ public function obtenermateriasaelegir($numero_control,$licenciatura,$semestre,$
   $this->db->select("carrera");
   $this->db->from("detalles");
   $this->db->where("alumno",$numero_control);
-  $this->db->where("estado","En_espera_de_materias");
+  $this->db->where_in('estado', ['En_espera_de_materias','En_curso']);
   $resultados = $this->db->get();
   return $resultados->result();
   }
@@ -439,7 +482,7 @@ public function obtenermateriasaelegir($numero_control,$licenciatura,$semestre,$
     $this->db->select("opcion");
     $this->db->from("detalles");
     $this->db->where("alumno",$numero_control);
-    $this->db->where("estado","En_espera_de_materias");
+    $this->db->where_in('estado', ['En_espera_de_materias','En_curso']);
     $resultados = $this->db->get();
     return $resultados->result();
     }
@@ -448,7 +491,7 @@ public function obtenermateriasaelegir($numero_control,$licenciatura,$semestre,$
       $this->db->select("cuatrimestre");
       $this->db->from("detalles");
       $this->db->where("alumno",$numero_control);
-      $this->db->where("estado","En_espera_de_materias");
+      $this->db->where_in('estado', ['En_espera_de_materias','En_curso']);
       $resultados = $this->db->get();
       return $resultados->result();
       }

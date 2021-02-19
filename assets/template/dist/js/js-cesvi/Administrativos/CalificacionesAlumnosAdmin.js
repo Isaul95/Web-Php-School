@@ -594,10 +594,10 @@ $(document).on("click", "#edit_calificacion", function (e) {
     var concat = "";
     var fecha = new Date();
     if(fecha.getMonth()+1>=1||fecha.getMonth()+1<=9){
-        var fecha_actual = concat.concat(fecha.getFullYear(),"/","0",fecha.getMonth()+1,"/",fecha.getDate());
+        var fecha_actual = concat.concat(fecha.getFullYear(),"-","0",fecha.getMonth()+1,"-",fecha.getDate());
 
     }else{
-        var fecha_actual = concat.concat(fecha.getFullYear(),"/",fecha.getMonth()+1,"/",fecha.getDate());
+        var fecha_actual = concat.concat(fecha.getFullYear(),"-",fecha.getMonth()+1,"-",fecha.getDate());
 
     }
     

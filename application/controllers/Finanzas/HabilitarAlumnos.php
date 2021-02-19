@@ -64,27 +64,69 @@ class HabilitarAlumnos extends CI_Controller {
 		}
 
 // ================    ESYE ES MI NEW METODO PARA EL UPDATE DEL CHECKEN    =======================
-public function marcarParaRegistro($numero_control){
-	/// INICIO INSERCCIÓN DE MATERIAS
+
+public function asignacion_masiva_de_alumnos(){
+	$licenciatura = 	$this->input->post('licenciatura');
+	$opcion_estudio = 	$this->input->post('opcion_estudio');
+	$semestre = 	$this->input->post('semestre');
+	$detalle = 	$this->input->post('detalle');
+	$ciclo = 	$this->input->post('ciclo');
+
+	$materias = $this->Modelo_DarAccesoAlumnos->materias_a_insertar($opcion_estudio,$licenciatura,$semestre,$ciclo);
 	
+	foreach ($materias as $materiasdata) {
+		$Array_materias[] = array(
+			'detalle'          => $detalle,
+			'materia'       => $materiasdata['materia'],
+			'profesor'           => $materiasdata['profesor'],
+			'horario'           => $materiasdata['horario'],
+			'calificacion'         => 0,
+			'ciclo'          => $materiasdata['ciclo']
+		);
+	}
+	if ($this->Modelo_DarAccesoAlumnos->insert_masvia_de_alumnos($Array_materias)) {
+			//	$data = array('response' => "success", 'message' => "Se agrega materia ".$materia." correctamente");
+			$data = array('response' => "success", 'message' => "¡Materias asignadas al alumno!");
+	} else {
+				$data = array('response' => "error", 'message' => "No se agrega correctamente");
+	}
+echo json_encode($data);	
+}
+
+public function marcarParaRegistro(){
+	if ($this->input->is_ajax_request()) {
+
+	/// INICIO INSERCCIÓN DE MATERIAS
+	$licenciatura = 	$this->input->post('licenciatura');
+	$opcion_estudio = 	$this->input->post('opcion_estudio');
+	$semestre = 	$this->input->post('semestre');
+	$detalle = 	$this->input->post('detalle');
+	$ciclo = 	$this->input->post('ciclo');
 	/// FIN INSERCCIÓN DE MATERIAS
 			$data['estatus'] = $this->input->post('estatus');
 			$data3['estado'] = $this->input->post('estado');
+			$estatus = $this->input->post('estatus');  // var para filtrado si es habilitar o des-habilitar
+		    $numero_control = 	$this->input->post('numero_control');
+			/* 
 			$id_alta_baucher_banco = $this->input->post('id_alta_baucher_banco');
-
- 				$estatus = $this->input->post('estatus');  // var para filtrado si es habilitar o des-habilitar
+ 				
 			$data2['estado_archivo'] =	7; // ==>> tabla de baucher => estado_archivo mover a  7= ¡Comprobante válido!
 			$data4['estado_archivo'] =	6; // ==>> tabla de baucher => estado_archivo mover a  6= ¡Registro baucher!
+			*/
+			
 		if($estatus != 0){  // Depende del estatus k se mande se hace a accion
 			// $this->Modelo_DarAccesoAlumnos->updateStatusComprobPago($numero_control, $data2);//=> Se mueve estatus tabla de baucher => estado_archivo =>1
 			$this->Modelo_DarAccesoAlumnos->updateStatusDetalles($numero_control, $data3);//=> Se muesve estado detalles => En_espera_de_materias
 						if ($this->Modelo_DarAccesoAlumnos->update($numero_control, $data)) { //=> Mueve estatus de tabla alumno
 // 1.- Cuando se habilita solo es estatus en la tabla de alumnos => estatus =1
 							$data = array('responce' => 'success', 'message' => 'Alumno habilitado correctamente...!');
+						//	$this->asignacion_masiva_de_alumnos($licenciatura,$opcion_estudio,$semestre,$ciclo,$detalle);
+
 						} else {
 							$data = array('responce' => 'error', 'message' => 'Fallo habilitar alumno...!');
 						}
-		} else {
+		} /*
+		else {
 // 2.- Cuando se DES-habilita cambia el estatus en la tabla de alumnos => estatus =0 y delete los datos del revibo para k cuando se vuelva habilitar metan nuevos datoos
 						if ($this->Modelo_DarAccesoAlumnos->update($numero_control, $data)) {
 							// $this->Modelo_DarAccesoAlumnos->updateStatusComprobPago($numero_control, $data4);//=>mueve estatus table baucher=>6¡Registro baucher!
@@ -95,8 +137,14 @@ public function marcarParaRegistro($numero_control){
 							$data = array('responce' => 'error', 'message' => 'Fallo al deshabilitar el Alumno...!');
 						}
 		}
+		  */
 		echo json_encode($data);
-}
+	}
+	else{
+	echo "No se permite este acceso directo...!!!";
+	}
+	
+	}
 
 
 // ================    ACTUALIZAR ESTATUS DE ARCHIVO PARA VALIDACION DEL BAUCHER    =======================

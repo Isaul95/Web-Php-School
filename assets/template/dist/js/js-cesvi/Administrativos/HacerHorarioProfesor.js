@@ -493,8 +493,14 @@ $(document).on("click", "#edit_horario", function (e) {
             $('#datepicker_horario_inicio').val(data.post.inicio);
             $('#datepicker_horario_fin').val(data.post.fin);
             $('#datepicker_horario_ex_final').val(data.post.ex_final);
-            $('#horario_profesores_inicio').val(data.post.horario_inicio);
-            $('#horario_profesores_fin').val(data.post.horario_fin);
+            
+            var horario = data.post.horario;
+            var array = horario.split(' - ');
+            var horario_inicio = array[0];
+            var horario_fin = array[1];
+
+            $('#horario_profesores_inicio').val(horario_inicio);
+            $('#horario_profesores_fin').val(horario_fin);
 
         },
         error: function (response) {
@@ -590,13 +596,16 @@ $(document).on("click", "#update_horario_profesor", function (e) {
     var datepicker_horario_inicio = $("#datepicker_horario_inicio").val();
     var datepicker_horario_fin = $("#datepicker_horario_fin").val();
     var datepicker_horario_ex_final = $("#datepicker_horario_ex_final").val();
-    var horario_profesores_inicio = $("#horario_profesores_inicio").val();
-    var horario_profesores_fin = $("#horario_profesores_fin").val();
-
+    var concat = "";
+    var horario_inicio = $("#horario_profesores_inicio").val();
+    var horario_fin = $("#horario_profesores_fin").val();
+            var horario_profesores = concat.concat(horario_inicio,' - ',horario_fin);
+            
+   
     var nombre_materia = $("#materia_horario").val();
 
     if (datepicker_horario_inicio == ""||datepicker_horario_fin == ""||
-    datepicker_horario_ex_final == ""||horario_profesores_inicio == ""||horario_profesores_fin=="") {
+    datepicker_horario_ex_final == ""||horario_profesores == "") {
         alert("Llene los datos completos de los horarios");
     } else {
 
@@ -610,8 +619,8 @@ $(document).on("click", "#update_horario_profesor", function (e) {
         fd.append("inicio", datepicker_horario_inicio);
         fd.append("fin", datepicker_horario_fin);
         fd.append("ex_final", datepicker_horario_ex_final);
-        fd.append("horario_inicio", horario_profesores_inicio);
-        fd.append("horario_fin", horario_profesores_fin);
+        fd.append("horario", horario_profesores);
+     
         fd.append("nombre_materia", nombre_materia);
 
 
@@ -641,26 +650,7 @@ $(document).on("click", "#update_horario_profesor", function (e) {
     }
 });
 
-function asignacion_masiva_de_alumnos(fd) {
-    $.ajax({
-        type: "post",
-        url: base_url + 'Administrativos/HacerHorarioProfesor/agregarhorario',
-        data: fd,
-        processData: false,
-        contentType: false,
-        dataType: "json",
-        enctype: 'multipart/form-data',
-        success: function (response) {
-            if (response.response == "success") {
-                toastr["success"](response.message);
-                $("#tbl_list_horarios_administrativos").DataTable().destroy();
-                llenartablahorariosprofesores($("#combo_profesores_horario_profesores").val());
-            } else {
-                toastr["error"](response.message);
-            }
-        },
-    });
-}
+
 /**
  * function semestre_alumno() {
   var numero_control = $("#numero_control").val();

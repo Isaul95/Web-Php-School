@@ -204,9 +204,11 @@ function Mostrar_PagoCompleto(){
                         // var espera = 'En_espera_de_materias';
                                 var string = '<input type="checkbox" ';
                                 if(habilitarAlumno == 1){
-                                  string = string + `checked onclick=habilitaRegistroFinanzas(0,'${row.numero_control}','${row.id_alta_baucher_banco}','Inicio_inscripcion','${row.semestre}')>`;
-                                }else {
-                                  string = string +`onclick=habilitaRegistroFinanzas(1,'${row.numero_control}','${row.id_alta_baucher_banco}','En_curso','${row.semestre}')>`;
+                                 // string = string + `checked onclick=habilitaRegistroFinanzas(0,'${row.numero_control}','${row.id_alta_baucher_banco}','Inicio_inscripcion','${row.semestre}')>`;
+                                // string = string + `checked>`;
+                              string= "¡Horario ya asignado!" ; 
+                              }else {
+                                  string = string +`onclick=habilitaRegistroFinanzas(1,'${row.numero_control}','En_curso','${row.id_detalle}')>`;
                                 }
                                 return string;
 			                         },
@@ -803,32 +805,67 @@ function modalCapturaDatosRecibo(id_alta_baucher_banco){
 
 
 // SOLO SE VA HABILITAR CUANDO ESTE DESHABILITADO, UNA VEZ K SE ABILITE SE DESBLOKEA
-function habilitaRegistroFinanzas(estatus, numero_control, id_alta_baucher_banco, estado, semestre){
+function habilitaRegistroFinanzas(estatus, numero_control,estado,detalle){
     debugger;
-
+   
+    var licenciatura = $("#combo_CarreraAltaAlumn_Finanzas").val();
+    var semestre = $("#combo_SemestresAltaAlumn_Finanzas").val();
+    var opciones = $("#combo_opcionesAltaAlumn_Finanzas").val();
+    var concat = "";
+    var fecha = new Date();
+    switch (fecha.getMonth() + 1) {
+      case 1:
+          var ciclo = concat.concat(fecha.getFullYear().toString().substring(2,4), "/", 1);
+          break;
+      case 2:
+          var ciclo = concat.concat(fecha.getFullYear().toString().substring(2,4), "/", 1);
+          break;
+      case 3:
+          var ciclo = concat.concat(fecha.getFullYear().toString().substring(2,4), "/", 1);
+          break;
+      case 4:
+          var ciclo = concat.concat(fecha.getFullYear().toString().substring(2,4), "/", 1);
+          break;
+      case 5:
+          var ciclo = concat.concat(fecha.getFullYear().toString().substring(2,4), "/", 1);
+          break;
+      case 6:
+          var ciclo = concat.concat(fecha.getFullYear().toString().substring(2,4), "/", 1);
+          break;
+      default:
+          var ciclo = concat.concat(fecha.getFullYear().toString().substring(2,4), "/", 2);
+          break;
+  }
       		var datos = {
       				numero_control : numero_control,
               estatus: estatus,
-              id_alta_baucher_banco: id_alta_baucher_banco,
               estado : estado,
-              semestre :semestre
+              licenciatura: licenciatura,
+              opcion_estudio: opciones,
+              semestre: semestre,
+              ciclo:ciclo,
+              detalle:detalle
       		}
 
       		$.ajax({
-      			url: base_url+'Finanzas/HabilitarAlumnos/marcarParaRegistro/'+numero_control,
+      			url: base_url+'Finanzas/HabilitarAlumnos/marcarParaRegistro',
             type: "post",
             dataType: "json",
       			data : (datos),
       			success : function(data){
               if (data.responce == "success") {
-                    // if (estatus == 0) {  // SI SE DESABILITA SE CARGA LA PAGINA PARA K NO SE INSERTE DOBLE LA INORMACION
-                    //   // alert("estra en el reload");
-                    //     location.reload();
-                    // }
           toastr["success"](data.message);
+        /*
           $("#tbl_listAlumConBaucher").DataTable().destroy();
           debugger;
-            litarAlumnosConBaucherRegistrados(semestre);
+          var tipoPago = $("#combo_TipoDePagosAltaAlumn_Finanzas").val();
+          var licenciatura = $("#combo_CarreraAltaAlumn_Finanzas").val();
+          var semestre = $("#combo_SemestresAltaAlumn_Finanzas").val();
+          var opciones = $("#combo_opcionesAltaAlumn_Finanzas").val();
+          $("#tbl_listAlumConBaucher").DataTable().destroy();
+          litarAlumnosConBaucherRegistrados(licenciatura,semestre,opciones,tipoPago);
+        */
+          asignacion_masiva_de_alumnos(datos);
           // addDatoParaReciboPagoAlumno(id_alta_baucher_banco, numero_control, estatus);
         // validarBaucherPagoAlumno(id_alta_baucher_banco, numero_control, estatus, semestre);   // =========>>>>>  1.- ISAUL Se movio
               }else{
@@ -838,7 +875,29 @@ function habilitaRegistroFinanzas(estatus, numero_control, id_alta_baucher_banco
       		});
       }
 
-
+ function asignacion_masiva_de_alumnos(datos){
+            $.ajax({
+              url: base_url+'Finanzas/HabilitarAlumnos/asignacion_masiva_de_alumnos',
+              type: "post",
+              dataType: "json",
+              data : (datos),
+              success : function(data){
+                if (data.responce == "success") {
+                    toastr["success"](data.message);
+                    alert("es¿xit")
+                    $("#tbl_listAlumConBaucher").DataTable().destroy();
+                    var tipoPago = $("#combo_TipoDePagosAltaAlumn_Finanzas").val();
+                    var licenciatura = $("#combo_CarreraAltaAlumn_Finanzas").val();
+                    var semestre = $("#combo_SemestresAltaAlumn_Finanzas").val();
+                    var opciones = $("#combo_opcionesAltaAlumn_Finanzas").val();
+                    $("#tbl_listAlumConBaucher").DataTable().destroy();
+                    litarAlumnosConBaucherRegistrados(licenciatura,semestre,opciones,tipoPago);
+                }else{
+                  toastr["error"](data.message);
+                }
+              }
+            });
+          }
 
 
 

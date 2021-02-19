@@ -209,10 +209,10 @@ class Modelo_calificaciones extends CI_Model { // INICIO DEL MODELO
               public function actualizar_alumno_a_cero($alumno,$data){
                 return $this->db->update('alumnos', $data, array('numero_control' => $alumno));
             }
-                public function yasepuedeasignarcalificacion($opcion_estudio,$licenciatura,$semestre,$ciclo,$materia,
+                public function yasepuedeasignarcalificaciones($opcion_estudio,$licenciatura,$semestre,$ciclo,$materia,
                 $profesor,$fecha_actual)
                 {
-                  $this->db->select('fin');
+                  $this->db->select('fin,');
                     $this->db->from('horarios_profesor');
                     $this->db->where('opcion_estudio', $opcion_estudio);
                     $this->db->where('licenciatura', $licenciatura);
@@ -220,14 +220,34 @@ class Modelo_calificaciones extends CI_Model { // INICIO DEL MODELO
                     $this->db->where('ciclo', $ciclo);
                     $this->db->where('materia', $materia);
                     $this->db->where('profesor', $profesor);
-                    $this->db->where('fin',$fecha_actual);
+                    //2021-02-18 >= 2021-02-18
+                    //2021-02-23 <= 2021-02-18 
+                   // $this->db->where('ex_final >=',date('Y-m-d',$fecha_actual));
+                    // $this->db->where('fin <=',date('Y-m-d',$fecha_actual));
+                     $this->db->where('ex_final', $fecha_actual);
+                    // $this->db->where('DATE_FORMAT(fin, "%Y-%m-%d") >=',date('Y-m-d',$fecha_actual));
                     $query = $this->db->get();
                     if (count($query->result()) > 0) {
                         return $query->row();
                     }
                 }
+                //select ex_final,fin from horarios_profesor where opcion_estudio =6 and licenciatura=20 and semestre=1 and ciclo='21/1' and materia=107 and profesor=1
+                public function yasepuedeasignarcalificacion($opcion_estudio,$licenciatura,$semestre,$ciclo,$materia,
+                $profesor,$fecha_actual){
+                    
+                    $query = $this->db->query(
+                        "select fin from horarios_profesor where opcion_estudio = {$opcion_estudio}
+                        and licenciatura={$licenciatura}
+                        and semestre={$semestre}
+                        and ciclo={$ciclo}
+                        and materia={$materia}
+                        and profesor={$profesor}
+                         AND ex_final >= '{$fecha_actual}'
+                        AND fin <= '{$fecha_actual}'");
+                    return $query;
+                  }
 
-// ***************************  INICIO FUNCTION PARA INSRTAR  ************************************
+// ***************************  INICIO FNCTION PARA INSRTAR  ************************************
 public function insert_entry($data)
     {
         return $this->db->insert('materias', $data);

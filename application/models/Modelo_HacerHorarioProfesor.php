@@ -21,9 +21,7 @@ class Modelo_HacerHorarioProfesor extends CI_Model { // INICIO DEL MODELO
           horarios_profesor.salon as salon,
           horarios_profesor.inicio as inicio,
           horarios_profesor.fin as fin ,horarios_profesor.ex_final as ex_final,
-          concat
-          (horarios_profesor.horario_inicio,' - ',
-          horarios_profesor.horario_fin) as horario
+          horarios_profesor.horario as horario
           ");
           $this->db->from("horarios_profesor");
           $this->db->join("materias","materias.id_materia = horarios_profesor.materia");
@@ -52,30 +50,7 @@ class Modelo_HacerHorarioProfesor extends CI_Model { // INICIO DEL MODELO
           return $resultados->result();
           }
 
-          public function insert_masvia_de_alumnos($opcion,$carrera,$semestre,$ciclo){
-
-          return $this->db->query('insert into calificaciones (detalle, materia, profesor, ciclo, horario)
-select de.id_detalle, hp.materia, hp.profesor, hp.ciclo, concat(hp.horario_inicio,'-',hp.horario_fin) from detalles de
-         inner join carrera c on c.id_carrera = de.carrera
-         inner join opciones op on op.id_opcion = de.opcion
-         inner join horarios_profesor hp on hp.licenciatura = c.id_carrera
-         inner join materias ma on ma.id_materia = hp.materia
-         inner join profesores p on hp.profesor = p.id_profesores
-         where hp.opcion_estudio =? and hp.licenciatura=? and hp.semestre=? and hp.ciclo =?',$opcion,$carrera,$semestre,$ciclo);
-
-         /*********
-          * 
-
-$select = $this->db->select('de.id_detalle, hp.materia, hp.profesor, hp.ciclo, concat(hp.horario_inicio,'-',hp.horario_fin)')->where('state','CA')>get('detalles')
-         ->join;
-         if($select->num_rows())
-         {
-             $insert = $this->db->insert_batch('california_authors', $select->result_array());
-         }
-         else
-         { /* there is nothing to insert }*/
          
-          }
 
           public function update_horario_profesore_asginado($profesor,$data){
             return $this->db->update('profesores', $data, array('id_profesores' => $profesor));
@@ -196,8 +171,7 @@ $select = $this->db->select('de.id_detalle, hp.materia, hp.profesor, hp.ciclo, c
                   horarios_profesor.inicio as inicio,
                   horarios_profesor.fin as fin,
                   horarios_profesor.ex_final as ex_final,
-                  horarios_profesor.horario_inicio as horario_inicio,
-                  horarios_profesor.horario_fin as horario_fin,
+                  horarios_profesor.horario as horario,
                   horarios_profesor.ciclo as ciclo,
                   horarios_profesor.semestre as semestre');
                     $this->db->from('horarios_profesor');
@@ -225,28 +199,26 @@ $select = $this->db->select('de.id_detalle, hp.materia, hp.profesor, hp.ciclo, c
                         return $query->row();
                     }
                 }
-                public function materias_iguales($materia,$ciclo,$semestre,$profesor,$tabla,$horario_inicio,$horario_fin){
+                public function materias_iguales($materia,$ciclo,$semestre,$profesor,$tabla,$horario){
                   if ($tabla == "horarios_profesor") {
                       //$this->db->select("SUM(total)");
                         //$this->db->from("venta");
                          $this->db->where("materia", $materia); /* SELECT SUM(`total`) FROM `venta` */
                          $this->db->where("ciclo", $ciclo);
                          $this->db->where("semestre", $semestre);
-                         $this->db->where("horario_inicio", $horario_inicio);
-                         $this->db->where("horario_fin", $horario_fin);
+                         $this->db->where("horario", $horario);
                          $this->db->where_not_in("profesor", $profesor);
                         }
                       $resultados = $this->db->get($tabla);
                       return $resultados->num_rows();
               }
-              public function horarios_iguales($ciclo,$semestre,$tabla,$horario_inicio,$horario_fin){
+              public function horarios_iguales($ciclo,$semestre,$tabla,$horario){
                 if ($tabla == "horarios_profesor") {
                     //$this->db->select("SUM(total)");
                       //$this->db->from("venta");
                        $this->db->where("ciclo", $ciclo);
                        $this->db->where("semestre", $semestre);
-                       $this->db->where("horario_inicio", $horario_inicio);
-                       $this->db->where("horario_fin", $horario_fin);
+                       $this->db->where("horario", $horario);
                        }
                     $resultados = $this->db->get($tabla);
                     return $resultados->num_rows();

@@ -1,6 +1,8 @@
     $(document).ready(function(){
-      var semestre = $("#semestreAlum").val();
-      llenarTablaAvanceReticulaMateriasCursadasPasadas(semestre);
+    
+     var semestre = $("#semestreAlum").val();
+     llenarTablaAvanceReticulaMateriasCursadasPasadas(semestre);
+      
 
         //SELECCION DE MATERIAS
         horarioyaelegido();
@@ -14,8 +16,8 @@
         $("#tbl_elegir_materias").DataTable().destroy();
         llenartablaseleccionmaterias();
     });
-
             //SELECCION DE MATERIAS
+
       //litaHistorialPagosAlumnos();
       ccontadordealumnos();
 
@@ -24,6 +26,7 @@
 
     llenar_combo_semestres_HistDePagosAlumnos();
     llenar_combo_tipoDePgos_HistDePagosAlumnos();
+    llenar_combo_semestres_GenerarDocsAlumnos();
 
 
 
@@ -32,12 +35,14 @@
       llenarTablaAvanceReticula($("#combo_semestres").val());
    });
 
-
-   $("#combo_semestres_cursados").change(function () {
+ $("#combo_semestres_cursados").change(function () {
      $("#tbl_avanceRetucularMateriasCursadas").DataTable().destroy();
      llenarTablaAvanceReticulaMateriasCursadasPasadas($("#combo_semestres_cursados").val());
+     
   });
+  
 
+  
 // Se inicializa tabla
      var tbl = $('#tbl_avanceRetucular').DataTable( {
        });
@@ -75,7 +80,15 @@
             litaHistorialPagosAlumnos(semestre,tipoPago);
             });
 
+
+            $("#combo_Semestres_GenerarDocsAlumnos").change(function () {
+              var semestre = $("#combo_Semestres_GenerarDocsAlumnos").val();
+              $("#tbl_generarDocumentosAlumnos").DataTable().destroy();
+              llenarTablaAlumnosParaDocumentacion(semestre);
+             });
+
     }); // FIN DE LA FUNCION PRINCIPAL
+
 
     function llenar_comboSemestres(){
       $.ajax({
@@ -121,6 +134,20 @@
             },
         });
     }
+
+    function llenar_combo_semestres_GenerarDocsAlumnos() {
+      $.ajax({
+          type: "get",
+          url: base_url + 'Profesores/PlaneacionProfesores/obtenersemestres',
+          dataType: "json",
+          success: function (data) {
+              $.each(data, function (key, registro) {
+                  $("#combo_Semestres_GenerarDocsAlumnos").append('<option value=' + registro.semestre + '>' + registro.nombre + '</option>');
+              });
+
+          },
+      });
+  }
 
 
     function llenar_combo_tipoDePgos_HistDePagosAlumnos() {
@@ -361,7 +388,7 @@
                               // }
 // var parc = `${row.parcialidades}`;
               // if (parc != 'null') {
-                  llenarDatosAlumTxt(`${row.parcialidades}`,`${row.fecha_limite_de_pago}`,`${row.estado_archivo}`);
+                 // llenarDatosAlumTxt(`${row.parcialidades}`,`${row.fecha_limite_de_pago}`,`${row.estado_archivo}`);
               // }else {
               //   ocultarDatesParcialidades();
               // }
@@ -439,22 +466,22 @@
 
 function llenarDatosAlumTxt(estadoParcialidad, fecha_limite, estado_archivo){
     if (estadoParcialidad != 'null') {
-        $("#parcialidadPago").val(estadoParcialidad);
-        $("#fechaLimitePago").val(fecha_limite);
-        document.getElementById("divSinDatosParcialidad").style.display = "none";
+       // $("#parcialidadPago").val(estadoParcialidad);
+        //$("#fechaLimitePago").val(fecha_limite);
+        //document.getElementById("divSinDatosParcialidad").style.display = "none";
           document.getElementById("xtre").style.display = "none";
     }
 
     else if (estado_archivo == 6) {
-      document.getElementById("divSinDatosParcialidad").style.display = "none";
-      document.getElementById("divDatosParcialidad").style.display = "none";
+     // document.getElementById("divSinDatosParcialidad").style.display = "none";
+      //document.getElementById("divDatosParcialidad").style.display = "none";
       document.getElementById("xtre").style.display = "block";
     }
 
     else {
-        document.getElementById("divDatosParcialidad").style.display = "none";
+        //document.getElementById("divDatosParcialidad").style.display = "none";
           document.getElementById("xtre").style.display = "none";
-        document.getElementById("divSinDatosParcialidad").style.display = "block";
+        //document.getElementById("divSinDatosParcialidad").style.display = "block";
     }
 
 }
@@ -1030,6 +1057,7 @@ function horarioyaelegido(){
 
 
     function llenarTablaAlumnosParaDocumentacion(semestre) {
+      debugger;
         var datos = {
                         opciones : $("#opcion_estudio").val(),
                         licenciatura : $("#carreraAlum").val(),
@@ -1043,7 +1071,7 @@ function horarioyaelegido(){
         dataType: "json",
         data : (datos),
         success: function (response) {
-            $("#tbl_alumnosDocumentacion").DataTable({
+            $("#tbl_generarDocumentosAlumnos").DataTable({
                 data: response,
                 responsive: true,
                 columns: [{

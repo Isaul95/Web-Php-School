@@ -90,7 +90,7 @@
                     <center>
                       <h4><font color="#3498DB">Comprobante de pago registrado con éxito</font></h4> <br>
 
-                       <div class="row" id="divDatosParcialidad">
+                       <!--<div class="row" id="divDatosParcialidad">
                          <div class="col-8 col-sm-6">
                          <label for="">Fue un pago realizado en:</label>
                          <input type="text" class="form-control text-center" id="parcialidadPago" readonly >
@@ -106,7 +106,7 @@
 
                            <div class="row" id="xtre">
                              <label for="">Comprobante de pago en proceso de validación</label>
-                           </div>
+                           </div>-->
 
                      </center> <br> <br>
                      <strong><font color="#E74C3C">NOTA: Para hacer el cambio del comprobante, es necesario notificar al departamento de finanzas</font></strong> <br>
@@ -421,7 +421,7 @@
                                    <div class="row">
                                      <div class="col-4 col-sm-4">
                                          <label for="">Semestre: </label>
-                                         <select background-color="red" id="combo_Semestres_HistPagosAlumnos" class="form-control">
+                                         <select background-color="red" id="combo_Semestres_GenerarDocsAlumnos" class="form-control">
                                            <option value="" selected>Seleccione un semestre...</option>
                                          </select>
                                      </div>
@@ -444,7 +444,7 @@
                       <div class="col-md-12 mx-auto">
 
 
-                        <table id="tbl_histPagosRealizadosXAlumno" class="table table-striped table-bordered table-hover table-condensed" cellspacing="0" style="background:white!important">
+                        <table id="tbl_generarDocumentosAlumnos" class="table table-striped table-bordered table-hover table-condensed" cellspacing="0" style="background:white!important">
                           <thead class="text-center bg-primary">
                             <tr>
                               <th>Numero de control</th>

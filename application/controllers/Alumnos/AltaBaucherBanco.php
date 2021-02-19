@@ -36,7 +36,7 @@ class AltaBaucherBanco extends CI_Controller {
 	/* -------------------------------------------------------------------------- */
 	/*                               Insert Records                               */
 	/* -------------------------------------------------------------------------- */
-
+	
 	public function insertarBaucherDelBanco(){
 
 		if ($this->input->is_ajax_request()) {

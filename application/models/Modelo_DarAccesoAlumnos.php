@@ -3,16 +3,16 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Modelo_DarAccesoAlumnos extends CI_Model { // INICIO DEL MODELO
 
-
+  
   //  CONSULTA GENERAL PARA LLENAR LOS CAMPOS DE LA RETICULA CAMPOS DATOS PERSONALES DEL ALUMNO INDEPENDIENTES
     public function consultaDatosPersonalesDelAlumnos($numero_control){
         $this->db->distinct();
         $this->db->select(" alumnos.numero_control as numero_control,
         concat(alumnos.nombres,' ',alumnos.apellido_paterno,' ',alumnos.apellido_materno) as nombre_completo,
-        detalles.cuatrimestre as semestre, carrera.carrera_descripcion as carrera_descripcion, carrera.id_carrera, detalles.id_detalle, pec.nombre_ciclo ");
+        detalles.cuatrimestre as semestre, carrera.carrera_descripcion as carrera_descripcion, carrera.id_carrera, detalles.id_detalle, pec.nombre_ciclo,detalles.opcion ");
         $this->db->from("alumnos");
         $this->db->join("detalles","alumnos.numero_control = detalles.alumno");
-        $this->db->join(" calificaciones calf "," detalles.id_detalle = calf.detalle ");
+        //$this->db->join(" calificaciones calf "," detalles.id_detalle = calf.detalle ");
         $this->db->join("carrera","detalles.carrera = carrera.id_carrera");
         $this->db->join(" periodo_escolar pec "," pec.id_periodo_escolar = detalles.ciclo_escolar ");
         $this->db->where_in('detalles.estado', ['En_curso','Inicio_inscripcion']);

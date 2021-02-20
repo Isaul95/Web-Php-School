@@ -453,14 +453,15 @@
             <!-- <th>Estudios</th> -->
             <th>Titulo</th>
             <th>Cedula</th>
-            <th>Ocupación</th>
+            <!--<th>Ocupación</th>-->
             <!-- <th>Tipo de trabajo</th> -->
             <!-- <th>Univ. procedente</th> -->
             <!-- <th>Experiencia docente</th> -->
             <!-- <th>Trabajos ants.</th> -->
             <th class="text-center" width="7%">CV</th>
-            <th>Activo/DesAct.</th>
+            <!--<th>Activo/DesAct.</th>-->
             <th>Horario</th>
+            <th class="text-center" width="7%">Habilitar</th>
             <th class="text-center" width="7%">Acciones</th>
             <th class="text-center" width="7%">Ficha completa</th>
           </tr>

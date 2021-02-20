@@ -299,9 +299,6 @@ function llenarTablaProfesores() {
                     {
                         data: "cedula",
                     },
-                    {
-                        data: "ocupacion",
-                    },
                     // {
                     //     data: "tipo_de_trabajo",
                     // },
@@ -332,7 +329,7 @@ function llenarTablaProfesores() {
                             return a;
                         },
                     },
-
+                    /*
                     {
                         data: "estado_profesor",
                         orderable: false,
@@ -348,6 +345,8 @@ function llenarTablaProfesores() {
                           return string;
                          },
                     },
+                    */
+                    
 
                     {
                         // data: "certificado_estudios",
@@ -360,7 +359,15 @@ function llenarTablaProfesores() {
                              return a;
                         },
                     },
-
+                    {
+                        orderable: false,
+                        searchable: false,
+                        data: function(row, type, set) {
+                            return `
+                                <a href="#" id="habilitar_profesor" class="btn btn-info" value="${row.id_profesores}"><i class="far fa-edit"></i></a>
+                                   `;
+                        },
+                    },
                     {
                         orderable: false,
                         searchable: false,
@@ -380,6 +387,7 @@ function llenarTablaProfesores() {
                                    `;
                         },
                     },
+                    
 
                 ],
                   "language" : language_espaniol,

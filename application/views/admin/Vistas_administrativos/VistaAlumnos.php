@@ -41,7 +41,6 @@
   <div class="col-10 col-sm-12">        
                   <div class="row">
                     <div class="col-4 col-sm-8">
-                   
                       <label for="">Seleccione alguna carrera: </label>
                     <select background-color="red" id="combo_carreras_alumnos_admin" class="form-control"><option value="" selected>Seleccione una carrera</option></select>
                   
@@ -57,7 +56,7 @@
                   <br>
  <div class="row">
   <div class="col-10 col-sm-12"> 
-  <div class="row">
+                  <div class="row">
                     <div class="col-8 col-sm-6">
                     <label for="">Seleccione alguna opción de estudio: </label>
                     <select background-color="red" id="combo_opciones_alumnos_admin" class="form-control"><option value="" selected>Seleccione una opción de estudio</option></select>

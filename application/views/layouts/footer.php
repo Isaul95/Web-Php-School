@@ -144,3 +144,5 @@ $('#btn_RegistroPago').DataTable( {
 <script src="<?php echo base_url();?>assets/template/dist/js/js-cesvi/Administrativos/HacerHorarioProfesor.js"></script>
 <!-- ========== Subir planeación del profesor =========  -->
 <script src="<?php echo base_url();?>assets/template/dist/js/js-cesvi/Profesores/PlaneacionProfesores.js"></script>
+<!---------------------- Horarioalumno ------------------------>
+<script src="<?php echo base_url();?>assets/template/dist/js/js-cesvi/Administrativos/HorarioAlumno.js"></script>

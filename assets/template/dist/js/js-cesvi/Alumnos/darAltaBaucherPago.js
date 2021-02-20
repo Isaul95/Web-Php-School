@@ -357,25 +357,16 @@
                         },
                         {
                             data: "archivo",
+                            "className": "text-center",
                             render: function(data, type, row, meta) {
                               //  Se consulta el file.pdf x el no. de control
                                 var a = `
-                                    <a title="Descarga Baucher" href="AltaBaucherBanco/verBaucher/${row.numero_control}" target="_blank"><i class="far fa-file-pdf fa-2x"></i></a>
+                                    <a title="Descarga Baucher" href="AltaBaucherBanco/verBaucher/${row.numero_control}/${row.id_alta_baucher_banco}" target="_blank"><i class="far fa-file-pdf fa-2x"></i></a>
                                 `;
                                 return a;
                             },
                         },
-                        {
-                            // data: "curp",
-                            orderable: false,
-                            searchable: false,
-                            render: function (data, type, row, meta) {
-                                return  a = `
-        <a title="Generar Horario Alumno" href="AltaBaucherBanco/generaHorarioAlumno/${row.numero_control}/${row.semestre}/${row.id_detalle}" target="_blank"><i class="far fa-file-pdf fa-2x"></i></a>
-                                 `;
 
-                            },
-                        },
                         {
                             data: "estado",
                             render: function(data, type, row, meta) {
@@ -413,15 +404,6 @@
                         return a;
                             },
                         },
-                        {
-                          orderable: false,
-                          searchable: false,
-                          render: function (data, type, row, meta) {
-                              return  a = `
-      <a title="Generar Constancia Alumno" href="AltaBaucherBanco/generaConstanciaAlumno/${row.numero_control}/${row.id_detalle}" target="_blank"><i class="far fa-file-pdf fa-2x"></i></a>
-                               `;
-                          },
-                      },
 
                       {
                           data: "parcialidades",

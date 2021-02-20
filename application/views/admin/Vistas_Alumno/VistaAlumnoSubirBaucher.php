@@ -119,9 +119,9 @@
           <div class="tab-pane" id="tab_Cursos">
             <div class="row">
               <div class="col-md-12 mt-5">
-                <h1 class="text-center">
+                <h4 class="text-center">
                 <strong><font color="#D34787">Historial de pagos realizados</font></strong>
-                </h1>
+              </h4>
                 <hr style="background-color: black; color: black; height: 1px;">
               </div>
             </div>
@@ -162,10 +162,10 @@
                         <th class="text-center">Fecha registro</th>
                         <th>Tipo de Pago</th>
                         <th class="text-center">Ver Baucher</th>
-                        <th class="text-center">Horario</th>
+                        <!-- <th class="text-center">Horario</th> -->
                         <th class="text-center">Estado</th>
                         <th>Recibo de Pago</th>
-                        <th>Constancia</th>
+                        <!-- <th>Constancia</th> -->
                         <th>Parcialidad pago</th>
                         <th class="text-center">Fecha limite</th>
                       </tr>

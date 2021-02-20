@@ -121,8 +121,8 @@ class AltaBaucherBanco extends CI_Controller {
 		}
 
 
-			public function verBaucher($numero_control){
-				$consulta = $this->Modelo_DarAccesoAlumnos->getBaucherId($numero_control);
+			public function verBaucher($numero_control, $id_alta_baucher_banco){
+				$consulta = $this->Modelo_DarAccesoAlumnos->getBaucherId($numero_control, $id_alta_baucher_banco);
 				$archivo = $consulta['archivo'];
 				$img = $consulta['nombre_archivo'];
 				header("Content-type: application/pdf");

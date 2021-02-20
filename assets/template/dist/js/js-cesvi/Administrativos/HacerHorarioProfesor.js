@@ -5,7 +5,7 @@
 // DATA TABLE PROPERTY  https://markcell.github.io/jquery-tabledit/assets/js/tabledit.min.js
 $(document).ready(function () {
     date_picker_horario();
-   
+
     llenar_combo_carreras_horarios_profesores();
     $("#combo_carreras_horario_profesores").change(function () {
         $("#combo_materias_horario_profesores").empty();
@@ -24,7 +24,7 @@ $(document).ready(function () {
     $("#combo_profesores_horario_profesores").change(function (){
         $("#tbl_list_horarios_administrativos").DataTable().destroy();
         llenartablahorariosprofesores($("#combo_profesores_horario_profesores").val(),$("#combo_semestres_horario_profesores").val());
-        consultar_si_tiene_horario_asignado($("#combo_profesores_horario_profesores").val()); 
+        consultar_si_tiene_horario_asignado($("#combo_profesores_horario_profesores").val());
     });
     $("#crear_horario").click(function () {
         asignar_horario_administrativo();
@@ -56,7 +56,7 @@ function consultar_si_tiene_horario_asignado(profesor) {
                 $('#confirmar_horario_profesor').prop('disabled', false);
                 $('#desconfirmar_horario_profesor').prop('disabled', true);
             }
-  
+
         },
     });
   }
@@ -146,7 +146,7 @@ $(document).on("click", "#confirmar_horario_profesor", function (e) {
     var fd = new FormData();
     fd.append("id_profesores", profesor);
     fd.append("horario_asignado", estado);
-  
+
     Swal.fire({
         title: "¿Estás seguro?",
         text: "¡Se asignará el horario seleccionado al maestro!",
@@ -201,7 +201,7 @@ $(document).on("click", "#confirmar_horario_profesor", function (e) {
     var fd = new FormData();
     fd.append("id_profesores", profesor);
     fd.append("horario_asignado", estado);
-  
+
     Swal.fire({
         title: "¿Estás seguro?",
         text: "¡Se habilitará al maestro para elegirle materias!",
@@ -459,6 +459,17 @@ function llenartablahorariosprofesores($profesor,$semestre) {
                                  `;
                         },
                     },
+                    {
+                        orderable: false,
+                        searchable: false,
+                        "className": "text-center",
+                        render : function(data, type, row) {            // /${row.ciclo}
+                            var a = `
+<a title="Generar Horario Profesor" href="HacerHorarioProfesor/generaHorarioProfesor/${row.profesor}/${row.semestre}" target="_blank"><i class="far fa-file-pdf fa-2x"></i></a>
+                            `;
+                             return a;
+                        },
+                    },
                 ],
                 "language": language_espaniol,
 
@@ -522,7 +533,7 @@ $(document).on("click", "#edit_horario", function (e) {
             $('#datepicker_horario_inicio').val(data.post.inicio);
             $('#datepicker_horario_fin').val(data.post.fin);
             $('#datepicker_horario_ex_final').val(data.post.ex_final);
-            
+
             var horario = data.post.horario;
             var array = horario.split(' - ');
             var horario_inicio = array[0];
@@ -629,8 +640,8 @@ $(document).on("click", "#update_horario_profesor", function (e) {
     var horario_inicio = $("#horario_profesores_inicio").val();
     var horario_fin = $("#horario_profesores_fin").val();
             var horario_profesores = concat.concat(horario_inicio,' - ',horario_fin);
-            
-   
+
+
     var nombre_materia = $("#materia_horario").val();
 
     if (datepicker_horario_inicio == ""||datepicker_horario_fin == ""||
@@ -649,7 +660,7 @@ $(document).on("click", "#update_horario_profesor", function (e) {
         fd.append("fin", datepicker_horario_fin);
         fd.append("ex_final", datepicker_horario_ex_final);
         fd.append("horario", horario_profesores);
-     
+
         fd.append("nombre_materia", nombre_materia);
 
 
@@ -749,5 +760,3 @@ function date_picker_horario() {
     });
     $.datepicker.setDefaults($.datepicker.regional['es']);
 }
-
-

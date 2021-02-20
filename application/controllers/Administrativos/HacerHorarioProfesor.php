@@ -11,7 +11,7 @@ class HacerHorarioProfesor extends CI_Controller {
 	 }
 
 
-	 
+
 
 
 
@@ -82,7 +82,7 @@ class HacerHorarioProfesor extends CI_Controller {
 		else{
 			if ($post = $this->Modelo_HacerHorarioProfesor->sepuede_agregar_materia($opcion_estudio,$semestre,$licenciatura,$profesor,$ciclo,$materia)) {
 				$data = array('response' => "error", 'message' => "No se puede repetir la materia");
-	
+
 			}
 			else{
 				if ($this->Modelo_HacerHorarioProfesor->insert_entry($ajax_data)) {
@@ -93,7 +93,7 @@ class HacerHorarioProfesor extends CI_Controller {
 					}
 			}
 		}
-		
+
 	echo json_encode($data);
 
 		}
@@ -328,6 +328,42 @@ public function confirmar_horario_profesor(){
 // 	}
 // }
 //
+
+
+
+
+/* -------------------------------------------------------------------------- */
+/*                  1.- Generar certificado de estudios                       */
+/* --------------------------------------- ---------------------------------- */
+
+public function generaHorarioProfesor($profesor,$semestre){   // ,$ciclo
+	/*
+	 * Se crea la function para hacer el llamado en el js
+	 * se hace todo la parte del reporte
+	 */
+	error_reporting(0);
+
+	include_once('src/phpjasperxml_0.9d/class/tcpdf/tcpdf.php');
+	include_once("src/phpjasperxml_0.9d/class/PHPJasperXML.inc.php");
+
+	$server = "localhost";
+	$user = "root";
+	$pass = "";
+	$db = "cesvi_webapp";
+
+
+	$PHPJasperXML = new PHPJasperXML();
+
+	$PHPJasperXML->arrayParameter=array("profesor"=>$profesor,"semestre"=>$semestre);  // ,"ciclo"=>$ciclo
+
+	$PHPJasperXML->load_xml_file("src/ReportesPDF_Cesvi_jrxml/Horario_profesor.jrxml");
+
+	$PHPJasperXML->transferDBtoArray($server,$user,$pass,$db);
+	$PHPJasperXML->outpage('I','CertificadoEstudios_.pdf');
+
+}
+
+
 
 
 }  // Fin del controller

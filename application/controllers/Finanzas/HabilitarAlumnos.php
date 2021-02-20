@@ -81,7 +81,8 @@ public function asignacion_masiva_de_alumnos(){
 			'profesor'           => $materiasdata['profesor'],
 			'horario'           => $materiasdata['horario'],
 			'calificacion'         => 0,
-			'ciclo'          => $materiasdata['ciclo']
+			'ciclo'          => $materiasdata['ciclo'],
+			'estado_profesor'          => 0
 		);
 	}
 	if ($this->Modelo_DarAccesoAlumnos->insert_masvia_de_alumnos($Array_materias)) {

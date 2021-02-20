@@ -110,6 +110,8 @@ public function agregar_materia(){
 	if ($this->input->is_ajax_request()) {
 
 						$ajax_data = $this->input->post();
+						$ajax_data['estado_profesor'] = 0;
+						$ajax_data['calificacion'] = 0;
 						$detalle = $this->input->post('detalle');
 						$materia = $this->input->post('materia');
 						$ciclo = $this->input->post('ciclo');

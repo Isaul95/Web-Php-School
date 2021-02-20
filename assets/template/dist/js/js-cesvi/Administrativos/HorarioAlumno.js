@@ -168,9 +168,7 @@ $(document).on("click", "#seleccionar_alumno_para_elegir_materias", function (e)
 
 //////////////////////////////////////// SELECCIÓN DE MATERIAS ////////////////////////////////////////////////////////
 function llenartablaseleccionmaterias_admin(carrera,opcion,semestre) {
- //var numero_control = $("#numero_control").val();
-
-  
+ 
   var fd = new FormData();
   var concat = "";
   var fecha = new Date();

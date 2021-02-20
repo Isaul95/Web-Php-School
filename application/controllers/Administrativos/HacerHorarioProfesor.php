@@ -26,6 +26,17 @@ class HacerHorarioProfesor extends CI_Controller {
 		$this->load->view('admin/Vistas_administrativos/VistaHacerHorarioProfesor',$data);
 		$this->load->view('layouts/footer');
 	}
+
+	public function ver_si_tiene_horario_asignado(){
+		if ($this->input->is_ajax_request()) {
+		$id_profesores = $this->input->post('id_profesores');
+		$post = $this->Modelo_HacerHorarioProfesor->obtener_horario_asginado_estado($id_profesores);
+		$data = array('responce' => "success", "post" => $post);
+		echo json_encode($data);
+	} else {
+		echo "No se permite este acceso directo...!!!";
+	}
+	}
 	public function eliminarhorario()
 {
 	if ($this->input->is_ajax_request()) {
@@ -49,7 +60,8 @@ class HacerHorarioProfesor extends CI_Controller {
 
 		$profesor = $this->input->post('profesor');
 		$ciclo = $this->input->post('ciclo');
-		$posts = $this->Modelo_HacerHorarioProfesor->horario_asignado_al_profesor($profesor,$ciclo);
+		$semestre = $this->input->post('semestre');
+		$posts = $this->Modelo_HacerHorarioProfesor->horario_asignado_al_profesor($profesor,$ciclo,$semestre);
 		echo json_encode($posts);
 	}
 	public function agregarhorario(){

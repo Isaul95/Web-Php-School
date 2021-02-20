@@ -15,24 +15,51 @@ $(document).ready(function () {
     $("#combo_semestres_horario_profesores").change(function () {
         $("#combo_materias_horario_profesores").empty();
         llenar_combo_materias_horario_profesores($("#combo_carreras_horario_profesores").val(), $("#combo_semestres_horario_profesores").val());
+        $("#tbl_list_horarios_administrativos").DataTable().destroy();
+        llenartablahorariosprofesores($("#combo_profesores_horario_profesores").val(),$("#combo_semestres_horario_profesores").val());
     });
 
     llenar_combo_opciones_horario_profesores();
     llenar_combo_profesores_horario_profesores();
-    $("#combo_profesores_horario_profesores").change(function () {
+    $("#combo_profesores_horario_profesores").change(function (){
         $("#tbl_list_horarios_administrativos").DataTable().destroy();
-        llenartablahorariosprofesores($("#combo_profesores_horario_profesores").val());
+        llenartablahorariosprofesores($("#combo_profesores_horario_profesores").val(),$("#combo_semestres_horario_profesores").val());
+        consultar_si_tiene_horario_asignado($("#combo_profesores_horario_profesores").val()); 
     });
     $("#crear_horario").click(function () {
         asignar_horario_administrativo();
     });
     $('#desconfirmar_horario_profesor').prop('disabled', true);
+    $('#confirmar_horario_profesor').prop('disabled', true);
     $('#horario_profesores_inicio').timepicker({ 'forceRoundTime': true });
     $('#horario_profesores_fin').timepicker({ 'forceRoundTime': true });
 
 }); // FIN DE LA FUNCION PRINCIPAL
 
-
+function consultar_si_tiene_horario_asignado(profesor) {
+    var id_profesores = profesor;
+    var fd = new FormData();
+    fd.append("id_profesores", id_profesores);
+    $.ajax({
+        type: "post",
+        url: base_url + 'Administrativos/HacerHorarioProfesor/ver_si_tiene_horario_asignado',
+        data: fd,
+        processData: false,
+        contentType: false,
+        dataType: "json",
+        success: function (data) {
+            var horario = data.post[0].horario_asignado;
+            if(horario==1){
+                $('#confirmar_horario_profesor').prop('disabled', true);
+                $('#desconfirmar_horario_profesor').prop('disabled', false);
+            }else{
+                $('#confirmar_horario_profesor').prop('disabled', false);
+                $('#desconfirmar_horario_profesor').prop('disabled', true);
+            }
+  
+        },
+    });
+  }
 function asignar_horario_administrativo() {
     var especialidad = $("#combo_carreras_horario_profesores").val();
     var opcion = $("#combo_opciones_horario_profesores").val();
@@ -103,7 +130,7 @@ function agregar_horario(fd) {
             if (response.response == "success") {
                 toastr["success"](response.message);
                 $("#tbl_list_horarios_administrativos").DataTable().destroy();
-                llenartablahorariosprofesores($("#combo_profesores_horario_profesores").val());
+                llenartablahorariosprofesores($("#combo_profesores_horario_profesores").val(),$("#combo_semestres_horario_profesores").val());
             } else {
                 toastr["error"](response.message);
             }
@@ -146,7 +173,7 @@ $(document).on("click", "#confirmar_horario_profesor", function (e) {
                             'success'
                         );
                         $("#tbl_list_horarios_administrativos").DataTable().destroy();
-                        llenartablahorariosprofesores($("#combo_profesores_horario_profesores").val());
+                        llenartablahorariosprofesores($("#combo_profesores_horario_profesores").val(),$("#combo_semestres_horario_profesores").val());
                         $('#confirmar_horario_profesor').prop('disabled', true);
                         $('#desconfirmar_horario_profesor').prop('disabled', false);
                     }
@@ -157,7 +184,7 @@ $(document).on("click", "#confirmar_horario_profesor", function (e) {
                         'error'
                     );
                     $("#tbl_list_horarios_administrativos").DataTable().destroy();
-                    llenartablahorariosprofesores($("#combo_profesores_horario_profesores").val());
+        llenartablahorariosprofesores($("#combo_profesores_horario_profesores").val(),$("#combo_semestres_horario_profesores").val());
                     }
                 },
             });
@@ -201,7 +228,7 @@ $(document).on("click", "#confirmar_horario_profesor", function (e) {
                             'success'
                         );
                         $("#tbl_list_horarios_administrativos").DataTable().destroy();
-                        llenartablahorariosprofesores($("#combo_profesores_horario_profesores").val());
+                        llenartablahorariosprofesores($("#combo_profesores_horario_profesores").val(),$("#combo_semestres_horario_profesores").val());
                         $('#confirmar_horario_profesor').prop('disabled', false);
                         $('#desconfirmar_horario_profesor').prop('disabled', true);
                     }
@@ -212,7 +239,7 @@ $(document).on("click", "#confirmar_horario_profesor", function (e) {
                         'error'
                     );
                     $("#tbl_list_horarios_administrativos").DataTable().destroy();
-                    llenartablahorariosprofesores($("#combo_profesores_horario_profesores").val());
+        llenartablahorariosprofesores($("#combo_profesores_horario_profesores").val(),$("#combo_semestres_horario_profesores").val());
                     }
                 },
             });
@@ -332,9 +359,10 @@ function llenar_combo_semestres_horario_profesores() {
 }
 
 //LLENAR LA TABLA DE ALUMNOS QUE CORRESPONDEN A LAS MATERIAS A LAS QUE EL PROFESOR TIENE ACCESO
-function llenartablahorariosprofesores($profesor) {
+function llenartablahorariosprofesores($profesor,$semestre) {
     // debugger;
     var profesor = $profesor;
+    var semestre = $semestre;
     var concat = "";
     var fecha = new Date();
 
@@ -364,6 +392,7 @@ function llenartablahorariosprofesores($profesor) {
     var fd = new FormData();
     fd.append("profesor", profesor);
     fd.append("ciclo", ciclo);
+    fd.append("semestre", semestre);
     $.ajax({
         type: "post",
         url: base_url + 'Administrativos/HacerHorarioProfesor/materias_asignadas',
@@ -574,7 +603,7 @@ $(document).on("click", "#del_horario", function (e) {
                             'success'
                         );
                         $("#tbl_list_horarios_administrativos").DataTable().destroy();
-                        llenartablahorariosprofesores($("#combo_profesores_horario_profesores").val());
+                        llenartablahorariosprofesores($("#combo_profesores_horario_profesores").val(),$("#combo_semestres_horario_profesores").val());
                     } else {
                         console.log(data);
                     }
@@ -638,7 +667,7 @@ $(document).on("click", "#update_horario_profesor", function (e) {
                     $("#modalagregarhorario").modal("hide");
                     $("#formeditcalificacion")[0].reset();
                     $("#tbl_list_horarios_administrativos").DataTable().destroy();
-                    llenartablahorariosprofesores($("#combo_profesores_horario_profesores").val())
+        llenartablahorariosprofesores($("#combo_profesores_horario_profesores").val(),$("#combo_semestres_horario_profesores").val());
                 } else {
                     toastr["error"](response.message);
                 }

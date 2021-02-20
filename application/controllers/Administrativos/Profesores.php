@@ -91,6 +91,8 @@ class Profesores extends CI_Controller {
 				$ajax_data['universidad_procedente'] = $this ->input->post('universidad_procedente');
 				$ajax_data['experiencia_docente'] = $this ->input->post('experiencia_docente');
 				$ajax_data['trabajos_anteriores'] = $this ->input->post('trabajos_anteriores');
+				$ajax_data['horario_asignado'] = 0;
+
 
 					if ($this->Modelo_Profesores->insert_entry($ajax_data)) {
 						$data = array('res' => "success", 'message' => "Datos agregados correctamente...!");

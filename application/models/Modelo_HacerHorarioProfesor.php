@@ -7,11 +7,20 @@ class Modelo_HacerHorarioProfesor extends CI_Model { // INICIO DEL MODELO
       	/* -------------------------------------------------------------------------- */
       	/*                                Fetch Records                               */
         /* -------------------------------------------------------------------------- */
+
+        public function obtener_horario_asginado_estado($id_profesores){
+          // $this->db->distinct();
+          $this->db->select("horario_asignado");
+          $this->db->from("profesores");
+          $this->db->where("id_profesores",$id_profesores);
+          $resultados = $this->db->get();
+          return $resultados->result();
+          }
         public function delete_entry($profesor,$materia,$ciclo)
 {
     return $this->db->delete('horarios_profesor', array('profesor' => $profesor,'materia' => $materia,'ciclo' => $ciclo));
 }
-        public function horario_asignado_al_profesor($profesor,$ciclo){
+        public function horario_asignado_al_profesor($profesor,$ciclo,$semestre){
           $this->db->distinct();
           $this->db->select("horarios_profesor.profesor as profesor,
           horarios_profesor.materia as materia,
@@ -27,6 +36,7 @@ class Modelo_HacerHorarioProfesor extends CI_Model { // INICIO DEL MODELO
           $this->db->join("materias","materias.id_materia = horarios_profesor.materia");
           $this->db->where("horarios_profesor.profesor", $profesor);
           $this->db->where("horarios_profesor.ciclo", $ciclo);
+          $this->db->where("horarios_profesor.semestre", $semestre);
           $resultados = $this->db->get();
           return $resultados->result();
           }

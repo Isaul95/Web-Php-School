@@ -106,7 +106,22 @@ class Profesores extends CI_Controller {
 	}
 
 
-
+	public function updateprofesor_habilitarasignacion_calificacion(){
+		if ($this->input->is_ajax_request()) {
+	            	$id_profesores = $this->input->post('profesor');
+                 	$ajax_data['estado_profesor'] = $this ->input->post('estado_profesor');
+					
+					if ($this->Modelo_Profesores->update_habilitar_profesor($id_profesores, $ajax_data)) {
+						$data = array('res' => "success", 'message' => "¡Profesor habilitado para elegir materias!");
+					} else {
+						$data = array('res' => "error", 'message' => "No actualizado");
+					}
+					
+			echo json_encode($data);
+		}else {
+			echo "No se permite este acceso directo...!!!";
+		}
+	}
 
 
 	public function updateprofesor(){

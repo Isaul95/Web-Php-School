@@ -363,9 +363,16 @@ function llenarTablaProfesores() {
                         orderable: false,
                         searchable: false,
                         data: function(row, type, set) {
-                            return `
+                            var horario=row.horario_asignado;
+                            var a;
+                            if(horario==1){
+                                a =`
                                 <a href="#" id="habilitar_profesor" class="btn btn-info" value="${row.id_profesores}"><i class="far fa-edit"></i></a>
                                    `;
+                            }else{
+                                a= `¡Profesor sin horario asignado!`;
+                            }
+                            return a;
                         },
                     },
                     {
@@ -397,7 +404,36 @@ function llenarTablaProfesores() {
 }
 
 
+$(document).on("click", "#habilitar_profesor", function (e) {
+    e.preventDefault();
+    debugger;
+    var edit_id = $(this).attr("value");
+     var fd = new FormData();
+        
 
+        fd.append("profesor", edit_id);
+        fd.append("estado_profesor", 1);
+      
+        $.ajax({
+            type: "post",
+            url: base_url + 'Administrativos/Profesores/updateprofesor_habilitarasignacion_calificacion',
+            data: fd,
+            processData: false,
+            contentType: false,
+            dataType: "json",
+            enctype : 'multipart/form-data',
+            success: function (response) {
+                if (response.res == "success") {
+                    toastr["success"](response.message);
+                    $("#tbl_profesores").DataTable().destroy();
+                    llenarTablaProfesores();
+                } else {
+                    toastr["error"](response.message);
+                }
+            },
+        });
+    
+});
 
 
 // SOLO SE VA HABILITAR CUANDO ESTE DESHABILITADO, UNA VEZ K SE ABILITE SE DESBLOKEA

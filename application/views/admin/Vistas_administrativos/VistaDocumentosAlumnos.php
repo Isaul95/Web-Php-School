@@ -56,6 +56,12 @@
               </div>
               </div>
 <form id="datesLetraConstancia">
+
+            <div class="form-group">
+              <label for="">Promedio del Alumno: </label>
+              <input type="text" class="form-control" id="promedio_numerico" readonly>
+            </div>
+
               <div class="form-group">
               <label for="">Capturar promedio en letra: *</label>
               <input type="text" class="form-control" id="promedio_letra" placeholder="Escribir promedio en letra...">

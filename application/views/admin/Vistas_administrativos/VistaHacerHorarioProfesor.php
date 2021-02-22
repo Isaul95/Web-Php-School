@@ -9,7 +9,7 @@
   <div class="row">
     <div class="col-md-12 mt-5">
       <h3>
-      
+
         <input type="hidden" id="usuario" name="usuario" value="<?php echo $username;?>" >
         <input type="hidden" id="rol" name="rol" value="<?php echo $rol;?>" >
 
@@ -28,10 +28,10 @@
 
   <div class="row">
     <div class="col-sm-18">
- 
+
 <br>
 <div class="row">
-  <div class="col-10 col-sm-12">        
+  <div class="col-10 col-sm-12">
                   <div class="row">
                     <div class="col-4 col-sm-8">
                     <?php if($rol==1):?>
@@ -45,12 +45,12 @@
                         <select background-color="red" id="combo_semestres_horario_profesores" class="form-control"><option value="" selected>Seleccione un semestre</option></select>
                     </div>
                     <?php endif;?>
-                  </div> <!--END OF SECOND ROW--> 
+                  </div> <!--END OF SECOND ROW-->
     </div><!--class="col-10 col-sm-12"-->
   </div> <!--END OF FIRST ROW-->
                   <br>
  <div class="row">
-  <div class="col-10 col-sm-12"> 
+  <div class="col-10 col-sm-12">
                  <div class="row">
                     <div class="col-8 col-sm-6">
                     <?php if($rol==1):?>
@@ -71,7 +71,7 @@
   </div> <!--END OF FIRST ROW-->
 
   <div class="row">
-  <div class="col-10 col-sm-12">        
+  <div class="col-10 col-sm-12">
                    <div class="row">
                     <div class="col-8 col-sm-6">
                     <?php if($rol==1):?>
@@ -80,18 +80,18 @@
                     <select background-color="red" id="combo_materias_horario_profesores" class="form-control" multiple="multiple"><option value="" selected>Seleccione una materia</option></select>
                     <?php endif;?>
                     </div>
-                 
+
    </div><!--class="col-10 col-sm-12"-->
   </div> <!--END OF FIRST ROW-->
 
 
 <div class="row">
-   <div class="col-10 col-sm-12">     
+   <div class="col-10 col-sm-12">
    <br>
 <br>
 <br>
 <?php if($rol==1):?>
-        <div class="row"> 
+        <div class="row">
                     <div class="col-8 col-sm-5">
                     <button type="button" class="btn btn-primary btn-sm btn-block" id="crear_horario">Generar horario</button>
                     </div>
@@ -103,7 +103,7 @@
 <br>
 <br>
 <br>
-      
+
 <!--MODAL EDITAR calificacion-->
 <div class="modal fade" id="modalagregarhorario" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
@@ -124,7 +124,7 @@
                 <div class="row">
                   <div class="col-md-12">
             <form id="formeditcalificacion">
-                     
+
           <div class="row">
               <div class="col-sm-12">
               <input type="hidden" id="profesor_horario_update">
@@ -141,7 +141,7 @@
                     <label for="">Materia</label>
                     <input type="text" class="form-control" id="materia_horario"  readonly>
                     </div>
-                  </div>  
+                  </div>
                   <br>
                   <div class="row">
                     <div class="col-8 col-sm-6">
@@ -152,31 +152,31 @@
                     <label for="">Fin</label>
                     <input type="text" id="datepicker_horario_fin"/>
                      </div>
-                  </div>        
-                  <br> 
+                  </div>
+                  <br>
                   <div class="row">
                     <div class="col-8 col-sm-6">
                     <label for="">Examen final</label>
                     <input type="text" id="datepicker_horario_ex_final"/>
                      </div>
                      <div class="col-8 col-sm-6">
-                      <label for="">Salon</label> 
+                      <label for="">Salon</label>
                       <input type="text" id="salon_horario"/>
                      </div>
-                  </div>  
+                  </div>
                   <br>
                   <div class="row">
                   <div class="col-8 col-sm-6">
-                      <label for="">Horario</label> 
+                      <label for="">Horario</label>
                       <br>
-                      <input type = "text" id="horario_profesores_inicio"> 
+                      <input type = "text" id="horario_profesores_inicio">
                       <input type = "text" id="horario_profesores_fin">
                      </div>
-                  </div>  
-                  
+                  </div>
+
                </div>
            </div>
-  
+
                     </form>
                   </div>
                 </div>
@@ -196,7 +196,7 @@
  <?php if($rol==1):?>
  <table id="tbl_list_horarios_administrativos" class="table table-striped table-bordered table-hover table-condensed" cellspacing="0" style="background:white!important">
         <thead class="bg-primary">
-          <tr> 
+          <tr>
           <th></th>
           <th></th>
           <th>Materia</th>
@@ -208,6 +208,7 @@
             <th>Ex final</th>
             <th>Horario</th>
             <th cclass="text-center" width="7%">Operaciones</th>
+            <th>Imprimir<br>Horario</th>
           </tr>
         </thead>
       </table>

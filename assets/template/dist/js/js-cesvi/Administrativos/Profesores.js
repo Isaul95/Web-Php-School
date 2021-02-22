@@ -346,19 +346,19 @@ function llenarTablaProfesores() {
                          },
                     },
                     */
-                    
 
-                    {
-                        // data: "certificado_estudios",
-                        orderable: false,
-                        searchable: false,
-                        render : function(data, type, row) {
-                            var a = `
-                                <a title="Generar Horario Profesor" href="Profesores/generaHorarioProfesor" target="_blank"><i class="far fa-file-pdf fa-2x"></i></a>
-                            `;
-                             return a;
-                        },
-                    },
+
+                    // {
+                    //     // data: "certificado_estudios",
+                    //     orderable: false,
+                    //     searchable: false,
+                    //     render : function(data, type, row) {
+                    //         var a = `
+                    //             <a title="Generar Horario Profesor" href="Profesores/generaHorarioProfesor" target="_blank"><i class="far fa-file-pdf fa-2x"></i></a>
+                    //         `;
+                    //          return a;
+                    //     },
+                    // },
                     {
                         orderable: false,
                         searchable: false,
@@ -394,7 +394,7 @@ function llenarTablaProfesores() {
                                    `;
                         },
                     },
-                    
+
 
                 ],
                   "language" : language_espaniol,
@@ -409,11 +409,11 @@ $(document).on("click", "#habilitar_profesor", function (e) {
     debugger;
     var edit_id = $(this).attr("value");
      var fd = new FormData();
-        
+
 
         fd.append("profesor", edit_id);
         fd.append("estado_profesor", 1);
-      
+
         $.ajax({
             type: "post",
             url: base_url + 'Administrativos/Profesores/updateprofesor_habilitarasignacion_calificacion',
@@ -432,7 +432,7 @@ $(document).on("click", "#habilitar_profesor", function (e) {
                 }
             },
         });
-    
+
 });
 
 

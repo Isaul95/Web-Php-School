@@ -112,13 +112,13 @@ class Profesores extends CI_Controller {
 		if ($this->input->is_ajax_request()) {
 	            	$id_profesores = $this->input->post('profesor');
                  	$ajax_data['estado_profesor'] = $this ->input->post('estado_profesor');
-					
+
 					if ($this->Modelo_Profesores->update_habilitar_profesor($id_profesores, $ajax_data)) {
 						$data = array('res' => "success", 'message' => "¡Profesor habilitado para elegir materias!");
 					} else {
 						$data = array('res' => "error", 'message' => "No actualizado");
 					}
-					
+
 			echo json_encode($data);
 		}else {
 			echo "No se permite este acceso directo...!!!";
@@ -305,45 +305,6 @@ public function eliminarprofesores()
 			}
 			echo json_encode($data);
 	}
-
-
-
-
-
-/* -------------------------------------------------------------------------- */
-/*                  1.- Generar certificado de estudios                       */
-/* --------------------------------------- ---------------------------------- */
-
-public function generaHorarioProfesor(){
-	/*
-	 * Se crea la function para hacer el llamado en el js
-	 * se hace todo la parte del reporte
-	 */
-	error_reporting(0);
-
-	include_once('src/phpjasperxml_0.9d/class/tcpdf/tcpdf.php');
-	include_once("src/phpjasperxml_0.9d/class/PHPJasperXML.inc.php");
-
-	// SE HACE LA CONECION PARA CADA HOJA DE ESTAS
-	$server = "localhost";
-	$user = "root";
-	$pass = "";
-	$db = "cesvi_webapp";
-
-
-	$PHPJasperXML = new PHPJasperXML();
-	 // $PHPJasperXML->debugsql=true;
-	// 	$PHPJasperXML-> debugsql = false; // Si desea ver la setencia del sql del reporte lo pones en true
-
-	// $PHPJasperXML->arrayParameter=array("numcontrol"=>$numero_control);
-	// $PHPJasperXML->arrayParameter=array("parameter1"=>1);
-
-	$PHPJasperXML->load_xml_file("src/ReportesPDF_Cesvi_jrxml/certificado_estudios.jrxml");
-
-	$PHPJasperXML->transferDBtoArray($server,$user,$pass,$db);
-	$PHPJasperXML->outpage('I','CertificadoEstudios_.pdf');
-
-}
 
 
 

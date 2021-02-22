@@ -360,6 +360,7 @@ public function generaHorarioProfesor($profesor,$semestre){   // ,$ciclo
 	$PHPJasperXML->transferDBtoArray($server,$user,$pass,$db);
 	$PHPJasperXML->outpage('I','CertificadoEstudios_.pdf');
 
+	
 }
 
 

@@ -75,6 +75,18 @@
                            <li><a href="<?php echo base_url();?>alumnos/Evaluacion_Alum_docente">
                               <i class="fas fa-edit"></i> Evaluación Docente</a>
                           </li>
+
+                          <li><a href="<?php echo base_url();?>alumnos/Servicio_social">
+                             <i class="fas fa-edit"></i> Servicio social</a>
+                         </li>
+
+                         <li><a href="<?php echo base_url();?>alumnos/Practicas_profesionales">
+                            <i class="fas fa-edit"></i> Practicas profesionales</a>
+                        </li>
+
+                        <li><a href="<?php echo base_url();?>alumnos/Titulacion">
+                           <i class="fas fa-edit"></i> Titulación</a>
+                       </li>
                                    </ul>
                                </li>
  <?php endif;?>

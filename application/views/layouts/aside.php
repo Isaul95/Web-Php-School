@@ -71,6 +71,10 @@
                             <li><a href="<?php echo base_url();?>alumnos/altaBaucherBanco">
                                <i class="fas fa-money-check-alt"></i> Subir Baucher</a>
                            </li>
+
+                           <li><a href="<?php echo base_url();?>alumnos/Evaluacion_Alum_docente">
+                              <i class="fas fa-edit"></i> Evaluación Docente</a>
+                          </li>
                                    </ul>
                                </li>
  <?php endif;?>

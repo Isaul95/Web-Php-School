@@ -56,13 +56,18 @@
               </div>
               </div>
 <form id="datesLetraConstancia">
+            <div class="form-group">
+            <label for="">Promedio del Alumno:</label>
+            <input type="text" class="form-control" id="promedioNumeroAlumno" readonly>
+          </div>
+
               <div class="form-group">
               <label for="">Capturar promedio en letra: *</label>
-              <input type="text" class="form-control" id="promedio_letra" placeholder="Escribir promedio en letra...">
+              <input type="text" class="form-control" id="promedio_letra" placeholder="Escribir promedio del alumno en letra...">
             </div>
             <div class="form-group">
               <label for="">Capturar fecha en letra: *</label>
-              <input type="text" class="form-control" id="fecha_letra" placeholder="Escribir fecha en letra...">
+              <input type="text" class="form-control" id="fecha_letra" placeholder="Escribir fecha en letra para la constancia...">
             </div>
 
               <!-- <table id="tbl_listaRecibosFirmados" class="table table-striped table-bordered table-hover table-condensed" cellspacing="0" style="background:white!important" width="100%">

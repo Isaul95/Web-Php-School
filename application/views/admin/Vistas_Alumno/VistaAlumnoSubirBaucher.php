@@ -213,6 +213,7 @@
         </div>
 <input type="hidden" id="detalleId" name="detalleId" value="<?php echo $datosTxt->id_detalle;?>" >
 <input type="hidden" id="opcion_estudio" name="opcion_estudio" value="<?php echo $datosTxt->opcion;?>" >
+<input type="hidden" id="id_carrera" name="id_carrera" value="<?php echo $datosTxt->id_carrera;?>" >
     </div>
 
   </div>
@@ -421,17 +422,10 @@
                                    <div class="row">
                                      <div class="col-4 col-sm-4">
                                          <label for="">Semestre: </label>
-                                         <select background-color="red" id="combo_Semestres_GenerarDocsAlumnos" class="form-control">
+                                         <select background-color="red" id="combo_SemestresGenerarDocumentsAlumnos" class="form-control">
                                            <option value="" selected>Seleccione un semestre...</option>
                                          </select>
                                      </div>
-
-                                      <div class="col-4 col-sm-4">
-                                          <label for="">Tipo de pagos: </label>
-                                          <select background-color="red" id="combo_TipoDePagos_HistPagosAlumnos" class="form-control">
-                                            <option value="" selected>Seleccione un tipo de pago...</option>
-                                          </select>
-                                      </div>
 
                                     </div>
                                     <br>
@@ -444,19 +438,18 @@
                       <div class="col-md-12 mx-auto">
 
 
-                        <table id="tbl_generarDocumentosAlumnos" class="table table-striped table-bordered table-hover table-condensed" cellspacing="0" style="background:white!important">
+                        <table id="tbl_generarDocumentsAlumnoTREBWWWW" class="table table-striped table-bordered table-hover table-condensed" cellspacing="0" style="background:white!important">
                           <thead class="text-center bg-primary">
                             <tr>
-                              <th>Numero de control</th>
-                              <th>Alumno</th>
+                              <th class="text-center">Numero de control</th>
+                              <th class="text-center">Alumno</th>
                               <!-- <th class="text-center" width="7%">Semestre</th>
                               <th>Carrera</th> -->
-                              <th class="text-center" width="7%">Cert. Estudios</th>
-                              <th class="text-center" width="7%">Boleta</th>
-                              <th class="text-center" width="7%">Hist. academico</th>
-                              <!-- <th class="text-center" width="7%">Cert. parcial</th> -->
-                              <th class="text-center" width="7%">Horario</th>
-                              <th class="text-center" width="7%">Constancia</th>
+                              <th class="text-center" width="12%">Cert. Estudios</th>
+                              <!-- <th class="text-center" width="7%">Boleta</th> -->
+                              <!-- <th class="text-center" width="7%">Hist. academico</th> -->
+                              <th class="text-center" width="12%">Horario</th>
+                              <th class="text-center" width="12%">Constancia</th>
                             </tr>
                           </thead>
                         </table>

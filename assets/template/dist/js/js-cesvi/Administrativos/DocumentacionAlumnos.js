@@ -180,7 +180,16 @@ function llenarTablaAlumnosParaDocumentacion(licenciatura,semestre,opciones) {
                         searchable: false,
                         "className": "text-center",
                         render: function (data, type, row, meta) {
-                          var a = `<a title="Agregar Recibo Valido" onclick=modalLetras('${row.numero_control}','${row.detalle}','${row.semestre}','${row.opcion}','${row.carrera}')><i class="fas fa-edit iconbig azul fa-2x"></i></a>`
+                          var hayPromedio = `${row.promedio}`;
+                          var hayPromedioLetra = `${row.promedio_letra}`;
+                          var hayFechaLetra = `${row.fecha_letra}`;
+                      // if(hayPromedio != "0" && hayPromedioLetra != "null" && hayFechaLetra != "null"){
+                          if(hayPromedio != "0"){
+
+                          var a = `<a title="Agregar Recibo Valido" onclick=modalLetras('${row.numero_control}','${row.detalle}','${row.semestre}','${row.opcion}','${row.carrera}','${row.promedio}')><i class="fas fa-edit iconbig azul fa-2x"></i></a>`;
+                        }else {
+                            var a = 'No hay promedio';
+                        }
                           return a;
                         },
                     },
@@ -195,11 +204,12 @@ function llenarTablaAlumnosParaDocumentacion(licenciatura,semestre,opciones) {
 }
 
 
-function modalLetras(numero_control, detalle, semestre, opcion, carrera){
+function modalLetras(numero_control, detalle, semestre, opcion, carrera, promedio){
           debugger;
 
         	 $("#modalConstancia").modal("show");
-document.getElementById("generarConstanciaPDFAlumno").style.display = "none";
+           document.getElementById("generarConstanciaPDFAlumno").style.display = "none";
+          $("#promedioNumeroAlumno").val(promedio);
 
           $("#numero_control_constancia").val(numero_control);
           $("#detalle_constancia").val(detalle);

@@ -1,8 +1,8 @@
     $(document).ready(function(){
-    
+
      var semestre = $("#semestreAlum").val();
      llenarTablaAvanceReticulaMateriasCursadasPasadas(semestre);
-      
+
 
         //SELECCION DE MATERIAS
         horarioyaelegido();
@@ -38,11 +38,11 @@
  $("#combo_semestres_cursados").change(function () {
      $("#tbl_avanceRetucularMateriasCursadas").DataTable().destroy();
      llenarTablaAvanceReticulaMateriasCursadasPasadas($("#combo_semestres_cursados").val());
-     
-  });
-  
 
-  
+  });
+
+
+
 // Se inicializa tabla
      var tbl = $('#tbl_avanceRetucular').DataTable( {
        });
@@ -65,6 +65,13 @@
         }
           });
 
+          $("#combo_SemestresGenerarDocumentsAlumnos").change(function () {
+            var semestre = $("#combo_SemestresGenerarDocumentsAlumnos").val();
+            $("#tbl_generarDocumentsAlumnoTREBWWWW").DataTable().destroy();
+            llenarTablaAlumnosParaDocumentacionXXXX(semestre);
+           });
+
+
           $("#combo_Semestres_HistPagosAlumnos").change(function () {
             var tipoPago = $("#combo_TipoDePagos_HistPagosAlumnos").val();
             var semestre = $("#combo_Semestres_HistPagosAlumnos").val();
@@ -81,11 +88,7 @@
             });
 
 
-            $("#combo_Semestres_GenerarDocsAlumnos").change(function () {
-              var semestre = $("#combo_Semestres_GenerarDocsAlumnos").val();
-              $("#tbl_generarDocumentosAlumnos").DataTable().destroy();
-              llenarTablaAlumnosParaDocumentacion(semestre);
-             });
+
 
     }); // FIN DE LA FUNCION PRINCIPAL
 
@@ -142,7 +145,7 @@
           dataType: "json",
           success: function (data) {
               $.each(data, function (key, registro) {
-                  $("#combo_Semestres_GenerarDocsAlumnos").append('<option value=' + registro.semestre + '>' + registro.nombre + '</option>');
+                  $("#combo_SemestresGenerarDocumentsAlumnos").append('<option value=' + registro.semestre + '>' + registro.nombre + '</option>');
               });
 
           },
@@ -1056,7 +1059,7 @@ function horarioyaelegido(){
 
 
 
-    function llenarTablaAlumnosParaDocumentacion(semestre) {
+    function llenarTablaAlumnosParaDocumentacionXXXX(semestre) {
       debugger;
         var datos = {
                         opciones : $("#opcion_estudio").val(),
@@ -1071,14 +1074,16 @@ function horarioyaelegido(){
         dataType: "json",
         data : (datos),
         success: function (response) {
-            $("#tbl_generarDocumentosAlumnos").DataTable({
+            $("#tbl_generarDocumentsAlumnoTREBWWWW").DataTable({
                 data: response,
                 responsive: true,
                 columns: [{
                     data: "numero_control",
+                      "className": "text-center",
                 },
                 {
                     data: "alumno",
+                      "className": "text-center",
                 },
                 // {
                 //     data: "semestre",
@@ -1093,24 +1098,35 @@ function horarioyaelegido(){
                     "className": "text-center",
                     render : function(data, type, row) {
                         var a = `
-                            <a title="Generar Certificado de Estudios" href="DocumentosAlumnos/generaCertificadoEstudios/${row.numero_control}/${row.detalle}/${row.semestre}/${row.opcion}/${row.carrera}" target="_blank"><i class="far fa-file-pdf fa-2x"></i></a>
+                            <a title="Generar Certificado de Estudios" href="AltaBaucherBanco/generaCertificadoEstudios/${row.numero_control}/${row.id_detalle}/${row.semestre}/${row.opcion}/${row.carrera}" target="_blank"><i class="far fa-file-pdf fa-2x"></i></a>
                         `;
                          return a;
                     },
                 },
-                {
-                    // data: "nombre_certificado_bachillerato",
-                    orderable: false,
-                    searchable: false,
-                    "className": "text-center",
-                    render: function (data, type, row, meta) {
-                        var a;
-                            var a = `
-                            <a title="Generar Boleta Calificaciones" href="DocumentosAlumnos/generaBoletaCalificaciones/${row.numero_control}/${row.semestre}/${row.detalle}/${row.opcion}/${row.carrera}" target="_blank"><i class="far fa-file-pdf fa-2x"></i></a>
-                            `;
-                        return a;
-                    },
-                },
+                // {
+                //     // data: "nombre_certificado_bachillerato",
+                //     orderable: false,
+                //     searchable: false,
+                //     "className": "text-center",
+                //     render: function (data, type, row, meta) {
+                //         var a;
+                //             var a = `
+                //             <a title="Generar Boleta Calificaciones" href="AltaBaucherBanco/generaBoletaCalificaciones/${row.numero_control}/${row.semestre}/${row.detalle}/${row.opcion}/${row.carrera}" target="_blank"><i class="far fa-file-pdf fa-2x"></i></a>
+                //             `;
+                //         return a;
+                //     },
+                // },
+//                 {
+//                     // data: "curp",
+//                     orderable: false,
+//                     searchable: false,
+//                     "className": "text-center",
+//                     render: function (data, type, row, meta) {
+//                         return  a = `
+// <a title="Generar Historial Academico" href="AltaBaucherBanco/generaHistAcademico/${row.numero_control}/${row.detalle}/${row.semestre}/${row.opcion}/${row.carrera}" target="_blank"><i class="far fa-file-pdf fa-2x"></i></a>
+//                          `;
+//                     },
+//                 },
                 {
                     // data: "curp",
                     orderable: false,
@@ -1118,18 +1134,7 @@ function horarioyaelegido(){
                     "className": "text-center",
                     render: function (data, type, row, meta) {
                         return  a = `
-<a title="Generar Historial Academico" href="DocumentosAlumnos/generaHistAcademico/${row.numero_control}/${row.detalle}/${row.semestre}/${row.opcion}/${row.carrera}" target="_blank"><i class="far fa-file-pdf fa-2x"></i></a>
-                         `;
-                    },
-                },
-                {
-                    // data: "curp",
-                    orderable: false,
-                    searchable: false,
-                    "className": "text-center",
-                    render: function (data, type, row, meta) {
-                        return  a = `
-<a title="Generar Horario Alumno" href="DocumentosAlumnos/generaHorarioAlumno/${row.numero_control}/${row.semestre}/${row.detalle}/${row.opcion}/${row.carrera}" target="_blank"><i class="far fa-file-pdf fa-2x"></i></a>
+<a title="Generar Horario Alumno" href="AltaBaucherBanco/generaHorarioAlumno/${row.numero_control}/${row.semestre}/${row.id_detalle}/${row.opcion}/${row.carrera}" target="_blank"><i class="far fa-file-pdf fa-2x"></i></a>
                          `;
                     },
                 },
@@ -1139,7 +1144,7 @@ function horarioyaelegido(){
 //                     searchable: false,
 //                     render: function (data, type, row, meta) {
 //                         return  a = `
-// <a title="Generar Constancia Alumno" href="DocumentosAlumnos/generaConstanciaAlumno/${row.numero_control}/${row.detalle}/${row.semestre}/${row.opcion}/${row.carrera}" target="_blank"><i class="far fa-file-pdf fa-2x"></i></a>
+// <a title="Generar Constancia Alumno" href="AltaBaucherBanco/generaConstanciaAlumno/${row.numero_control}/${row.id_detalle}/${row.semestre}/${row.opcion}/${row.carrera}" target="_blank"><i class="far fa-file-pdf fa-2x"></i></a>
 //                          `;
 //                     },
 //                 },
@@ -1149,7 +1154,15 @@ function horarioyaelegido(){
                         searchable: false,
                         "className": "text-center",
                         render: function (data, type, row, meta) {
-                          var a = `<a title="Agregar Recibo Valido" onclick=modalLetras('${row.numero_control}','${row.detalle}','${row.semestre}','${row.opcion}','${row.carrera}')><i class="fas fa-edit iconbig azul fa-2x"></i></a>`
+                              var hayPromedio = `${row.promedio}`;
+                              var hayPromedioLetra = `${row.promedio_letra}`;
+                              var hayFechaLetra = `${row.fecha_letra}`;
+                          if(hayPromedio != "0" && hayPromedioLetra != "null" && hayFechaLetra != "null"){
+
+                          var a = `<a title="Generar Constancia Alumno" href="AltaBaucherBanco/generaConstanciaAlumno/${row.numero_control}/${row.id_detalle}/${row.semestre}/${row.opcion}/${row.carrera}" target="_blank"><i class="far fa-file-pdf fa-2x"></i></a>`;
+                        }else {
+                            var a = 'No hay Constancia';
+                        }
                           return a;
                         },
                     },

@@ -22,5 +22,14 @@ detalles.id_detalle, detalles.opcion , opc.descripcion ");
 
 
 
+/* -------------------------------------------------------------------------- */
+/*                       INSERTAR OFICIO DE PRACTOCAS                         */
+/* -------------------------------------------------------------------------- */
+      public function insert_OficioPracticasProf($data){
+              return $this->db->insert('oficios_procesofin', $data);
+          }
+
+
+
 
   }

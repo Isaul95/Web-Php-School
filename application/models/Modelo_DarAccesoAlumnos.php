@@ -3,7 +3,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Modelo_DarAccesoAlumnos extends CI_Model { // INICIO DEL MODELO
 
-  
+
   //  CONSULTA GENERAL PARA LLENAR LOS CAMPOS DE LA RETICULA CAMPOS DATOS PERSONALES DEL ALUMNO INDEPENDIENTES
     public function consultaDatosPersonalesDelAlumnos($numero_control){
         $this->db->distinct();
@@ -20,6 +20,21 @@ class Modelo_DarAccesoAlumnos extends CI_Model { // INICIO DEL MODELO
         $resultados = $this->db->get();
         return $resultados->result();
         }
+
+        public function consultaDatosDeAlumnoParaDocumentacion($semestre, $numero_control){
+            $this->db->distinct();
+            $this->db->select(" alumnos.numero_control as numero_control,
+            concat(alumnos.nombres,' ',alumnos.apellido_paterno,' ',alumnos.apellido_materno) as alumno,
+            detalles.cuatrimestre as semestre, carrera.carrera_descripcion as carrera_descripcion, carrera.id_carrera, detalles.id_detalle, pec.nombre_ciclo, detalles.opcion, detalles.carrera,  detalles.promedio, detalles.promedio_letra, detalles.fecha_letra");
+            $this->db->from("alumnos");
+            $this->db->join("detalles","alumnos.numero_control = detalles.alumno");
+            $this->db->join("carrera","detalles.carrera = carrera.id_carrera");
+            $this->db->join(" periodo_escolar pec "," pec.id_periodo_escolar = detalles.ciclo_escolar ");
+            $this->db->where("detalles.cuatrimestre",$semestre);
+            $this->db->where("alumnos.numero_control",$numero_control);
+            $resultados = $this->db->get();
+            return $resultados->result();
+            }
 
 
 
@@ -291,7 +306,7 @@ $this->db->group_by('ban.id_alta_baucher_banco');
     //   return $resultados->result();
     // }
 
-    
+
 
     public function obtenerAvanceReticulaXAlumnos($numero_control,$semestre, $id_detalle){
       $this->db->select(" m.semestre, CONCAT(a.nombres, ' ', a.apellido_paterno, ' ', a.apellido_materno) As nombres,
@@ -366,8 +381,8 @@ $this->db->group_by('ban.id_alta_baucher_banco');
       }
         public function materias_a_insertar($opcion,$carrera,$semestre,$ciclo)
                 {
-                  $this->db->select('hp.materia as materia, 
-                  hp.profesor as profesor, 
+                  $this->db->select('hp.materia as materia,
+                  hp.profesor as profesor,
                   hp.ciclo as ciclo,
                   hp.horario as horario');
                     $this->db->from('horarios_profesor hp');
@@ -376,7 +391,7 @@ $this->db->group_by('ban.id_alta_baucher_banco');
                     $this->db->where('hp.semestre', $semestre);
                     $this->db->where('hp.ciclo', $ciclo);
                     $resultados = $this->db->get();
-                    return $resultados->result_array();                
+                    return $resultados->result_array();
                 }
       /////////FIN ASIGNACION MASIVA
 //////////////////////////////////////// SELECCIÓN DE MATERIAS ////////////////////////////////////////////////////////

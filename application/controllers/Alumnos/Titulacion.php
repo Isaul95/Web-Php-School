@@ -81,6 +81,21 @@ class Titulacion extends CI_Controller {
 
 
 
+	public function mostrarOpcionSubirOficioTitulacion(){
+		if ($this->input->is_ajax_request()) {
+		 $numero_control = $this->input->post('numero_control');
+				if ($this->Modelo_ProcesoFinal->opcionSubirOfiTitulacion($numero_control)) {
+					$data = array('responce' => 'success', 'message' => "Ya puede realizar los tramites de Titulación...!!!");
+				} else {
+						$data = array('responce' => 'error');
+				}
+		echo json_encode($data);
+	} else {
+		echo "No se permite este acceso directo...!!!";
+		}
+	}
+
+
 
 
 }  // Fin del controller

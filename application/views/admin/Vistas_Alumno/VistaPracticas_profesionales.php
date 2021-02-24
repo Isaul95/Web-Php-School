@@ -53,7 +53,7 @@
 <hr> <!-- Le da una linea sombreada para ver la divicion -->
 
 
-<div class="modal-dialog" id="formularioRegistroOficio">
+<div class="modal-dialog" id="formularioRegistroOficioPractProf">
   <div class="modal-content">
     <div class="modal-body">
       <form id="formularioAltaOficioProcFinPracticas">
@@ -75,19 +75,13 @@
 </div>
 
 
-<!--   TABLA  -->
- <!-- <div class="row my-4">
-    <div class="col-md-12 mx-auto">
+<div class="modal-dialog" id="noPermisoDeAddOficioPracticasProf">
+    <center>
+        <strong><font color="#E74C3C">Aun no tiene permiso realizar las Practicas Profesionales...!!!</font></strong> <br>
+    </center>
+</div>
 
 
-
-
-
-
-
-
-                              </div>
-                            </div> -->
                           </div>
                         </div>
                       </div>

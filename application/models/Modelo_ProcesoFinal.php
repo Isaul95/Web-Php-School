@@ -31,5 +31,38 @@ detalles.id_detalle, detalles.opcion , opc.descripcion ");
 
 
 
+//  Servicio_social
+    public function opcionSubirOfiServiSocial($numero_control){
+          $this->db->select("servicio_social");
+          $this->db->from("alumnos");
+          $this->db->where("numero_control",$numero_control);
+          $this->db->where("servicio_social","1");
+          $resultados = $this->db->get();
+          return $resultados->result();
+      }
 
-  }
+
+      //  Practicas_profesionale
+    public function opcionSubirOfiPracticasProf($numero_control){
+          $this->db->select("practicas_prof");
+          $this->db->from("alumnos");
+          $this->db->where("numero_control",$numero_control);
+          $this->db->where("practicas_prof","1");
+          $resultados = $this->db->get();
+          return $resultados->result();
+      }
+
+
+
+      //  TITULACION
+      public function opcionSubirOfiTitulacion($numero_control){
+            $this->db->select("titulacion");
+            $this->db->from("alumnos");
+            $this->db->where("numero_control",$numero_control);
+            $this->db->where("titulacion","1");
+            $resultados = $this->db->get();
+            return $resultados->result();
+        }
+
+
+  }  // FIN DE LA CLASE MODELO

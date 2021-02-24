@@ -80,4 +80,23 @@ class Practicas_profesionales extends CI_Controller {
 
 
 
+
+	public function mostrarOpcionSubirOficioPracticasProf(){
+		if ($this->input->is_ajax_request()) {
+		 $numero_control = $this->input->post('numero_control');
+				if ($this->Modelo_ProcesoFinal->opcionSubirOfiPracticasProf($numero_control)) {
+					$data = array('responce' => 'success', 'message' => "Ya puede realizar las Practicas Profesionales...!!!");
+				} else {
+						$data = array('responce' => 'error');
+				}
+		echo json_encode($data);
+	} else {
+		echo "No se permite este acceso directo...!!!";
+		}
+	}
+
+
+
+
+
 }  // Fin del controller

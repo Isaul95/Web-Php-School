@@ -517,6 +517,23 @@ function llenarTablaAlumnos(carrera,opcion,cuatrimestre) {
                     },
                 },
 
+                {
+                            "className": "text-center",
+                            orderable: false,
+                            searchable: false,
+                            "render" : function(data, type, row) {
+                              // var validarArchivo = `${row.estado_archivo}`;
+                              var string = '<input type="checkbox" id="check_id" ';
+  //                             if(validarArchivo != 6){
+  // string = string + `checked onclick=habilitarValidoComprobantePagoAlumno(6,'${row.numero_control}','${row.id_alta_baucher_banco}','${row.semestre}')>`;
+  //                             }else {
+  string = string +`onclick=habilitarValidoComprobantePagoAlumno(7,'${row.numero_control}','${row.id_alta_baucher_banco}','${row.semestre}')>`;
+                              // }
+                              return string;
+                             },
+                        },
+
+
                 ],
                 "language": language_espaniol,
 

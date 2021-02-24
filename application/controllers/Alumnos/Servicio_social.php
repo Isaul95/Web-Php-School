@@ -25,6 +25,24 @@ class Servicio_social extends CI_Controller {
 	}
 
 
+	public function mostrarOpcionSubirOficioServiSocial(){
+		// $data['estatus'] = $this->input->post('estatus');
+		if ($this->input->is_ajax_request()) {
+		 $numero_control = $this->input->post('numero_control');
+				if ($this->Modelo_ProcesoFinal->opcionSubirOfiServiSocial($numero_control)) {
+					$data = array('responce' => 'success', 'message' => "Ya puede realizar el Servicio Social...!!!");
+				} else {
+			//		$data = array('responce' => 'error', 'message' => 'Aun no tiene permiso realizar el Servicio Social...!!!');
+						$data = array('responce' => 'error');
+				}
+		echo json_encode($data);
+	} else {
+		echo "No se permite este acceso directo...!!!";
+		}
+	}
+
+
+
 
 	/* -------------------------------------------------------------------------- */
 	/*             Insert  OFICIO PARA SERVICIO SOCIAL                            */

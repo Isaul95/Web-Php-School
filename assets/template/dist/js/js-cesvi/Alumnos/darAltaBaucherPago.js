@@ -174,7 +174,7 @@
     /*           llenarTabla materias por cursar sin calificaciones             */
     /* -------------------------------------------------------------------------- */
     function llenarTablaAvanceReticula(semestre) {
-      debugger;
+      // debugger;
       var datos = {
           numero_control : $("#numero_control").val(),
           id_detalle : $("#detalleId").val(),
@@ -241,7 +241,7 @@
     /*           llenarTabla materias cursadas con calificaciones                 */
     /* -------------------------------------------------------------------------- */
     function llenarTablaAvanceReticulaMateriasCursadasPasadas(semestre) {
-      debugger;
+      // debugger;
       var datos = {
           numero_control : $("#numero_control").val(),
           id_detalle : $("#detalleId").val(),
@@ -321,7 +321,7 @@
     /*                      llenarTablaPagos Records                              */
     /* -------------------------------------------------------------------------- */
     function litaHistorialPagosAlumnos(semestre,tipoPago) {
-      debugger;
+      // debugger;
       var datos = {
           numero_control : $("#numero_control").val(),
           semestre : semestre,
@@ -382,7 +382,7 @@
                         {
                             data: "estado",
                             render: function(data, type, row, meta) {
-                              debugger;
+                              // debugger;
                               var xx = `${row.estatus}`;
                               var estado = `${row.estado}`;
                               // var numeroEstatuFile = `${row.estado_archivo}`;
@@ -501,7 +501,7 @@ function llenarDatosAlumTxt(estadoParcialidad, fecha_limite, estado_archivo){
            2.- DE LO CONTRARIO SI NO EXISTE EL BAUCHER LE MUESTRA EL FORMULARIO PARA DARLO DE ALTA               ************/
 
   function ccontadordealumnos(){
-      debugger;
+      // debugger;
         		var datos = {
         				numero_control : $("#numero_control").val(),
         		    }
@@ -530,7 +530,7 @@ function llenarDatosAlumTxt(estadoParcialidad, fecha_limite, estado_archivo){
 /* -------------------------------------------------------------------------- */
 $(document).on("click", "#darAltaBaucher", function(e) {
     e.preventDefault();
-    debugger;
+    // debugger;
 
     var numero_control = $("#numero_control").val();
     var img = $("#archivo")[0].files[0]; // this is file
@@ -963,7 +963,7 @@ $(document).on("click", "#remover_materia", function (e) {
 });
 $(document).on("click", "#confirmar_horario_elegir_materias", function (e) {
     e.preventDefault();
-    debugger;
+    // debugger;
     var numero_control = $("#numero_control").val();
     var licenciatura = $("#licenciatura").val();
     var semestre = $("#semestre").val();
@@ -1023,7 +1023,7 @@ $(document).on("click", "#confirmar_horario_elegir_materias", function (e) {
     });
   });
 function horarioyaelegido(){
-    debugger;
+    // debugger;
               var datos = {
                       numero_control : $("#numero_control").val(),
                   }
@@ -1046,7 +1046,7 @@ function horarioyaelegido(){
               });
       }
       function periodo_activo_horario() {
-        debugger;
+        // debugger;
         $.ajax({
             type: "get",
             url: base_url + 'Alumnos/AltaBaucherBanco/verperiodo_activo_agregar_horario',
@@ -1060,7 +1060,7 @@ function horarioyaelegido(){
 
 
     function llenarTablaAlumnosParaDocumentacionXXXX(semestre) {
-      debugger;
+      // debugger;
         var datos = {
                         opciones : $("#opcion_estudio").val(),
                         licenciatura : $("#carreraAlum").val(),

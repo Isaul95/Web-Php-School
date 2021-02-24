@@ -38,24 +38,24 @@
   </div>
 
   <div class="row">
-  <div class="col-10 col-sm-12">        
+  <div class="col-10 col-sm-12">
                   <div class="row">
                     <div class="col-4 col-sm-8">
                       <label for="">Seleccione alguna carrera: </label>
                     <select background-color="red" id="combo_carreras_alumnos_admin" class="form-control"><option value="" selected>Seleccione una carrera</option></select>
-                  
+
                     </div>
 
                     <div class="col-4 col-sm-4">
                         <label for="">Semestre: </label>
                         <select background-color="red" id="combo_semestres_alumnos_admin" class="form-control"><option value="" selected>Seleccione un semestre</option></select>
                     </div>
-                  </div> <!--END OF SECOND ROW--> 
+                  </div> <!--END OF SECOND ROW-->
     </div><!--class="col-10 col-sm-12"-->
   </div> <!--END OF FIRST ROW-->
                   <br>
  <div class="row">
-  <div class="col-10 col-sm-12"> 
+  <div class="col-10 col-sm-12">
                   <div class="row">
                     <div class="col-8 col-sm-6">
                     <label for="">Seleccione alguna opción de estudio: </label>
@@ -69,7 +69,7 @@
   <div class="row">
     <div class="col-md-12">
       <div class="row">
-          <div class="col-md-12">       
+          <div class="col-md-12">
       <?php if($permisos->insert == 1):?>
         <div class="d-flex flex-row">
               <a type="button" class="btn btn-primary btn-float" data-toggle="modal" data-target="#modaladdalumno"> <span class="fa fa-plus"></span>  Agregar Alumno</a>
@@ -110,7 +110,7 @@
               <div class="col-sm-12">
                 <label for="">Datos personales</label>
                   <div class="row">
-                  
+
                     <div class="col-8 col-sm-6">
                     <label for="">Nombre(s)</label>
                     <input type="text" class="form-control" id="nombre_alumno" placeholder="Nombre del alumno">
@@ -188,7 +188,7 @@
                               <select background-color="red" id="sexo_alumno" class="form-select form-select-lg mb-3">
                               <option value="Masculino">Masculino</option>
                               <option value="Femenino">Femenino</option>
-                              </select> 
+                              </select>
                      </div>
                   </div>
                   <br>
@@ -256,10 +256,10 @@
                               </select>
                     </div>
                   </div>
-                  
-                  <br> 
-                  <br> 
-                  <br> 
+
+                  <br>
+                  <br>
+                  <br>
                   <div class="col-4 col-sm-4">
                 <div class="form-group">
                   <label for="customFile">Acta de nacimiento</label>
@@ -288,10 +288,10 @@
 
               </div>
             </div>
-             
+
                 <!-- Image -->
-                
-                
+
+
 
                 </form>
              </div>
@@ -514,7 +514,7 @@
                               <select background-color="red" id="sexo_alumno_update" class="form-select form-select-lg mb-3">
                               <option value="Masculino">Masculino</option>
                               <option value="Femenino">Femenino</option>
-                              </select> 
+                              </select>
                      </div>
                   </div>
                   <br>
@@ -559,10 +559,10 @@
                     </div>
                   </div>
                   <br>
-                  
-                  <br> 
-                  <br> 
-                  <br> 
+
+                  <br>
+                  <br>
+                  <br>
                   <div class="col-4 col-sm-4">
                 <div class="form-group">
                   <label for="customFile">Acta de nacimiento</label>
@@ -591,7 +591,7 @@
 
               </div>
             </div>
-                    
+
                     </form>
                   </div>
                 </div>
@@ -776,7 +776,8 @@
             <th class="text-center" width="7%">Certificado medico</th>
             <th class="text-center" width="7%">Acciones</th>
             <th class="text-center" width="7%">Información</th>
-          </tr> 
+            <th class="text-center" width="7%">S. Social</th>
+          </tr>
         </thead>
       </table>
 

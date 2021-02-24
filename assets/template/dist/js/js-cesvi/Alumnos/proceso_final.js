@@ -1,8 +1,8 @@
     $(document).ready(function(){
+    mostrarBtnAgregarOficioServicioSocial();
+    mostrarBtnAgregarOficioPracticasProfes();
+    mostrarBtnAgregarOficioTitulacion();
 
-
-        // document.getElementById("semestre").style.display = "none";
-        // document.getElementById("modalidadDiv").style.display = "none";
     }); // FIN DE LA FUNCION PRINCIPAL
 
 
@@ -161,3 +161,90 @@
                     });
                 }
             });
+
+
+
+//  DAR PERMISOS A PANTALLAS  Titulacion , servicio_social y Practicas_profesionale
+
+//  1.-  SERVICIO SOCIAL
+function mostrarBtnAgregarOficioServicioSocial(){
+    debugger;
+              var datos = {
+                      numero_control : $("#noControlProcFinServSocial").val(),
+                  }
+              $.ajax({
+            url: base_url+'Alumnos/Servicio_social/mostrarOpcionSubirOficioServiSocial',
+            type: "post",
+            dataType: "json",
+                  data : (datos),
+                  success : function(data){
+              if (data.responce == "success") {
+                  toastr["success"](data.message);
+                      debugger;
+                      $('#formularioRegistroOficioServicio').show();
+                      $('#noPermisoDeAddOficioServSocial').hide();
+                    }else{
+                      // toastr["error"](data.message);
+                      $('#noPermisoDeAddOficioServSocial').show();
+                      $('#formularioRegistroOficioServicio').hide();
+                    }
+                      }
+              });
+      }
+
+
+
+//  2.- PRACTICAS PROFESIONALES
+function mostrarBtnAgregarOficioPracticasProfes(){
+    debugger;
+              var datos = {
+                      numero_control : $("#noControlProcFinPracticas").val(),
+                  }
+              $.ajax({
+            url: base_url+'Alumnos/Practicas_profesionales/mostrarOpcionSubirOficioPracticasProf',
+            type: "post",
+            dataType: "json",
+                  data : (datos),
+                  success : function(data){
+              if (data.responce == "success") {
+                  toastr["success"](data.message);
+                      debugger;
+                      $('#formularioRegistroOficioPractProf').show();
+                      $('#noPermisoDeAddOficioPracticasProf').hide();
+                    }else{
+                      // toastr["error"](data.message);
+                      $('#noPermisoDeAddOficioPracticasProf').show();
+                      $('#formularioRegistroOficioPractProf').hide();
+                    }
+                      }
+              });
+      }
+
+
+
+
+      //  2.-  TITULACION
+      function mostrarBtnAgregarOficioTitulacion(){
+          debugger;
+                    var datos = {
+                            numero_control : $("#noControlProcFinTitulacion").val(),
+                        }
+                    $.ajax({
+                  url: base_url+'Alumnos/Titulacion/mostrarOpcionSubirOficioTitulacion',
+                  type: "post",
+                  dataType: "json",
+                        data : (datos),
+                        success : function(data){
+                    if (data.responce == "success") {
+                        toastr["success"](data.message);
+                            debugger;
+                            $('#formularioRegistroOficioTitulacion').show();
+                            $('#noPermisoDeAddOficioTitulacion').hide();
+                          }else{
+                            // toastr["error"](data.message);
+                            $('#noPermisoDeAddOficioTitulacion').show();
+                            $('#formularioRegistroOficioTitulacion').hide();
+                          }
+                            }
+                    });
+            }

@@ -79,6 +79,14 @@
 
 
 
+    <div class="modal-dialog" id="noPermisoDeAddOficioServSocial">
+        <center>
+            <strong><font color="#E74C3C">Aun no tiene permiso realizar el Servicio Social...!!!</font></strong> <br>
+        </center>
+    </div>
+
+
+
 <!--   TABLA  -->
  <!-- <div class="row my-4">
     <div class="col-md-12 mx-auto">

@@ -28,7 +28,7 @@ class Modelo_Alumnos extends CI_Model { // INICIO DEL MODELO
             $this->db->select("alumnos.numero_control as numero_control,
             concat(alumnos.nombres,' ',alumnos.apellido_paterno,' ',alumnos.apellido_materno) as alumno,
             alumnos.nombre_acta, alumnos.nombre_certificado_bachillerato, alumnos.nombre_curp, alumnos.nombre_certificado_medico,
-            detalles.id_detalle");
+            detalles.id_detalle, alumnos.servicio_social, alumnos.practicas_prof , alumnos.titulacion ");
             $this->db->from("alumnos");
             $this->db->join("detalles","alumnos.numero_control = detalles.alumno");
             $this->db->join("carrera","detalles.carrera = carrera.id_carrera");

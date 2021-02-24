@@ -522,16 +522,45 @@ function llenarTablaAlumnos(carrera,opcion,cuatrimestre) {
                             orderable: false,
                             searchable: false,
                             "render" : function(data, type, row) {
-                              // var validarArchivo = `${row.estado_archivo}`;
-                              var string = '<input type="checkbox" id="check_id" ';
-  //                             if(validarArchivo != 6){
-  // string = string + `checked onclick=habilitarValidoComprobantePagoAlumno(6,'${row.numero_control}','${row.id_alta_baucher_banco}','${row.semestre}')>`;
-  //                             }else {
-  string = string +`onclick=habilitarValidoComprobantePagoAlumno(7,'${row.numero_control}','${row.id_alta_baucher_banco}','${row.semestre}')>`;
-                              // }
-                              return string;
+                                  var servicio_social = `${row.servicio_social}`;
+                              if(servicio_social == 1){
+                                var a = 'En proceso';
+                              }else {
+                                var a = '----';
+                              }
+                              return a;
                              },
                         },
+
+                        {
+                            "className": "text-center",
+                            orderable: false,
+                            searchable: false,
+                            "render" : function(data, type, row) {
+                              var practicas_prof = `${row.practicas_prof}`;
+                                if(practicas_prof == 1){
+                                  var a = 'En proceso';
+                                }else {
+                                  var a = '----';
+                                }
+                                return a;
+                             },
+                        },
+
+                                {
+                                "className": "text-center",
+                                orderable: false,
+                                searchable: false,
+                                "render" : function(data, type, row) {
+                                    var titulacion = `${row.titulacion}`;
+                                      if(titulacion == 1){
+                                        var a = 'En proceso';
+                                      }else {
+                                        var a = '----';
+                                      }
+                                      return a;
+                                     },
+                                },
 
 
                 ],

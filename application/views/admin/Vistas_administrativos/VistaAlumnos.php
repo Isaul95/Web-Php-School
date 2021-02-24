@@ -773,10 +773,12 @@
             <th class="text-center" width="7%">Acta</th>
             <th class="text-center" width="7%">Certificado</th>
             <th class="text-center" width="7%">Curp</th>
-            <th class="text-center" width="7%">Certificado medico</th>
+            <th class="text-center" width="7%">Cert. medico</th>
             <th class="text-center" width="7%">Acciones</th>
             <th class="text-center" width="7%">Información</th>
             <th class="text-center" width="7%">S. Social</th>
+            <th class="text-center" width="7%">P. Profes</th>
+            <th class="text-center" width="7%">Titulación</th>
           </tr>
         </thead>
       </table>

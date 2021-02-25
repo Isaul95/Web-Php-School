@@ -14,7 +14,7 @@ detalles.id_detalle, detalles.opcion , opc.descripcion ");
       $this->db->join("detalles","alumnos.numero_control = detalles.alumno");
       $this->db->join("carrera","detalles.carrera = carrera.id_carrera");
       $this->db->join(" opciones opc "," opc.id_opcion = detalles.opcion ");
-      $this->db->where_in('detalles.estado', ['En_curso','Inicio_inscripcion']);
+      // $this->db->where_in('detalles.estado', ['En_curso','Inicio_inscripcion']);
       $this->db->where("alumnos.numero_control",$numero_control);
       $resultados = $this->db->get();
       return $resultados->result();

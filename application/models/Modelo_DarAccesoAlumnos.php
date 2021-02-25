@@ -15,7 +15,7 @@ class Modelo_DarAccesoAlumnos extends CI_Model { // INICIO DEL MODELO
         //$this->db->join(" calificaciones calf "," detalles.id_detalle = calf.detalle ");
         $this->db->join("carrera","detalles.carrera = carrera.id_carrera");
         $this->db->join(" periodo_escolar pec "," pec.id_periodo_escolar = detalles.ciclo_escolar ");
-        $this->db->where_in('detalles.estado', ['En_curso','Inicio_inscripcion']);
+        // $this->db->where_in('detalles.estado', ['En_curso','Inicio_inscripcion']);
         $this->db->where("alumnos.numero_control",$numero_control);
         $resultados = $this->db->get();
         return $resultados->result();
@@ -240,6 +240,11 @@ class Modelo_DarAccesoAlumnos extends CI_Model { // INICIO DEL MODELO
       return $this->db->delete('datos_recibo', array('bauche' => $id_alta_baucher_banco));
       }
 
+      public function deleteDatosDelReciboHistorico($pagorecibo){
+      return $this->db->delete('historico_recibos_pagos', array('id_recibo' => $pagorecibo));
+    }
+
+
       public function insert_entry($data){
           return $this->db->insert('datos_recibo', $data);
         }
@@ -269,7 +274,7 @@ class Modelo_DarAccesoAlumnos extends CI_Model { // INICIO DEL MODELO
      sta.estado, tip.pago, rec.id_recibo, val.id_recibo_valido, ban.semestre,
      det.id_detalle, pec.nombre_ciclo, ban.parcialidades, ban.fecha_limite_de_pago,
      ban.estado_archivo, sta.estatus, rec.cantidad , rec.desc_concepto,
-     rec.pago_total_a_pagar, rec.restante ");
+     rec.pago_total_a_pagar, rec.restante, rpag.id_recibo as pagorecibo");
      $this->db->from("alumnos alu");
      $this->db->join("alta_baucher_banco ban","alu.numero_control = ban.numero_control");
      $this->db->join("detalles det ","alu.numero_control = det.alumno");
@@ -277,9 +282,9 @@ class Modelo_DarAccesoAlumnos extends CI_Model { // INICIO DEL MODELO
      $this->db->join("estatus sta","sta.estatus = ban.estado_archivo ");
      $this->db->join(" periodo_escolar pec "," pec.id_periodo_escolar = det.ciclo_escolar ");
      $this->db->join("tipos_de_pagos tip","tip.id_tipo_pago = ban.tipo_de_pago");
-       $this->db->join("historico_recibos_pagos rec","rec.bauche = ban.id_alta_baucher_banco",'LEFT');
-//  $this->db->join("datos_recibo rec","rec.bauche = ban.id_alta_baucher_banco",'LEFT');
-       $this->db->join("recibo_validado val","val.id_recibo = rec.id_recibo",'LEFT');
+     $this->db->join("historico_recibos_pagos rec","rec.bauche = ban.id_alta_baucher_banco",'LEFT');
+                              $this->db->join("datos_recibo rpag","rpag.bauche = ban.id_alta_baucher_banco",'LEFT');
+     $this->db->join("recibo_validado val","val.id_recibo = rec.id_recibo",'LEFT');
      $this->db->where("ban.numero_control",$numero_control);
      $this->db->where("ban.semestre",$semestre);
      $this->db->where("ban.tipo_de_pago",$tipoPago);

@@ -73,7 +73,7 @@ public function asignacion_masiva_de_alumnos(){
 	$ciclo = 	$this->input->post('ciclo');
 
 	$materias = $this->Modelo_DarAccesoAlumnos->materias_a_insertar($opcion_estudio,$licenciatura,$semestre,$ciclo);
-	
+
 	foreach ($materias as $materiasdata) {
 		$Array_materias[] = array(
 			'detalle'          => $detalle,
@@ -91,7 +91,7 @@ public function asignacion_masiva_de_alumnos(){
 	} else {
 				$data = array('response' => "error", 'message' => "No se agrega correctamente");
 	}
-echo json_encode($data);	
+echo json_encode($data);
 }
 
 public function marcarParaRegistro(){
@@ -108,13 +108,13 @@ public function marcarParaRegistro(){
 			$data3['estado'] = $this->input->post('estado');
 			$estatus = $this->input->post('estatus');  // var para filtrado si es habilitar o des-habilitar
 		    $numero_control = 	$this->input->post('numero_control');
-			/* 
+			/*
 			$id_alta_baucher_banco = $this->input->post('id_alta_baucher_banco');
- 				
+
 			$data2['estado_archivo'] =	7; // ==>> tabla de baucher => estado_archivo mover a  7= ¡Comprobante válido!
 			$data4['estado_archivo'] =	6; // ==>> tabla de baucher => estado_archivo mover a  6= ¡Registro baucher!
 			*/
-			
+
 		if($estatus != 0){  // Depende del estatus k se mande se hace a accion
 			// $this->Modelo_DarAccesoAlumnos->updateStatusComprobPago($numero_control, $data2);//=> Se mueve estatus tabla de baucher => estado_archivo =>1
 			$this->Modelo_DarAccesoAlumnos->updateStatusDetalles($numero_control, $data3);//=> Se muesve estado detalles => En_espera_de_materias
@@ -144,7 +144,7 @@ public function marcarParaRegistro(){
 	else{
 	echo "No se permite este acceso directo...!!!";
 	}
-	
+
 	}
 
 
@@ -153,6 +153,7 @@ public function marcarParaValidarComprobantePago(){
 			$data['estado_archivo'] = $this->input->post('estado_archivo');
 			$numero_control = $this->input->post('numero_control');
 			$id_alta_baucher_banco = $this->input->post('id_alta_baucher_banco');
+			$pagorecibo = $this->input->post('pagorecibo');
 
 			$data5['estado_archivo'] = $this->input->post('estado_archivo');
 			$data5['parcialidades'] =	" ";
@@ -171,6 +172,8 @@ public function marcarParaValidarComprobantePago(){
 						}
 		} else {
 						if ($this->Modelo_DarAccesoAlumnos->updateStatusComprobPago($numero_control, $id_alta_baucher_banco, $data5)) {
+								$this->Modelo_DarAccesoAlumnos->deleteDatosDelRecibo($id_alta_baucher_banco);
+								$this->Modelo_DarAccesoAlumnos->deleteDatosDelReciboHistorico($pagorecibo);
 							$data = array('responce' => 'success', 'message' => 'Comprobante de pago fue Deshabilitado...!');
 						} else {
 							$data = array('responce' => 'error', 'message' => 'Fallo al deshabilitar el Comprobante de pago...!');

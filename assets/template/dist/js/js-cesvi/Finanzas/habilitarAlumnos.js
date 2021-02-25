@@ -206,7 +206,7 @@ function Mostrar_PagoCompleto(){
                                 if(habilitarAlumno == 1){
                                  // string = string + `checked onclick=habilitaRegistroFinanzas(0,'${row.numero_control}','${row.id_alta_baucher_banco}','Inicio_inscripcion','${row.semestre}')>`;
                                 // string = string + `checked>`;
-                              string= "¡Horario ya asignado!" ; 
+                              string= "¡Horario ya asignado!" ;
                               }else {
                                   string = string +`onclick=habilitaRegistroFinanzas(1,'${row.numero_control}','En_curso','${row.id_detalle}')>`;
                                 }
@@ -355,9 +355,9 @@ return a;
                               var validarArchivo = `${row.estado_archivo}`;
                               var string = '<input type="checkbox" id="check_id" ';
                               if(validarArchivo != 6){
-  string = string + `checked onclick=habilitarValidoComprobantePagoAlumno(6,'${row.numero_control}','${row.id_alta_baucher_banco}','${row.semestre}')>`;
+  string = string + `checked onclick=habilitarValidoComprobantePagoAlumno(6,'${row.numero_control}','${row.id_alta_baucher_banco}','${row.semestre}','${row.pagorecibo}')>`;
                               }else {
-  string = string +`onclick=habilitarValidoComprobantePagoAlumno(7,'${row.numero_control}','${row.id_alta_baucher_banco}','${row.semestre}')>`;
+  string = string +`onclick=habilitarValidoComprobantePagoAlumno(7,'${row.numero_control}','${row.id_alta_baucher_banco}','${row.semestre}','${row.pagorecibo}')>`;
                               }
                               return string;
                              },
@@ -472,12 +472,12 @@ return a;
       }
 
 
-      function habilitarValidoComprobantePagoAlumno(estado_archivo, numero_control, id_alta_baucher_banco, semestre){
+      function habilitarValidoComprobantePagoAlumno(estado_archivo, numero_control, id_alta_baucher_banco, semestre, pagorecibo){
           debugger;
             		var datos = {
                     estado_archivo : estado_archivo,
             				numero_control : numero_control,
-                    // estatus: estatus,
+                    pagorecibo: pagorecibo,
                     id_alta_baucher_banco: id_alta_baucher_banco,
                     semestre :semestre,
             		}
@@ -807,7 +807,7 @@ function modalCapturaDatosRecibo(id_alta_baucher_banco){
 // SOLO SE VA HABILITAR CUANDO ESTE DESHABILITADO, UNA VEZ K SE ABILITE SE DESBLOKEA
 function habilitaRegistroFinanzas(estatus, numero_control,estado,detalle){
     debugger;
-   
+
     var licenciatura = $("#combo_CarreraAltaAlumn_Finanzas").val();
     var semestre = $("#combo_SemestresAltaAlumn_Finanzas").val();
     var opciones = $("#combo_opcionesAltaAlumn_Finanzas").val();
@@ -1031,7 +1031,7 @@ $("#addDatosAGenerarReciboPago").prop('disabled', true);
                   bauche : $("#id_alta_baucher_bancoDatesRecibo").val(),
                   desc_concepto : $("#concepto").val(),
                   cantidad : $("#cantidad").val(),
-                  importe_letra : $("#numletra").val()+" PESOS 00/100 M.N",  
+                  importe_letra : $("#numletra").val()+" PESOS 00/100 M.N",
                   usuario_creacion : $("#username").val(),
                    restante : $("#restante").val(),
                    pago_total_a_pagar : $("#cantidad_total_a_pagar").val(),
@@ -1154,8 +1154,8 @@ $(document).on("click", "#regresarModAnterior33", function (e) {
                 return;
             }
             this.elMessage.innerText = this.getName(number);
-        
-           
+
+
         }
 
         // Elimina los ceros a la izquierda

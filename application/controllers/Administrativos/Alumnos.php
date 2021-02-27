@@ -227,11 +227,9 @@ class Alumnos extends CI_Controller {
 			$ajax_data2['ciclo_escolar'] = $this->input->post('ciclo_escolar');
 			$ajax_data2['estado'] = $this->input->post('estado');
 			$ajax_data2['promedio'] = $this->input->post('promedio');
-			//PARA AGREGAR EL ALUMNO COMO USUARIO
+			//PARA AGREGAR EL ALUMNO COMO USUARIO,
 			$ajax_data4['nombres'] = $this->input->post('nombres');
 			$ajax_data4['apellidos'] = $this->input->post('apellidos');
-			$ajax_data4['telefono'] = $this->input->post('telefono');
-			$ajax_data4['email'] = $this->input->post('email');
 			$ajax_data4['username'] = $this->input->post('username');
 			$ajax_data4['password'] = $this->input->post('password');
 			$ajax_data4['rol_id'] = $this->input->post('rol_id');
@@ -244,7 +242,7 @@ class Alumnos extends CI_Controller {
             $tabla = "alumnos";
 
 			if ($this->Modelo_Alumnos->alumnoexiste($tabla,$alumno)>=1) {
-				$data = array('response' => "error", 'message' => "El alumno ya se encuentra registrado");
+				$data = array('response' => "error", 'message' => "El alumno ya se encuentra".$alumno."registrado");
 			}
 			else{ //EL ALUMNO NO EXISTE, PROCEDE A CREARLO
 				if ($this->Modelo_Alumnos->insert_entry($ajax_data)) {
@@ -254,19 +252,21 @@ class Alumnos extends CI_Controller {
 					} else {
 						$data = array('response' => "error", 'message' => "Error al agregar datos...!");
 					}
-					if ($this->Modelo_Alumnos->insert_entry_alumno_como_usuario($ajax_data4)) {
+					//SE COMENTA PORQUE SE AGREGA TRIGGER PARA INSERTAR EN ALUMNO
+					//if ($this->Modelo_Alumnos->insert_entry_alumno_como_usuario($ajax_data4)) {
 						$data = array('response' => "success", 'message' => "Se agrega como usuario");
-					} else {
-						$data = array('response' => "error", 'message' => "Error al agregar datos...!");
+					//} else {
+					//	$data = array('response' => "error", 'message' => "Error al agregar datos...!");
+					//}
+					if($this->Modelo_Alumnos->update_secuencia($secuencia,$ajax_data3)) {
+						$data = array('response' => "success", 'message' => "¡Alumno agregado correctamente!");
+					}else {
+						$data = array('response' => "error", 'message' => "¡No se pudo agregar el alumno!");
 					}
 				} else {
 					$data = array('response' => "error", 'message' => "Error al agregar datos...!");
 				}
-				if($this->Modelo_Alumnos->update_secuencia($secuencia,$ajax_data3)) {
-					$data = array('response' => "success", 'message' => "¡Alumno agregado correctamente!");
-				}else {
-					$data = array('response' => "error", 'message' => "¡No se pudo agregar el alumno!");
-				}
+				
 			}
 
 			}

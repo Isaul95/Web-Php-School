@@ -237,22 +237,13 @@
                     <div class="col-6 col-sm-6">
                         <label for="">Licenciatura</label>
                         <select background-color="red" id="licenciaturas_alumno" class="form-select form-select-lg mb-3">
-                        <option value="23">Derecho</option>
-                        <option value="24">Psicología</option>
-                        <option value="22">Criminalística, Criminología y Técnicas Periciales</option>
-                        <option value="19">Diseño Gráfico</option>
-                        <option value="21">Contaduría</option>
+                        <option value="" selected>Seleccione una carrera</option>
                         </select>
                      </div>
                      <div class="col-6 col-sm-6">
                             <label for="">Horarios</label>
                               <select background-color="red" id="horarios_alumno" class="form-select form-select-lg mb-3">
-                              <option value="6">Lunes a Viernes 7:30 a 14:00</option><!--ESCOLARIZADO-->
-                              <option value="1">Martes y Jueves 8:00 a 14:00</option><!--EJECUTIVO 1-->
-                              <option value="2">Martes y Jueves 15:00 a 20:00</option><!--EJECUTIVO 2-->
-                              <option value="3">Miércoles y Viernes 8:00 a 14:00</option><!--EJECUTIVO 3-->
-                                <option value="4">Miércoles y Viernes 15:00 a 20:00</option><!--EJECUTIVO 4-->
-                                <option value="5">Sábados 8:00 a 20:00</option><!--EJECUTIVO 5-->
+                              <option value="" selected>Seleccione una opción</option>
                               </select>
                     </div>
                   </div>

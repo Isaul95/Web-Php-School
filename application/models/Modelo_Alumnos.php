@@ -48,10 +48,12 @@ public function insert_entry($data)
     {
         return $this->db->insert('alumnos', $data);
     }
+    /*
     public function insert_entry_alumno_como_usuario($data)
     {
         return $this->db->insert('usuarios', $data);
     }
+    */
     public function insert_entry_alumno_a_su_carrera($data)
     {
         return $this->db->insert('detalles', $data);

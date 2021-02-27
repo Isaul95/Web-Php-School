@@ -117,7 +117,7 @@ public function marcarParaRegistro(){
 
 		if($estatus != 0){  // Depende del estatus k se mande se hace a accion
 			// $this->Modelo_DarAccesoAlumnos->updateStatusComprobPago($numero_control, $data2);//=> Se mueve estatus tabla de baucher => estado_archivo =>1
-			$this->Modelo_DarAccesoAlumnos->updateStatusDetalles($numero_control, $data3);//=> Se muesve estado detalles => En_espera_de_materias
+			$this->Modelo_DarAccesoAlumnos->updateStatusDetalles($numero_control, $data3,$detalle);//=> Se muesve estado detalles => En_espera_de_materias
 						if ($this->Modelo_DarAccesoAlumnos->update($numero_control, $data)) { //=> Mueve estatus de tabla alumno
 // 1.- Cuando se habilita solo es estatus en la tabla de alumnos => estatus =1
 							$data = array('responce' => 'success', 'message' => 'Alumno habilitado correctamente...!');

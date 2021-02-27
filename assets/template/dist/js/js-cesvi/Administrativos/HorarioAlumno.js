@@ -41,7 +41,7 @@
 
         horarioyaelegido_admin();
         periodo_activo_horario_admin();
-     llenartabla_materias_elegidas_admin();
+        llenartabla_materias_elegidas_admin();
       $("#elegirmaterias").click(function () {
 
         $("#tbl_elegir_materias_admin").DataTable().destroy();
@@ -334,6 +334,7 @@ $(document).on("click", "#agregar_materia_admin", function (e) {
 });
 function llenartabla_materias_elegidas_admin() {
   var numero_control = $("#numero_control_alumno_horario_admin").val();
+  var semestre = $("#elcombo_semestre_horarioalumno_admin").val();
   var fd = new FormData();
   var concat = "";
   var fecha = new Date();
@@ -363,6 +364,7 @@ function llenartabla_materias_elegidas_admin() {
   }
   fd.append("numero_control", numero_control);
   fd.append("ciclo", ciclo);
+  fd.append("semestre", semestre);
 
 
   $.ajax({

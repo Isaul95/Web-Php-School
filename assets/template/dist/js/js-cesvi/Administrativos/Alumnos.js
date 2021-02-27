@@ -8,6 +8,8 @@ $(document).ready(function () {
     secuencia_criminalistica();
     secuencia_diseño();
     secuencia_contaduria();
+    llenar_combo_carreras_alumnos_admin_registro();
+    llenar_combo_opciones_alumnos_admin_registro();
 
     llenar_combo_carreras_alumnos_admin();
 $("#combo_carreras_alumnos_admin").change(function () {
@@ -31,6 +33,32 @@ $("#combo_opciones_alumnos_admin").change(function () {
      $("#combo_semestres_alumnos_admin").val());
 });
 }); // FIN DE LA FUNCION PRINCIPAL
+function llenar_combo_carreras_alumnos_admin_registro() {
+    $.ajax({
+        type: "get",
+        url: base_url + 'Administrativos/HacerHorarioProfesor/obtenercarreras',
+        dataType: "json",
+        success: function (data) {
+            console.log(data);
+            $.each(data, function (key, registro) {
+                $("#licenciaturas_alumno").append('<option value=' + registro.id_carrera + '>' + registro.carrera_descripcion + '</option>');
+            });
+        },
+    });
+}
+function llenar_combo_opciones_alumnos_admin_registro() {
+    $.ajax({
+        type: "get",
+        url: base_url + 'Administrativos/HacerHorarioProfesor/obteneropciones',
+        dataType: "json",
+        success: function (data) {
+            $.each(data, function (key, registro) {
+                $("#horarios_alumno").append('<option value=' + registro.id_opcion + '>' + registro.descripcion + '</option>');
+            });
+
+        },
+    });
+}
 function llenar_combo_carreras_alumnos_admin() {
     $.ajax({
         type: "get",
@@ -264,13 +292,9 @@ $(document).on("click", "#btnaddalumno", function (e) {
 
         //EL REGISTRO DEL ALUMNO COMO USUARIO
         var apellidos = "";
-        apellidos = apellidos.concat(apellidop_alumno);
-        apellidos = apellidos.concat(" ");
-        apellidos = apellidos.concat(apellidom_alumno);
+        apellidos = apellidos.concat(apellidop_alumno,'',apellidom_alumno);
         fd.append("nombres", nombre_alumno);
         fd.append("apellidos", apellidos);
-        fd.append("telefono", telefono_alumno);
-        fd.append("email", email_alumno);
         fd.append("username", numero_control);
         fd.append("password", 123456);
         fd.append("rol_id", 2);
@@ -767,6 +791,11 @@ function agregar_alumno(fd) {
                 $(".add-file-label").html("No se eligió archivo");
                 $("#tbl_alumnos_inscripcion").DataTable().destroy();
                 llenarTablaAlumnos();
+                secuencia_derecho();
+                secuencia_psicologia();
+                secuencia_criminalistica();
+                secuencia_diseño();
+                secuencia_contaduria();
             } else {
                 toastr["error"](response.message);
             }

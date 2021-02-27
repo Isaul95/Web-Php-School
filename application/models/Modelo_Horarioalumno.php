@@ -430,15 +430,15 @@ public function obtenermateriasaelegir($licenciatura,$semestre,$opcion,$ciclo){
   $resultados = $this->db->get();
    return $resultados->result();
  }
- public function obtenermateriasaelegidas($numero_control,$ciclo){
-  $this->db->select("m.id_materia as materia,
+ public function obtenermateriasaelegidas($numero_control,$ciclo,$semestre){
+  $this->db->select("cal.materia as materia,
   d.id_detalle as alumno,
   cal.profesor as id_profe,
   m.nombre_materia as nombre_materia,
   p.nombres as profe,
   c.carrera_descripcion as carrera,
   o.descripcion as opcion,
-  d.cuatrimestre as semestre,
+  hp.semestre as semestre,
   cal.ciclo as ciclo,
   cal.horario
   ");
@@ -449,10 +449,13 @@ public function obtenermateriasaelegir($licenciatura,$semestre,$opcion,$ciclo){
   $this->db->join("opciones o","d.opcion = o.id_opcion");
   $this->db->join("materias m","cal.materia = m.id_materia");
   $this->db->join("profesores p","cal.profesor  = p.id_profesores");
+  $this->db->join("horarios_profesor hp","hp.profesor  = p.id_profesores");
+
 
   $this->db->where("cal.ciclo",$ciclo);
   $this->db->where("d.alumno",$numero_control);
   $this->db->where_in('d.estado', ['Inicio_inscripcion','En_curso']);
+  $this->db->where_in('hp.semestre', $semestre);
 
   $resultados = $this->db->get();
    return $resultados->result();

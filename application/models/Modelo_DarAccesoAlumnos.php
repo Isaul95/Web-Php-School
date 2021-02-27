@@ -17,6 +17,7 @@ class Modelo_DarAccesoAlumnos extends CI_Model { // INICIO DEL MODELO
         $this->db->join(" periodo_escolar pec "," pec.id_periodo_escolar = detalles.ciclo_escolar ");
         // $this->db->where_in('detalles.estado', ['En_curso','Inicio_inscripcion']);
         $this->db->where("alumnos.numero_control",$numero_control);
+        $this->db->where_in('detalles.estado', ['Inicio_inscripcion','En_curso']);
         $resultados = $this->db->get();
         return $resultados->result();
         }
@@ -172,6 +173,8 @@ class Modelo_DarAccesoAlumnos extends CI_Model { // INICIO DEL MODELO
       $this->db->where(" det.opcion =",$opciones);
       $this->db->where(" det.carrera =",$licenciatura);
       $this->db->where(" ban.tipo_de_pago =",	$tipoPago);
+      $this->db->where(" det.cuatrimestre =",	$semestre);
+      
      $this->db->group_by('nombre_completo');
       $resultados = $this->db->get();
       return $resultados->result();
@@ -208,8 +211,9 @@ class Modelo_DarAccesoAlumnos extends CI_Model { // INICIO DEL MODELO
       }
 
 // ========== ACTUALIZA SIEMPRE EL ESTATUS DE LA TABLA DETALLES PARA HABILITAR Y DESHABILITAR  ===========    estado_archivo
-        public function updateStatusDetalles($numero_control, $data3){
+        public function updateStatusDetalles($numero_control, $data3,$detalle){
           $this->db->where("alumno",$numero_control);
+          $this->db->where("id_detalle",$detalle);
            return $this->db->update("detalles", $data3);
           }
 

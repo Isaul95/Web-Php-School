@@ -395,7 +395,7 @@ public function horarioyaseleccionado($numero_control){
     $this->db->select("alumno");
     $this->db->from("detalles");
     $this->db->where("alumno",$numero_control);
-    $this->db->where("estado","En curso");
+    $this->db->where("estado","En_curso");
 $resultados = $this->db->get();
 return $resultados->result();
 }
@@ -430,7 +430,8 @@ public function obtenermateriasaelegir($licenciatura,$semestre,$opcion,$ciclo){
   $resultados = $this->db->get();
    return $resultados->result();
  }
- public function obtenermateriasaelegidas($numero_control,$ciclo,$semestre){
+ public function obtenermateriasaelegidas($numero_control,$ciclo,$semestre,$detalle){
+  $this->db->distinct();
   $this->db->select("cal.materia as materia,
   d.id_detalle as alumno,
   cal.profesor as id_profe,
@@ -454,8 +455,11 @@ public function obtenermateriasaelegir($licenciatura,$semestre,$opcion,$ciclo){
 
   $this->db->where("cal.ciclo",$ciclo);
   $this->db->where("d.alumno",$numero_control);
-  $this->db->where_in('d.estado', ['Inicio_inscripcion','En_curso']);
+  $this->db->where_in('d.estado', ['Inicio_inscripcion','En_curso','Completo']);
   $this->db->where_in('hp.semestre', $semestre);
+  $this->db->where_in('cal.detalle', $detalle);
+  
+
 
   $resultados = $this->db->get();
    return $resultados->result();

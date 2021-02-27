@@ -15,8 +15,6 @@ class HacerHorarioProfesor extends CI_Controller {
 
 
 
-	 
-
 	public function index(){
 		$data = array(
 			// 'tipoDePagos' => $this->Modelo_DarAccesoAlumnos->getTipoDePagos(),

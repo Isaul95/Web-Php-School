@@ -65,7 +65,8 @@ public function materiaselegidas(){
 	$numero_control = $this->input->post('numero_control');
 	$ciclo = $this->input->post('ciclo');
 	$semestre = $this->input->post('semestre');
-	$posts = $this->Modelo_Horarioalumno->obtenermateriasaelegidas($numero_control,$ciclo,$semestre);
+	$detalle = $this->input->post('detalle');
+	$posts = $this->Modelo_Horarioalumno->obtenermateriasaelegidas($numero_control,$ciclo,$semestre,$detalle);
 
 	echo json_encode($posts);
 } else {

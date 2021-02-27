@@ -96,6 +96,25 @@ class Titulacion extends CI_Controller {
 	}
 
 
+	public function obtenerComprobantesTitulacion() {
+				$alumno = $this->input->post('alumno');
+				$tipo_documento = $this->input->post('tipo_documento');
+//  $alumno, $tipo_documento
+		    $posts = $this->Modelo_ProcesoFinal->obtenerDocumentosDeTitulacionDelAlumno();
+		    echo json_encode($posts);
+		}
+
+
+		public function verArchivoTitulacion($id_oficio , $alumno , $tipo_documento ){
+			$consulta = $this->Modelo_ProcesoFinal->getArchivosTitulacion($id_oficio , $alumno , $tipo_documento);
+			$archivo = $consulta['archivo'];
+			$img = $consulta['nombre_archivo'];
+			header("Content-type: application/pdf");
+			header("Content-Disposition: inline; filename=$img.pdf");
+			print_r($archivo);
+		}
+
+
 
 
 }  // Fin del controller

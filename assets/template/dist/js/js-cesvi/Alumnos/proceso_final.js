@@ -3,6 +3,12 @@
     mostrarBtnAgregarOficioPracticasProfes();
     mostrarBtnAgregarOficioTitulacion();
 
+
+
+    var alumno = $("#noControlProcFinTitulacion").val();
+    var tipo_documento = "TITULACION";
+    llenarTablaDocumentosDeTitulacion(alumno,tipo_documento);
+
     }); // FIN DE LA FUNCION PRINCIPAL
 
 
@@ -248,3 +254,64 @@ function mostrarBtnAgregarOficioPracticasProfes(){
                             }
                     });
             }
+
+
+
+
+                function llenarTablaDocumentosDeTitulacion(alumno,tipo_documento) {
+                  debugger;
+                  var datos = {
+                               alumno : alumno,
+                               tipo_documento : tipo_documento,
+                             }
+
+                   console.log("Lista llenarTablaDocumentosDeTitulacion de cada alumno...!");
+
+                    $.ajax({
+                        type: "get",
+                        url: base_url+'Alumnos/Titulacion/obtenerComprobantesTitulacion',
+                        dataType: "json",
+                        data : (datos),
+                        success: function(response) {
+                            var i = "1";
+                            $("#tbl_listaDocDeTitulacion").DataTable({
+                                data: response,
+                                responsive: true,
+                                columns: [
+                                  {
+                                        data: "alumno",
+                                        // "visible": false,
+                                        // "searchable": false
+                                    },
+                                    {
+                                        data: "nombre_archivo",
+                                    },
+                                    {
+                                        data: "tipo_documento",
+                                    },
+                                    {
+                                        data: "estado_archivo",
+                                    },
+                                    {
+                                        data: "archivo",
+                                        render: function(data, type, row, meta) {
+                                            return a = `<a title="Descarga Baucher" href="Titulacion/verArchivoTitulacion/${row.id_oficio}/${row.alumno}/${row.tipo_documento}" target="_blank"><i class="far fa-file-pdf fa-2x"></i></a>`;
+                                        },
+                                    },
+                                    {
+                                        orderable: false,
+                                        searchable: false,
+                                        data: function (row, type, set) {
+                                            return `<a class="btn btn-danger btn-remove" onclick=deleteRecFirmado('${row.id_oficio}','${row.alumno}','${row.tipo_documento}')><i class="fas fa-trash-alt"></i></a>`;
+                                        },
+                                    },
+                                    {
+                                        data: "fecha_registro",
+                                    },
+
+                                ],
+                                  "language" : language_espaniol,
+                            });
+                        },
+                    });
+                }

@@ -1,5 +1,5 @@
     $(document).ready(function(){
-    
+
       combo_carreras_horarioalumno_admin();
       $("#elcombo_carreras_horarioalumno_admin").change(function () {
         // SE MUESTRAN LOS ALUMNOS
@@ -47,7 +47,7 @@
         $("#tbl_elegir_materias_admin").DataTable().destroy();
         llenartablaseleccionmaterias_admin();
     });
-           
+
     }); // FIN DE LA FUNCION PRINCIPAL
 
 ///////////////////////////////////////// CONDICIONALES /////////////////////////////////////////////////////////////////
@@ -132,7 +132,7 @@ function llenarTablaAlumnos_horario_admin(carrera,opcion,cuatrimestre) {
                   data: function(row, type, set) {
                     var concat="";
                     var detalle_numero_alumno = concat.concat(`${row.id_detalle}`,'_',`${row.numero_control}`,'_',`${row.alumno}`);
-                    
+
                       return `
                           <a href="#" id="seleccionar_alumno_para_elegir_materias" class="btn btn-info" value="${detalle_numero_alumno}"><i class="far fa-edit"></i></a>
                              `;
@@ -151,7 +151,7 @@ $(document).on("click", "#seleccionar_alumno_para_elegir_materias", function (e)
   e.preventDefault();
   var edit_id = $(this).attr("value");
   var array = edit_id.split('_');
-  
+
   var detalle = array[0];
   var numero_control = array[1];
   var alumno = array[2];
@@ -161,14 +161,14 @@ $(document).on("click", "#seleccionar_alumno_para_elegir_materias", function (e)
   $("#tbl_elegir_materias_admin").DataTable().destroy();
   $("#tbl_materias_elegidas_admin").DataTable().destroy();
   llenartabla_materias_elegidas_admin();
-  
+
 });
 /////////////////////////////////////  TABLA ALUMNOS /(((((((////////////////////////////)))))))
 
 
 //////////////////////////////////////// SELECCIÓN DE MATERIAS ////////////////////////////////////////////////////////
 function llenartablaseleccionmaterias_admin(carrera,opcion,semestre) {
- 
+
   var fd = new FormData();
   var concat = "";
   var fecha = new Date();
@@ -271,7 +271,7 @@ $(document).on("click", "#agregar_materia_admin", function (e) {
   e.preventDefault();
   var del_id = $(this).attr("value");
   var array = del_id.split('_');
-  
+
   var materia = array[0];
   var ciclo = array[1];
   var profe = array[2];
@@ -367,7 +367,7 @@ function llenartabla_materias_elegidas_admin() {
   fd.append("ciclo", ciclo);
   fd.append("semestre", semestre);
   fd.append("detalle", detalle);
-  alert(detalle);
+  // alert(detalle);
 
 
   $.ajax({
@@ -504,7 +504,7 @@ $(document).on("click", "#remover_materia_admin", function (e) {
 $(document).on("click", "#confirmar_horario_elegir_materias_admin", function (e) {
     e.preventDefault();
     debugger;
-   
+
     var numero_control = $("#numero_control_alumno_horario_admin").val();
     var licenciatura = $("#elcombo_carreras_horarioalumno_admin").val();
     var semestre = $("#elcombo_semestre_horarioalumno_admin").val();

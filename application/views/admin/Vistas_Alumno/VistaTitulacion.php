@@ -55,11 +55,11 @@
 <hr> <!-- Le da una linea sombreada para ver la divicion -->
 
 
-<div class="modal-dialog" id="formularioRegistroOficioTitulacion">
-  <div class="modal-content">
+<!-- <div class="modal-dialog" id="formularioRegistroOficioTitulacion"> -->
+  <!-- <div class="modal-content">
     <div class="modal-body">
       <form id="formularioAltaOficioProcFinTitulacion">
-            <!-- file -->
+
             <div class="form-group">
               <label for="customFile">Adjuntar archivo: *</label>
               <input type="file" class="custom-file-input" id="archivoProcFinTitulacion">
@@ -68,13 +68,11 @@
     </div>
 
     <div class="modal-footer">
-        <!-- <?php if($permisos->insert == 1):?> -->
           <button type="button" class="btn btn-primary" id="darAltaOficioTitulacion">Agregar</button>
-        <!-- <?php endif;?> -->
     </div>
 
     </div>
-</div>
+</div> -->
 
 
 
@@ -85,12 +83,63 @@
 </div>
 
 
-<!--   TABLA  -->
- <!-- <div class="row my-4">
-    <div class="col-md-12 mx-auto">
+                              <!-- Modal Agregar nueuvo registro -->
+                              <!-- <div class="modal fade" id="modalDocumento" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"> -->
+                                <!-- <div class="modal-dialog"> -->
+                                  <div class="modal-content">
+                                    <!-- <div class="modal-header bg-primary text-center">
+                                      <strong class="modal-title" id="exampleModalLabel">Guardar recibo de pago</strong>
+                                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                      </button>
+                                    </div> -->
+                                    <div class="modal-body">
+                                          <!-- <input type="hidden" id="numero_controlVarHide" name="numero_controlVarHide">
+                            				      <input type="hidden" id="id_alta_baucher_bancoVarHide" name="id_alta_baucher_bancoVarHide">
+                            				      <input type="hidden" id="id_reciboVarHide" name="id_reciboVarHide">
+                                          <input type="hidden" id="userAlta" name="userAlta" value="<?php echo $username;?>" > -->
 
-                              </div>
-                            </div> -->
+                                        <div>
+                                          <label> <span class="rojo">*</span>Seleccione el archivo formato PDF/WORD</label>
+                                        </div>
+                                        <div class="panel panel-default">
+                                          <div class="panel-body">
+                                          <div class="row">
+                                            <form id="formularioAltaOficioProcFinTitulacion">
+                                                  <!-- file -->
+                                                  <div class="form-group">
+                                                    <label for="customFile">Adjuntar archivo: *</label>
+                                                    <input type="file" class="custom-file-input" id="archivoProcFinTitulacion">
+                                                  </div>
+                                            </form>
+                                          </div>
+
+                                          <table id="tbl_listaDocDeTitulacion" class="table table-striped table-bordered table-hover table-condensed" cellspacing="0" style="background:white!important" width="100%">
+                                            <thead class="bg-primary">
+                                              <tr>
+                                                <th width="15%">Usuario</th>
+                                                <center><th width="15%">Nombre archivo</th></center>
+                                                <center><th width="10%">Tipo Doc.</th></center>
+                                                <center><th width="15%">Estado</th></center>
+                                                <center><th width="7%">Descarga</th></center>
+                                                <center><th width="7%">Eliminar</th></center>
+                                                <center><th width="15%">Registro</th></center>
+                                              </tr>
+                                            </thead>
+                                          </table>
+                                          </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="modal-footer">
+                                      <button type="button" class="btn btn-primary" id="darAltaOficioTitulacion">Agregar</button>
+                                    </div>
+                                  </div>
+                                <!-- </div> -->
+                              <!-- </div> -->
+
+
+
 
                           </div>
                         </div>

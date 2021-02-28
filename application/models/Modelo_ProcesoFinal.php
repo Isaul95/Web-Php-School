@@ -68,20 +68,26 @@ detalles.id_detalle, detalles.opcion , opc.descripcion ");
 
 // DCOUMENTACION TESIST OFICIO todo REFERENTE A Titulacion
 
-    public function obtenerDocumentosDeTitulacionDelAlumno(){  // $alumno, $tipo_documento
-            $this->db->select("id_oficio, alumno, nombre_archivo, tipo_documento, estado_archivo, fecha_registro");
-        $this->db->from("oficios_procesofin");
-         // $this->db->where(" alumno =",$alumno);
+    public function obtenerDocumentosDeTitulacionDelAlumnoXXX(){  // $alumno, $tipo_documento
+            $this->db->select("ofic.id_oficio, ofic.alumno, ofic.nombre_archivo, ofic.tipo_documento, sta.estado, ofic.fecha_registro, ofic.comentarios");
+        $this->db->from("oficios_procesofin ofic");
+        $this->db->join("estatus sta","sta.estatus = ofic.estado_archivo ");
+          // $this->db->where(" alumno =",$alumno);
          // $this->db->where(" tipo_documento =",$tipo_documento);
         $resultados = $this->db->get();
         return $resultados->result();
         }
 
 
-        public function getArchivosTitulacion($id_oficio , $alumno , $tipo_documento){
-                  $query = $this->db->query("select * FROM oficios_procesofin where id_oficio=? and alumno=? and tipo_documento=? ", array($id_oficio , $alumno , $tipo_documento));
-                  return $query->row_array();
-              }
+    public function getArchivosTitulacion($id_oficio , $alumno , $tipo_documento){
+              $query = $this->db->query("select * FROM oficios_procesofin where id_oficio=? and alumno=? and tipo_documento=? ", array($id_oficio , $alumno , $tipo_documento));
+              return $query->row_array();
+          }
+
+
+    public function eliminarRegistroDeTitulacionXAlumno($id_oficio, $alumno, $tipo_documento){
+        return $this->db->delete('oficios_procesofin', array('id_oficio' => $id_oficio, 'alumno' => $alumno, 'tipo_documento' => $tipo_documento));
+        }
 
 
 

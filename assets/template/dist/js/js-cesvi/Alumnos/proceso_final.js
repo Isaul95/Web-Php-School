@@ -2,10 +2,11 @@
     mostrarBtnAgregarOficioServicioSocial();
     mostrarBtnAgregarOficioPracticasProfes();
     mostrarBtnAgregarOficioTitulacion();
-
+debugger;
     var alumno = $("#noControlProcFinTitulacion").val();
     var tipo_documento = "TITULACION";
-    llenarTablaDocumentosDeTitulacion(alumno,tipo_documento);
+    $("#tbl_listaDocDeTitulacionXteeb").DataTable().destroy();
+    llenarTablaDocumentosDeTitulacionXxxx();
 
     }); // FIN DE LA FUNCION PRINCIPAL
 
@@ -142,6 +143,7 @@
                     fd.append("archivo", img); //Obt principalmente el name file
                     fd.append("archivo", archivo); // Obt el file como tal
                     fd.append("tipo_documento", 'TITULACION');  //  => Practocas profesionales
+                    fd.append("estado_archivo", '8');  //  => Practocas profesionales
                     fd.append("semestre", semestre);
 
                     $.ajax({
@@ -156,8 +158,8 @@
                             if (response.res == "success") {
                                 toastr["success"](response.message);
                                 $("#formularioAltaOficioProcFinTitulacion")[0].reset();
-                                //  Si se inserto bien el baucher se recarga la pagina
-                                // location.reload();
+                                $("#tbl_listaDocDeTitulacionXteeb").DataTable().destroy();
+                                llenarTablaDocumentosDeTitulacionXxxx();
                             } else {
                                 toastr["error"](response.message);
                             }
@@ -256,23 +258,23 @@ function mostrarBtnAgregarOficioPracticasProfes(){
 
 
 
-    function llenarTablaDocumentosDeTitulacion(alumno,tipo_documento) {
+    function llenarTablaDocumentosDeTitulacionXxxx() {
       debugger;
-      var datos = {
-                   alumno : alumno,
-                   tipo_documento : tipo_documento,
-                 }
+      // var datos = {
+      //              alumno : alumno,
+      //              // tipo_documento : tipo_documento,
+      //            }
 
        console.log("Lista llenarTablaDocumentosDeTitulacion de cada alumno...!");
 
         $.ajax({
             type: "get",
-            url: base_url+'Alumnos/Titulacion/obtenerComprobantesTitulacion',
+            url: base_url+'Alumnos/Titulacion/obtenerComprobantesTitulacionxxx',
             dataType: "json",
-            data : (datos),
+            // data : (datos),
             success: function(response) {
                 var i = "1";
-                $("#tbl_listaDocDeTitulacion").DataTable({
+                $("#tbl_listaDocDeTitulacionXteeb").DataTable({
                     data: response,
                     responsive: true,
                     columns: [
@@ -281,17 +283,18 @@ function mostrarBtnAgregarOficioPracticasProfes(){
                             // "visible": false,
                             // "searchable": false
                         },
-                        {
-                            data: "nombre_archivo",
-                        },
+                        // {
+                        //     data: "nombre_archivo",
+                        // },
                         {
                             data: "tipo_documento",
                         },
                         {
-                            data: "estado_archivo",
+                            data: "estado",
                         },
                         {
                             data: "archivo",
+                            "className": "text-center",
                             render: function(data, type, row, meta) {
                                 return a = `<a title="Descarga Baucher" href="Titulacion/verArchivoTitulacion/${row.id_oficio}/${row.alumno}/${row.tipo_documento}" target="_blank"><i class="far fa-file-pdf fa-2x"></i></a>`;
                             },
@@ -299,12 +302,16 @@ function mostrarBtnAgregarOficioPracticasProfes(){
                         {
                             orderable: false,
                             searchable: false,
+                            "className": "text-center",
                             data: function (row, type, set) {
-                                return `<a class="btn btn-danger btn-remove" onclick=deleteRecFirmado('${row.id_oficio}','${row.alumno}','${row.tipo_documento}')><i class="fas fa-trash-alt"></i></a>`;
+                                return `<a class="btn btn-danger btn-remove" onclick=deleteOficioTitulacion('${row.id_oficio}','${row.alumno}','${row.tipo_documento}')><i class="fas fa-trash-alt"></i></a>`;
                             },
                         },
                         {
                             data: "fecha_registro",
+                        },
+                        {
+                            data: "comentarios",
                         },
 
                     ],
@@ -313,3 +320,74 @@ function mostrarBtnAgregarOficioPracticasProfes(){
             },
         });
     }
+
+
+
+          function deleteOficioTitulacion(id_oficio, alumno, tipo_documento){
+              // debugger;
+                    var datos = {
+                        id_oficio : id_oficio,
+                        alumno : alumno,
+                        tipo_documento : tipo_documento,
+                    }
+
+                    const swalWithBootstrapButtons = Swal.mixin({
+                      customClass: {
+                        confirmButton: 'btn btn-success',
+                        cancelButton: 'btn btn-danger mr-2'
+                      },
+                      buttonsStyling: false
+                    })
+
+                    swalWithBootstrapButtons.fire({
+                      title: 'Esta seguro de borrar el registro...?',
+                      text: "!Esta acción es irreversile!",
+                      icon: 'warning',
+                      showCancelButton: true,
+                      confirmButtonText: 'Si, bórralo!',
+                      cancelButtonText: 'No, cancelar!',
+                      reverseButtons: true
+                    }).then((result) => {
+                      if (result.value) {
+
+                          $.ajax({
+                               url: base_url+'Alumnos/Titulacion/eliminarRegistroTitulacion',
+                            type: "post",
+                            dataType: "json",
+                            data: {
+                                id_oficio : id_oficio,
+                                alumno : alumno,
+                                tipo_documento : tipo_documento,
+                            },
+                            success: function(data){
+                              if (data.responce == "success") {
+                                  swalWithBootstrapButtons.fire(
+                                    '¡Eliminado!',
+                                    'El registro ha sido eliminado.!',
+                                    'success'
+                                  );
+                                  $("#tbl_listaDocDeTitulacionXteeb").DataTable().destroy();
+                                  llenarTablaDocumentosDeTitulacionXxxx();
+                              }else{
+                                  swalWithBootstrapButtons.fire(
+                                    '¡Eliminado',
+                                    'El registro no se pudo eliminar...!',
+                                    'error'
+                                  );
+                              }
+                            }
+                          });
+
+                      } else if (
+                        /* Read more about handling dismissals below */
+                        result.dismiss === Swal.DismissReason.cancel
+                      ) {
+                        swalWithBootstrapButtons.fire(
+                          'Cancelada',
+                          'El registro no se elimino...!',
+                          'error'
+                        )
+                      }
+                    });
+
+                }

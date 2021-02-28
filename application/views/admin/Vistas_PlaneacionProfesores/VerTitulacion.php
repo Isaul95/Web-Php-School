@@ -8,14 +8,14 @@
   <div class="row">
     <div class="col-md-12 mt-5">
       <h3 class="text-center">
-      <strong><font color="#D34787">TITULACIÓN </font></strong>
+      <strong><font color="#D34787"> TITULACIÓN DE ALUMNOS </font></strong>
     </h3>
       <hr style="background-color: black; color: black; height: 1px;">
     </div>
   </div>
   <div class="row">
     <div class="col-md-12">
-      <div class="row">
+      <!-- <div class="row">
           <div class="col-md-12">
 
             <center>
@@ -51,36 +51,40 @@
             </center>
 
           </div>
-      </div>
-<hr> <!-- Le da una linea sombreada para ver la divicion -->
+      </div> -->
 
 
-<!-- <div class="modal-dialog" id="formularioRegistroOficioTitulacion"> -->
-  <!-- <div class="modal-content">
+
+<div class="modal-dialog" id="formularioRegistroOficioTitulacion">
+  <div class="modal-content">
     <div class="modal-body">
-      <form id="formularioAltaOficioProcFinTitulacion">
+      <form id="formularioAltaOficioProcFinTitulacionToProfesor">
 
+        <div class="form-group">
+          <label for="">Profesor: </label>
+          <input type="text" class="form-control" id="usernameProfesor" readonly value="<?php echo $nombres;?>" >
+        </div>
+            <div class="form-group">
+              <label for="">Agregar Comentarios: </label>
+              <input type="text" class="form-control" id="comentarios" placeholder="Disponible hasta 300 caracteres...">
+            </div>
             <div class="form-group">
               <label for="customFile">Adjuntar archivo: *</label>
-              <input type="file" class="custom-file-input" id="archivoProcFinTitulacion">
+              <input type="file" class="custom-file-input" id="archivoProcFinTitulacionToProfesor">
             </div>
+
       </form>
     </div>
 
     <div class="modal-footer">
-          <button type="button" class="btn btn-primary" id="darAltaOficioTitulacion">Agregar</button>
+          <button type="button" class="btn btn-primary" id="darAltaOficioTitulacionToProfesor">Agregar</button>
     </div>
 
     </div>
-</div> -->
-
-
-
-<div class="modal-dialog" id="noPermisoDeAddOficioTitulacion">
-    <center>
-        <strong><font color="#E74C3C">Aun no tiene permiso realizar el tramite de Titulación...!!!</font></strong> <br>
-    </center>
 </div>
+
+
+
 
 
                               <!-- Modal Agregar nueuvo registro -->
@@ -104,17 +108,17 @@
                                         </div>
                                         <div class="panel panel-default">
                                           <div class="panel-body">
-                                          <div class="row">
-                                            <form id="formularioAltaOficioProcFinTitulacion">
-                                                  <!-- file -->
-                                                  <div class="form-group">
-                                                    <label for="customFile">Adjuntar archivo: *</label>
-                                                    <input type="file" class="custom-file-input" id="archivoProcFinTitulacion">
-                                                  </div>
-                                            </form>
-                                          </div>
+                                    <!-- <div class="row">
+                                      <form id="formularioAltaOficioProcFinTitulacion">
 
-                                          <table id="tbl_listaDocDeTitulacionXteeb" class="table table-striped table-bordered table-hover table-condensed" cellspacing="0" style="background:white!important" width="100%">
+                                            <div class="form-group">
+                                              <label for="customFile">Adjuntar archivo: *</label>
+                                              <input type="file" class="custom-file-input" id="archivoProcFinTitulacion">
+                                            </div>
+                                      </form>
+                                    </div> -->
+
+                                          <table id="tbl_listaDocDeTitulacionToProfesores" class="table table-striped table-bordered table-hover table-condensed" cellspacing="0" style="background:white!important" width="100%">
                                             <thead class="bg-primary">
                                               <tr>
                                                 <th width="10%">Usuario</th>
@@ -132,9 +136,9 @@
                                         </div>
 
                                     </div>
-                                    <div class="modal-footer">
+                                    <!-- <div class="modal-footer">
                                       <button type="button" class="btn btn-primary" id="darAltaOficioTitulacion">Agregar</button>
-                                    </div>
+                                    </div> -->
                                   </div>
                                 <!-- </div> -->
                               <!-- </div> -->

@@ -1,26 +1,28 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Titulacion extends CI_Controller {
+class VerTitulaciones extends CI_Controller {
 		 private $permisos;
          public function __construct(){
 	 	 parent::__construct();
 		 $this->permisos = $this->backend_lib->control();
 		 $this->load->helper(array('form', 'url'));
 	 	 $this->load->library(array('session', 'form_validation'));
-	 	 $this->load->model("Modelo_ProcesoFinal");
+	 	 $this->load->model("Modelo_Profesores");
 	 }
 
 	public function index(){
-		$numero_control =  $this->session->userdata('username');
+		// $numero_control =  $this->session->userdata('username');
 
 		$data  = array(
 			'permisos' => $this->permisos,
-			'datosAlumnoProcesoFinal' => $this->Modelo_ProcesoFinal->obtenerDatosDelAlumnoProcFin($numero_control),
+			'nombres' => $this->session->userdata('nombres'),
+			'username' => $this->session->userdata('username'),
+			// 'datosAlumnoProcesoFinal' => $this->Modelo_ProcesoFinal->obtenerDatosDelAlumnoProcFin($numero_control),
 		);
 		$this->load->view('layouts/header');
 		$this->load->view('layouts/aside');
-		$this->load->view('admin/Vistas_Alumno/VistaTitulacion',$data);
+		$this->load->view('admin/Vistas_PlaneacionProfesores/VerTitulacion',$data);
 		$this->load->view('layouts/footer');
 	}
 
@@ -31,7 +33,7 @@ class Titulacion extends CI_Controller {
 	/*                   Insert  OFICIO PARA Titulacion                           */
 	/* -------------------------------------------------------------------------- */
 
-	public function insertarOficioDeTitulacion(){
+	public function insertarOficioDeTitulacionOfProfesores(){
 
 		if ($this->input->is_ajax_request()) {
 
@@ -65,7 +67,7 @@ class Titulacion extends CI_Controller {
 					$ajax_data['archivo'] = $binario; // Documento pdf
 					$ajax_data['nombre_archivo'] = $this->upload->data('file_name'); // name file
 
-					if ($this->Modelo_ProcesoFinal->insert_OficioPracticasProf($ajax_data)) {
+					if ($this->Modelo_Profesores->insert_OficioPracticasOfProfesores($ajax_data)) {
 						$data = array('res' => "success", 'message' => "Archivo guardado correctamente...!");
 					} else {
 						$data = array('res' => "error", 'message' => "Error al guardado el archivo...!");
@@ -81,34 +83,21 @@ class Titulacion extends CI_Controller {
 
 
 
-	public function mostrarOpcionSubirOficioTitulacion(){
-		if ($this->input->is_ajax_request()) {
-		 $numero_control = $this->input->post('numero_control');
-				if ($this->Modelo_ProcesoFinal->opcionSubirOfiTitulacion($numero_control)) {
-					$data = array('responce' => 'success', 'message' => "Ya puede realizar los tramites de Titulación...!!!");
-				} else {
-						$data = array('responce' => 'error');
-				}
-		echo json_encode($data);
-	} else {
-		echo "No se permite este acceso directo...!!!";
-		}
-	}
 
 
 
 
-	public function obtenerComprobantesTitulacionxxx() {
-				$alumno = $this->input->post('alumno');
+	public function obtenerComprobantesTitulacionToProfesor() {
+				// $alumno = $this->input->post('alumno');
 				// $tipo_documento = $this->input->post('tipo_documento');
-//  $alumno, $tipo_documento
-		    $posts = $this->Modelo_ProcesoFinal->obtenerDocumentosDeTitulacionDelAlumnoXXX();
+				//  $alumno, $tipo_documento
+		    $posts = $this->Modelo_Profesores->obtDocumentosDeTitulacionXAlumnoToProfesores();
 		    echo json_encode($posts);
 		}
 
 
-		public function verArchivoTitulacion($id_oficio , $alumno , $tipo_documento ){
-			$consulta = $this->Modelo_ProcesoFinal->getArchivosTitulacion($id_oficio , $alumno , $tipo_documento);
+		public function verArchivoTitulacionOfProfesor($id_oficio , $alumno , $tipo_documento ){
+			$consulta = $this->Modelo_Profesores->getArchivosTitulacionOfProfesor($id_oficio , $alumno , $tipo_documento);
 			$archivo = $consulta['archivo'];
 			$img = $consulta['nombre_archivo'];
 			header("Content-type: application/pdf");
@@ -117,14 +106,14 @@ class Titulacion extends CI_Controller {
 		}
 
 
-		public function eliminarRegistroTitulacion(){
+		public function eliminarRegistroTitulacionToProfesores(){
 
 		if ($this->input->is_ajax_request()) {
 					$id_oficio = $this->input->post('id_oficio');
 					$alumno = $this->input->post('alumno');
 					$tipo_documento = $this->input->post('tipo_documento');
 
-			if ($this->Modelo_ProcesoFinal->eliminarRegistroDeTitulacionXAlumno($id_oficio, $alumno, $tipo_documento)) {
+			if ($this->Modelo_Profesores->eliminarRegistroDeTitulacionXAlumnoToProfesores($id_oficio, $alumno, $tipo_documento)) {
 				$data = array('responce' => 'success');
 			} else {
 				$data = array('responce' => 'error');
@@ -134,8 +123,6 @@ class Titulacion extends CI_Controller {
 			echo "No direct script access allowed";
 		}
 	}
-
-
 
 
 }  // Fin del controller

@@ -152,3 +152,6 @@ $('#btn_RegistroPago').DataTable( {
 
 <!-- ===== ULTIMOS TRAMITES ENVIOS DE OFICIOS DE SERVICIO SOCIAL, TITULACION Y PRACTICAS PROFESIONALES   ====  -->
 <script src="<?php echo base_url();?>assets/template/dist/js/js-cesvi/Alumnos/proceso_final.js"></script>
+
+<!-- ===== Envios y recepcion DE OFICIOS DE TITULACION  para vista de profesor asignado   ====  -->
+<script src="<?php echo base_url();?>assets/template/dist/js/js-cesvi/Profesores/proceso_final_profesor.js"></script>

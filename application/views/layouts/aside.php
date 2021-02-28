@@ -166,6 +166,9 @@
                             </li>
                           <li><a href="<?php echo base_url();?>Administrativos/Calificaciones">
                             <i class="far fa-dot-circle"></i> Agregar calificaciones</a></li>
+                            <li><a href="<?php echo base_url();?>Profesores/VerTitulaciones">
+                                <i class="far fa-dot-circle"></i> Ver Titulaciones</a>
+                            </li>
                         </ul>
                     </li>
 <?php endif;?>

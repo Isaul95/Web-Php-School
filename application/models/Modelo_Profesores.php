@@ -28,8 +28,8 @@ class Modelo_Profesores extends CI_Model { // INICIO DEL MODELO
     }
 
 /***
- * 
- * 
+ *
+ *
  *  CONSULTA DE ARRIBA
  *  public function obtenerprofesores(){
       $this->db->select("p.id_profesores, p.nombres, p.edad, p.sexo , p.direccion, p.ciudad_radicando,p.nacionalidad,
@@ -43,13 +43,13 @@ class Modelo_Profesores extends CI_Model { // INICIO DEL MODELO
       $resultados = $this->db->get();
       return $resultados->result();
     }
- * 
- * 
- * 
- * 
- * 
- * 
- * 
+ *
+ *
+ *
+ *
+ *
+ *
+ *
  */
 //  CONSULYTA DE LA PERRITA
         // public function obtenerprofesores(){
@@ -146,6 +146,34 @@ public function insert_entry($data)
 */
 
 
+
+public function obtDocumentosDeTitulacionXAlumnoToProfesores(){  // $alumno, $tipo_documento
+        $this->db->select("ofic.id_oficio, ofic.alumno, ofic.nombre_archivo, ofic.tipo_documento, sta.estado, ofic.fecha_registro, ofic.comentarios");
+    $this->db->from("oficios_procesofin ofic");
+    $this->db->join("estatus sta","sta.estatus = ofic.estado_archivo ");
+      // $this->db->where(" alumno =",$alumno);
+     // $this->db->where(" tipo_documento =",$tipo_documento);
+    $resultados = $this->db->get();
+    return $resultados->result();
+    }
+
+
+
+    /* -------------------------------------------------------------------------- */
+    /*                       INSERTAR OFICIO DE PRACTOCAS                         */
+    /* -------------------------------------------------------------------------- */
+      public function insert_OficioPracticasOfProfesores($data){
+              return $this->db->insert('oficios_procesofin', $data);
+          }
+
+    public function getArchivosTitulacionOfProfesor($id_oficio , $alumno , $tipo_documento){
+              $query = $this->db->query("select * FROM oficios_procesofin where id_oficio=? and alumno=? and tipo_documento=? ", array($id_oficio , $alumno , $tipo_documento));
+              return $query->row_array();
+          }
+
+    public function eliminarRegistroDeTitulacionXAlumnoToProfesores($id_oficio, $alumno, $tipo_documento){
+        return $this->db->delete('oficios_procesofin', array('id_oficio' => $id_oficio, 'alumno' => $alumno, 'tipo_documento' => $tipo_documento));
+        }
 
 
 

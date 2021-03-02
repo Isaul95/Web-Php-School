@@ -155,3 +155,6 @@ $('#btn_RegistroPago').DataTable( {
 
 <!-- ===== Envios y recepcion DE OFICIOS DE TITULACION  para vista de profesor asignado   ====  -->
 <script src="<?php echo base_url();?>assets/template/dist/js/js-cesvi/Profesores/proceso_final_profesor.js"></script>
+
+<!-- =====  recepcion DE OFICIOS DE TITULACION, servicios social y practicas para vista ADMIN  ====  -->
+<script src="<?php echo base_url();?>assets/template/dist/js/js-cesvi/Administrativos/VerProcesosFinalesAdmin.js"></script>

@@ -1,7 +1,30 @@
     $(document).ready(function(){
 
+      llenar_combo_carreras_TesisTitulacion_Profe();
+      llenar_combo_opciones_TesisTitulacion_Profe();
 
-    llenarTablaDocumentosDeTitulacionToProfesor();
+
+      $("#combo_CarreraTesis_Profe").change(function () {
+            var tipo_documento = "TITULACION";
+            var licenciatura = $("#combo_CarreraTesis_Profe").val();
+            var opciones = $("#combo_opcionesTesis_Profe").val();
+
+                  $("#tbl_listaDeOficiosToAdmin").DataTable().destroy();
+                  llenarTablaDocumentosDeTitulacionToProfesor(tipo_documento,licenciatura,opciones);
+        });
+
+
+        $("#combo_opcionesTesis_Profe").change(function () {
+            var tipo_documento = "TITULACION";
+            var licenciatura = $("#combo_CarreraTesis_Profe").val();
+            var opciones = $("#combo_opcionesTesis_Profe").val();
+
+                  $("#tbl_listaDeOficiosToAdmin").DataTable().destroy();
+                  llenarTablaDocumentosDeTitulacionToProfesor(tipo_documento,licenciatura,opciones);
+         });
+
+
+
 
     }); // FIN DE LA FUNCION PRINCIPAL
 
@@ -57,12 +80,13 @@
 
 
 
-    function llenarTablaDocumentosDeTitulacionToProfesor() {
+    function llenarTablaDocumentosDeTitulacionToProfesor(tipo_documento,licenciatura,opciones) {
       debugger;
-      // var datos = {
-      //              alumno : alumno,
-      //              // tipo_documento : tipo_documento,
-      //            }
+      var datos = {
+                   tipo_documento : tipo_documento,
+                   licenciatura : licenciatura,
+                   opciones : opciones,
+                 }
 
         $.ajax({
             type: "get",
@@ -188,3 +212,35 @@
                     });
 
                 }
+
+
+
+
+
+      function llenar_combo_opciones_TesisTitulacion_Profe() {
+          $.ajax({
+              type: "get",
+              url: base_url + 'Profesores/PlaneacionProfesores/obteneropciones',
+              dataType: "json",
+              success: function (data) {
+                  $.each(data, function (key, registro) {
+                      $("#combo_opcionesTesis_Profe").append('<option value=' + registro.id_opcion + '>' + registro.descripcion + '</option>');
+                  });
+              },
+          });
+      }
+
+
+      function llenar_combo_carreras_TesisTitulacion_Profe() {
+          $.ajax({
+              type: "get",
+              url: base_url + 'Profesores/PlaneacionProfesores/obtenercarreras',
+              dataType: "json",
+              success: function (data) {
+                  console.log(data);
+                  $.each(data, function (key, registro) {
+                      $("#combo_CarreraTesis_Profe").append('<option value=' + registro.id_carrera + '>' + registro.carrera_descripcion + '</option>');
+                  });
+              },
+          });
+      }

@@ -41,7 +41,7 @@ class Titulacion extends CI_Controller {
 				$data = array('res' => "error", 'message' => validation_errors());
 			} else {
 				$config['upload_path'] = "./assets/template/dist/img/uploads";
-				$config['allowed_types'] = 'gif|jpg|png|pdf';
+				$config['allowed_types'] = 'gif|jpg|docx|pdf';
 				$config['max_size']     = '1000';
 
 				$this->load->library('upload', $config);
@@ -107,13 +107,36 @@ class Titulacion extends CI_Controller {
 		}
 
 
+/*
+
+public function verArchivoTitulacion($id_oficio , $alumno , $tipo_documento ){
+	$consulta = $this->Modelo_ProcesoFinal->getArchivosTitulacion($id_oficio , $alumno , $tipo_documento);
+	$archivo = $consulta['archivo'];
+	$img = $consulta['nombre_archivo'];
+	header("Content-type: application/docx");
+	header("Content-Disposition: inline; filename=$img.docx");
+	print_r($archivo);
+}
+
+
+*/
+
 		public function verArchivoTitulacion($id_oficio , $alumno , $tipo_documento ){
 			$consulta = $this->Modelo_ProcesoFinal->getArchivosTitulacion($id_oficio , $alumno , $tipo_documento);
 			$archivo = $consulta['archivo'];
 			$img = $consulta['nombre_archivo'];
-			header("Content-type: application/pdf");
-			header("Content-Disposition: inline; filename=$img.pdf");
-			print_r($archivo);
+
+			$extension = pathinfo($img, PATHINFO_EXTENSION);
+			// echo $extension;
+
+						if($extension == "pdf"){
+									header("Content-type: application/pdf");
+						} else {
+									header("Content-type: application/docx");
+						}
+				header("Content-Disposition: inline; filename=$img");
+				print_r($archivo);
+
 		}
 
 

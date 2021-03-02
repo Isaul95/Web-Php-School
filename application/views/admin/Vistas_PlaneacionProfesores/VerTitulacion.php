@@ -54,6 +54,29 @@
       </div> -->
 
 
+      <div class="row">
+      <div class="col-10 col-sm-12">
+                    <div class="row">
+                        <div class="col-4 col-sm-6">
+                          <label for="">Seleccione alguna carrera: </label>
+                        <select background-color="red" id="combo_CarreraTesis_Profe" class="form-control">
+                        <option value="" selected>Seleccione una carrera...</option>
+                        </select>
+                        </div>
+
+                        <div class="col-8 col-sm-4">
+                            <label for="">Seleccione alguna opción de estudio: </label>
+                          <select background-color="red" id="combo_opcionesTesis_Profe" class="form-control">
+                            <option value="" selected>Seleccione una opción...</option>
+                          </select>
+                          </div>
+
+                    </div> <!--END OF SECOND ROW-->
+      </div><!--class="col-10 col-sm-12"-->
+      </div>
+<hr>
+
+
 
 <div class="modal-dialog" id="formularioRegistroOficioTitulacion">
   <div class="modal-content">

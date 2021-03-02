@@ -130,6 +130,9 @@
                           <li><a href="<?php echo base_url();?>Administrativos/Calificaciones">
                               <i class="far fa-dot-circle"></i> Calificaciones</a></li>
 
+                          <li><a href="<?php echo base_url();?>Administrativos/VerProcesosFinales">
+                                <i class="far fa-dot-circle"></i> Oficios de Terminación </a></li>
+
                         </ul>
                     </li>
 <?php endif;?>
